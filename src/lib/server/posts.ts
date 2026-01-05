@@ -1,7 +1,7 @@
 // src/lib/server/posts.ts
 
-import type { PostFrontmatter, Visibility } from '$lib/types';
-import type { Component } from 'svelte';
+import type { PostFrontmatter, Visibility } from "$lib/types";
+import type { Component } from "svelte";
 
 type MdsvexModule = {
 	metadata: PostFrontmatter;
@@ -11,7 +11,7 @@ type MdsvexModule = {
 export async function getAllPosts(
 	filter: { visibility?: Visibility[] } = {}
 ): Promise<PostFrontmatter[]> {
-	const modules = import.meta.glob<MdsvexModule>('/src/content/posts/**/*.md', {
+	const modules = import.meta.glob<MdsvexModule>("/src/content/posts/**/*.md", {
 		eager: true
 	});
 
@@ -23,7 +23,7 @@ export async function getAllPosts(
 
 		if (!metadata) continue;
 
-		const allowedVisibility = filter.visibility ?? ['public'];
+		const allowedVisibility = filter.visibility ?? ["public"];
 		if (!allowedVisibility.includes(metadata.visibility)) continue;
 
 		posts.push(metadata);
@@ -41,7 +41,7 @@ export async function getPostBySlug(
 	slug: string,
 	allowPrivate = false
 ): Promise<{ metadata: PostFrontmatter; component: Component } | null> {
-	const modules = import.meta.glob<MdsvexModule>('/src/content/posts/**/*.md', {
+	const modules = import.meta.glob<MdsvexModule>("/src/content/posts/**/*.md", {
 		eager: true
 	});
 
@@ -50,7 +50,7 @@ export async function getPostBySlug(
 
 		if (!module.metadata || module.metadata.slug !== slug) continue;
 
-		if (module.metadata.visibility === 'private' && !allowPrivate) {
+		if (module.metadata.visibility === "private" && !allowPrivate) {
 			return null;
 		}
 

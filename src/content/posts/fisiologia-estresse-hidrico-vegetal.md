@@ -1,30 +1,29 @@
 ---
 slug: fisiologia-estresse-hidrico-vegetal
-title: 'Botânica Avançada: Mecanismos de Adaptação ao Estresse Hídrico'
-subtitle: 'Uma análise profunda sobre a resiliência fisiológica e molecular das angiospermas'
-excerpt: 'Exploração técnica das respostas bioquímicas e estruturais das plantas frente à escassez de água e o papel do ácido abscísico na regulação estomática.'
-visibility: 'public'
+title: "Botânica Avançada: Mecanismos de Adaptação ao Estresse Hídrico"
+subtitle: "Uma análise profunda sobre a resiliência fisiológica e molecular das angiospermas"
+excerpt: "Exploração técnica das respostas bioquímicas e estruturais das plantas frente à escassez de água e o papel do ácido abscísico na regulação estomática."
+visibility: "public"
 
 cover:
-  url: 'cover/a'
-  alt: 'Microscopia eletrônica de estômatos vegetais'
-  caption: 'Complexo estomático em plena atividade transpiratória.'
+  url: "cover/a"
+  alt: "Microscopia eletrônica de estômatos vegetais"
+  caption: "Complexo estomático em plena atividade transpiratória."
 
-kind: 'article'
-ripeness: 'bloom'
-tags: ['botânica', 'fisiologia-vegetal', 'biologia-molecular', 'estresse-abiótico']
+kind: "tutorial"
+tags: ["botânica", "fisiologia-vegetal", "biologia-molecular", "estresse-abiótico"]
 
 series:
-  name: 'Fisiologia Vegetal Comparada'
+  name: "Fisiologia Vegetal Comparada"
   order: 1
 
-author: '@stephan'
+author: "@stephan"
 
 publishedAt: 2025-12-18
 updatedAt: 2025-12-18
 
-metaTitle: 'Mecanismos de Adaptação Botânica ao Estresse Hídrico'
-metaDescription: 'Artigo técnico sobre a homeostase hídrica em plantas e sinalização por ABA.'
+metaTitle: "Mecanismos de Adaptação Botânica ao Estresse Hídrico"
+metaDescription: "Artigo técnico sobre a homeostase hídrica em plantas e sinalização por ABA."
 ---
 
 ## A Homeostase Hídrica e o Potencial de Água (\(\psi_w\))

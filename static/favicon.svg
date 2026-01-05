@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="flower-center" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFA500;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="petal-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF69B4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#DA70D6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Pétalas -->
+  <g transform="translate(50,50)">
+    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="url(#petal-gradient)" transform="rotate(0)" />
+    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="url(#petal-gradient)" transform="rotate(45)" />
+    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="url(#petal-gradient)" transform="rotate(90)" />
+    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="url(#petal-gradient)" transform="rotate(135)" />
+    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="url(#petal-gradient)" transform="rotate(180)" />
+    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="url(#petal-gradient)" transform="rotate(225)" />
+    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="url(#petal-gradient)" transform="rotate(270)" />
+    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="url(#petal-gradient)" transform="rotate(315)" />
+  </g>
+  
+  <!-- Centro da Flor -->
+  <circle cx="50" cy="50" r="15" fill="url(#flower-center)" stroke="#E67E22" stroke-width="1" />
+</svg>

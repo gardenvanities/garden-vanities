@@ -1,31 +1,30 @@
 ---
 slug: sinalizacao-tropismo-arquitetura-movimento
-title: 'Fisiologia do Movimento Vegetal: Tropismos e a Teoria de Cholodny-Went'
-subtitle: 'O papel das auxinas na mediação das respostas ambientais e na plasticidade fenotípica'
-excerpt: 'Uma investigação sobre os mecanismos de percepção de luz e gravidade, detalhando o transporte polar de auxinas e a ativação gênica diferencial no alongamento celular.'
-visibility: 'public'
+title: "Fisiologia do Movimento Vegetal: Tropismos e a Teoria de Cholodny-Went"
+subtitle: "O papel das auxinas na mediação das respostas ambientais e na plasticidade fenotípica"
+excerpt: "Uma investigação sobre os mecanismos de percepção de luz e gravidade, detalhando o transporte polar de auxinas e a ativação gênica diferencial no alongamento celular."
+visibility: "public"
 
 cover:
-  url: 'cover/c'
-  alt: 'Planta jovem curvando-se em direção a uma fonte de luz'
-  caption: 'Fototropismo positivo evidenciando a redistribuição lateral de fitormonas.'
+  url: "cover/c"
+  alt: "Planta jovem curvando-se em direção a uma fonte de luz"
+  caption: "Fototropismo positivo evidenciando a redistribuição lateral de fitormonas."
 
-kind: 'article'
-ripeness: 'bloom'
-tags: ['botânica', 'fisiologia-vegetal', 'hormonas', 'biologia-do-desenvolvimento']
+kind: "thought"
+tags: ["botânica", "fisiologia-vegetal", "hormonas", "biologia-do-desenvolvimento"]
 
 series:
-  name: 'Fisiologia Vegetal Comparada'
+  name: "Fisiologia Vegetal Comparada"
   order: 3
 
-author: '@stephan'
+author: "@stephan"
 
 publishedAt: 2025-12-18
 updatedAt: 2025-12-18
 
 # SEO
-metaTitle: 'Mecanismos de Tropismo e Sinalização por Auxina'
-metaDescription: 'Artigo detalhado sobre fototropismo, gravitropismo e o papel das proteínas PIN no desenvolvimento vegetal.'
+metaTitle: "Mecanismos de Tropismo e Sinalização por Auxina"
+metaDescription: "Artigo detalhado sobre fototropismo, gravitropismo e o papel das proteínas PIN no desenvolvimento vegetal."
 ---
 
 ## A Dinâmica do Movimento Sétil: Tropismos

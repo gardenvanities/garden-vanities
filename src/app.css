@@ -1,1 +1,20 @@
-@tailwind;
+/* src/app.css */
+@import "tailwindcss";
+
+@theme {
+	--color-gray-50: oklch(0.98 0 0);
+	--color-gray-100: oklch(0.95 0 0);
+	--color-gray-200: oklch(0.9 0 0);
+	--color-gray-300: oklch(0.82 0 0);
+	--color-gray-400: oklch(0.7 0 0);
+	--color-gray-500: oklch(0.58 0 0);
+	--color-gray-600: oklch(0.46 0 0);
+	--color-gray-700: oklch(0.36 0 0);
+	--color-gray-800: oklch(0.26 0 0);
+	--color-gray-900: oklch(0.18 0 0);
+	--color-gray-950: oklch(0.12 0 0);
+}
+
+html {
+	background: var(--color-gray-950);
+}

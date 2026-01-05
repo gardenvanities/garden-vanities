@@ -1,30 +1,29 @@
 ---
 slug: arquitetura-molecular-parede-celular-vegetal
-title: 'Ontogênese e Dinâmica Molecular da Parede Celular'
-subtitle: 'Uma investigação sobre a matriz extracelular vegetal e sua plasticidade biomecânica'
-excerpt: 'Análise técnica da biogênese da parede primária e secundária, o papel da celulose sintase e a complexidade das ligações cruzadas de hemicelulose e pectina.'
-visibility: 'public'
+title: "Ontogênese e Dinâmica Molecular da Parede Celular"
+subtitle: "Uma investigação sobre a matriz extracelular vegetal e sua plasticidade biomecânica"
+excerpt: "Análise técnica da biogênese da parede primária e secundária, o papel da celulose sintase e a complexidade das ligações cruzadas de hemicelulose e pectina."
+visibility: "public"
 
 cover:
-  url: 'cover/b'
-  alt: 'Estrutura fibrosa de microfibrilas de celulose'
-  caption: 'Representação tridimensional da rede de polímeros da parede celular.'
+  url: "cover/b"
+  alt: "Estrutura fibrosa de microfibrilas de celulose"
+  caption: "Representação tridimensional da rede de polímeros da parede celular."
 
-kind: 'article'
-ripeness: 'bloom'
-tags: ['botânica', 'citologia', 'biopolímeros', 'biotecnologia']
+kind: "note"
+tags: ["botânica", "citologia", "biopolímeros", "biotecnologia"]
 
 series:
-  name: 'Fisiologia Vegetal Comparada'
+  name: "Fisiologia Vegetal Comparada"
   order: 2
 
-author: '@stephan'
+author: "@stephan"
 
 publishedAt: 2025-12-18
 updatedAt: 2025-12-18
 
-metaTitle: 'Arquitetura e Biogênese da Parede Celular Vegetal'
-metaDescription: 'Estudo detalhado sobre a composição química e a biomecânica das paredes celulares nas plantas superiores.'
+metaTitle: "Arquitetura e Biogênese da Parede Celular Vegetal"
+metaDescription: "Estudo detalhado sobre a composição química e a biomecânica das paredes celulares nas plantas superiores."
 ---
 
 ## A Natureza da Parede Celular: Além de um Invólucro Rígido
