@@ -20,6 +20,10 @@
 	{/each}
 
 	{#if remaining > 0}
-		<span class="text-xs text-zinc-500">+{remaining} mais</span>
+		<span
+			class="border-border-default/50 text-text-muted/60 inline-flex items-center rounded border bg-white/2 px-1.5 py-0.5 text-[10px] font-medium"
+		>
+			+{remaining}
+		</span>
 	{/if}
 </div>

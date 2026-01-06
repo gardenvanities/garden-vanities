@@ -1,0 +1,114 @@
+/**
+ * Dark Theme Overrides — Dark Academy Aesthetic
+ * 
+ * Applied via:
+ * - .dark class on <html>
+ * - System preference (prefers-color-scheme: dark)
+ */
+
+/* System preference: dark mode */
+@media (prefers-color-scheme: dark) {
+	:root:not(.light) {
+		/* Background & Surface */
+		--color-bg: oklch(0.12 0.01 55); /* Deep warm black */
+		--color-surface: oklch(0.16 0.015 55); /* Aged leather dark */
+
+		/* Text */
+		--color-text: oklch(0.92 0.01 80); /* Warm off-white */
+		--color-muted: oklch(0.65 0.015 80); /* Muted stone */
+
+		/* Primary — Antique gold */
+		--color-primary: oklch(0.72 0.12 75); /* Warm antique gold */
+		--color-primary-contrast: oklch(0.12 0.01 55);
+
+		/* Accent — Burnished copper */
+		--color-accent: oklch(0.62 0.14 50); /* Burnished copper */
+		--color-accent-contrast: oklch(0.12 0.01 55);
+
+		/* Semantic States (adjusted for dark) */
+		--color-danger: oklch(0.65 0.18 25); /* Lighter burgundy */
+		--color-warning: oklch(0.75 0.14 75); /* Brighter gold */
+		--color-success: oklch(0.65 0.12 145); /* Lighter sage */
+
+		/* Border & Dividers */
+		--color-border: oklch(0.92 0.01 80 / 0.08);
+		--color-border-vivid: oklch(0.92 0.01 80 / 0.15);
+
+		/* Shadows (inverted for dark theme) */
+		--shadow-1: 0 1px 2px oklch(0 0 0 / 0.2);
+		--shadow-2: 0 2px 8px oklch(0 0 0 / 0.3), 0 1px 2px oklch(0 0 0 / 0.2);
+		--shadow-3: 0 4px 16px oklch(0 0 0 / 0.4), 0 2px 4px oklch(0 0 0 / 0.2);
+
+		/* Kind tokens (brighter for dark mode) */
+		--color-kind-note: oklch(0.75 0.12 250);
+		--color-kind-note-bg: oklch(0.75 0.12 250 / 0.15);
+		--color-kind-essay: oklch(0.75 0.12 300);
+		--color-kind-essay-bg: oklch(0.75 0.12 300 / 0.15);
+		--color-kind-tutorial: oklch(0.75 0.12 150);
+		--color-kind-tutorial-bg: oklch(0.75 0.12 150 / 0.15);
+		--color-kind-thought: oklch(0.8 0.12 80);
+		--color-kind-thought-bg: oklch(0.8 0.12 80 / 0.15);
+	}
+}
+
+/* Explicit .dark class (overrides system preference) */
+.dark {
+	--color-bg: oklch(0.12 0.01 55);
+	--color-surface: oklch(0.16 0.015 55);
+
+	--color-text: oklch(0.92 0.01 80);
+	--color-muted: oklch(0.65 0.015 80);
+
+	--color-primary: oklch(0.72 0.12 75);
+	--color-primary-contrast: oklch(0.12 0.01 55);
+
+	--color-accent: oklch(0.62 0.14 50);
+	--color-accent-contrast: oklch(0.12 0.01 55);
+
+	--color-danger: oklch(0.65 0.18 25);
+	--color-warning: oklch(0.75 0.14 75);
+	--color-success: oklch(0.65 0.12 145);
+
+	--color-border: oklch(0.92 0.01 80 / 0.08);
+	--color-border-vivid: oklch(0.92 0.01 80 / 0.15);
+
+	--shadow-1: 0 1px 2px oklch(0 0 0 / 0.2);
+	--shadow-2: 0 2px 8px oklch(0 0 0 / 0.3), 0 1px 2px oklch(0 0 0 / 0.2);
+	--shadow-3: 0 4px 16px oklch(0 0 0 / 0.4), 0 2px 4px oklch(0 0 0 / 0.2);
+
+	/* Kind tokens (brighter for dark mode) */
+	--color-kind-note: oklch(0.75 0.12 250);
+	--color-kind-note-bg: oklch(0.75 0.12 250 / 0.15);
+	--color-kind-essay: oklch(0.75 0.12 300);
+	--color-kind-essay-bg: oklch(0.75 0.12 300 / 0.15);
+	--color-kind-tutorial: oklch(0.75 0.12 150);
+	--color-kind-tutorial-bg: oklch(0.75 0.12 150 / 0.15);
+	--color-kind-thought: oklch(0.8 0.12 80);
+	--color-kind-thought-bg: oklch(0.8 0.12 80 / 0.15);
+}
+
+/* Explicit .light class (overrides system preference) */
+.light {
+	--color-bg: oklch(0.97 0.005 80);
+	--color-surface: oklch(0.99 0.002 80);
+
+	--color-text: oklch(0.18 0.01 80);
+	--color-muted: oklch(0.5 0.01 80);
+
+	--color-primary: oklch(0.42 0.08 55);
+	--color-primary-contrast: oklch(0.98 0.005 80);
+
+	--color-accent: oklch(0.55 0.12 55);
+	--color-accent-contrast: oklch(0.98 0.005 80);
+
+	--color-danger: oklch(0.55 0.2 25);
+	--color-warning: oklch(0.7 0.15 70);
+	--color-success: oklch(0.55 0.12 145);
+
+	--color-border: oklch(0.18 0.01 80 / 0.08);
+	--color-border-vivid: oklch(0.18 0.01 80 / 0.15);
+
+	--shadow-1: 0 1px 2px oklch(0.18 0.01 80 / 0.04);
+	--shadow-2: 0 2px 8px oklch(0.18 0.01 80 / 0.06), 0 1px 2px oklch(0.18 0.01 80 / 0.04);
+	--shadow-3: 0 4px 16px oklch(0.18 0.01 80 / 0.08), 0 2px 4px oklch(0.18 0.01 80 / 0.04);
+}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Kind } from "$lib/types";
+	import { FileText, BookOpen, GraduationCap, Lightbulb } from "lucide-svelte";
 
 	interface Props {
 		kind: Kind;
@@ -10,34 +11,70 @@
 
 	const kindConfig = {
 		note: {
-			icon: "📝",
-			class: "bg-blue-500/15 text-blue-400 border-blue-500/30"
+			label: "Nota",
+			icon: FileText
 		},
 		essay: {
-			icon: "✍️",
-			class: "bg-purple-500/15 text-purple-400 border-purple-500/30"
+			label: "Ensaio",
+			icon: BookOpen
 		},
 		tutorial: {
-			icon: "🎓",
-			class: "bg-green-500/15 text-green-400 border-green-500/30"
+			label: "Tutorial",
+			icon: GraduationCap
 		},
 		thought: {
-			icon: "💭",
-			class: "bg-amber-500/15 text-amber-400 border-amber-500/30"
+			label: "Reflexão",
+			icon: Lightbulb
 		}
 	} as const;
 
-	const config = $derived(kindConfig[kind] ?? null);
+	const config = $derived(kindConfig[kind]);
 </script>
 
 {#if config}
-	<span
-		class="inline-flex items-center gap-1.5 rounded-full border px-3 py-1
-		       text-xs font-medium capitalize {config.class}"
-	>
+	<span class="kind-badge" data-kind={kind}>
 		{#if showIcon}
-			<span class="text-sm">{config.icon}</span>
+			<config.icon size={12} strokeWidth={2.5} />
 		{/if}
-		{kind}
+		{config.label}
 	</span>
 {/if}
+
+<style>
+	.kind-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-1);
+		padding: var(--space-1) var(--space-2);
+		border-radius: var(--radius-1);
+		font-size: var(--type-0);
+		font-weight: 700;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		transition: all var(--motion-fast) var(--motion-ease);
+	}
+
+	.kind-badge[data-kind="note"] {
+		background-color: var(--color-kind-note-bg);
+		color: var(--color-kind-note);
+		border: 1px solid oklch(from var(--color-kind-note) l c h / 0.2);
+	}
+
+	.kind-badge[data-kind="essay"] {
+		background-color: var(--color-kind-essay-bg);
+		color: var(--color-kind-essay);
+		border: 1px solid oklch(from var(--color-kind-essay) l c h / 0.2);
+	}
+
+	.kind-badge[data-kind="tutorial"] {
+		background-color: var(--color-kind-tutorial-bg);
+		color: var(--color-kind-tutorial);
+		border: 1px solid oklch(from var(--color-kind-tutorial) l c h / 0.2);
+	}
+
+	.kind-badge[data-kind="thought"] {
+		background-color: var(--color-kind-thought-bg);
+		color: var(--color-kind-thought);
+		border: 1px solid oklch(from var(--color-kind-thought) l c h / 0.2);
+	}
+</style>

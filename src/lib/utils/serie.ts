@@ -1,15 +1,14 @@
-// src/lib/utils/serie.ts
-import type { Post, SerieNavigation } from "$lib/types";
+import type { PostFrontmatter, SerieNavigation } from "$lib/types";
 
 export function computeSerieNavigation(
-	currentPost: Post,
-	allPosts: Post[]
+	currentPost: PostFrontmatter,
+	allPosts: PostFrontmatter[]
 ): SerieNavigation | undefined {
-	if (!currentPost.serie) return undefined;
+	if (!currentPost.series) return undefined;
 
 	const seriePosts = allPosts
-		.filter((p) => p.serie?.name === currentPost.serie?.name && p.visibility === "public")
-		.sort((a, b) => (a.serie?.order ?? 0) - (b.serie?.order ?? 0));
+		.filter((p) => p.series?.name === currentPost.series?.name && p.visibility === "public")
+		.sort((a, b) => (a.series?.order ?? 0) - (b.series?.order ?? 0));
 
 	const currentIndex = seriePosts.findIndex((p) => p.slug === currentPost.slug);
 
@@ -26,8 +25,8 @@ export function computeSerieNavigation(
 	};
 }
 
-export function getSeriePosts(serieName: string, allPosts: Post[]): Post[] {
+export function getSeriePosts(serieName: string, allPosts: PostFrontmatter[]): PostFrontmatter[] {
 	return allPosts
-		.filter((p) => p.serie?.name === serieName && p.visibility === "public")
-		.sort((a, b) => (a.serie?.order ?? 0) - (b.serie?.order ?? 0));
+		.filter((p) => p.series?.name === serieName && p.visibility === "public")
+		.sort((a, b) => (a.series?.order ?? 0) - (b.series?.order ?? 0));
 }

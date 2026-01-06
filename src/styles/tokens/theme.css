@@ -1,0 +1,185 @@
+/**
+ * Design System Tokens — Single Source of Truth
+ * Humanist + Dark Academy Aesthetic
+ * 
+ * RULES:
+ * - All colors in OKLCH format
+ * - Only semantic token names (no --blue-500)
+ * - All spacing values in rem
+ * - No ad-hoc values allowed
+ */
+
+:root {
+	/* ═══════════════════════════════════════════════════════════════════════════
+     COLOR TOKENS — Light Theme (System Default fallback)
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+	/* Background & Surface */
+	--color-bg: oklch(0.97 0.005 80); /* Warm ivory/parchment */
+	--color-surface: oklch(0.99 0.002 80); /* Clean warm white */
+
+	/* Text */
+	--color-text: oklch(0.18 0.01 80); /* Deep warm charcoal */
+	--color-muted: oklch(0.5 0.01 80); /* Scholarly gray */
+
+	/* Primary — Rich brown (dark academia) */
+	--color-primary: oklch(0.42 0.08 55); /* Aged leather brown */
+	--color-primary-contrast: oklch(0.98 0.005 80);
+
+	/* Accent — Warm sienna */
+	--color-accent: oklch(0.55 0.12 55); /* Vintage sienna */
+	--color-accent-contrast: oklch(0.98 0.005 80);
+
+	/* Semantic States */
+	--color-danger: oklch(0.55 0.2 25); /* Deep burgundy */
+	--color-warning: oklch(0.7 0.15 70); /* Antique gold */
+	--color-success: oklch(0.55 0.12 145); /* Muted sage */
+
+	/* Border & Dividers */
+	--color-border: oklch(0.18 0.01 80 / 0.08); /* Subtle warm gray */
+	--color-border-vivid: oklch(0.18 0.01 80 / 0.15);
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+     SPACING TOKENS — Restrictive Scale (only these values allowed)
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+	--space-0: 0rem; /* 0px */
+	--space-1: 0.25rem; /* 4px */
+	--space-2: 0.5rem; /* 8px */
+	--space-3: 0.75rem; /* 12px */
+	--space-4: 1rem; /* 16px */
+	--space-5: 1.25rem; /* 20px */
+	--space-6: 1.5rem; /* 24px */
+	--space-7: 1.75rem; /* 28px */
+	--space-8: 2rem; /* 32px */
+	--space-9: 2.5rem; /* 40px */
+	--space-10: 3rem; /* 48px */
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+     TYPOGRAPHY TOKENS — Modular Scale (r = 1.25)
+     Mobile-first with clamp() for responsive headings
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+	--type-base: 1rem; /* 16px base */
+
+	/* Scale: 0.875 → 1 → 1.25 → 1.5625 → 1.953 → 2.441 → 3.052 */
+	--type-0: 0.875rem; /* 14px — small/captions */
+	--type-1: var(--type-base); /* 16px — body */
+	--type-2: clamp(1.125rem, 1rem + 0.3vw, 1.25rem); /* body bold / h4-h5 */
+	--type-3: clamp(1.25rem, 1.1rem + 0.5vw, 1.5625rem); /* h3 — subseções */
+	--type-4: clamp(1.5rem, 1.25rem + 0.8vw, 1.953rem); /* h2 — macro-seções */
+	--type-5: clamp(1.75rem, 1.4rem + 1.2vw, 2.441rem); /* h2 large */
+	--type-6: clamp(2rem, 1.5rem + 2vw, 3.052rem); /* h1 — título do artigo */
+
+	/* Line Heights */
+	--line-height-body: 1.6;
+	--line-height-heading: 1.15;
+
+	/* Letter Spacing */
+	--letter-spacing-tight: -0.02em;
+	--letter-spacing-normal: 0;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+     FONT FAMILIES
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+	--font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+	--font-body: "Inter", system-ui, -apple-system, sans-serif;
+	--font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+     RADII — Discrete options only
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+	--radius-0: 0;
+	--radius-1: 0.25rem; /* 4px — subtle */
+	--radius-2: 0.5rem; /* 8px — medium */
+	--radius-3: 0.75rem; /* 12px — pronounced */
+	--radius-full: 9999px; /* pill/circle */
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+     SHADOWS — Soft, few levels (humanist aesthetic)
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+	--shadow-1: 0 1px 2px oklch(0.18 0.01 80 / 0.04);
+	--shadow-2: 0 2px 8px oklch(0.18 0.01 80 / 0.06), 0 1px 2px oklch(0.18 0.01 80 / 0.04);
+	--shadow-3: 0 4px 16px oklch(0.18 0.01 80 / 0.08), 0 2px 4px oklch(0.18 0.01 80 / 0.04);
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+     Z-INDEX — Semantic naming only
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+	--z-below: -1;
+	--z-base: 0;
+	--z-above: 10;
+	--z-sticky: 100;
+	--z-overlay: 500;
+	--z-modal: 1000;
+	--z-toast: 1100;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+     MOTION TOKENS
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+	--motion-fast: 120ms;
+	--motion-base: 200ms;
+	--motion-slow: 320ms;
+	--motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+	--motion-ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+     LAYOUT
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+	--prose-width: 65ch;
+	--content-width: 75ch;
+	--container-width: 1200px;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+     KIND TOKENS — Semantic colors for content types (KindBadge)
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+	/* Note — Blue scholarly */
+	--color-kind-note: oklch(0.65 0.12 250);
+	--color-kind-note-bg: oklch(0.65 0.12 250 / 0.1);
+
+	/* Essay — Purple academic */
+	--color-kind-essay: oklch(0.65 0.12 300);
+	--color-kind-essay-bg: oklch(0.65 0.12 300 / 0.1);
+
+	/* Tutorial — Green practical */
+	--color-kind-tutorial: oklch(0.65 0.12 150);
+	--color-kind-tutorial-bg: oklch(0.65 0.12 150 / 0.1);
+
+	/* Thought — Amber reflective */
+	--color-kind-thought: oklch(0.7 0.12 80);
+	--color-kind-thought-bg: oklch(0.7 0.12 80 / 0.1);
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+     COMPATIBILITY LAYER — Maps old token names to new ones
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+	/* Old surface tokens */
+	--color-surface-base: var(--color-bg);
+	--color-surface-raised: var(--color-surface);
+	--color-surface-overlay: var(--color-surface);
+
+	/* Old text tokens */
+	--color-text-heading: var(--color-text);
+	--color-text-body: var(--color-text);
+	--color-text-muted: var(--color-muted);
+
+	/* Old border tokens */
+	--color-border-default: var(--color-border);
+
+	/* Old brand tokens */
+	--color-brand-primary: var(--color-primary);
+	--color-brand-secondary: var(--color-accent);
+	--color-brand-dim: var(--color-primary);
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+     META — Browser theme color
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+	--meta-theme-color: oklch(0.12 0.01 55);
+}

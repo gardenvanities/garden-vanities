@@ -2,12 +2,23 @@
 <script lang="ts">
 	import { buildCloudinaryUrl, buildSrcSet } from "$lib/utils/cloudinary";
 
-	export let publicId: string;
-	export let alt: string;
-	export const caption: string | undefined = undefined;
-	export const width: number = 1200;
-	export const aspectRatio: string = "1.91/1";
-	export const priority: boolean = false;
+	interface Props {
+		publicId: string;
+		alt: string;
+		caption?: string;
+		width?: number;
+		aspectRatio?: string;
+		priority?: boolean;
+	}
+
+	let {
+		publicId,
+		alt,
+		caption = undefined,
+		width = 1200,
+		aspectRatio = "1.91/1",
+		priority = false
+	}: Props = $props();
 </script>
 
 <figure class="clounary-image">

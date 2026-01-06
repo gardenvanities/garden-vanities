@@ -14,6 +14,7 @@ export interface CoverImage {
 export interface Serie {
 	name: string;
 	order: number;
+	total?: number;
 }
 
 export interface SEO {
@@ -30,10 +31,12 @@ export interface PostFrontmatter {
 	cover?: CoverImage;
 	kind?: Kind;
 	tags?: string[];
-	serie?: Serie;
+	series?: Serie;
 	author: string; // "@nick" format
 	publishedAt?: string;
 	updatedAt?: string;
+	readingTime?: number;
+	readingTimeLabel?: "short" | "medium" | "long";
 	seo?: SEO;
 }
 export interface TOCItem {
@@ -43,10 +46,10 @@ export interface TOCItem {
 }
 
 export interface PostComputed {
-	readingTime: number;
-	readingTimeLabel: "short" | "medium" | "long";
-	canonicalUrl: string;
-	tableOfContents: TOCItem[];
+	readingTime?: number;
+	readingTimeLabel?: "short" | "medium" | "long";
+	canonicalUrl?: string;
+	tableOfContents?: TOCItem[];
 }
 
 export interface SerieNavigation {

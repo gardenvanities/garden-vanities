@@ -16,13 +16,15 @@
 	let openSlug = $state<string | null>(null);
 </script>
 
-<SEO title="Garden of Vanities" type="website" />
+<SEO title="Todos os Artigos | Garden of Vanities" type="website" />
 
 <Section>
 	<Container size="sm">
 		<header class="mb-12">
-			<h1 class="text-text-heading text-3xl font-bold tracking-tight sm:text-4xl">Artigos</h1>
-			<p class="text-text-muted mt-4 text-lg">Textos, notas e ideias — cultivados com cuidado 🌱</p>
+			<h1 class="text-text-heading text-3xl font-bold tracking-tight sm:text-4xl">
+				Todos os Artigos
+			</h1>
+			<p class="text-text-muted mt-4 text-lg">O arquivo completo do jardim digital.</p>
 		</header>
 
 		<div class="space-y-1">

@@ -16,6 +16,7 @@ export async function getAllPosts(
 	});
 
 	const posts: PostFrontmatter[] = [];
+	const seriesCounts = new Map<string, number>();
 
 	for (const path in modules) {
 		const module = modules[path];
@@ -27,6 +28,18 @@ export async function getAllPosts(
 		if (!allowedVisibility.includes(metadata.visibility)) continue;
 
 		posts.push(metadata);
+
+		if (metadata.series?.name) {
+			const name = metadata.series.name;
+			seriesCounts.set(name, (seriesCounts.get(name) ?? 0) + 1);
+		}
+	}
+
+	// Attach totals to series info
+	for (const post of posts) {
+		if (post.series?.name) {
+			post.series.total = seriesCounts.get(post.series.name);
+		}
 	}
 
 	return posts.sort((a, b) => {
@@ -41,23 +54,25 @@ export async function getPostBySlug(
 	slug: string,
 	allowPrivate = false
 ): Promise<{ metadata: PostFrontmatter; component: Component } | null> {
+	const allPosts = await getAllPosts({
+		visibility: allowPrivate ? ["public", "unlisted", "private"] : ["public", "unlisted"]
+	});
+
 	const modules = import.meta.glob<MdsvexModule>("/src/content/posts/**/*.md", {
 		eager: true
 	});
 
+	const postMetadata = allPosts.find((p) => p.slug === slug);
+	if (!postMetadata) return null;
+
 	for (const path in modules) {
 		const module = modules[path];
-
-		if (!module.metadata || module.metadata.slug !== slug) continue;
-
-		if (module.metadata.visibility === "private" && !allowPrivate) {
-			return null;
+		if (module.metadata?.slug === slug) {
+			return {
+				metadata: postMetadata,
+				component: module.default
+			};
 		}
-
-		return {
-			metadata: module.metadata,
-			component: module.default
-		};
 	}
 
 	return null;
