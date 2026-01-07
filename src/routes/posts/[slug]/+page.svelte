@@ -1,12 +1,18 @@
 <script lang="ts">
 	import PostHeader from "$lib/components/garden/posts/PostHeader.svelte";
 	import PostNavigation from "$lib/components/garden/posts/PostNavigation.svelte";
+	import Backlinks from "$lib/components/garden/Backlinks.svelte";
+	import TableOfContents from "$lib/components/garden/TableOfContents.svelte";
 	import SEO from "$lib/components/core/SEO.svelte";
+	import { fly } from "svelte/transition";
 	import Container from "$lib/components/layout/Container.svelte";
 	import Section from "$lib/components/layout/Section.svelte";
 
 	let { data } = $props();
-	const { metadata, content: Content, navigation } = $derived(data);
+	const metadata = $derived(data.metadata);
+	const Content = $derived(data.content);
+	const navigation = $derived(data.navigation);
+	const backlinks = $derived(data.backlinks);
 </script>
 
 <SEO
@@ -19,17 +25,39 @@
 />
 
 <Section class="py-12! sm:py-20!">
-	<Container size="sm">
-		<PostHeader {metadata} />
+	<Container size="xl">
+		<div class="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_minmax(0,680px)_1fr]">
+			<!-- Sidebar Esquerda (Espaço vazio ou secundário no futuro) -->
+			<div class="hidden lg:block"></div>
 
-		<!-- Conteúdo do Post -->
-		<div class="prose prose-zinc prose-invert max-w-none">
-			<Content />
+			<!-- Coluna Central: Conteúdo -->
+			<article>
+				<div in:fly={{ y: 20, duration: 800, delay: 100 }}>
+					<PostHeader {metadata} />
+				</div>
+
+				<!-- Conteúdo do Post -->
+				<div
+					class="prose prose-zinc prose-invert max-w-none"
+					in:fly={{ y: 20, duration: 800, delay: 300 }}
+				>
+					<Content />
+				</div>
+
+				{#if navigation}
+					<div class="mt-16" in:fly={{ y: 20, duration: 800, delay: 500 }}>
+						<PostNavigation {navigation} seriesName={metadata.series?.name} />
+					</div>
+				{/if}
+
+				<Backlinks {backlinks} />
+			</article>
+
+			<!-- Sidebar Direita: Sumário -->
+			<div class="relative">
+				<TableOfContents key={metadata.slug} />
+			</div>
 		</div>
-
-		{#if navigation}
-			<PostNavigation {navigation} seriesName={metadata.series?.name} />
-		{/if}
 	</Container>
 </Section>
 

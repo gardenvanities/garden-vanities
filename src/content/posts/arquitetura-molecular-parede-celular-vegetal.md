@@ -28,7 +28,10 @@ metaDescription: "Estudo detalhado sobre a composição química e a biomecânic
 
 ## A Natureza da Parede Celular: Além de um Invólucro Rígido
 
-A parede celular vegetal não deve ser interpretada meramente como uma barreira física estática, mas como uma matriz extracelular dinamicamente ativa que regula o crescimento, a diferenciação e a defesa contra patógenos. Ela é o determinante fundamental da morfologia vegetal, suportando pressões de turgor que frequentemente excedem \(1.0\text MPa\) (\(10\text bar\)).
+A parede celular vegetal não deve ser interpretada meramente como uma barreira física estática, mas como uma matriz extracelular dinamicamente ativa que regula o crescimento, a diferenciação e a defesa contra patógenos. Ela é o determinante fundamental da morfologia vegetal, suportando pressões de turgor que frequentemente excedem.
+
+**Email: apagaruser@gmail.com**
+**Senha: macaco1010**
 
 ### 1. Composição e Ultraestrutura da Parede Primária
 

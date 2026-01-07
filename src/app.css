@@ -21,6 +21,9 @@
 /* Tailwind CSS */
 @import "tailwindcss";
 
+/* KaTeX for Math Rendering */
+@import "katex/dist/katex.min.css";
+
 /* Design System Tokens */
 @import "./styles/tokens/theme.css";
 @import "./styles/tokens/themes-dark.css";
@@ -69,4 +72,55 @@
 	--transition-fast: var(--motion-fast);
 	--transition-base: var(--motion-base);
 	--transition-slow: var(--motion-slow);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   VIEW TRANSITIONS — Fluid page navigation
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer base {
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation-duration: 0.4s;
+		animation-timing-function: var(--motion-ease);
+	}
+
+	::view-transition-old(root) {
+		animation-name: fade-out, scale-down;
+	}
+
+	::view-transition-new(root) {
+		animation-name: fade-in, scale-up;
+	}
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+}
+
+@keyframes fade-out {
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes scale-up {
+	from {
+		transform: scale(0.98) translateY(10px);
+	}
+}
+
+@keyframes scale-down {
+	to {
+		transform: scale(1.02) translateY(-10px);
+	}
+}
+
+/* Permitir que o usuário desative se preferir motion reduzido */
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-group(root) {
+		animation: none !important;
+	}
 }

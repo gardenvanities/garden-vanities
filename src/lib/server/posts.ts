@@ -77,3 +77,33 @@ export async function getPostBySlug(
 
 	return null;
 }
+
+export async function getBacklinks(targetSlug: string): Promise<PostFrontmatter[]> {
+	const modules = import.meta.glob("/src/content/posts/**/*.md", {
+		query: "?raw",
+		import: "default",
+		eager: true
+	});
+
+	const allPosts = await getAllPosts({ visibility: ["public", "unlisted"] });
+	const results: PostFrontmatter[] = [];
+
+	for (const path in modules) {
+		const content = modules[path] as string;
+		const originSlugMatch = path.match(/\/posts\/(.+)\.md$/);
+		if (!originSlugMatch) continue;
+
+		const originSlug = originSlugMatch[1];
+		if (originSlug === targetSlug) continue;
+
+		// Simple regex to find internal links to the targetSlug
+		const linkPattern = new RegExp(`\\]\\((/posts/)?${targetSlug}\\b`, "g");
+
+		if (linkPattern.test(content)) {
+			const post = allPosts.find((p) => p.slug === originSlug);
+			if (post) results.push(post);
+		}
+	}
+
+	return results;
+}

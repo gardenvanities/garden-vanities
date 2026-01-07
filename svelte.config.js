@@ -1,32 +1,47 @@
-import { mdsvex } from "mdsvex";
+import { mdsvex, escapeSvelte } from "mdsvex";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import remarkMath from "remark-math";
+import rehypeKatexSvelte from "rehype-katex-svelte";
 import adapter from "@sveltejs/adapter-auto";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
+import { createHighlighter } from "shiki";
+
+const theme = "dark-plus";
+const highlighter = await createHighlighter({
+	themes: [theme],
+	langs: ["javascript", "typescript", "css", "svelte", "markdown", "bash"]
+});
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	// Consult https://svelte.dev/docs/kit/integrations
-	// for more information about preprocessors
+	extensions: [".svelte", ".md", ".svx"],
 	preprocess: [
 		vitePreprocess(),
 		mdsvex({
-			extensions: [".md"],
-			rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: "wrap" }]]
+			extensions: [".md", ".svx"],
+			remarkPlugins: [remarkMath],
+			rehypePlugins: [
+				rehypeSlug,
+				[rehypeAutolinkHeadings, { behavior: "wrap" }],
+				rehypeKatexSvelte
+			],
+			highlight: {
+				highlighter: async (code, lang) => {
+					await highlighter.loadLanguage(lang);
+					const html = escapeSvelte(highlighter.codeToHtml(code, { lang, theme }));
+					return `{@html \`${html}\` }`;
+				}
+			}
 		})
 	],
 
 	kit: {
+		adapter: adapter(),
 		alias: {
-			"@/*": "./path/to/lib/*"
-		},
-		// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
-		// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
-		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
-		adapter: adapter()
-	},
-
-	extensions: [".svelte", ".svx", ".md"]
+			"@/*": "./src/lib/*"
+		}
+	}
 };
 
 export default config;

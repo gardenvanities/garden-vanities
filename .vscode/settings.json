@@ -1,0 +1,18 @@
+{
+	"editor.fontFamily": "'JetBrains Mono', monospace",
+	"editor.fontLigatures": true,
+	"terminal.integrated.fontFamily": "'JetBrains Mono', monospace",
+	"editor.minimap.enabled": false,
+	"breadcrumbs.enabled": false,
+	"editor.glyphMargin": false,
+	"editor.renderLineHighlight": "none",
+	"editor.occurrenceHighlight": "off",
+	"editor.selectionHighlight": false,
+	"editor.overviewRulerBorder": false,
+	"editor.hideCursorInOverviewRuler": true,
+	"workbench.activityBar.location": "hidden",
+	"workbench.editor.showTabs": "single",
+	"workbench.layoutControl.enabled": false,
+	"editor.scrollbar.vertical": "hidden",
+	"editor.scrollbar.horizontal": "hidden"
+}

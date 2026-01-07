@@ -1,4 +1,4 @@
-import { getAllPosts, getPostBySlug } from "$lib/server/posts";
+import { getAllPosts, getPostBySlug, getBacklinks } from "$lib/server/posts";
 import { computeSerieNavigation } from "$lib/utils/serie";
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
@@ -12,9 +12,11 @@ export const load: PageServerLoad = async ({ params }) => {
 
 	const allPosts = await getAllPosts();
 	const navigation = computeSerieNavigation(post.metadata, allPosts);
+	const backlinks = await getBacklinks(params.slug);
 
 	return {
 		metadata: post.metadata,
-		navigation
+		navigation,
+		backlinks
 	};
 };

@@ -50,7 +50,14 @@
 
 		<!-- Actions -->
 		<div class="flex items-center gap-2">
-			<Button variant="ghost" size="sm" class="hidden px-2! sm:inline-flex">
+			<Button
+				variant="ghost"
+				size="sm"
+				class="hidden px-2! sm:inline-flex"
+				onclick={() => {
+					import("$lib/stores/command-palette.svelte").then((m) => m.commandPalette.open());
+				}}
+			>
 				<Search size={18} />
 			</Button>
 
