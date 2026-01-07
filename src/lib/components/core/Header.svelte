@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/state";
 	import Button from "$lib/components/core/Button.svelte";
+	import ThemeToggle from "$lib/components/core/ThemeToggle.svelte";
 	import { Search, Menu, X } from "lucide-svelte";
 	import Container from "$lib/components/layout/Container.svelte";
 	import { slide } from "svelte/transition";
@@ -52,6 +53,9 @@
 			<Button variant="ghost" size="sm" class="hidden px-2! sm:inline-flex">
 				<Search size={18} />
 			</Button>
+
+			<!-- Theme Toggle -->
+			<ThemeToggle />
 
 			<!-- Mobile Menu Button -->
 			<Button variant="ghost" size="sm" class="px-2! md:hidden" onclick={toggleMenu}>

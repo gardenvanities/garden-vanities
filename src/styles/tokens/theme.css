@@ -32,8 +32,17 @@
 
 	/* Semantic States */
 	--color-danger: oklch(0.55 0.2 25); /* Deep burgundy */
-	--color-warning: oklch(0.7 0.15 70); /* Antique gold */
+	--color-warning: oklch(0.6 0.15 70); /* Antique gold (darker for contrast) */
 	--color-success: oklch(0.55 0.12 145); /* Muted sage */
+
+	/* Semantic Backgrounds (10-15% opacity) */
+	--color-danger-bg: oklch(0.55 0.2 25 / 0.1);
+	--color-warning-bg: oklch(0.7 0.15 70 / 0.1);
+	--color-success-bg: oklch(0.55 0.12 145 / 0.1);
+
+	/* Interaction States */
+	--color-action-hover: oklch(0.18 0.01 80 / 0.06); /* Subtle darken on hover */
+	--color-focus: var(--color-primary); /* Focus ring color */
 
 	/* Border & Dividers */
 	--color-border: oklch(0.18 0.01 80 / 0.08); /* Subtle warm gray */

@@ -30,14 +30,24 @@
 		--color-warning: oklch(0.75 0.14 75); /* Brighter gold */
 		--color-success: oklch(0.65 0.12 145); /* Lighter sage */
 
+		/* Semantic Backgrounds */
+		--color-danger-bg: oklch(0.65 0.18 25 / 0.15);
+		--color-warning-bg: oklch(0.75 0.14 75 / 0.15);
+		--color-success-bg: oklch(0.65 0.12 145 / 0.15);
+
+		/* Interaction States */
+		--color-action-hover: oklch(0.92 0.01 80 / 0.1); /* Subtle lighten */
+		--color-focus: var(--color-primary);
+
 		/* Border & Dividers */
 		--color-border: oklch(0.92 0.01 80 / 0.08);
 		--color-border-vivid: oklch(0.92 0.01 80 / 0.15);
 
 		/* Shadows (inverted for dark theme) */
-		--shadow-1: 0 1px 2px oklch(0 0 0 / 0.2);
-		--shadow-2: 0 2px 8px oklch(0 0 0 / 0.3), 0 1px 2px oklch(0 0 0 / 0.2);
-		--shadow-3: 0 4px 16px oklch(0 0 0 / 0.4), 0 2px 4px oklch(0 0 0 / 0.2);
+		/* Shadows (richer warm shadows for dark academia) */
+		--shadow-1: 0 1px 2px oklch(0.12 0.05 55 / 0.3);
+		--shadow-2: 0 2px 8px oklch(0.12 0.05 55 / 0.4), 0 1px 2px oklch(0.12 0.05 55 / 0.3);
+		--shadow-3: 0 4px 16px oklch(0.12 0.05 55 / 0.5), 0 2px 4px oklch(0.12 0.05 55 / 0.3);
 
 		/* Kind tokens (brighter for dark mode) */
 		--color-kind-note: oklch(0.75 0.12 250);
@@ -69,12 +79,19 @@
 	--color-warning: oklch(0.75 0.14 75);
 	--color-success: oklch(0.65 0.12 145);
 
+	--color-danger-bg: oklch(0.65 0.18 25 / 0.15);
+	--color-warning-bg: oklch(0.75 0.14 75 / 0.15);
+	--color-success-bg: oklch(0.65 0.12 145 / 0.15);
+
+	--color-action-hover: oklch(0.92 0.01 80 / 0.1);
+	--color-focus: var(--color-primary);
+
 	--color-border: oklch(0.92 0.01 80 / 0.08);
 	--color-border-vivid: oklch(0.92 0.01 80 / 0.15);
 
-	--shadow-1: 0 1px 2px oklch(0 0 0 / 0.2);
-	--shadow-2: 0 2px 8px oklch(0 0 0 / 0.3), 0 1px 2px oklch(0 0 0 / 0.2);
-	--shadow-3: 0 4px 16px oklch(0 0 0 / 0.4), 0 2px 4px oklch(0 0 0 / 0.2);
+	--shadow-1: 0 1px 2px oklch(0.12 0.05 55 / 0.3);
+	--shadow-2: 0 2px 8px oklch(0.12 0.05 55 / 0.4), 0 1px 2px oklch(0.12 0.05 55 / 0.3);
+	--shadow-3: 0 4px 16px oklch(0.12 0.05 55 / 0.5), 0 2px 4px oklch(0.12 0.05 55 / 0.3);
 
 	/* Kind tokens (brighter for dark mode) */
 	--color-kind-note: oklch(0.75 0.12 250);
