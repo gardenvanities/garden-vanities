@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Layers } from "lucide-svelte";
+	import { Layers } from "@lucide/svelte";
 	import type { SerieNavigation } from "$lib/types";
 
 	interface Props {

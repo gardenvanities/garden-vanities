@@ -1,7 +1,7 @@
 <script lang="ts">
 	import KindBadge from "$lib/components/garden/KindBadge.svelte";
 	import TagList from "$lib/components/garden/TagList.svelte";
-	import { ArrowLeft, Clock, Calendar, Layers } from "lucide-svelte";
+	import { ArrowLeft, Clock, Calendar, Layers } from "@lucide/svelte";
 	import { formatShortDate } from "$lib/utils/date";
 	import type { PostFrontmatter } from "$lib/types";
 

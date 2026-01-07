@@ -1,4 +1,10 @@
-import { getAllPosts, getPostBySlug, getBacklinks } from "$lib/server/posts";
+import {
+	getAllPosts,
+	getPostBySlug,
+	getBacklinks,
+	getPostRawContent,
+	getReferences
+} from "$lib/server/posts";
 import { computeSerieNavigation } from "$lib/utils/serie";
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
@@ -14,9 +20,16 @@ export const load: PageServerLoad = async ({ params }) => {
 	const navigation = computeSerieNavigation(post.metadata, allPosts);
 	const backlinks = await getBacklinks(params.slug);
 
+	let references: import("$lib/types").LinkReference[] = [];
+	const rawContent = await getPostRawContent(params.slug);
+	if (rawContent) {
+		references = await getReferences(rawContent);
+	}
+
 	return {
 		metadata: post.metadata,
 		navigation,
-		backlinks
+		backlinks,
+		references
 	};
 };

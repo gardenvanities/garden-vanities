@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Sun, Moon, Monitor, ChevronDown } from "lucide-svelte";
+	import { Sun, Moon, Monitor, ChevronDown } from "@lucide/svelte";
 	import { getTheme, setTheme, getResolvedTheme, type Theme } from "$lib/stores/theme.svelte";
 	import { slide } from "svelte/transition";
 

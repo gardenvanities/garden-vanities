@@ -1,7 +1,7 @@
 <!-- eslint-disable svelte/no-navigation-without-resolve -->
 <script lang="ts">
 	import { base } from "$app/paths";
-	import { ChevronDown, ArrowUpRight } from "lucide-svelte";
+	import { ChevronDown, ArrowUpRight } from "@lucide/svelte";
 	import { slide } from "svelte/transition";
 	import KindBadge from "./KindBadge.svelte";
 	import PostMetadataGrid from "./PostMetadataGrid.svelte";

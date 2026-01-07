@@ -2,7 +2,7 @@
 	import { page } from "$app/state";
 	import Button from "$lib/components/core/Button.svelte";
 	import ThemeToggle from "$lib/components/core/ThemeToggle.svelte";
-	import { Search, Menu, X } from "lucide-svelte";
+	import { Search, Menu, X } from "@lucide/svelte";
 	import Container from "$lib/components/layout/Container.svelte";
 	import { slide } from "svelte/transition";
 

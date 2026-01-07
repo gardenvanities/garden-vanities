@@ -50,7 +50,7 @@
 					</div>
 				{/if}
 
-				<Backlinks {backlinks} />
+				<Backlinks {backlinks} references={data.references} />
 			</article>
 
 			<!-- Sidebar Direita: Sumário -->

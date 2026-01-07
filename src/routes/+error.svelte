@@ -4,7 +4,7 @@
 	import Container from "$lib/components/layout/Container.svelte";
 	import Button from "$lib/components/core/Button.svelte";
 	import SEO from "$lib/components/core/SEO.svelte";
-	import { Sprout, MoveLeft, Home } from "lucide-svelte";
+	import { Sprout, MoveLeft, Home } from "@lucide/svelte";
 
 	const status = $derived(page.status);
 	const message = $derived(page.error?.message || "Algo deu errado");

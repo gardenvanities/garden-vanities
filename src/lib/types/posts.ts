@@ -59,9 +59,17 @@ export interface SerieNavigation {
 	next?: { slug: string; title: string };
 }
 
+export interface Backlink extends PostFrontmatter {
+	context?: string; // The sentence where the link appears
+}
+
+export type LinkReference = PostFrontmatter;
+
 // No seu arquivo posts.ts, altere a interface Post:
 export interface Post extends Omit<PostFrontmatter, "author">, PostComputed {
 	author: Author; // Aqui o autor já é o objeto processado, não apenas o nick
 	content: string;
 	serieNavigation?: SerieNavigation;
+	backlinks?: Backlink[];
+	references?: LinkReference[];
 }

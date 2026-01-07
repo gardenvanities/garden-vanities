@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Github, Twitter, Mail } from "lucide-svelte";
+	import { Github, Twitter, Mail } from "@lucide/svelte";
 	const currentYear = new Date().getFullYear();
 </script>
 

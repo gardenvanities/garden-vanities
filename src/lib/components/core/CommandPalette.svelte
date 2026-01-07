@@ -16,7 +16,7 @@
 		BookOpen,
 		CornerDownLeft,
 		SearchCode
-	} from "lucide-svelte";
+	} from "@lucide/svelte";
 
 	interface SearchItem {
 		title: string;

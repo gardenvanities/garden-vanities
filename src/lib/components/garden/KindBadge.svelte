@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Kind } from "$lib/types";
-	import { FileText, BookOpen, GraduationCap, Lightbulb } from "lucide-svelte";
+	import { FileText, BookOpen, GraduationCap, Lightbulb } from "@lucide/svelte";
 
 	interface Props {
 		kind: Kind;
