@@ -22,6 +22,8 @@
 		title: string;
 		slug: string;
 		kind?: string;
+		tags?: string[];
+		content?: string;
 	}
 
 	interface CommandItem {
@@ -90,17 +92,24 @@
 			title: p.title,
 			icon: FileText,
 			type: "post" as const,
-			action: () => navigate(`/posts/${p.slug}`)
+			action: () => navigate(`/posts/${p.slug}`),
+			tags: p.tags,
+			content: p.content
 		}))
 	]);
 
 	// Initialize Fuse
 	const fuse = $derived(
 		new Fuse(searchableData, {
-			keys: ["title"],
+			keys: [
+				{ name: "title", weight: 1.0 },
+				{ name: "tags", weight: 0.8 },
+				{ name: "content", weight: 0.3 }
+			],
 			threshold: 0.4, // Tolerance for typos
-			distance: 100,
+			distance: 200, // Increased distance for longer content
 			minMatchCharLength: 2,
+			ignoreLocation: true, // Crucial for long content search
 			includeScore: true
 		})
 	);

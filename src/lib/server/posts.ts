@@ -63,6 +63,33 @@ export async function getAllPosts(
 	});
 }
 
+function stripMarkdown(content: string): string {
+	return content
+		.replace(/---\n[\s\S]*?\n---/, "") // Remove frontmatter
+		.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // Remove links
+		.replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1") // Remove images
+		.replace(/[#*`_~]/g, "") // Remove formatting characters
+		.replace(/\n/g, " ") // Replace newlines with spaces
+		.replace(/\s+/g, " ") // Collapse whitespace
+		.trim();
+}
+
+// New function for search indexing
+export async function getAllPostsForSearch(): Promise<
+	Array<PostFrontmatter & { content: string }>
+> {
+	const posts = await getAllPosts({ visibility: ["public", "unlisted"] });
+
+	return Promise.all(
+		posts.map(async (post) => {
+			const raw = await getPostRawContent(post.slug);
+			// Fallback to excerpt if raw content not found or is empty, to ensure we have something
+			const content = raw ? stripMarkdown(raw) : post.excerpt || "";
+			return { ...post, content };
+		})
+	);
+}
+
 export async function getPostBySlug(
 	slug: string,
 	allowPrivate = false
