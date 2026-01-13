@@ -1,5 +1,5 @@
 // src/lib/server/posts.ts
-import type { PostFrontmatter, Visibility, Backlink, LinkReference } from "$lib/types";
+import type { PostFrontmatter, Ripeness, Backlink, LinkReference } from "$lib/types";
 import type { Component } from "svelte";
 
 type MdsvexModule = {
@@ -20,7 +20,7 @@ const rawModules = import.meta.glob("/src/content/posts/**/*.md", {
 });
 
 export async function getAllPosts(
-	filter: { visibility?: Visibility[] } = {}
+	filter: { ripeness?: Ripeness[] } = {}
 ): Promise<PostFrontmatter[]> {
 	const posts: PostFrontmatter[] = [];
 	const seriesCounts = new Map<string, number>();
@@ -37,8 +37,8 @@ export async function getAllPosts(
 			if (match) metadata.slug = match[1];
 		}
 
-		const allowedVisibility = filter.visibility ?? ["public"];
-		if (!allowedVisibility.includes(metadata.visibility)) continue;
+		const allowedRipeness = filter.ripeness ?? ["fruit"];
+		if (!allowedRipeness.includes(metadata.ripeness)) continue;
 
 		posts.push(metadata);
 
@@ -78,13 +78,13 @@ function stripMarkdown(content: string): string {
 export async function getAllPostsForSearch(): Promise<
 	Array<PostFrontmatter & { content: string }>
 > {
-	const posts = await getAllPosts({ visibility: ["public", "unlisted"] });
+	const posts = await getAllPosts({ ripeness: ["fruit", "root"] });
 
 	return Promise.all(
 		posts.map(async (post) => {
 			const raw = await getPostRawContent(post.slug);
-			// Fallback to excerpt if raw content not found or is empty, to ensure we have something
-			const content = raw ? stripMarkdown(raw) : post.excerpt || "";
+			// Fallback to summary if raw content not found or is empty, to ensure we have something
+			const content = raw ? stripMarkdown(raw) : post.summary || "";
 			return { ...post, content };
 		})
 	);
@@ -92,10 +92,10 @@ export async function getAllPostsForSearch(): Promise<
 
 export async function getPostBySlug(
 	slug: string,
-	allowPrivate = false
+	allowSeed = false
 ): Promise<{ metadata: PostFrontmatter; component: Component } | null> {
 	const allPosts = await getAllPosts({
-		visibility: allowPrivate ? ["public", "unlisted", "private"] : ["public", "unlisted"]
+		ripeness: allowSeed ? ["fruit", "root", "seed"] : ["fruit", "root"]
 	});
 
 	const postMetadata = allPosts.find((p) => p.slug === slug);
@@ -128,7 +128,7 @@ export async function getPostRawContent(slug: string): Promise<string | null> {
 }
 
 export async function getBacklinks(targetSlug: string): Promise<Backlink[]> {
-	const allPosts = await getAllPosts({ visibility: ["public", "unlisted"] });
+	const allPosts = await getAllPosts({ ripeness: ["fruit", "root"] });
 	const results: Backlink[] = [];
 
 	for (const path in rawModules) {
@@ -179,7 +179,7 @@ export async function getBacklinks(targetSlug: string): Promise<Backlink[]> {
 }
 
 export async function getReferences(originalContent: string): Promise<LinkReference[]> {
-	const allPosts = await getAllPosts({ visibility: ["public", "unlisted"] });
+	const allPosts = await getAllPosts({ ripeness: ["fruit", "root"] });
 	const results: LinkReference[] = [];
 
 	// Regex to find markdown links: [Label](url)

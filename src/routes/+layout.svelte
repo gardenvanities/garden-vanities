@@ -3,10 +3,12 @@
 	import { onMount } from "svelte";
 	import { onNavigate } from "$app/navigation";
 	import Lenis from "lenis";
-	import Header from "$lib/components/core/Header.svelte";
-	import CommandPalette from "$lib/components/core/CommandPalette.svelte";
+	import FloatingNav from "$lib/components/core/FloatingNav.svelte";
+
 	import ReadingProgress from "$lib/components/core/ReadingProgress.svelte";
 	import Footer from "$lib/components/core/Footer.svelte";
+	import HoverPreview from "$lib/components/garden/HoverPreview.svelte";
+	import LinkPreviewDelegator from "$lib/components/garden/LinkPreviewDelegator.svelte";
 
 	const { children, data } = $props();
 
@@ -50,13 +52,14 @@
 <div
 	class="text-text-body bg-surface-base selection:bg-brand-primary/20 selection:text-brand-primary flex min-h-screen flex-col font-sans antialiased"
 >
-	<Header />
-
-	<CommandPalette searchIndex={data.searchIndex} />
-
-	<main class="grow">
-		{@render children?.()}
-	</main>
+	<LinkPreviewDelegator>
+		<main class="grow pb-24">
+			{@render children?.()}
+		</main>
+	</LinkPreviewDelegator>
 
 	<Footer />
+
+	<FloatingNav searchIndex={data.searchIndex} />
+	<HoverPreview />
 </div>

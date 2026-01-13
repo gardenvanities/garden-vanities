@@ -9,7 +9,11 @@ import { computeSerieNavigation } from "$lib/utils/serie";
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ params, setHeaders }) => {
+	setHeaders({
+		"cache-control": "max-age=3600, s-maxage=86400"
+	});
+
 	const post = await getPostBySlug(params.slug);
 
 	if (!post) {

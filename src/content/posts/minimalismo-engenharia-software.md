@@ -1,18 +1,30 @@
 ---
+slug: minimalismo-engenharia-software
 title: "Minimalismo na Engenharia de Software"
 subtitle: "Menos código, menos problemas. Como a simplicidade radical pode salvar projetos complexos do colapso."
-slug: "minimalismo-engenharia-software"
-publishedAt: "2024-04-02"
-author: "@themageking"
-visibility: "public"
+summary:
+
+ripeness: "fruit"
+
 kind: "essay"
+moc: "Engenharia de Software"
 tags: ["engenharia", "minimalismo", "arquitetura", "clean-code"]
+
+cover:
+  url:
+  alt:
+  caption:
+
 series:
   name: "Filosofia do Código"
   order: 2
+
+publishedAt: 2024-04-02
+updatedAt:
+
 seo:
-  metaTitle: "Minimalismo e Simplicidade no Código"
-  metaDescription: "Por que remover código é mais importante que adicionar, e como o minimalismo impacta a manutenção de software."
+  title: "Minimalismo e Simplicidade no Código"
+  description: "Por que remover código é mais importante que adicionar, e como o minimalismo impacta a manutenção de software."
 ---
 
 Seguindo a ideia do nosso [último texto](/posts/jardim-digital-extensao-mente), vamos falar sobre como aplicamos essa filosofia no código em si.

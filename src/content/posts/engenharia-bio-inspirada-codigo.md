@@ -1,12 +1,30 @@
 ---
+slug: engenharia-bio-inspirada-codigo
 title: "Engenharia Bio-Inspirada: Da Folha ao Código"
 subtitle: "Aplicando padrões de crescimento vegetal no desenvolvimento de interfaces escaláveis."
-excerpt: "Como algoritmos de filotaxia podem inspirar componentes Svelte mais inteligentes e layouts dinâmicos."
-publishedAt: "2026-01-08"
-author: "themageking"
+summary: "Como algoritmos de filotaxia podem inspirar componentes Svelte mais inteligentes e layouts dinâmicos."
+
+ripeness: "fruit"
+
 kind: "essay"
+moc: "Engenharia de Software"
 tags: ["Software", "Bio-Design", "Svelte"]
-visibility: "public"
+
+cover:
+  url:
+  alt:
+  caption:
+
+series:
+  name:
+  order:
+
+publishedAt: 2026-01-08
+updatedAt:
+
+seo:
+  title:
+  description:
 ---
 
 A engenharia moderna frequentemente busca na biologia a solução para problemas de escalabilidade. Se uma planta consegue gerenciar milhares de folhas sem conflito, como podemos aplicar isso em nossos componentes?

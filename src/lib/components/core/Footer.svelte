@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Github, Twitter, Mail } from "@lucide/svelte";
+	import ThemeToggle from "$lib/components/core/ThemeToggle.svelte";
 	const currentYear = new Date().getFullYear();
 </script>
 
@@ -15,7 +16,9 @@
 					</span>
 				</div>
 				<p class="text-text-muted max-w-xs text-sm leading-relaxed">
-					Um jardim digital onde ideias sobre design, código e filosofia crescem organicamente.
+					"Vaidade de vaidades, diz o pregador; vaidade de vaidades, tudo é vaidade" <b
+						>Eclesiastes 1:2</b
+					>
 				</p>
 			</div>
 
@@ -49,7 +52,7 @@
 			<div class="flex flex-col items-center gap-4 md:items-start">
 				<span class="text-text-muted text-[10px] font-bold tracking-widest uppercase">Conectar</span
 				>
-				<div class="flex gap-4">
+				<div class="flex items-center gap-4">
 					<a
 						href="https://github.com/themageking"
 						target="_blank"
@@ -75,6 +78,8 @@
 					>
 						<Mail size={20} />
 					</a>
+					<div class="h-4 w-px bg-white/10"></div>
+					<ThemeToggle />
 				</div>
 			</div>
 		</div>
@@ -84,11 +89,6 @@
 			class="border-border-default/50 text-text-muted/60 mt-12 flex flex-col items-center justify-between border-t pt-8 text-[11px] md:flex-row"
 		>
 			<p>© {currentYear} Garden of Vanities. Todos os direitos reservados.</p>
-			<div class="mt-4 flex items-center gap-4 md:mt-0">
-				<span>Desenvolvido com Svelte 5</span>
-				<span class="bg-text-muted/30 h-1 w-1 rounded-full"></span>
-				<span>Pau ferro e alma</span>
-			</div>
 		</div>
 	</div>
 </footer>

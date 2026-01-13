@@ -1,0 +1,18 @@
+import { getAllPosts } from "$lib/server/posts";
+import type { PageServerLoad } from "./$types";
+
+export const load: PageServerLoad = async ({ params, setHeaders }) => {
+	setHeaders({
+		"cache-control": "max-age=3600, s-maxage=86400"
+	});
+
+	const topic = decodeURIComponent(params.topic);
+	const allPosts = await getAllPosts({ ripeness: ["fruit", "root", "seed"] });
+
+	const posts = allPosts.filter((p) => p.moc === topic);
+
+	return {
+		topic,
+		posts
+	};
+};

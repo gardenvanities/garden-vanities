@@ -1,7 +1,7 @@
 <script lang="ts">
 	import KindBadge from "$lib/components/garden/KindBadge.svelte";
 	import TagList from "$lib/components/garden/TagList.svelte";
-	import { ArrowLeft, Clock, Calendar, Layers } from "@lucide/svelte";
+	import { ArrowLeft, Calendar, Layers } from "@lucide/svelte";
 	import { formatShortDate } from "$lib/utils/date";
 	import type { PostFrontmatter } from "$lib/types";
 
@@ -49,14 +49,6 @@
 				<time datetime={metadata.publishedAt}>
 					{formatShortDate(metadata.publishedAt)}
 				</time>
-			</div>
-		{/if}
-
-		<!-- Leitura -->
-		{#if metadata.readingTime}
-			<div class="text-text-muted flex items-center gap-2 text-sm">
-				<Clock size={16} class="opacity-50" />
-				<span>{metadata.readingTime} min de leitura</span>
 			</div>
 		{/if}
 

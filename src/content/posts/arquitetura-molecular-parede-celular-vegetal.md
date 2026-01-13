@@ -2,36 +2,34 @@
 slug: arquitetura-molecular-parede-celular-vegetal
 title: "Ontogênese e Dinâmica Molecular da Parede Celular"
 subtitle: "Uma investigação sobre a matriz extracelular vegetal e sua plasticidade biomecânica"
-excerpt: "Análise técnica da biogênese da parede primária e secundária, o papel da celulose sintase e a complexidade das ligações cruzadas de hemicelulose e pectina."
-visibility: "public"
+summary: "Análise técnica da biogênese da parede primária e secundária, o papel da celulose sintase e a complexidade das ligações cruzadas de hemicelulose e pectina."
+
+ripeness: "fruit"
+
+kind: "note"
+moc: Botânica
+tags: ["botânica", "citologia", "biopolímeros", "biotecnologia"]
 
 cover:
   url: "cover/b"
   alt: "Estrutura fibrosa de microfibrilas de celulose"
   caption: "Representação tridimensional da rede de polímeros da parede celular."
 
-kind: "note"
-tags: ["botânica", "citologia", "biopolímeros", "biotecnologia"]
-
 series:
   name: "Fisiologia Vegetal Comparada"
   order: 2
 
-author: "@stephan"
-
 publishedAt: 2025-12-18
 updatedAt: 2025-12-18
 
-metaTitle: "Arquitetura e Biogênese da Parede Celular Vegetal"
-metaDescription: "Estudo detalhado sobre a composição química e a biomecânica das paredes celulares nas plantas superiores."
+seo:
+  title: "Arquitetura e Biogênese da Parede Celular Vegetal"
+  description: "Estudo detalhado sobre a composição química e a biomecânica das paredes celulares nas plantas superiores."
 ---
 
 ## A Natureza da Parede Celular: Além de um Invólucro Rígido
 
 A parede celular vegetal não deve ser interpretada meramente como uma barreira física estática, mas como uma matriz extracelular dinamicamente ativa que regula o crescimento, a diferenciação e a defesa contra patógenos. Ela é o determinante fundamental da morfologia vegetal, suportando pressões de turgor que frequentemente excedem.
-
-**Email: apagaruser@gmail.com**
-**Senha: macaco1010**
 
 ### 1. Composição e Ultraestrutura da Parede Primária
 

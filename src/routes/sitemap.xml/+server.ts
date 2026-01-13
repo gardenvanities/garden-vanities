@@ -29,7 +29,7 @@ function formatDateToYMD(date: Date) {
 }
 
 export const GET: RequestHandler = async () => {
-	const posts = await getAllPosts({ visibility: ["public"] });
+	const posts = await getAllPosts({ ripeness: ["fruit"] });
 
 	const pages = [
 		{ url: "/", priority: 1.0, changefreq: "daily" },

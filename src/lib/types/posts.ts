@@ -2,7 +2,7 @@
 
 import type { Author } from "./author";
 
-export type Visibility = "public" | "unlisted" | "private";
+export type Ripeness = "seed" | "root" | "fruit";
 export type Kind = "note" | "essay" | "tutorial" | "thought";
 
 export interface CoverImage {
@@ -18,25 +18,23 @@ export interface Serie {
 }
 
 export interface SEO {
-	metaTitle?: string;
-	metaDescription?: string;
+	title?: string;
+	description?: string;
 }
 
 export interface PostFrontmatter {
 	slug: string;
 	title: string;
 	subtitle?: string;
-	excerpt?: string;
-	visibility: Visibility;
-	cover?: CoverImage;
+	summary?: string;
+	ripeness: Ripeness;
 	kind?: Kind;
+	moc?: string;
 	tags?: string[];
+	cover?: CoverImage;
 	series?: Serie;
-	author: string; // "@nick" format
 	publishedAt?: string;
 	updatedAt?: string;
-	readingTime?: number;
-	readingTimeLabel?: "short" | "medium" | "long";
 	seo?: SEO;
 }
 export interface TOCItem {

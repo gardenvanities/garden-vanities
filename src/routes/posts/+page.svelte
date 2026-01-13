@@ -4,11 +4,15 @@
 	import Container from "$lib/components/layout/Container.svelte";
 	import Section from "$lib/components/layout/Section.svelte";
 	import SEO from "$lib/components/core/SEO.svelte";
+	import Pagination from "$lib/components/core/Pagination.svelte";
 	import type { PostFrontmatter } from "$lib/types";
 
 	interface Props {
 		data: {
 			posts: PostFrontmatter[];
+			currentPage: number;
+			totalPages: number;
+			pageSize: number;
 		};
 	}
 
@@ -43,6 +47,15 @@
 					/>
 				</div>
 			{/each}
+		</div>
+
+		<div in:fly={{ y: 20, duration: 800, delay: 600 }}>
+			<Pagination
+				currentPage={data.currentPage}
+				totalPages={data.totalPages}
+				pageSize={data.pageSize}
+				baseUrl="/posts"
+			/>
 		</div>
 	</Container>
 </Section>

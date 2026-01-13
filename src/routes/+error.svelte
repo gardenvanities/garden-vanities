@@ -46,8 +46,8 @@
 			</h2>
 			<p class="text-text-muted mx-auto max-w-md text-base leading-relaxed">
 				{#if status === 404}
-					Parece que a página que você procura foi podada, movida ou nunca chegou a ser plantada
-					neste jardim.
+					Você alcançou a fronteira do reino. Como o vento, o que você buscava se esvaiu. Tudo é
+					vaidade.
 				{:else}
 					{message}
 				{/if}

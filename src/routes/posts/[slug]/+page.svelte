@@ -16,12 +16,11 @@
 </script>
 
 <SEO
-	title={metadata.title}
-	description={metadata.subtitle || metadata.excerpt}
+	title={metadata.seo?.title || metadata.title}
+	description={metadata.seo?.description || metadata.summary || metadata.subtitle}
 	type="article"
 	publishedAt={metadata.publishedAt}
 	updatedAt={metadata.updatedAt}
-	author={metadata.author}
 />
 
 <Section class="py-12! sm:py-20!">

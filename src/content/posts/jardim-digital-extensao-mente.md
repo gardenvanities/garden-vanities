@@ -1,18 +1,30 @@
 ---
+slug: jardim-digital-extensao-mente
 title: "O Jardim Digital como Extensão da Mente"
 subtitle: "Por que cultivar um espaço pessoal na web é o antídoto para o caos das redes sociais e um ferramenta poderosa de aprendizado contínuo."
-slug: "jardim-digital-extensao-mente"
-publishedAt: "2024-03-15"
-author: "@themageking"
-visibility: "public"
+summary:
+
+ripeness: "fruit"
+
 kind: "thought"
+moc: Filosofia
 tags: ["filosofia", "indieweb", "aprendizado", "pkm"]
+
+cover:
+  url:
+  alt:
+  caption:
+
 series:
   name: "Filosofia do Código"
   order: 1
+
+publishedAt: 2024-03-15
+updatedAt:
+
 seo:
-  metaTitle: "Jardim Digital e Gestão de Conhecimento Pessoal"
-  metaDescription: "Uma reflexão sobre como Digital Gardens transformam nossa relação com o conhecimento e a internet."
+  title: "Jardim Digital e Gestão de Conhecimento Pessoal"
+  description: "Uma reflexão sobre como Digital Gardens transformam nossa relação com o conhecimento e a internet."
 ---
 
 A metáfora do **Jardim Digital** muda fundamentalmente como interagimos com a informação. Ao contrário de um _blog_, onde as postagens são cronológicas e estáticas (feitas para serem consumidas e esquecidas), um jardim é um espaço vivo.

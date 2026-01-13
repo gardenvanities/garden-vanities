@@ -64,9 +64,9 @@
 										"{post.context}"
 									</p>
 								</div>
-							{:else if post.excerpt}
+							{:else if post.summary}
 								<p class="text-text-muted line-clamp-2 text-sm leading-relaxed">
-									{post.excerpt}
+									{post.summary}
 								</p>
 							{/if}
 						</a>

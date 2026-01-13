@@ -2,12 +2,29 @@
 slug: matematica-crescimento-fibonacci
 title: "A Matemática do Crescimento: Filotaxia e Fibonacci"
 subtitle: "Como a natureza utiliza algoritmos matemáticos para otimizar a captura de luz."
-excerpt: "Uma investigação sobre as espirais de Fermat e a sequência de Fibonacci na disposição das folhas e sementes vegetais."
-publishedAt: "2026-01-07"
-author: "themageking"
+summary: "Uma investigação sobre as espirais de Fermat e a sequência de Fibonacci na disposição das folhas e sementes vegetais."
+
+ripeness: "fruit"
+
 kind: "note"
+moc: Botânica
 tags: ["Botânica", "Matemática", "Filotaxia"]
-visibility: "public"
+
+cover:
+  url:
+  alt:
+  caption:
+
+series:
+  name:
+  order:
+
+publishedAt: 2026-01-07
+updatedAt:
+
+seo:
+  title:
+  description:
 ---
 
 A natureza não joga dados, ela calcula. A disposição das folhas em um caule, conhecida como **Filotaxia**, não é aleatória; ela segue uma lógica geométrica rigorosa para garantir que cada folha receba o máximo de radiação solar sem sombrear as demais.

@@ -2,29 +2,29 @@
 slug: comunicacao-intercelular-via-plasmodesmos
 title: "Plasmodesmos: Os Canais de Simplasticidade Vegetal"
 subtitle: "Uma análise sobre a infraestrutura de transporte e sinalização simplástica"
-excerpt: "Estudo da ultraestrutura dos plasmodesmos, o papel do desmotúbulo e a regulação do Limite de Exclusão de Tamanho (SEL) na fisiologia sistêmica."
-visibility: "public"
+summary: "Estudo da ultraestrutura dos plasmodesmos, o papel do desmotúbulo e a regulação do Limite de Exclusão de Tamanho (SEL) na fisiologia sistêmica."
+
+ripeness: "fruit"
+
+kind: "essay"
+moc: Botânica
+tags: ["botânica", "citologia", "transporte-em-plantas", "virologia-vegetal"]
 
 cover:
   url: "cover/d"
   alt: "Representação esquemática de um plasmodesmo atravessando a parede celular"
   caption: "Conexões citoplasmáticas que integram o tecido vegetal em um único simplasto."
 
-kind: "essay"
-tags: ["botânica", "citologia", "transporte-em-plantas", "virologia-vegetal"]
-
 series:
   name:
   order:
 
-author: "@stephan"
-
 publishedAt: 2025-12-18
 updatedAt: 2025-12-18
 
-# SEO
-metaTitle: "Fisiologia dos Plasmodesmos e Comunicação Simplástica"
-metaDescription: "Artigo técnico sobre a estrutura, função e regulação dos plasmodesmos nas plantas superiores."
+seo:
+  title: "Fisiologia dos Plasmodesmos e Comunicação Simplástica"
+  description: "Artigo técnico sobre a estrutura, função e regulação dos plasmodesmos nas plantas superiores."
 ---
 
 ## A Integração Sistêmica: O Conceito de Simplasto

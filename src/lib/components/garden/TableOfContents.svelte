@@ -56,6 +56,17 @@
 			if (observer) observer.disconnect();
 		};
 	});
+
+	function handleAnchorClick(e: MouseEvent, id: string) {
+		e.preventDefault();
+		const element = document.getElementById(id);
+		if (element) {
+			// Center the element or stick to top with offset
+			const y = element.getBoundingClientRect().top + window.scrollY - 100; // 100px offset for header
+			window.scrollTo({ top: y, behavior: "smooth" });
+			activeId = id;
+		}
+	}
 </script>
 
 {#if headings.length > 0}
@@ -76,6 +87,7 @@
 						class="block text-sm transition-all duration-300 {activeId === id
 							? 'text-brand-primary font-medium'
 							: 'text-text-muted hover:text-text-body'}"
+						onclick={(e) => handleAnchorClick(e, id)}
 					>
 						<span
 							class="mr-2 inline-block h-px w-3 bg-current opacity-20 transition-all {activeId ===
