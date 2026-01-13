@@ -1,0 +1,147 @@
+/**
+ * Prose Content — Long-form article styling
+ * 
+ * Target: Content generated from Markdown/mdsvex
+ */
+
+@layer base {
+	.prose {
+		max-width: var(--prose-width);
+		margin-inline: auto;
+		padding-inline: var(--space-4);
+		font-family: var(--font-article-body);
+		line-height: var(--line-height-relaxed);
+		color: var(--color-text);
+	}
+
+	/* Paragraphs and spacing */
+	.prose p {
+		margin-bottom: var(--space-6);
+	}
+
+	.prose p:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Links */
+	.prose a {
+		color: var(--color-primary);
+		text-decoration: underline;
+		text-underline-offset: var(--text-underline-offset-normal);
+		text-decoration-thickness: var(--text-decoration-thickness-thin);
+	}
+
+	.prose a:hover {
+		text-decoration-thickness: var(--text-decoration-thickness-normal);
+	}
+
+	/* Headings within prose */
+	.prose h2 {
+		font-size: var(--type-4);
+		margin-top: var(--space-10);
+		margin-bottom: var(--space-4);
+		font-family: var(--font-article-title);
+		font-weight: var(--font-weight-heading);
+		color: var(--color-text);
+		font-size: var(--type-4);
+		line-height: var(--line-height-snug);
+		letter-spacing: var(--letter-spacing-tight);
+	}
+
+	.prose h3 {
+		font-size: var(--type-3);
+		margin-top: var(--space-8);
+		margin-bottom: var(--space-3);
+		font-family: var(--font-article-title);
+		font-weight: var(--font-weight-heading);
+		color: var(--color-text);
+		font-size: var(--type-3);
+		line-height: var(--line-height-snug);
+		letter-spacing: var(--letter-spacing-normal);
+	}
+
+	.prose h4 {
+		font-size: var(--type-2);
+		margin-top: var(--space-6);
+		margin-bottom: var(--space-2);
+		font-family: var(--font-article-title);
+		font-weight: 600;
+		letter-spacing: var(--letter-spacing-tight);
+	}
+
+	/* Vertical Rhythm fixes */
+	.prose h2 + h3 {
+		margin-top: var(--space-4);
+	}
+
+	.prose h3 + h4 {
+		margin-top: var(--space-3);
+	}
+
+	/* Lists */
+	.prose ul,
+	.prose ol {
+		margin-bottom: var(--space-6);
+		padding-left: var(--space-6);
+	}
+
+	.prose li {
+		margin-bottom: var(--space-2);
+	}
+
+	/* Blockquotes */
+	.prose blockquote {
+		font-size: var(--type-2);
+		line-height: var(--line-height-relaxed);
+		max-width: var(--measure-narrow);
+		font-style: italic;
+		border-left: 3px solid var(--color-primary);
+		margin: var(--space-8) 0;
+		padding-left: var(--space-6);
+		color: var(--color-muted);
+	}
+
+	.prose blockquote p {
+		margin-bottom: var(--space-2);
+	}
+
+	/* Inline Code */
+	.prose :not(pre) > code {
+		font-family: var(--font-mono);
+		font-feature-settings: var(--font-feature-code);
+		font-size: 0.85em;
+		background-color: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-1);
+		padding: 0.2em 0.4em;
+	}
+
+	/* Images */
+	.prose img {
+		border-radius: var(--radius-2);
+		margin: var(--space-8) auto;
+		display: block;
+		max-width: 100%;
+		height: auto;
+	}
+
+	/* Tables */
+	.prose table {
+		width: 100%;
+		border-collapse: collapse;
+		margin-bottom: var(--space-8);
+		font-size: var(--type-0);
+	}
+
+	.prose th {
+		text-align: left;
+		padding: var(--space-3);
+		border-bottom: 2px solid var(--color-border-vivid);
+		font-weight: 600;
+	}
+
+	.prose td {
+		padding: var(--space-3);
+		border-bottom: 1px solid var(--color-border);
+	}
+}

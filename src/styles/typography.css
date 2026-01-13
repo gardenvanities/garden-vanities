@@ -2,10 +2,10 @@
  * Typography Rules — Humanist + Dark Academy
  * 
  * HEADING HIERARCHY:
- * H1 — ÚNICO, título do artigo (type-6)
- * H2 — Grande, macro-seções (type-4)
- * H3 — Médio, subseções (type-3)
- * H4 — Body size, bold, organização interna (type-2)
+ * H1 — ÚNICO, título do artigo 
+ * H2 — Grande, macro-seções 
+ * H3 — Médio, subseções 
+ * H4 — Body size, bold, organização interna 
  * H5 — Igual ao H4, raramente usado
  * H6 — Evitar, só semântica
  */
@@ -48,7 +48,7 @@
 		color: var(--color-text);
 		font-family: var(--font-body);
 		font-size: var(--type-1);
-		line-height: var(--line-height-body);
+		line-height: var(--line-height-normal);
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		text-rendering: optimizeLegibility;
@@ -65,9 +65,9 @@
 	h5,
 	h6 {
 		font-family: var(--font-heading);
-		font-weight: 700;
-		line-height: var(--line-height-heading);
-		letter-spacing: var(--letter-spacing-tight);
+		font-weight: var(--font-weight-heading);
+		line-height: var(--line-height-tight);
+		letter-spacing: var(--letter-spacing-normal);
 		color: var(--color-text);
 		margin: 0;
 	}
@@ -76,8 +76,11 @@
 	h1,
 	.article-title {
 		font-family: var(--font-article-title);
-		font-size: var(--type-6);
-		margin-bottom: var(--space-6);
+		font-size: var(--type-5);
+		line-height: var(--line-height-tight);
+		letter-spacing: var(--letter-spacing-tight);
+		font-weight: var(--font-weight-heading);
+		margin-bottom: var(--space-5);
 	}
 
 	h1:not(.article-title) {
@@ -87,6 +90,9 @@
 	/* H2 — Macro-seções */
 	h2 {
 		font-size: var(--type-4);
+		line-height: var(--line-height-snug);
+		letter-spacing: var(--letter-spacing-tight);
+		font-weight: var(--font-weight-heading);
 		margin-top: var(--space-10);
 		margin-bottom: var(--space-4);
 	}
@@ -94,6 +100,9 @@
 	/* H3 — Subseções */
 	h3 {
 		font-size: var(--type-3);
+		line-height: var(--line-height-snug);
+		letter-spacing: var(--letter-spacing-normal);
+		font-weight: var(--font-weight-heading);
 		margin-top: var(--space-8);
 		margin-bottom: var(--space-3);
 	}
@@ -101,7 +110,8 @@
 	/* H4 — Organização interna (igual body, bold) */
 	h4 {
 		font-size: var(--type-2);
-		font-weight: 600;
+		font-weight: var(--font-weight-heading);
+		line-height: var(--line-height-snug);
 		margin-top: var(--space-6);
 		margin-bottom: var(--space-2);
 	}
@@ -158,12 +168,14 @@
 	a {
 		color: var(--color-primary);
 		text-decoration: none;
-		text-underline-offset: 2px;
+		text-underline-offset: var(--text-underline-offset-normal);
+		text-decoration-thickness: var(--text-decoration-thickness-thin);
 		transition: color var(--motion-fast) var(--motion-ease);
 	}
 
 	a:hover {
 		color: var(--color-accent);
+		text-decoration-thickness: var(--text-decoration-thickness-normal);
 	}
 
 	/* ═══════════════════════════════════════════════════════════════════════════
@@ -200,6 +212,9 @@
 	pre {
 		font-family: var(--font-mono);
 		font-size: var(--type-0);
+		font-feature-settings: var(--font-feature-code);
+		max-width: var(--measure-code);
+		line-height: var(--line-height-normal);
 		background-color: var(--color-surface);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-2);
@@ -239,30 +254,6 @@
 		border: none;
 		border-top: 1px solid var(--color-border);
 		margin: var(--space-8) 0;
-	}
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     PROSE CONTAINER — Long-form content
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-	.prose {
-		max-width: var(--prose-width);
-		margin-inline: auto;
-		padding-inline: var(--space-4);
-		font-family: var(--font-article-body);
-	}
-
-	.prose a {
-		text-decoration: underline;
-	}
-
-	/* Nested heading margins in prose */
-	.prose h2 + h3 {
-		margin-top: var(--space-4);
-	}
-
-	.prose h3 + h4 {
-		margin-top: var(--space-3);
 	}
 
 	/* ═══════════════════════════════════════════════════════════════════════════

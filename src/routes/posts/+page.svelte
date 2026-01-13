@@ -27,12 +27,12 @@
 	<Container size="sm">
 		<header class="mb-12">
 			<h1
-				class="text-text-heading text-3xl font-bold tracking-tight sm:text-4xl"
+				class="text-text text-3xl font-bold tracking-tight sm:text-4xl"
 				in:fly={{ y: 20, duration: 800, delay: 100 }}
 			>
 				Todos os Artigos
 			</h1>
-			<p class="text-text-muted mt-4 text-lg" in:fly={{ y: 20, duration: 800, delay: 200 }}>
+			<p class="text-muted mt-4 text-lg" in:fly={{ y: 20, duration: 800, delay: 200 }}>
 				O arquivo completo do jardim digital.
 			</p>
 		</header>

@@ -10,16 +10,16 @@
 @media (prefers-color-scheme: dark) {
 	:root:not(.light) {
 		/* Background & Surface */
-		--color-bg: oklch(0.12 0.01 55); /* Deep warm black */
-		--color-surface: oklch(0.16 0.015 55); /* Aged leather dark */
+		--color-bg: oklch(var(--gray-1000)); /* Deep warm black */
+		--color-surface: oklch(var(--gray-950)); /* Aged leather dark */
 
 		/* Text */
-		--color-text: oklch(0.92 0.01 80); /* Warm off-white */
-		--color-muted: oklch(0.65 0.015 80); /* Muted stone */
+		--color-text: oklch(var(--gray-50)); /* Warm off-white */
+		--color-muted: oklch(var(--gray-400)); /* Muted stone */
 
-		/* Primary — Antique gold */
-		--color-primary: oklch(0.72 0.12 75); /* Warm antique gold */
-		--color-primary-contrast: oklch(0.12 0.01 55);
+		/* Primary — Pastel Purple */
+		--color-primary: oklch(0.78 0.12 290);
+		--color-primary-contrast: oklch(var(--gray-950));
 
 		/* Accent — Burnished copper */
 		--color-accent: oklch(0.62 0.14 50); /* Burnished copper */
@@ -40,8 +40,8 @@
 		--color-focus: var(--color-primary);
 
 		/* Border & Dividers */
-		--color-border: oklch(0.92 0.01 80 / 0.08);
-		--color-border-vivid: oklch(0.92 0.01 80 / 0.15);
+		--color-border: oklch(var(--gray-800));
+		--color-border-vivid: oklch(var(--gray-700));
 
 		/* Shadows (inverted for dark theme) */
 		/* Shadows (richer warm shadows for dark academia) */
@@ -71,14 +71,14 @@
 
 /* Explicit .dark class (overrides system preference) */
 .dark {
-	--color-bg: oklch(0.12 0.01 55);
-	--color-surface: oklch(0.16 0.015 55);
+	--color-bg: oklch(var(--gray-1000));
+	--color-surface: oklch(var(--gray-950));
 
-	--color-text: oklch(0.92 0.01 80);
-	--color-muted: oklch(0.65 0.015 80);
+	--color-text: oklch(var(--gray-50));
+	--color-muted: oklch(var(--gray-400));
 
-	--color-primary: oklch(0.72 0.12 75);
-	--color-primary-contrast: oklch(0.12 0.01 55);
+	--color-primary: oklch(0.78 0.12 290);
+	--color-primary-contrast: oklch(var(--gray-950));
 
 	--color-accent: oklch(0.62 0.14 50);
 	--color-accent-contrast: oklch(0.12 0.01 55);
@@ -94,8 +94,8 @@
 	--color-action-hover: oklch(0.92 0.01 80 / 0.1);
 	--color-focus: var(--color-primary);
 
-	--color-border: oklch(0.92 0.01 80 / 0.08);
-	--color-border-vivid: oklch(0.92 0.01 80 / 0.15);
+	--color-border: oklch(var(--gray-800));
+	--color-border-vivid: oklch(var(--gray-700));
 
 	--shadow-1: 0 1px 2px oklch(0.12 0.05 55 / 0.3);
 	--shadow-2: 0 2px 8px oklch(0.12 0.05 55 / 0.4), 0 1px 2px oklch(0.12 0.05 55 / 0.3);
@@ -122,14 +122,14 @@
 
 /* Explicit .light class (overrides system preference) */
 .light {
-	--color-bg: oklch(0.97 0.005 80);
-	--color-surface: oklch(0.99 0.002 80);
+	--color-bg: oklch(var(--gray-50));
+	--color-surface: oklch(var(--gray-0));
 
-	--color-text: oklch(0.18 0.01 80);
-	--color-muted: oklch(0.5 0.01 80);
+	--color-text: oklch(var(--gray-900));
+	--color-muted: oklch(var(--gray-600));
 
-	--color-primary: oklch(0.42 0.08 55);
-	--color-primary-contrast: oklch(0.98 0.005 80);
+	--color-primary: oklch(0.7 0.13 290);
+	--color-primary-contrast: oklch(var(--gray-900));
 
 	--color-accent: oklch(0.55 0.12 55);
 	--color-accent-contrast: oklch(0.98 0.005 80);
@@ -138,8 +138,8 @@
 	--color-warning: oklch(0.7 0.15 70);
 	--color-success: oklch(0.55 0.12 145);
 
-	--color-border: oklch(0.18 0.01 80 / 0.08);
-	--color-border-vivid: oklch(0.18 0.01 80 / 0.15);
+	--color-border: oklch(var(--gray-200));
+	--color-border-vivid: oklch(var(--gray-300));
 
 	--shadow-1: 0 1px 2px oklch(0.18 0.01 80 / 0.04);
 	--shadow-2: 0 2px 8px oklch(0.18 0.01 80 / 0.06), 0 1px 2px oklch(0.18 0.01 80 / 0.04);

@@ -329,7 +329,7 @@
 
 <!-- Results Popover -->
 <div
-	class="absolute bottom-full left-0 mb-5 w-full origin-bottom overflow-hidden rounded-2xl border border-white/20 bg-white/95 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/95"
+	class="bg-surface/95 absolute bottom-full left-0 mb-5 w-full origin-bottom overflow-hidden rounded-2xl border border-white/20 shadow-2xl backdrop-blur-xl dark:border-white/10"
 	transition:fly={{ y: 20, duration: 300, easing: backOut }}
 >
 	<div class="scrollbar-none max-h-[50vh] overflow-y-auto p-2">
@@ -339,8 +339,8 @@
 					<button
 						class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors
 							{selectedIndex === i
-							? 'bg-pink-500/10 text-pink-600 dark:text-pink-400'
-							: 'text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800'}"
+							? 'bg-primary/10 text-primary'
+							: 'text-muted hover:bg-muted/10 hover:text-text'}"
 						onclick={item.action}
 						data-nav-index={i}
 					>
@@ -361,20 +361,20 @@
 			</div>
 		{:else if isLoading}
 			<div class="flex animate-pulse flex-col items-center justify-center py-8 text-center">
-				<SearchCode size={32} class="mb-2 text-zinc-300 dark:text-zinc-600" />
-				<p class="text-sm text-zinc-500">Cultivando índice...</p>
+				<SearchCode size={32} class="text-muted/50 mb-2" />
+				<p class="text-muted text-sm">Cultivando índice...</p>
 			</div>
 		{:else}
 			<div class="flex flex-col items-center justify-center py-8 text-center">
-				<SearchCode size={32} class="mb-2 text-zinc-300 dark:text-zinc-600" />
-				<p class="text-sm text-zinc-500">Nada encontrado</p>
+				<SearchCode size={32} class="text-muted/50 mb-2" />
+				<p class="text-muted text-sm">Nada encontrado</p>
 			</div>
 		{/if}
 	</div>
 
 	<!-- Footer Hints -->
 	<div
-		class="flex items-center justify-between border-t border-zinc-200/50 bg-zinc-50/50 px-3 py-2 text-[10px] text-zinc-400 dark:border-zinc-800/50 dark:bg-zinc-900/50"
+		class="border-border bg-muted/5 text-muted flex items-center justify-between border-t px-3 py-2 text-[10px]"
 	>
 		<div class="flex gap-2">
 			<span class="flex items-center gap-1"><kbd class="font-sans">↑↓</kbd> navegar</span>
@@ -392,7 +392,7 @@
          If parent switches {#if}, it applies to the whole component. 
          But we want the INPUT to fade. The Popover flies. 
          So we can put fade on this div. -->
-	<div class="shrink-0 text-pink-500">
+	<div class="text-primary shrink-0">
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="18"
@@ -414,12 +414,12 @@
 		bind:value={query}
 		type="text"
 		placeholder="Buscar artigos, temas..."
-		class="flex-1 bg-transparent text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none dark:text-white dark:placeholder:text-zinc-500"
+		class="text-text placeholder:text-muted flex-1 bg-transparent text-sm focus:outline-none"
 		onkeydown={handleKeydown}
 	/>
 	<button
 		type="button"
-		class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-zinc-500 transition-colors hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
+		class="bg-muted/10 text-muted hover:bg-muted/20 hover:text-text flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors"
 		onclick={closeSearch}
 		aria-label="Fechar busca"
 	>

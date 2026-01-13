@@ -71,12 +71,8 @@
 
 {#if headings.length > 0}
 	<nav class="hidden lg:sticky lg:top-24 lg:block lg:h-fit lg:w-64" aria-label="Sumário">
-		<h4
-			class="text-text-heading mb-4 font-serif text-sm font-bold tracking-widest uppercase italic"
-		>
-			Sumário
-		</h4>
-		<ul class="space-y-3 border-l border-white/5 py-1">
+		<h4 class="text-type-1 mb-4 font-bold uppercase">Sumário</h4>
+		<ul class="border-border space-y-3 border-l py-1">
 			{#each headings as { id, text, level }, i (id)}
 				<li
 					class={level === 3 ? "ml-4" : ""}
@@ -85,8 +81,8 @@
 					<a
 						href="#{id}"
 						class="block text-sm transition-all duration-300 {activeId === id
-							? 'text-brand-primary font-medium'
-							: 'text-text-muted hover:text-text-body'}"
+							? 'text-primary font-medium'
+							: 'text-muted hover:text-text'}"
 						onclick={(e) => handleAnchorClick(e, id)}
 					>
 						<span

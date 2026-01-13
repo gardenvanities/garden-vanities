@@ -15,16 +15,16 @@
      ═══════════════════════════════════════════════════════════════════════════ */
 
 	/* Background & Surface */
-	--color-bg: oklch(0.97 0.005 80); /* Warm ivory/parchment */
-	--color-surface: oklch(0.99 0.002 80); /* Clean warm white */
+	--color-bg: oklch(var(--gray-50)); /* Warm ivory/parchment */
+	--color-surface: oklch(var(--gray-0)); /* Clean warm white */
 
 	/* Text */
-	--color-text: oklch(0.18 0.01 80); /* Deep warm charcoal */
-	--color-muted: oklch(0.5 0.01 80); /* Scholarly gray */
+	--color-text: oklch(var(--gray-900)); /* Deep warm charcoal */
+	--color-muted: oklch(var(--gray-600)); /* Scholarly gray */
 
-	/* Primary — Rich brown (dark academia) */
-	--color-primary: oklch(0.42 0.08 55); /* Aged leather brown */
-	--color-primary-contrast: oklch(0.98 0.005 80);
+	/* Primary — Pastel Purple */
+	--color-primary: oklch(0.7 0.13 290);
+	--color-primary-contrast: oklch(var(--gray-900));
 
 	/* Accent — Warm sienna */
 	--color-accent: oklch(0.55 0.12 55); /* Vintage sienna */
@@ -45,8 +45,8 @@
 	--color-focus: var(--color-primary); /* Focus ring color */
 
 	/* Border & Dividers */
-	--color-border: oklch(0.18 0.01 80 / 0.08); /* Subtle warm gray */
-	--color-border-vivid: oklch(0.18 0.01 80 / 0.15);
+	--color-border: oklch(var(--gray-200)); /* Subtle warm gray */
+	--color-border-vivid: oklch(var(--gray-300));
 
 	/* ═══════════════════════════════════════════════════════════════════════════
      SPACING TOKENS — Restrictive Scale (only these values allowed)
@@ -92,7 +92,7 @@
      FONT FAMILIES
      ═══════════════════════════════════════════════════════════════════════════ */
 
-	--font-heading: "Red Hat Display", system-ui, -apple-system, sans-serif;
+	--font-heading: "Fraunces", Georgia, "Times New Roman", serif;
 	--font-body: "Red Hat Display", system-ui, -apple-system, sans-serif;
 	--font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 	--font-article-body: "Rowan", Georgia, "Times New Roman", serif;

@@ -75,13 +75,11 @@
 		<!-- Pagination Controls -->
 		{#if totalPages > 1}
 			<nav aria-label="Pagination">
-				<div
-					class="inline-flex items-center gap-1.5 rounded-xl bg-zinc-200/60 p-1.5 dark:bg-white/5"
-				>
+				<div class="bg-border/50 inline-flex items-center gap-1.5 rounded-xl p-1.5">
 					<!-- Previous Button -->
 					<a
 						href={currentPage > 1 ? getPageUrl(currentPage - 1) : undefined}
-						class="flex items-center gap-1 rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-zinc-900 shadow-sm transition-all hover:bg-zinc-50 disabled:opacity-50 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700 {currentPage <=
+						class="bg-surface text-text hover:bg-surface/80 flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium shadow-sm transition-all disabled:opacity-50 {currentPage <=
 						1
 							? 'pointer-events-none opacity-50'
 							: ''}"
@@ -97,7 +95,7 @@
 						{#each pages as page (page)}
 							{#if page === "..."}
 								<span
-									class="flex h-8 w-8 items-center justify-center text-sm tracking-widest text-zinc-500"
+									class="text-muted flex h-8 w-8 items-center justify-center text-sm tracking-widest"
 								>
 									...
 								</span>
@@ -106,8 +104,8 @@
 									href={getPageUrl(number(page))}
 									class="flex h-8 w-8 items-center justify-center rounded-lg text-sm font-medium transition-colors {currentPage ===
 									page
-										? 'bg-zinc-900 text-white shadow-sm dark:bg-zinc-100 dark:text-zinc-900'
-										: 'text-zinc-600 hover:bg-black/5 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-white/10 dark:hover:text-zinc-200'}"
+										? 'bg-primary text-primary-contrast shadow-sm'
+										: 'text-muted hover:text-text hover:bg-black/5 dark:hover:bg-white/10'}"
 									data-sveltekit-noscroll
 									aria-current={currentPage === page ? "page" : undefined}
 								>
@@ -120,7 +118,7 @@
 					<!-- Next Button -->
 					<a
 						href={currentPage < totalPages ? getPageUrl(currentPage + 1) : undefined}
-						class="flex items-center gap-1 rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-zinc-900 shadow-sm transition-all hover:bg-zinc-50 disabled:opacity-50 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700 {currentPage >=
+						class="bg-surface text-text hover:bg-surface/80 flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium shadow-sm transition-all disabled:opacity-50 {currentPage >=
 						totalPages
 							? 'pointer-events-none opacity-50'
 							: ''}"
@@ -135,14 +133,14 @@
 		{/if}
 
 		<!-- Rows Per Page Selector -->
-		<div class="inline-flex items-center gap-1 rounded-xl bg-zinc-200/60 p-1.5 dark:bg-white/5">
+		<div class="bg-border/50 inline-flex items-center gap-1 rounded-xl p-1.5">
 			{#each pageSizeOptions as option (option)}
 				<a
 					href={getLimitUrl(option)}
 					class="flex items-center justify-center rounded-lg px-3 py-1.5 text-sm font-medium transition-all {pageSize ===
 					option
-						? 'bg-white text-zinc-900 shadow-sm dark:bg-zinc-800 dark:text-zinc-100'
-						: 'text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200'}"
+						? 'bg-surface text-text shadow-sm'
+						: 'text-muted hover:text-text'}"
 					data-sveltekit-noscroll
 				>
 					{option}

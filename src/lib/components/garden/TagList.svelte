@@ -21,7 +21,7 @@
 
 	{#if remaining > 0}
 		<span
-			class="border-border-default/50 text-text-muted/60 inline-flex items-center rounded border bg-white/2 px-1.5 py-0.5 text-[10px] font-medium"
+			class="border-border/50 text-muted/60 bg-surface/50 inline-flex items-center rounded border px-1.5 py-0.5 text-[10px] font-medium"
 		>
 			+{remaining}
 		</span>

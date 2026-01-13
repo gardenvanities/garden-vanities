@@ -3,6 +3,7 @@
 	import RipenessBadge from "./RipenessBadge.svelte";
 	import { formatRelativeDate } from "$lib/utils/date";
 	import { fly } from "svelte/transition";
+	import type { Component } from "svelte";
 
 	import { Sprout, Leaf, Apple } from "@lucide/svelte";
 
@@ -18,7 +19,7 @@
 
 	let activeTab = $state<Ripeness>("fruit");
 
-	const tabs: Array<{ value: Ripeness; label: string; icon: any }> = [
+	const tabs: Array<{ value: Ripeness; label: string; icon: Component }> = [
 		{ value: "seed", label: "Sementes", icon: Sprout },
 		{ value: "root", label: "Raízes", icon: Leaf },
 		{ value: "fruit", label: "Frutos", icon: Apple }

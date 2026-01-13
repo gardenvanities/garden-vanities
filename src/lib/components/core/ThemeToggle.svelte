@@ -15,18 +15,16 @@
 	}
 </script>
 
-<div
-	class="flex items-center gap-1 rounded-full border border-dashed border-zinc-300 p-1 dark:border-zinc-700"
->
+<div class="bg-surface flex items-center gap-1 rounded-md p-1">
 	{#each options as option (option.value)}
 		{@const Icon = option.icon}
 		{@const isActive = theme === option.value}
 		<button
 			type="button"
-			class="flex h-7 w-7 items-center justify-center rounded-full transition-all duration-200
+			class="flex h-7 w-7 items-center justify-center rounded-md transition-all duration-200
                 {isActive
-				? 'border border-zinc-400 text-zinc-900 dark:border-zinc-500 dark:text-zinc-100'
-				: 'border border-transparent text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300'}"
+				? 'border-border-vivid text-text border'
+				: 'text-muted hover:text-text border border-transparent'}"
 			onclick={() => selectTheme(option.value)}
 			aria-label={option.label}
 			aria-pressed={isActive}

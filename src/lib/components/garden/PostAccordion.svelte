@@ -30,7 +30,7 @@
 	const headingId = $derived(`post-accordion-${post.slug}-heading`);
 </script>
 
-<article class="group border-border-default transition-color w-full border-b">
+<article class="group border-border transition-color w-full border-b">
 	<div class="flex items-stretch justify-between">
 		<!-- Área do Título (Link) -->
 		<div class="flex grow flex-col py-5 pr-4">
@@ -41,7 +41,7 @@
 			{/if}
 			<a
 				href="{base}/posts/{post.slug}"
-				class="group/link text-text-heading hover:text-brand-primary block text-base font-semibold tracking-tight transition-colors sm:text-lg"
+				class="group/link text-text hover:text-primary block text-base font-semibold tracking-tight transition-colors sm:text-lg"
 			>
 				{post.title}
 				<span class="inline-block align-middle">
@@ -64,8 +64,8 @@
 		>
 			<div class="flex h-8 w-8 items-center justify-center transition-colors">
 				<ChevronDown
-					class={`text-text-muted h-5 w-5 transition-all duration-300 ease-out ${
-						open ? "text-brand-primary rotate-180" : "group-hover:text-text-heading rotate-0"
+					class={`text-muted h-5 w-5 transition-all duration-300 ease-out ${
+						open ? "text-primary rotate-180" : "group-hover:text-text rotate-0"
 					}`}
 					aria-hidden="true"
 				/>
@@ -83,7 +83,7 @@
 			class="pb-8"
 		>
 			{#if subtitle}
-				<p class="text-text-body/80 mb-6 max-w-2xl text-sm leading-relaxed">{subtitle}</p>
+				<p class="text-text/80 mb-6 max-w-2xl text-sm leading-relaxed">{subtitle}</p>
 			{/if}
 
 			<PostMetadataGrid {post} />

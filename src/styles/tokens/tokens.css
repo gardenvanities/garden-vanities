@@ -1,0 +1,136 @@
+:root {
+	--gray-0: 1 0 0;
+	--gray-50: 0.98 0 0;
+	--gray-100: 0.95 0 0;
+	--gray-200: 0.9 0 0;
+	--gray-300: 0.84 0 0;
+	--gray-400: 0.76 0 0;
+	--gray-500: 0.67 0 0;
+	--gray-600: 0.58 0 0;
+	--gray-700: 0.48 0 0;
+	--gray-800: 0.38 0 0;
+	--gray-900: 0.28 0 0;
+	--gray-950: 0.18 0 0;
+	--gray-1000: 0 0 0;
+
+	--font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+	--font-body: "Red Hat Display", system-ui, -apple-system, sans-serif;
+	--font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+	--font-article-body: "Rowan", Georgia, "Times New Roman", serif;
+	--font-article-title: "Fraunces", Georgia, "Times New Roman", serif;
+
+	--font-weight-100: 100;
+	--font-weight-200: 200;
+	--font-weight-300: 300;
+	--font-weight-400: 400;
+	--font-weight-500: 500;
+	--font-weight-600: 600;
+	--font-weight-700: 700;
+	--font-weight-800: 800;
+	--font-weight-900: 900;
+
+	--font-weight-body: var(--font-weight-400);
+	--font-weight-emphasis: var(--font-weight-500);
+	--font-weight-heading: var(--font-weight-600);
+	--font-weight-display: var(--font-weight-700);
+
+	--font-style-normal: normal;
+	--font-style-italic: italic;
+	--font-style-oblique: oblique;
+
+	--font-kerning: normal;
+	--font-variant-numeric-default: normal;
+	--font-variant-numeric-tabular: tabular-nums;
+	--font-variant-numeric-lining: lining-nums;
+	--font-variant-numeric-oldstyle: oldstyle-nums;
+	--font-variant-numeric-proportional: proportional-nums;
+	--font-feature-default: "kern" 1, "liga" 1, "calt" 1;
+	--font-feature-prose: "kern" 1, "liga" 1, "calt" 1, "onum" 1;
+	--font-feature-ui: "kern" 1, "liga" 1, "tnum" 1, "lnum" 1;
+	--font-feature-code: "kern" 1, "liga" 1, "calt" 1, "ss01" 1;
+
+	--letter-spacing-tighter: -0.04em;
+	--letter-spacing-tight: -0.02em;
+	--letter-spacing-normal: 0;
+	--letter-spacing-wide: 0.02em;
+	--letter-spacing-wider: 0.04em;
+	--letter-spacing-caps: 0.08em;
+
+	--word-spacing-tight: -0.02em;
+	--word-spacing-normal: 0;
+	--word-spacing-wide: 0.05em;
+
+	--line-height-compact: 1.1;
+	--line-height-tight: 1.15;
+	--line-height-snug: 1.25;
+	--line-height-normal: 1.4;
+	--line-height-relaxed: 1.6;
+	--line-height-loose: 1.75;
+
+	--measure-narrow: 55ch;
+	--measure-prose: 65ch;
+	--measure-wide: 75ch;
+	--measure-code: 80ch;
+
+	--text-indent-none: 0;
+	--text-indent-paragraph: 1.5em;
+
+	--paragraph-spacing-tight: 0.75em;
+	--paragraph-spacing-normal: 1em;
+	--paragraph-spacing-relaxed: 1.5em;
+
+	--text-underline-offset-small: 0.1em;
+	--text-underline-offset-normal: 0.15em;
+	--text-underline-offset-large: 0.25em;
+	--text-decoration-thickness-thin: 0.05em;
+	--text-decoration-thickness-normal: 0.1em;
+	--text-decoration-thickness-bold: 0.15em;
+
+	--type--1-min: 0.72rem;
+	--type--1-fluid: calc(0.7rem + 0.15vw);
+	--type--1-max: 0.8rem;
+	--type--1: clamp(var(--type--1-min), var(--type--1-fluid), var(--type--1-max));
+
+	--type-0-min: 0.9rem;
+	--type-0-fluid: calc(0.85rem + 0.25vw);
+	--type-0-max: 1rem;
+	--type-0: clamp(var(--type-0-min), var(--type-0-fluid), var(--type-0-max));
+
+	--type-1-min: 1.125rem;
+	--type-1-fluid: calc(1.05rem + 0.35vw);
+	--type-1-max: 1.25rem;
+	--type-1: clamp(var(--type-1-min), var(--type-1-fluid), var(--type-1-max));
+
+	--type-2-min: 1.4rem;
+	--type-2-fluid: calc(1.3rem + 0.5vw);
+	--type-2-max: 1.56rem;
+	--type-2: clamp(var(--type-2-min), var(--type-2-fluid), var(--type-2-max));
+
+	--type-3-min: 1.75rem;
+	--type-3-fluid: calc(1.6rem + 0.7vw);
+	--type-3-max: 1.95rem;
+	--type-3: clamp(var(--type-3-min), var(--type-3-fluid), var(--type-3-max));
+
+	--type-4-min: 2.2rem;
+	--type-4-fluid: calc(2rem + 1vw);
+	--type-4-max: 2.44rem;
+	--type-4: clamp(var(--type-4-min), var(--type-4-fluid), var(--type-4-max));
+
+	--type-5-min: 2.75rem;
+	--type-5-fluid: calc(2.5rem + 1.5vw);
+	--type-5-max: 3.05rem;
+	--type-5: clamp(var(--type-5-min), var(--type-5-fluid), var(--type-5-max));
+
+	--type-6-min: 3.44rem;
+	--type-6-fluid: calc(3rem + 2vw);
+	--type-6-max: 3.81rem;
+	--type-6: clamp(var(--type-6-min), var(--type-6-fluid), var(--type-6-max));
+
+	--type-7-min: 4.3rem;
+	--type-7-fluid: calc(3.75rem + 2.5vw);
+	--type-7-max: 4.77rem;
+	--type-7: clamp(var(--type-7-min), var(--type-7-fluid), var(--type-7-max));
+
+	--type-base: var(--type-0);
+	--type-body: var(--type-1);
+}

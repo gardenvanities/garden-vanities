@@ -20,10 +20,7 @@ const config = {
 		mdsvex({
 			extensions: [".md", ".svx"],
 			remarkPlugins: [remarkMath],
-			rehypePlugins: [
-				rehypeSlug,
-				rehypeKatexSvelte
-			],
+			rehypePlugins: [rehypeSlug, rehypeKatexSvelte],
 			highlight: {
 				highlighter: async (code, lang) => {
 					await highlighter.loadLanguage(lang);

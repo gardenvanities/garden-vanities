@@ -26,11 +26,13 @@
 @import "katex/dist/katex.min.css";
 
 /* Design System Tokens */
+@import "./styles/tokens/tokens.css";
 @import "./styles/tokens/theme.css";
 @import "./styles/tokens/themes-dark.css";
 
 /* Typography & Base Styles */
 @import "./styles/typography.css";
+@import "./styles/prose.css";
 
 /* Components */
 @import "./styles/components.css";
@@ -62,6 +64,33 @@
 	--font-heading: var(--font-heading);
 	--font-body: var(--font-body);
 	--font-mono: var(--font-mono);
+
+	/* Font Sizes */
+	--text-xs: var(--type--1);
+	--text-sm: var(--type-0);
+	--text-base: var(--type-1);
+	--text-lg: var(--type-2);
+	--text-xl: var(--type-3);
+	--text-2xl: var(--type-4);
+	--text-3xl: var(--type-5);
+	--text-4xl: var(--type-6);
+	--text-5xl: var(--type-7);
+
+	/* Line Heights */
+	--leading-compact: var(--line-height-compact);
+	--leading-tight: var(--line-height-tight);
+	--leading-snug: var(--line-height-snug);
+	--leading-normal: var(--line-height-normal);
+	--leading-relaxed: var(--line-height-relaxed);
+	--leading-loose: var(--line-height-loose);
+
+	/* Letter Spacing */
+	--tracking-tighter: var(--letter-spacing-tighter);
+	--tracking-tight: var(--letter-spacing-tight);
+	--tracking-normal: var(--letter-spacing-normal);
+	--tracking-wide: var(--letter-spacing-wide);
+	--tracking-wider: var(--letter-spacing-wider);
+	--tracking-caps: var(--letter-spacing-caps);
 
 	/* Radii */
 	--radius-sm: var(--radius-1);
