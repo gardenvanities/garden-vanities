@@ -105,7 +105,7 @@
 									class="flex h-8 w-8 items-center justify-center rounded-lg text-sm font-medium transition-colors {currentPage ===
 									page
 										? 'bg-primary text-primary-contrast shadow-sm'
-										: 'text-muted hover:text-text hover:bg-black/5 dark:hover:bg-white/10'}"
+										: 'text-muted hover:text-text hover:bg-action-hover'}"
 									data-sveltekit-noscroll
 									aria-current={currentPage === page ? "page" : undefined}
 								>

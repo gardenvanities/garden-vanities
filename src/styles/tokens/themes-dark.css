@@ -1,147 +1,186 @@
 /**
- * Dark Theme Overrides — Dark Academy Aesthetic
+ * Dark Theme Overrides — Dark Academia Aesthetic
  * 
- * Applied via:
- * - .dark class on <html>
- * - System preference (prefers-color-scheme: dark)
+ * Strategy: Single Source of Truth via --dt-* (Dark Token) variables.
+ * These are mapped to specific selectors to support both System Prefs and Manual Toggle.
  */
 
-/* System preference: dark mode */
-@media (prefers-color-scheme: dark) {
-	:root:not(.light) {
-		/* Background & Surface */
-		--color-bg: oklch(var(--gray-1000)); /* Deep warm black */
-		--color-surface: oklch(var(--gray-950)); /* Aged leather dark */
+:root {
+	/* ═══════════════════════════════════════════════════════════════════════════
+       DARK THEME PALETTE (Source of Truth)
+       ═══════════════════════════════════════════════════════════════════════════ */
 
-		/* Text */
-		--color-text: oklch(var(--gray-50)); /* Warm off-white */
-		--color-muted: oklch(var(--gray-400)); /* Muted stone */
+	/* Backgrounds & Surfaces */
+	--dt-bg: oklch(var(--gray-1000));
+	--dt-surface: oklch(var(--gray-950));
+	--dt-surface-elevated: oklch(var(--gray-900)); /* Optimized for Modals/Floaters */
 
-		/* Primary — Pastel Purple */
-		--color-primary: oklch(0.78 0.12 290);
-		--color-primary-contrast: oklch(var(--gray-950));
+	/* Text */
+	--dt-text: oklch(var(--gray-50));
+	--dt-muted: oklch(var(--gray-400));
 
-		/* Accent — Burnished copper */
-		--color-accent: oklch(0.62 0.14 50); /* Burnished copper */
-		--color-accent-contrast: oklch(0.12 0.01 55);
+	/* Interactive */
+	--dt-primary: oklch(0.78 0.12 290);
+	--dt-primary-contrast: oklch(var(--gray-950));
+	--dt-accent: oklch(0.62 0.14 50);
+	--dt-accent-contrast: oklch(0.12 0.01 55);
 
-		/* Semantic States (adjusted for dark) */
-		--color-danger: oklch(0.65 0.18 25); /* Lighter burgundy */
-		--color-warning: oklch(0.75 0.14 75); /* Brighter gold */
-		--color-success: oklch(0.65 0.12 145); /* Lighter sage */
+	/* Semantic States */
+	--dt-danger: oklch(0.65 0.18 25);
+	--dt-warning: oklch(0.75 0.14 75);
+	--dt-success: oklch(0.65 0.12 145);
 
-		/* Semantic Backgrounds */
-		--color-danger-bg: oklch(0.65 0.18 25 / 0.15);
-		--color-warning-bg: oklch(0.75 0.14 75 / 0.15);
-		--color-success-bg: oklch(0.65 0.12 145 / 0.15);
+	/* Interactions */
+	--dt-action-hover: oklch(var(--gray-50) / 0.1);
+	--dt-focus: var(--dt-primary);
 
-		/* Interaction States */
-		--color-action-hover: oklch(0.92 0.01 80 / 0.1); /* Subtle lighten */
-		--color-focus: var(--color-primary);
+	/* Borders */
+	--dt-border: oklch(var(--gray-800));
+	--dt-border-vivid: oklch(var(--gray-700));
 
-		/* Border & Dividers */
-		--color-border: oklch(var(--gray-800));
-		--color-border-vivid: oklch(var(--gray-700));
+	/* Shadows (Adjusted for dark mode visibility) */
+	--dt-shadow-1: 0 1px 2px oklch(0 0 0 / 0.3);
+	--dt-shadow-2: 0 2px 8px oklch(0 0 0 / 0.4), 0 1px 2px oklch(0 0 0 / 0.3);
+	--dt-shadow-3: 0 4px 16px oklch(0 0 0 / 0.5), 0 2px 4px oklch(0 0 0 / 0.3);
 
-		/* Shadows (inverted for dark theme) */
-		/* Shadows (richer warm shadows for dark academia) */
-		--shadow-1: 0 1px 2px oklch(0.12 0.05 55 / 0.3);
-		--shadow-2: 0 2px 8px oklch(0.12 0.05 55 / 0.4), 0 1px 2px oklch(0.12 0.05 55 / 0.3);
-		--shadow-3: 0 4px 16px oklch(0.12 0.05 55 / 0.5), 0 2px 4px oklch(0.12 0.05 55 / 0.3);
+	/* Content Types (Muted for dark mode readability) */
+	--dt-kind-note: oklch(0.75 0.12 250);
+	--dt-kind-essay: oklch(0.75 0.12 300);
+	--dt-kind-tutorial: oklch(0.75 0.12 150);
+	--dt-kind-thought: oklch(0.8 0.12 80);
 
-		/* Kind tokens (brighter for dark mode) */
-		--color-kind-note: oklch(0.75 0.12 250);
-		--color-kind-note-bg: oklch(0.75 0.12 250 / 0.15);
-		--color-kind-essay: oklch(0.75 0.12 300);
-		--color-kind-essay-bg: oklch(0.75 0.12 300 / 0.15);
-		--color-kind-tutorial: oklch(0.75 0.12 150);
-		--color-kind-tutorial-bg: oklch(0.75 0.12 150 / 0.15);
-		--color-kind-thought: oklch(0.8 0.12 80);
-		--color-kind-thought-bg: oklch(0.8 0.12 80 / 0.15);
-
-		/* Ripeness tokens (brighter for dark mode) */
-		--color-ripeness-seed: oklch(0.75 0.12 135);
-		--color-ripeness-seed-bg: oklch(0.75 0.12 135 / 0.15);
-		--color-ripeness-root: oklch(0.7 0.14 155);
-		--color-ripeness-root-bg: oklch(0.7 0.14 155 / 0.15);
-		--color-ripeness-fruit: oklch(0.75 0.16 35);
-		--color-ripeness-fruit-bg: oklch(0.75 0.16 35 / 0.15);
-	}
+	/* Ripeness (Muted for dark mode) */
+	--dt-ripeness-seed: oklch(0.75 0.12 135);
+	--dt-ripeness-root: oklch(0.7 0.14 155);
+	--dt-ripeness-fruit: oklch(0.75 0.16 35);
 }
 
-/* Explicit .dark class (overrides system preference) */
+/* ═══════════════════════════════════════════════════════════════════════════
+   APPLICATION (Mapping)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Manual dark mode toggle */
 .dark {
-	--color-bg: oklch(var(--gray-1000));
-	--color-surface: oklch(var(--gray-950));
+	/* Core */
+	--color-bg: var(--dt-bg);
+	--color-surface: var(--dt-surface);
+	--color-surface-elevated: var(--dt-surface-elevated);
 
-	--color-text: oklch(var(--gray-50));
-	--color-muted: oklch(var(--gray-400));
+	--color-text: var(--dt-text);
+	--color-muted: var(--dt-muted);
 
-	--color-primary: oklch(0.78 0.12 290);
-	--color-primary-contrast: oklch(var(--gray-950));
+	/* Brand */
+	--color-primary: var(--dt-primary);
+	--color-primary-contrast: var(--dt-primary-contrast);
+	--color-accent: var(--dt-accent);
+	--color-accent-contrast: var(--dt-accent-contrast);
 
-	--color-accent: oklch(0.62 0.14 50);
-	--color-accent-contrast: oklch(0.12 0.01 55);
+	/* States */
+	--color-danger: var(--dt-danger);
+	--color-warning: var(--dt-warning);
+	--color-success: var(--dt-success);
 
-	--color-danger: oklch(0.65 0.18 25);
-	--color-warning: oklch(0.75 0.14 75);
-	--color-success: oklch(0.65 0.12 145);
+	--color-danger-bg: oklch(from var(--dt-danger) l c h / 0.15);
+	--color-warning-bg: oklch(from var(--dt-warning) l c h / 0.15);
+	--color-success-bg: oklch(from var(--dt-success) l c h / 0.15);
 
-	--color-danger-bg: oklch(0.65 0.18 25 / 0.15);
-	--color-warning-bg: oklch(0.75 0.14 75 / 0.15);
-	--color-success-bg: oklch(0.65 0.12 145 / 0.15);
+	/* Interaction */
+	--color-action-hover: var(--dt-action-hover);
+	--color-focus: var(--dt-focus);
 
-	--color-action-hover: oklch(0.92 0.01 80 / 0.1);
-	--color-focus: var(--color-primary);
+	/* Borders */
+	--color-border: var(--dt-border);
+	--color-border-vivid: var(--dt-border-vivid);
 
-	--color-border: oklch(var(--gray-800));
-	--color-border-vivid: oklch(var(--gray-700));
+	/* Shadows */
+	--shadow-1: var(--dt-shadow-1);
+	--shadow-2: var(--dt-shadow-2);
+	--shadow-3: var(--dt-shadow-3);
 
-	--shadow-1: 0 1px 2px oklch(0.12 0.05 55 / 0.3);
-	--shadow-2: 0 2px 8px oklch(0.12 0.05 55 / 0.4), 0 1px 2px oklch(0.12 0.05 55 / 0.3);
-	--shadow-3: 0 4px 16px oklch(0.12 0.05 55 / 0.5), 0 2px 4px oklch(0.12 0.05 55 / 0.3);
+	/* Kinds (With Auto-generated backgrounds) */
+	--color-kind-note: var(--dt-kind-note);
+	--color-kind-note-bg: oklch(from var(--dt-kind-note) l c h / 0.15);
 
-	/* Kind tokens (brighter for dark mode) */
-	--color-kind-note: oklch(0.75 0.12 250);
-	--color-kind-note-bg: oklch(0.75 0.12 250 / 0.15);
-	--color-kind-essay: oklch(0.75 0.12 300);
-	--color-kind-essay-bg: oklch(0.75 0.12 300 / 0.15);
-	--color-kind-tutorial: oklch(0.75 0.12 150);
-	--color-kind-tutorial-bg: oklch(0.75 0.12 150 / 0.15);
-	--color-kind-thought: oklch(0.8 0.12 80);
-	--color-kind-thought-bg: oklch(0.8 0.12 80 / 0.15);
+	--color-kind-essay: var(--dt-kind-essay);
+	--color-kind-essay-bg: oklch(from var(--dt-kind-essay) l c h / 0.15);
 
-	/* Ripeness tokens (brighter for dark mode) */
-	--color-ripeness-seed: oklch(0.75 0.12 135);
-	--color-ripeness-seed-bg: oklch(0.75 0.12 135 / 0.15);
-	--color-ripeness-root: oklch(0.7 0.14 155);
-	--color-ripeness-root-bg: oklch(0.7 0.14 155 / 0.15);
-	--color-ripeness-fruit: oklch(0.75 0.16 35);
-	--color-ripeness-fruit-bg: oklch(0.75 0.16 35 / 0.15);
+	--color-kind-tutorial: var(--dt-kind-tutorial);
+	--color-kind-tutorial-bg: oklch(from var(--dt-kind-tutorial) l c h / 0.15);
+
+	--color-kind-thought: var(--dt-kind-thought);
+	--color-kind-thought-bg: oklch(from var(--dt-kind-thought) l c h / 0.15);
+
+	/* Ripeness */
+	--color-ripeness-seed: var(--dt-ripeness-seed);
+	--color-ripeness-seed-bg: oklch(from var(--dt-ripeness-seed) l c h / 0.15);
+
+	--color-ripeness-root: var(--dt-ripeness-root);
+	--color-ripeness-root-bg: oklch(from var(--dt-ripeness-root) l c h / 0.15);
+
+	--color-ripeness-fruit: var(--dt-ripeness-fruit);
+	--color-ripeness-fruit-bg: oklch(from var(--dt-ripeness-fruit) l c h / 0.15);
 }
 
-/* Explicit .light class (overrides system preference) */
-.light {
-	--color-bg: oklch(var(--gray-50));
-	--color-surface: oklch(var(--gray-0));
+/* System preference for dark mode (only when no manual override) */
+@media (prefers-color-scheme: dark) {
+	:root:not(.light):not(.dark) {
+		/* Core */
+		--color-bg: var(--dt-bg);
+		--color-surface: var(--dt-surface);
+		--color-surface-elevated: var(--dt-surface-elevated);
 
-	--color-text: oklch(var(--gray-900));
-	--color-muted: oklch(var(--gray-600));
+		--color-text: var(--dt-text);
+		--color-muted: var(--dt-muted);
 
-	--color-primary: oklch(0.7 0.13 290);
-	--color-primary-contrast: oklch(var(--gray-900));
+		/* Brand */
+		--color-primary: var(--dt-primary);
+		--color-primary-contrast: var(--dt-primary-contrast);
+		--color-accent: var(--dt-accent);
+		--color-accent-contrast: var(--dt-accent-contrast);
 
-	--color-accent: oklch(0.55 0.12 55);
-	--color-accent-contrast: oklch(0.98 0.005 80);
+		/* States */
+		--color-danger: var(--dt-danger);
+		--color-warning: var(--dt-warning);
+		--color-success: var(--dt-success);
 
-	--color-danger: oklch(0.55 0.2 25);
-	--color-warning: oklch(0.7 0.15 70);
-	--color-success: oklch(0.55 0.12 145);
+		--color-danger-bg: oklch(from var(--dt-danger) l c h / 0.15);
+		--color-warning-bg: oklch(from var(--dt-warning) l c h / 0.15);
+		--color-success-bg: oklch(from var(--dt-success) l c h / 0.15);
 
-	--color-border: oklch(var(--gray-200));
-	--color-border-vivid: oklch(var(--gray-300));
+		/* Interaction */
+		--color-action-hover: var(--dt-action-hover);
+		--color-focus: var(--dt-focus);
 
-	--shadow-1: 0 1px 2px oklch(0.18 0.01 80 / 0.04);
-	--shadow-2: 0 2px 8px oklch(0.18 0.01 80 / 0.06), 0 1px 2px oklch(0.18 0.01 80 / 0.04);
-	--shadow-3: 0 4px 16px oklch(0.18 0.01 80 / 0.08), 0 2px 4px oklch(0.18 0.01 80 / 0.04);
+		/* Borders */
+		--color-border: var(--dt-border);
+		--color-border-vivid: var(--dt-border-vivid);
+
+		/* Shadows */
+		--shadow-1: var(--dt-shadow-1);
+		--shadow-2: var(--dt-shadow-2);
+		--shadow-3: var(--dt-shadow-3);
+
+		/* Kinds (With Auto-generated backgrounds) */
+		--color-kind-note: var(--dt-kind-note);
+		--color-kind-note-bg: oklch(from var(--dt-kind-note) l c h / 0.15);
+
+		--color-kind-essay: var(--dt-kind-essay);
+		--color-kind-essay-bg: oklch(from var(--dt-kind-essay) l c h / 0.15);
+
+		--color-kind-tutorial: var(--dt-kind-tutorial);
+		--color-kind-tutorial-bg: oklch(from var(--dt-kind-tutorial) l c h / 0.15);
+
+		--color-kind-thought: var(--dt-kind-thought);
+		--color-kind-thought-bg: oklch(from var(--dt-kind-thought) l c h / 0.15);
+
+		/* Ripeness */
+		--color-ripeness-seed: var(--dt-ripeness-seed);
+		--color-ripeness-seed-bg: oklch(from var(--dt-ripeness-seed) l c h / 0.15);
+
+		--color-ripeness-root: var(--dt-ripeness-root);
+		--color-ripeness-root-bg: oklch(from var(--dt-ripeness-root) l c h / 0.15);
+
+		--color-ripeness-fruit: var(--dt-ripeness-fruit);
+		--color-ripeness-fruit-bg: oklch(from var(--dt-ripeness-fruit) l c h / 0.15);
+	}
 }

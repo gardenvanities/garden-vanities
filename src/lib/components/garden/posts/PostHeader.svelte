@@ -35,7 +35,7 @@
 		</h1>
 
 		{#if metadata.subtitle}
-			<p class="text-text/80 mt-4 text-lg leading-relaxed">
+			<p class="text-text/80 font-article-body mt-4 text-lg leading-relaxed">
 				{metadata.subtitle}
 			</p>
 		{/if}

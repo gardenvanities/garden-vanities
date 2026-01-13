@@ -34,26 +34,6 @@
 	let isVisible = $state(true);
 	let lastScrollY = $state(0);
 
-	onMount(() => {
-		const handleScroll = () => {
-			const currentScrollY = window.scrollY;
-
-			// Show if at top or scrolling up
-			if (currentScrollY < 10 || currentScrollY < lastScrollY) {
-				isVisible = true;
-			}
-			// Hide if scrolling down and not at top
-			else if (currentScrollY > lastScrollY && currentScrollY > 10) {
-				isVisible = isSearchExpanded; // Keep visible if search is open
-			}
-
-			lastScrollY = currentScrollY;
-		};
-
-		window.addEventListener("scroll", handleScroll, { passive: true });
-		return handleScroll; // Correct cleanup would be removing listener, but let's fix the logic below
-	});
-
 	// Fix cleanup properly
 	$effect(() => {
 		const handleScroll = () => {
@@ -72,9 +52,10 @@
 
 <!-- Floating Navigation -->
 <nav
-	class="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 transition-all duration-500 ease-in-out sm:bottom-8 {isVisible
-		? 'translate-y-0 opacity-100'
-		: 'translate-y-24 opacity-0'}"
+	class={[
+		"fixed bottom-6 left-1/2 z-50 -translate-x-1/2 transition-all duration-500 ease-in-out sm:bottom-8",
+		isVisible ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"
+	].join(" ")}
 	aria-label="Navegação principal"
 >
 	<!-- Glow Effect -->
@@ -89,9 +70,10 @@
 
 	<!-- Navigation Pill -->
 	<div
-		class="bg-surface/90 relative flex min-w-max items-center gap-1 rounded-full border border-white/20 px-2 py-2 shadow-2xl shadow-black/10 backdrop-blur-xl transition-all duration-500 ease-out dark:border-white/10 {isSearchExpanded
-			? 'w-[min(500px,calc(100vw-2rem))]'
-			: 'w-auto'}"
+		class={[
+			"bg-surface/90 relative flex min-w-max items-center gap-1 rounded-full border border-white/20 px-2 py-2 shadow-2xl shadow-black/10 backdrop-blur-xl transition-all duration-500 ease-out dark:border-white/10",
+			isSearchExpanded ? "w-[min(500px,calc(100vw-2rem))]" : "w-auto"
+		].join(" ")}
 	>
 		{#if !isSearchExpanded}
 			<!-- Collapsed State: Navigation Icons -->
@@ -119,7 +101,7 @@
 				<!-- Search Trigger Button -->
 				<button
 					type="button"
-					class="text-text group bg-muted/10 hover:bg-primary/10 hover:text-primary flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-300"
+					class="text-text group bg-surface-elevated hover:bg-action-hover hover:text-primary flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-300"
 					onclick={openSearch}
 					aria-label="Buscar"
 				>
@@ -133,11 +115,10 @@
 				<!-- Posts/Grid -->
 				<a
 					href="/posts"
-					class="text-muted hover:text-text group hover:bg-action-hover flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 {isActive(
-						'/posts'
-					)
-						? 'text-primary'
-						: ''}"
+					class={[
+						"text-muted hover:text-text group hover:bg-action-hover flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200",
+						isActive("/posts") ? "text-primary" : ""
+					].join(" ")}
 					aria-label="Artigos"
 				>
 					<Folder size={20} class="transition-transform group-hover:scale-110" />

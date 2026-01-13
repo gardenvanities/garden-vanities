@@ -50,7 +50,7 @@
 <ReadingProgress />
 
 <div
-	class="text-text-body bg-surface-base selection:bg-brand-primary/20 selection:text-brand-primary flex min-h-screen flex-col font-sans antialiased"
+	class="text-text bg-bg selection:bg-primary/20 selection:text-primary flex min-h-screen flex-col font-sans antialiased"
 >
 	<LinkPreviewDelegator>
 		<main class="grow pb-24">

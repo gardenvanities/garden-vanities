@@ -25,7 +25,7 @@
 			{#if navigation.prev}
 				<a
 					href="/posts/{navigation.prev.slug}"
-					class="group border-border hover:border-primary/30 flex flex-col gap-2 rounded-lg border p-4 transition-all hover:bg-white/5"
+					class="group border-border hover:border-primary/30 hover:bg-action-hover flex flex-col gap-2 rounded-lg border p-4 transition-all"
 				>
 					<span
 						class="text-muted group-hover:text-primary text-[10px] font-bold tracking-wider uppercase"
@@ -43,7 +43,7 @@
 			{#if navigation.next}
 				<a
 					href="/posts/{navigation.next.slug}"
-					class="group border-border hover:border-primary/30 flex flex-col gap-2 rounded-lg border p-4 text-right transition-all hover:bg-white/5"
+					class="group border-border hover:border-primary/30 hover:bg-action-hover flex flex-col gap-2 rounded-lg border p-4 text-right transition-all"
 				>
 					<span
 						class="text-muted group-hover:text-primary text-[10px] font-bold tracking-wider uppercase"

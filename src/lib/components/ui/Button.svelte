@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
+	import { cn } from "$lib/utils/merge-class";
 
 	type Variant = "primary" | "secondary" | "outline" | "ghost";
 	type Size = "sm" | "md" | "lg";
@@ -27,14 +28,14 @@
 	}: Props = $props();
 
 	const baseStyles =
-		"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:pointer-events-none";
+		"inline-flex items-center justify-center rounded-md font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:opacity-50 disabled:pointer-events-none cursor-pointer";
 
 	const variants = {
-		primary: "bg-primary text-primary-contrast hover:bg-primary/90 shadow-sm",
-		secondary: "bg-surface text-text hover:bg-surface/80 border border-white/5",
+		primary: "bg-primary text-primary-contrast hover:bg-accent shadow-sm border border-transparent",
+		secondary: "bg-surface text-text hover:bg-action-hover border border-border-vivid",
 		outline:
 			"border border-border text-text hover:border-primary/50 hover:text-primary bg-transparent",
-		ghost: "text-muted hover:text-text hover:bg-white/5"
+		ghost: "text-muted hover:text-text hover:bg-action-hover"
 	};
 
 	const sizes = {
@@ -47,7 +48,7 @@
 {#if href}
 	<a
 		{href}
-		class="{baseStyles} {variants[variant]} {sizes[size]} {className}"
+		class={cn(baseStyles, variants[variant], sizes[size], className)}
 		role="button"
 		onclick={onclick as ((event: MouseEvent) => void) | undefined}
 	>
@@ -57,7 +58,7 @@
 	<button
 		{type}
 		{disabled}
-		class="{baseStyles} {variants[variant]} {sizes[size]} {className}"
+		class={cn(baseStyles, variants[variant], sizes[size], className)}
 		{onclick}
 	>
 		{@render children()}

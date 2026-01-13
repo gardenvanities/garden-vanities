@@ -1,27 +1,21 @@
 /**
- * Typography Rules — Humanist + Dark Academy
+ * Typography — Base styles
  * 
- * HEADING HIERARCHY:
- * H1 — ÚNICO, título do artigo 
- * H2 — Grande, macro-seções 
- * H3 — Médio, subseções 
- * H4 — Body size, bold, organização interna 
- * H5 — Igual ao H4, raramente usado
- * H6 — Evitar, só semântica
+ * Mobile-first responsive typography using fluid type scale.
  */
 
 @layer base {
 	/* ═══════════════════════════════════════════════════════════════════════════
-     DOCUMENT — Mobile-first base
+     DOCUMENT
      ═══════════════════════════════════════════════════════════════════════════ */
 
 	html {
-		font-size: 100%; /* 16px base */
+		font-size: 100%;
 		text-size-adjust: 100%;
 		-webkit-text-size-adjust: 100%;
 	}
 
-	/* Lenis - Smooth Scroll Support */
+	/* Lenis Smooth Scroll */
 	html.lenis,
 	html.lenis body {
 		height: auto;
@@ -55,7 +49,7 @@
 	}
 
 	/* ═══════════════════════════════════════════════════════════════════════════
-     HEADINGS — Red Hat Display (UI) / Fraunces (Articles)
+     HEADINGS
      ═══════════════════════════════════════════════════════════════════════════ */
 
 	h1,
@@ -70,9 +64,9 @@
 		letter-spacing: var(--letter-spacing-normal);
 		color: var(--color-text);
 		margin: 0;
+		text-wrap: balance;
 	}
 
-	/* H1 — Título do artigo (ÚNICO por página) */
 	h1,
 	.article-title {
 		font-family: var(--font-article-title);
@@ -87,47 +81,38 @@
 		font-family: var(--font-heading);
 	}
 
-	/* H2 — Macro-seções */
 	h2 {
 		font-size: var(--type-4);
 		line-height: var(--line-height-snug);
 		letter-spacing: var(--letter-spacing-tight);
-		font-weight: var(--font-weight-heading);
 		margin-top: var(--space-10);
 		margin-bottom: var(--space-4);
 	}
 
-	/* H3 — Subseções */
 	h3 {
 		font-size: var(--type-3);
 		line-height: var(--line-height-snug);
-		letter-spacing: var(--letter-spacing-normal);
-		font-weight: var(--font-weight-heading);
 		margin-top: var(--space-8);
 		margin-bottom: var(--space-3);
 	}
 
-	/* H4 — Organização interna (igual body, bold) */
 	h4 {
 		font-size: var(--type-2);
-		font-weight: var(--font-weight-heading);
 		line-height: var(--line-height-snug);
 		margin-top: var(--space-6);
 		margin-bottom: var(--space-2);
 	}
 
-	/* H5 — Raramente usado */
 	h5 {
 		font-size: var(--type-2);
-		font-weight: 600;
+		font-weight: var(--font-weight-heading);
 		margin-top: var(--space-4);
 		margin-bottom: var(--space-2);
 	}
 
-	/* H6 — Evitar, só semântica */
 	h6 {
 		font-size: var(--type-1);
-		font-weight: 600;
+		font-weight: var(--font-weight-heading);
 		margin-top: var(--space-4);
 		margin-bottom: var(--space-2);
 		color: var(--color-muted);
@@ -140,6 +125,7 @@
 	p {
 		font-size: var(--type-1);
 		margin-bottom: var(--space-4);
+		text-wrap: pretty;
 	}
 
 	p:last-child {
@@ -153,7 +139,7 @@
 
 	strong,
 	b {
-		font-weight: 700;
+		font-weight: var(--font-weight-700);
 	}
 
 	em,
@@ -257,11 +243,13 @@
 	}
 
 	/* ═══════════════════════════════════════════════════════════════════════════
-     REDUCED MOTION — Minimum accessibility
+     REDUCED MOTION
      ═══════════════════════════════════════════════════════════════════════════ */
 
 	@media (prefers-reduced-motion: reduce) {
-		* {
+		*,
+		*::before,
+		*::after {
 			transition-duration: 0ms !important;
 			animation-duration: 0ms !important;
 		}

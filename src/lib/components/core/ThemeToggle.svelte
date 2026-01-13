@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Sun, Moon, Monitor } from "@lucide/svelte";
 	import { getTheme, setTheme, type Theme } from "$lib/stores/theme.svelte";
+	import { cn } from "$lib/utils/merge-class";
 
 	let theme = $derived(getTheme());
 
@@ -21,10 +22,10 @@
 		{@const isActive = theme === option.value}
 		<button
 			type="button"
-			class="flex h-7 w-7 items-center justify-center rounded-md transition-all duration-200
-                {isActive
-				? 'border-border-vivid text-text border'
-				: 'text-muted hover:text-text border border-transparent'}"
+			class={cn(
+				"flex h-7 w-7 items-center justify-center rounded-md border transition-all duration-200",
+				isActive ? "border-border-vivid text-text" : "text-muted hover:text-text border-transparent"
+			)}
 			onclick={() => selectTheme(option.value)}
 			aria-label={option.label}
 			aria-pressed={isActive}

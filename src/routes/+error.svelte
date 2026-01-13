@@ -2,7 +2,7 @@
 	import { page } from "$app/state";
 	import Section from "$lib/components/layout/Section.svelte";
 	import Container from "$lib/components/layout/Container.svelte";
-	import Button from "$lib/components/core/Button.svelte";
+	import Button from "$lib/components/ui/Button.svelte";
 	import SEO from "$lib/components/core/SEO.svelte";
 	import { Sprout, MoveLeft, Home } from "@lucide/svelte";
 
@@ -17,34 +17,34 @@
 		<!-- Illustration -->
 		<div class="relative mb-8">
 			<div
-				class="bg-brand-primary/10 border-brand-primary/20 flex h-24 w-24 items-center justify-center rounded-full border"
+				class="bg-primary/10 border-primary/20 flex h-24 w-24 items-center justify-center rounded-full border"
 			>
-				<Sprout size={48} class="text-brand-primary" strokeWidth={1.5} />
+				<Sprout size={48} class="text-primary" strokeWidth={1.5} />
 			</div>
 			<!-- Decorative elements -->
-			<div class="text-text-muted/20 absolute -top-2 -right-2 rotate-12">
+			<div class="text-muted/20 absolute -top-2 -right-2 rotate-12">
 				<span class="text-4xl">?</span>
 			</div>
-			<div class="text-text-muted/20 absolute -bottom-2 -left-2 -rotate-12">
+			<div class="text-muted/20 absolute -bottom-2 -left-2 -rotate-12">
 				<span class="text-4xl">!</span>
 			</div>
 		</div>
 
 		<!-- Error Code -->
-		<h1 class="text-text-heading/5 font-serif text-9xl leading-none font-black select-none">
+		<h1 class="text-heading/5 font-serif text-9xl leading-none font-black select-none">
 			{status}
 		</h1>
 
 		<!-- Message -->
 		<div class="relative z-10 -mt-8 mb-8 space-y-4">
-			<h2 class="text-text-heading text-2xl font-bold sm:text-3xl">
+			<h2 class="text-heading text-2xl font-bold sm:text-3xl">
 				{#if status === 404}
 					Ops! Caminho sem saída.
 				{:else}
 					Algo quebrou no jardim.
 				{/if}
 			</h2>
-			<p class="text-text-muted mx-auto max-w-md text-base leading-relaxed">
+			<p class="text-muted mx-auto max-w-md text-base leading-relaxed">
 				{#if status === 404}
 					Você alcançou a fronteira do reino. Como o vento, o que você buscava se esvaiu. Tudo é
 					vaidade.

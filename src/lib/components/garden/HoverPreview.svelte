@@ -15,9 +15,9 @@
 	>
 		{#if hoverPreview.loading}
 			<div class="flex animate-pulse flex-col gap-3">
-				<div class="h-4 w-3/4 rounded bg-white/10"></div>
-				<div class="h-3 w-full rounded bg-white/5"></div>
-				<div class="h-3 w-5/6 rounded bg-white/5"></div>
+				<div class="bg-text/10 h-4 w-3/4 rounded"></div>
+				<div class="bg-text/5 h-3 w-full rounded"></div>
+				<div class="bg-text/5 h-3 w-5/6 rounded"></div>
 			</div>
 		{:else if hoverPreview.error}
 			<p class="text-sm text-red-400">{hoverPreview.error}</p>

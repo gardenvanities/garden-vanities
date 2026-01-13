@@ -1,14 +1,16 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
+	import { cn } from "$lib/utils/merge-class";
 
 	interface Props {
 		children: Snippet;
 		cols?: 1 | 2 | 3 | 4;
 		gap?: "sm" | "md" | "lg";
 		class?: string;
+		as?: string;
 	}
 
-	let { children, cols = 3, gap = "md", class: className = "" }: Props = $props();
+	let { children, cols = 3, gap = "md", class: className = "", as = "div" }: Props = $props();
 
 	const gridCols = {
 		1: "grid-cols-1",
@@ -24,6 +26,6 @@
 	};
 </script>
 
-<div class="grid {gridCols[cols]} {gaps[gap]} {className}">
+<svelte:element this={as} class={cn("grid", gridCols[cols], gaps[gap], className)}>
 	{@render children()}
-</div>
+</svelte:element>

@@ -3,6 +3,7 @@
 	import { goto } from "$app/navigation";
 	import { base } from "$app/paths";
 	import { setTheme } from "$lib/stores/theme.svelte";
+	import { cn } from "$lib/utils/merge-class";
 	import Fuse from "fuse.js";
 	import { fly } from "svelte/transition";
 	import { backOut } from "svelte/easing";
@@ -329,7 +330,7 @@
 
 <!-- Results Popover -->
 <div
-	class="bg-surface/95 absolute bottom-full left-0 mb-5 w-full origin-bottom overflow-hidden rounded-2xl border border-white/20 shadow-2xl backdrop-blur-xl dark:border-white/10"
+	class="bg-surface-elevated/95 border-border absolute bottom-full left-0 mb-5 w-full origin-bottom overflow-hidden rounded-2xl border shadow-2xl backdrop-blur-xl"
 	transition:fly={{ y: 20, duration: 300, easing: backOut }}
 >
 	<div class="scrollbar-none max-h-[50vh] overflow-y-auto p-2">
@@ -337,10 +338,12 @@
 			<div class="flex flex-col gap-1">
 				{#each filteredResults as item, i (item.id)}
 					<button
-						class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors
-							{selectedIndex === i
-							? 'bg-primary/10 text-primary'
-							: 'text-muted hover:bg-muted/10 hover:text-text'}"
+						class={cn(
+							"flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors",
+							selectedIndex === i
+								? "bg-primary/10 text-primary"
+								: "text-muted hover:bg-muted/10 hover:text-text"
+						)}
 						onclick={item.action}
 						data-nav-index={i}
 					>

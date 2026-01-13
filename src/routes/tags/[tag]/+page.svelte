@@ -26,12 +26,12 @@
 		<header class="mb-12" in:fly={{ y: 20, duration: 800, delay: 100 }}>
 			<a
 				href="/"
-				class="text-text-muted hover:text-brand-primary mb-4 inline-block text-xs font-bold tracking-widest uppercase transition-colors"
+				class="text-muted hover:text-primary mb-4 inline-block text-xs font-bold tracking-widest uppercase transition-colors"
 			>
 				← Voltar ao Jardim
 			</a>
-			<h1 class="text-text-heading font-serif text-4xl font-bold">#{data.tag}</h1>
-			<p class="text-text-muted mt-2 text-lg">
+			<h1 class="text-text font-heading text-4xl font-bold">#{data.tag}</h1>
+			<p class="text-muted mt-2 text-lg">
 				{count}
 				{count === 1 ? "nota" : "notas"} com esta tag.
 			</p>
@@ -51,7 +51,7 @@
 			</div>
 		{:else}
 			<div class="py-12 text-center">
-				<p class="text-text-muted italic">Nenhuma nota encontrada com esta tag.</p>
+				<p class="text-muted italic">Nenhuma nota encontrada com esta tag.</p>
 			</div>
 		{/if}
 	</Container>

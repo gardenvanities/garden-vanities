@@ -1,212 +1,97 @@
 /**
- * Design System Tokens — Single Source of Truth
- * Humanist + Dark Academy Aesthetic
+ * Semantic Design Tokens — Light Theme (Default)
  * 
- * RULES:
- * - All colors in OKLCH format
- * - Only semantic token names (no --blue-500)
- * - All spacing values in rem
- * - No ad-hoc values allowed
+ * These provide meaning and context to primitive tokens.
+ * Used throughout the application via CSS custom properties.
  */
 
 :root {
 	/* ═══════════════════════════════════════════════════════════════════════════
-     COLOR TOKENS — Light Theme (System Default fallback)
-     ═══════════════════════════════════════════════════════════════════════════ */
+       TYPOGRAPHY SEMANTICS
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--font-weight-body: var(--font-weight-400);
+	--font-weight-emphasis: var(--font-weight-500);
+	--font-weight-heading: var(--font-weight-600);
+	--font-weight-display: var(--font-weight-700);
+
+	--type-base: var(--type-0);
+	--type-body: var(--type-1);
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+       COLOR TOKENS — Light Theme
+       ═══════════════════════════════════════════════════════════════════════════ */
 
 	/* Background & Surface */
-	--color-bg: oklch(var(--gray-50)); /* Warm ivory/parchment */
-	--color-surface: oklch(var(--gray-0)); /* Clean warm white */
+	--color-bg: oklch(var(--gray-50));
+	--color-surface: oklch(var(--gray-0));
+	--color-surface-elevated: oklch(var(--gray-0)); /* Same as surface in light, relies on shadow */
 
 	/* Text */
-	--color-text: oklch(var(--gray-900)); /* Deep warm charcoal */
-	--color-muted: oklch(var(--gray-600)); /* Scholarly gray */
+	--color-text: oklch(var(--gray-900));
+	--color-muted: oklch(var(--gray-600));
 
 	/* Primary — Pastel Purple */
 	--color-primary: oklch(0.7 0.13 290);
 	--color-primary-contrast: oklch(var(--gray-900));
 
 	/* Accent — Warm sienna */
-	--color-accent: oklch(0.55 0.12 55); /* Vintage sienna */
+	--color-accent: oklch(0.55 0.12 55);
 	--color-accent-contrast: oklch(0.98 0.005 80);
 
 	/* Semantic States */
-	--color-danger: oklch(0.55 0.2 25); /* Deep burgundy */
-	--color-warning: oklch(0.6 0.15 70); /* Antique gold (darker for contrast) */
-	--color-success: oklch(0.55 0.12 145); /* Muted sage */
+	--color-danger: oklch(0.55 0.2 25);
+	--color-warning: oklch(0.6 0.15 70);
+	--color-success: oklch(0.55 0.12 145);
 
-	/* Semantic Backgrounds (10-15% opacity) */
-	--color-danger-bg: oklch(0.55 0.2 25 / 0.1);
-	--color-warning-bg: oklch(0.7 0.15 70 / 0.1);
-	--color-success-bg: oklch(0.55 0.12 145 / 0.1);
+	/* Semantic Backgrounds (Using Relative Colors for consistency) */
+	--color-danger-bg: oklch(from var(--color-danger) l c h / 0.1);
+	--color-warning-bg: oklch(from var(--color-warning) l c h / 0.1);
+	--color-success-bg: oklch(from var(--color-success) l c h / 0.1);
 
 	/* Interaction States */
-	--color-action-hover: oklch(0.18 0.01 80 / 0.06); /* Subtle darken on hover */
-	--color-focus: var(--color-primary); /* Focus ring color */
+	/* Hover: slightly dark overlay on light theme */
+	--color-action-hover: oklch(var(--gray-950) / 0.06);
+	--color-focus: var(--color-primary);
 
 	/* Border & Dividers */
-	--color-border: oklch(var(--gray-200)); /* Subtle warm gray */
+	--color-border: oklch(var(--gray-200));
 	--color-border-vivid: oklch(var(--gray-300));
 
 	/* ═══════════════════════════════════════════════════════════════════════════
-     SPACING TOKENS — Restrictive Scale (only these values allowed)
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-	--space-0: 0rem; /* 0px */
-	--space-1: 0.25rem; /* 4px */
-	--space-2: 0.5rem; /* 8px */
-	--space-3: 0.75rem; /* 12px */
-	--space-4: 1rem; /* 16px */
-	--space-5: 1.25rem; /* 20px */
-	--space-6: 1.5rem; /* 24px */
-	--space-7: 1.75rem; /* 28px */
-	--space-8: 2rem; /* 32px */
-	--space-9: 2.5rem; /* 40px */
-	--space-10: 3rem; /* 48px */
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     TYPOGRAPHY TOKENS — Modular Scale (r = 1.25)
-     Mobile-first with clamp() for responsive headings
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-	--type-base: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem); /* 18px → 20px base */
-
-	/* Scale: 0.8 → 1 → 1.25 → 1.56 → 1.95 → 2.44 → 3.05 → 3.81 */
-	--type-0: clamp(0.9rem, 0.85rem + 0.25vw, 1rem); /* 14.4px → 16px — small/captions */
-	--type-1: var(--type-base); /* 18px → 20px — body */
-	--type-2: clamp(1.4rem, 1.3rem + 0.5vw, 1.56rem); /* 22.4px → 25px — body bold / h4-h5 */
-	--type-3: clamp(1.75rem, 1.6rem + 0.7vw, 1.95rem); /* 28px → 31.2px — h3 — subseções */
-	--type-4: clamp(2.2rem, 2rem + 1vw, 2.44rem); /* 35.2px → 39px — h2 — macro-seções */
-	--type-5: clamp(2.75rem, 2.5rem + 1.5vw, 3.05rem); /* 44px → 48.8px — h2 large */
-	--type-6: clamp(3.44rem, 3rem + 2vw, 3.81rem); /* 55px → 61px — h1 — título do artigo */
-
-	/* Line Heights */
-	--line-height-body: 1.6;
-	--line-height-heading: 1.15;
-
-	/* Letter Spacing */
-	--letter-spacing-tight: -0.02em;
-	--letter-spacing-normal: 0;
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     FONT FAMILIES
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-	--font-heading: "Fraunces", Georgia, "Times New Roman", serif;
-	--font-body: "Red Hat Display", system-ui, -apple-system, sans-serif;
-	--font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
-	--font-article-body: "Rowan", Georgia, "Times New Roman", serif;
-	--font-article-title: "Fraunces", Georgia, "Times New Roman", serif;
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     RADII — Discrete options only
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-	--radius-0: 0;
-	--radius-1: 0.25rem; /* 4px — subtle */
-	--radius-2: 0.5rem; /* 8px — medium */
-	--radius-3: 0.75rem; /* 12px — pronounced */
-	--radius-full: 9999px; /* pill/circle */
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     SHADOWS — Soft, few levels (humanist aesthetic)
-     ═══════════════════════════════════════════════════════════════════════════ */
+       SHADOWS — Soft, humanist aesthetic
+       ═══════════════════════════════════════════════════════════════════════════ */
 
 	--shadow-1: 0 1px 2px oklch(0.18 0.01 80 / 0.04);
 	--shadow-2: 0 2px 8px oklch(0.18 0.01 80 / 0.06), 0 1px 2px oklch(0.18 0.01 80 / 0.04);
 	--shadow-3: 0 4px 16px oklch(0.18 0.01 80 / 0.08), 0 2px 4px oklch(0.18 0.01 80 / 0.04);
 
 	/* ═══════════════════════════════════════════════════════════════════════════
-     Z-INDEX — Semantic naming only
-     ═══════════════════════════════════════════════════════════════════════════ */
+       KIND TOKENS — Content types (KindBadge)
+       ═══════════════════════════════════════════════════════════════════════════ */
 
-	--z-below: -1;
-	--z-base: 0;
-	--z-above: 10;
-	--z-sticky: 100;
-	--z-overlay: 500;
-	--z-modal: 1000;
-	--z-toast: 1100;
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     MOTION TOKENS
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-	--motion-fast: 120ms;
-	--motion-base: 200ms;
-	--motion-slow: 320ms;
-	--motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
-	--motion-ease-out: cubic-bezier(0, 0, 0.2, 1);
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     LAYOUT
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-	--prose-width: 65ch;
-	--content-width: 75ch;
-	--container-width: 1200px;
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     KIND TOKENS — Semantic colors for content types (KindBadge)
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-	/* Note — Blue scholarly */
 	--color-kind-note: oklch(0.65 0.12 250);
-	--color-kind-note-bg: oklch(0.65 0.12 250 / 0.1);
+	--color-kind-note-bg: oklch(from var(--color-kind-note) l c h / 0.1);
 
-	/* Essay — Purple academic */
 	--color-kind-essay: oklch(0.65 0.12 300);
-	--color-kind-essay-bg: oklch(0.65 0.12 300 / 0.1);
+	--color-kind-essay-bg: oklch(from var(--color-kind-essay) l c h / 0.1);
 
-	/* Tutorial — Green practical */
 	--color-kind-tutorial: oklch(0.65 0.12 150);
-	--color-kind-tutorial-bg: oklch(0.65 0.12 150 / 0.1);
+	--color-kind-tutorial-bg: oklch(from var(--color-kind-tutorial) l c h / 0.1);
 
-	/* Thought — Amber reflective */
 	--color-kind-thought: oklch(0.7 0.12 80);
-	--color-kind-thought-bg: oklch(0.7 0.12 80 / 0.1);
+	--color-kind-thought-bg: oklch(from var(--color-kind-thought) l c h / 0.1);
 
 	/* ═══════════════════════════════════════════════════════════════════════════
-     RIPENESS TOKENS — Semantic colors for content maturity states
-     ═══════════════════════════════════════════════════════════════════════════ */
+       RIPENESS TOKENS — Content maturity
+       ═══════════════════════════════════════════════════════════════════════════ */
 
-	/* Seed — Light green (sprouting) */
 	--color-ripeness-seed: oklch(0.65 0.1 135);
-	--color-ripeness-seed-bg: oklch(0.65 0.1 135 / 0.1);
+	--color-ripeness-seed-bg: oklch(from var(--color-ripeness-seed) l c h / 0.1);
 
-	/* Root — Dark green (growing) */
 	--color-ripeness-root: oklch(0.55 0.12 155);
-	--color-ripeness-root-bg: oklch(0.55 0.12 155 / 0.1);
+	--color-ripeness-root-bg: oklch(from var(--color-ripeness-root) l c h / 0.1);
 
-	/* Fruit — Orange/red (mature) */
 	--color-ripeness-fruit: oklch(0.65 0.15 35);
-	--color-ripeness-fruit-bg: oklch(0.65 0.15 35 / 0.1);
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     COMPATIBILITY LAYER — Maps old token names to new ones
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-	/* Old surface tokens */
-	--color-surface-base: var(--color-bg);
-	--color-surface-raised: var(--color-surface);
-	--color-surface-overlay: var(--color-surface);
-
-	/* Old text tokens */
-	--color-text-heading: var(--color-text);
-	--color-text-body: var(--color-text);
-	--color-text-muted: var(--color-muted);
-
-	/* Old border tokens */
-	--color-border-default: var(--color-border);
-
-	/* Old brand tokens */
-	--color-brand-primary: var(--color-primary);
-	--color-brand-secondary: var(--color-accent);
-	--color-brand-dim: var(--color-primary);
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     META — Browser theme color
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-	--meta-theme-color: oklch(0.12 0.01 55);
+	--color-ripeness-fruit-bg: oklch(from var(--color-ripeness-fruit) l c h / 0.1);
 }

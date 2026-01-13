@@ -1,0 +1,172 @@
+/**
+ * Primitive Design Tokens — Foundation Layer (tokens-primitive.css)
+ * 
+ * These are raw, context-free values that represent the project's atomic building blocks.
+ * They should be referenced by semantic tokens in theme files.
+ */
+
+:root {
+	/* ═══════════════════════════════════════════════════════════════════════════
+       GRAY SCALE — OKLCH Components (L C H)
+       Neutral warm grays for consistent humanist aesthetic
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--gray-0: 1 0 0;
+	--gray-50: 0.98 0 0;
+	--gray-100: 0.95 0 0;
+	--gray-200: 0.9 0 0;
+	--gray-300: 0.84 0 0;
+	--gray-400: 0.76 0 0;
+	--gray-500: 0.67 0 0;
+	--gray-600: 0.58 0 0;
+	--gray-700: 0.48 0 0;
+	--gray-800: 0.38 0 0;
+	--gray-900: 0.28 0 0;
+	--gray-950: 0.18 0 0;
+	--gray-1000: 0 0 0;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+       FONT FAMILIES — Variable Fonts
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+	--font-body: "Red Hat Display", system-ui, -apple-system, sans-serif;
+	--font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+	--font-article-body: "Rowan", Georgia, "Times New Roman", serif;
+	--font-article-title: "Fraunces", Georgia, "Times New Roman", serif;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+       FONT WEIGHTS
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--font-weight-100: 100;
+	--font-weight-200: 200;
+	--font-weight-300: 300;
+	--font-weight-400: 400;
+	--font-weight-500: 500;
+	--font-weight-600: 600;
+	--font-weight-700: 700;
+	--font-weight-800: 800;
+	--font-weight-900: 900;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+       FONT FEATURES
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--font-feature-default: "kern" 1, "liga" 1, "calt" 1;
+	--font-feature-prose: "kern" 1, "liga" 1, "calt" 1, "onum" 1;
+	--font-feature-ui: "kern" 1, "liga" 1, "tnum" 1, "lnum" 1;
+	--font-feature-code: "kern" 1, "liga" 1, "calt" 1, "ss01" 1;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+       LETTER SPACING
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--letter-spacing-tighter: -0.04em;
+	--letter-spacing-tight: -0.02em;
+	--letter-spacing-normal: 0;
+	--letter-spacing-wide: 0.02em;
+	--letter-spacing-wider: 0.04em;
+	--letter-spacing-caps: 0.08em;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+       LINE HEIGHTS
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--line-height-compact: 1.1;
+	--line-height-tight: 1.15;
+	--line-height-snug: 1.25;
+	--line-height-normal: 1.4;
+	--line-height-relaxed: 1.6;
+	--line-height-loose: 1.75;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+       MEASURE (Line Length)
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--measure-narrow: 55ch;
+	--measure-prose: 65ch;
+	--measure-wide: 75ch;
+	--measure-code: 80ch;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+       TEXT DECORATION
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--text-underline-offset-small: 0.1em;
+	--text-underline-offset-normal: 0.15em;
+	--text-underline-offset-large: 0.25em;
+	--text-decoration-thickness-thin: 0.05em;
+	--text-decoration-thickness-normal: 0.1em;
+	--text-decoration-thickness-bold: 0.15em;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+       TYPE SCALE — Fluid Typography (r = 1.25)
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--type--1: clamp(0.72rem, calc(0.7rem + 0.15vw), 0.8rem);
+	--type-0: clamp(0.9rem, calc(0.85rem + 0.25vw), 1rem);
+	--type-1: clamp(1.125rem, calc(1.05rem + 0.35vw), 1.25rem);
+	--type-2: clamp(1.4rem, calc(1.3rem + 0.5vw), 1.56rem);
+	--type-3: clamp(1.75rem, calc(1.6rem + 0.7vw), 1.95rem);
+	--type-4: clamp(2.2rem, calc(2rem + 1vw), 2.44rem);
+	--type-5: clamp(2.75rem, calc(2.5rem + 1.5vw), 3.05rem);
+	--type-6: clamp(3.44rem, calc(3rem + 2vw), 3.81rem);
+	--type-7: clamp(4.3rem, calc(3.75rem + 2.5vw), 4.77rem);
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+       SPACING SCALE — Restrictive primitives
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--space-0: 0rem;
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-5: 1.25rem;
+	--space-6: 1.5rem;
+	--space-7: 1.75rem;
+	--space-8: 2rem;
+	--space-9: 2.5rem;
+	--space-10: 3rem;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+       RADII
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--radius-0: 0;
+	--radius-1: 0.25rem;
+	--radius-2: 0.5rem;
+	--radius-3: 0.75rem;
+	--radius-full: 9999px;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+       Z-INDEX
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--z-below: -1;
+	--z-base: 0;
+	--z-above: 10;
+	--z-sticky: 100;
+	--z-overlay: 500;
+	--z-modal: 1000;
+	--z-toast: 1100;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+       MOTION
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--motion-fast: 120ms;
+	--motion-base: 200ms;
+	--motion-slow: 320ms;
+	--motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+	--motion-ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+       LAYOUT CONSTANTS
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--prose-width: 65ch;
+	--content-width: 75ch;
+	--container-width: 1200px;
+}

@@ -1,53 +1,69 @@
 /**
  * Garden Vanities — Design System
- * Humanist + Dark Academy Aesthetic
+ * Humanist + Dark Academia Aesthetic
+ * 
+ * Built with Tailwind CSS 4.1
  * 
  * PHILOSOPHY:
- * 1. No ad-hoc values — everything uses tokens
- * 2. No visual exceptions — limited options, each justified
- * 3. Mobile-first, clamp for responsive typography
- * 4. Theme: system (default), dark, light
- * 5. Colors in OKLCH format
- * 
- * GOVERNANCE:
- * - No hex/rgb directly in CSS — only var(--*)
- * - Spacing only from --space-0 to --space-10
- * - Typography only from --type-0 to --type-6
+ * 1. All values use design tokens — no ad-hoc values
+ * 2. Mobile-first, fluid typography with clamp()
+ * 3. Theme: system (default), dark, light
+ * 4. Colors in OKLCH format for perceptual uniformity
  */
 
-/* Fonts */
+/* ═══════════════════════════════════════════════════════════════════════════
+   FONTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 @import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap");
 @import url("https://api.fontshare.com/v2/css?f[]=red-hat-display@1,2&f[]=rowan@1,2&display=swap");
 
-/* Tailwind CSS */
+/* ═══════════════════════════════════════════════════════════════════════════
+   TAILWIND CSS 4.1
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 @import "tailwindcss";
 
-/* KaTeX for Math Rendering */
+/* ═══════════════════════════════════════════════════════════════════════════
+   EXTERNAL LIBRARIES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 @import "katex/dist/katex.min.css";
 
-/* Design System Tokens */
-@import "./styles/tokens/tokens.css";
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESIGN SYSTEM
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Layer 1: Primitive tokens (raw values) */
+@import "./styles/tokens/tokens-primitive.css";
+
+/* Layer 2: Semantic tokens (light theme) */
 @import "./styles/tokens/theme.css";
+
+/* Layer 3: Theme overrides (dark mode) */
 @import "./styles/tokens/themes-dark.css";
 
-/* Typography & Base Styles */
+/* Layer 4: Base typography */
 @import "./styles/typography.css";
+
+/* Layer 5: Prose (markdown content) */
 @import "./styles/prose.css";
 
-/* Components */
-@import "./styles/components.css";
+/* Layer 6: Components */
+/* @import "./styles/components.css"; */
 
-/* Utilities */
+/* Layer 7: Utilities */
 @import "./styles/utilities.css";
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   TAILWIND @theme — Map tokens for Tailwind utilities
+   TAILWIND @theme — Expose tokens to Tailwind utilities
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @theme {
-	/* Colors — map to semantic tokens */
+	/* Colors */
 	--color-bg: var(--color-bg);
 	--color-surface: var(--color-surface);
+	--color-surface-elevated: var(--color-surface-elevated);
 	--color-text: var(--color-text);
 	--color-muted: var(--color-muted);
 	--color-primary: var(--color-primary);
@@ -60,10 +76,11 @@
 	--color-border: var(--color-border);
 	--color-border-vivid: var(--color-border-vivid);
 
-	/* Typography */
+	/* Font Families */
 	--font-heading: var(--font-heading);
 	--font-body: var(--font-body);
 	--font-mono: var(--font-mono);
+	--font-article-body: var(--font-article-body);
 
 	/* Font Sizes */
 	--text-xs: var(--type--1);
@@ -92,7 +109,7 @@
 	--tracking-wider: var(--letter-spacing-wider);
 	--tracking-caps: var(--letter-spacing-caps);
 
-	/* Radii */
+	/* Border Radius */
 	--radius-sm: var(--radius-1);
 	--radius-md: var(--radius-2);
 	--radius-lg: var(--radius-3);
@@ -102,10 +119,15 @@
 	--transition-fast: var(--motion-fast);
 	--transition-base: var(--motion-base);
 	--transition-slow: var(--motion-slow);
+
+	/* Shadows */
+	--shadow-sm: var(--shadow-1);
+	--shadow-md: var(--shadow-2);
+	--shadow-lg: var(--shadow-3);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   VIEW TRANSITIONS — Fluid page navigation
+   VIEW TRANSITIONS
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @layer base {
@@ -148,7 +170,7 @@
 	}
 }
 
-/* Permitir que o usuário desative se preferir motion reduzido */
+/* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
 	::view-transition-group(root) {
 		animation: none !important;

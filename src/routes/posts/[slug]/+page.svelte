@@ -36,10 +36,7 @@
 				</div>
 
 				<!-- Conteúdo do Post -->
-				<div
-					class="prose prose-zinc prose-invert max-w-none"
-					in:fly={{ y: 20, duration: 800, delay: 300 }}
-				>
+				<div class="prose max-w-none" in:fly={{ y: 20, duration: 800, delay: 300 }}>
 					<Content />
 				</div>
 

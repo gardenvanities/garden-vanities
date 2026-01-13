@@ -1,15 +1,13 @@
 /**
  * Utility Classes — Approved helpers only
  * 
- * RULES:
- * - Only pre-approved utilities
- * - All values from tokens
- * - No ad-hoc helpers
+ * IMPORTANT: Prefer Tailwind utilities when available.
+ * Custom utilities here are for design system specific needs.
  */
 
 @layer utilities {
 	/* ═══════════════════════════════════════════════════════════════════════════
-     LAYOUT UTILITIES
+     LAYOUT CONTAINERS
      ═══════════════════════════════════════════════════════════════════════════ */
 
 	.container {
@@ -32,7 +30,7 @@
 	}
 
 	/* ═══════════════════════════════════════════════════════════════════════════
-     FLOW — Vertical rhythm helper
+     FLOW — Vertical rhythm (lobotomized owl)
      ═══════════════════════════════════════════════════════════════════════════ */
 
 	.flow > * + * {
@@ -48,17 +46,18 @@
 	}
 
 	/* ═══════════════════════════════════════════════════════════════════════════
-     GLASSMORPHISM — Frosted glass effect
+     GLASSMORPHISM
      ═══════════════════════════════════════════════════════════════════════════ */
 
 	.glass {
 		background-color: oklch(from var(--color-surface) l c h / 0.6);
 		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
 		border: 1px solid var(--color-border);
 	}
 
 	/* ═══════════════════════════════════════════════════════════════════════════
-     FOCUS RING — Accessibility focus state
+     ACCESSIBILITY
      ═══════════════════════════════════════════════════════════════════════════ */
 
 	.focus-ring:focus {
@@ -69,10 +68,6 @@
 		outline: 2px solid var(--color-focus);
 		outline-offset: 2px;
 	}
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     VISUALLY HIDDEN — Screen reader only
-     ═══════════════════════════════════════════════════════════════════════════ */
 
 	.sr-only {
 		position: absolute;
@@ -87,7 +82,7 @@
 	}
 
 	/* ═══════════════════════════════════════════════════════════════════════════
-     TEXT UTILITIES
+     TEXT — Design system specific
      ═══════════════════════════════════════════════════════════════════════════ */
 
 	.text-muted {
@@ -98,86 +93,8 @@
 		color: var(--color-primary);
 	}
 
-	.text-balance {
-		text-wrap: balance;
-	}
-
-	.text-pretty {
-		text-wrap: pretty;
-	}
-
 	/* ═══════════════════════════════════════════════════════════════════════════
-     SPACING UTILITIES — Token-based only
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-	.mt-0 {
-		margin-top: var(--space-0);
-	}
-	.mt-4 {
-		margin-top: var(--space-4);
-	}
-	.mt-6 {
-		margin-top: var(--space-6);
-	}
-	.mt-8 {
-		margin-top: var(--space-8);
-	}
-	.mt-10 {
-		margin-top: var(--space-10);
-	}
-
-	.mb-0 {
-		margin-bottom: var(--space-0);
-	}
-	.mb-4 {
-		margin-bottom: var(--space-4);
-	}
-	.mb-6 {
-		margin-bottom: var(--space-6);
-	}
-	.mb-8 {
-		margin-bottom: var(--space-8);
-	}
-
-	.pt-4 {
-		padding-top: var(--space-4);
-	}
-	.pt-6 {
-		padding-top: var(--space-6);
-	}
-	.pt-8 {
-		padding-top: var(--space-8);
-	}
-
-	.pb-4 {
-		padding-bottom: var(--space-4);
-	}
-	.pb-6 {
-		padding-bottom: var(--space-6);
-	}
-	.pb-8 {
-		padding-bottom: var(--space-8);
-	}
-
-	.py-4 {
-		padding-block: var(--space-4);
-	}
-	.py-6 {
-		padding-block: var(--space-6);
-	}
-	.py-8 {
-		padding-block: var(--space-8);
-	}
-
-	.px-4 {
-		padding-inline: var(--space-4);
-	}
-	.px-6 {
-		padding-inline: var(--space-6);
-	}
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     ANIMATION UTILITIES
+     TRANSITIONS — Token-based
      ═══════════════════════════════════════════════════════════════════════════ */
 
 	.transition-base {

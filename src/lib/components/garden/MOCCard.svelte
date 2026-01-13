@@ -1,76 +1,34 @@
 <script lang="ts">
 	import { Folder } from "@lucide/svelte";
+	import { cn } from "$lib/utils/merge-class";
 
 	interface Props {
 		name: string;
 		count: number;
 		href: string;
+		class?: string;
 	}
 
-	let { name, count, href }: Props = $props();
+	let { name, count, href, class: className = "" }: Props = $props();
 </script>
 
-<a {href} class="moc-card">
-	<div class="moc-icon">
+<a
+	{href}
+	class={cn(
+		"border-border bg-surface text-decoration-none hover:border-border-vivid flex items-center gap-4 rounded-md border p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md",
+		className
+	)}
+>
+	<div
+		class="bg-primary text-primary-contrast flex h-12 w-12 shrink-0 items-center justify-center rounded-md"
+	>
 		<Folder size={24} strokeWidth={1.5} />
 	</div>
-	<div class="moc-content">
-		<h3 class="moc-name">{name}</h3>
-		<p class="moc-count">{count} {count === 1 ? "nota" : "notas"}</p>
+	<div class="min-w-0 flex-1">
+		<h3 class="font-heading text-text m-0 text-lg leading-tight font-semibold">{name}</h3>
+		<p class="text-muted mt-1 text-xs font-semibold tracking-wider uppercase">
+			{count}
+			{count === 1 ? "nota" : "notas"}
+		</p>
 	</div>
 </a>
-
-<style>
-	.moc-card {
-		display: flex;
-		align-items: center;
-		gap: var(--space-4);
-		padding: var(--space-4);
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-2);
-		text-decoration: none;
-		transition: all var(--motion-base) var(--motion-ease);
-		box-shadow: var(--shadow-1);
-	}
-
-	.moc-card:hover {
-		border-color: var(--color-border-vivid);
-		box-shadow: var(--shadow-2);
-		transform: translateY(-2px);
-	}
-
-	.moc-icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 48px;
-		height: 48px;
-		background: var(--color-primary);
-		color: var(--color-primary-contrast);
-		border-radius: var(--radius-2);
-		flex-shrink: 0;
-	}
-
-	.moc-content {
-		flex: 1;
-		min-width: 0;
-	}
-
-	.moc-name {
-		font-size: var(--type-2);
-		font-weight: 600;
-		color: var(--color-text);
-		margin: 0;
-		line-height: var(--line-height-heading);
-	}
-
-	.moc-count {
-		font-size: var(--type-0);
-		color: var(--color-muted);
-		margin: var(--space-1) 0 0 0;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		font-weight: 600;
-	}
-</style>

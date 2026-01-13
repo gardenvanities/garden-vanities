@@ -63,9 +63,8 @@ export interface Backlink extends PostFrontmatter {
 
 export type LinkReference = PostFrontmatter;
 
-// No seu arquivo posts.ts, altere a interface Post:
-export interface Post extends Omit<PostFrontmatter, "author">, PostComputed {
-	author: Author; // Aqui o autor já é o objeto processado, não apenas o nick
+export interface Post extends PostFrontmatter, PostComputed {
+	author: Author;
 	content: string;
 	serieNavigation?: SerieNavigation;
 	backlinks?: Backlink[];

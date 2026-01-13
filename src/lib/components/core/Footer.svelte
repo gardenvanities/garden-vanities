@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Github, Twitter, Mail } from "@lucide/svelte";
 	import ThemeToggle from "$lib/components/core/ThemeToggle.svelte";
+
 	const currentYear = new Date().getFullYear();
 </script>
 

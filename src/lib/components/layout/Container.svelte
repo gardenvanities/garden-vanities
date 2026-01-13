@@ -1,13 +1,15 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
+	import { cn } from "$lib/utils/merge-class";
 
 	interface Props {
 		children: Snippet;
 		class?: string;
 		size?: "sm" | "md" | "lg" | "xl" | "full";
+		as?: string;
 	}
 
-	let { children, class: className = "", size = "lg" }: Props = $props();
+	let { children, class: className = "", size = "lg", as = "div" }: Props = $props();
 
 	const sizes = {
 		sm: "max-w-2xl", // Leitura focada (posts)
@@ -18,6 +20,6 @@
 	};
 </script>
 
-<div class="mx-auto w-full px-4 sm:px-6 lg:px-8 {sizes[size]} {className}">
+<svelte:element this={as} class={cn("mx-auto w-full px-4 sm:px-6 lg:px-8", sizes[size], className)}>
 	{@render children()}
-</div>
+</svelte:element>

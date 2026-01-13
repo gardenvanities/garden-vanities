@@ -27,7 +27,7 @@
 	<Container size="sm">
 		<header class="mb-12">
 			<h1
-				class="text-text text-3xl font-bold tracking-tight sm:text-4xl"
+				class="font-heading text-text text-3xl font-bold tracking-tight sm:text-4xl"
 				in:fly={{ y: 20, duration: 800, delay: 100 }}
 			>
 				Todos os Artigos

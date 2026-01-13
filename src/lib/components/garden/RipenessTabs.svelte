@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Ripeness, PostFrontmatter } from "$lib/types";
 	import RipenessBadge from "./RipenessBadge.svelte";
+	import Card from "$lib/components/ui/Card.svelte";
 	import { formatRelativeDate } from "$lib/utils/date";
 	import { fly } from "svelte/transition";
 	import type { Component } from "svelte";
@@ -28,199 +29,67 @@
 	const activePosts = $derived(posts[activeTab]);
 </script>
 
-<div class="ripeness-tabs">
+<div class="flex flex-col gap-6">
 	<!-- Tab Buttons -->
-	<div class="tabs-header" role="tablist">
+	<div class="border-border scrollbar-thin flex gap-2 overflow-x-auto border-b" role="tablist">
 		{#each tabs as tab (tab.value)}
+			{@const isActive = activeTab === tab.value}
 			<button
 				type="button"
 				role="tab"
-				aria-selected={activeTab === tab.value}
-				class="tab-button"
-				class:active={activeTab === tab.value}
+				aria-selected={isActive}
+				class="font-heading -mb-[2px] flex cursor-pointer items-center gap-2 border-b-2 bg-transparent px-5 py-3 font-semibold whitespace-nowrap transition-all duration-200 {isActive
+					? 'border-primary text-text'
+					: 'text-muted hover:text-text hover:bg-action-hover border-transparent'}"
 				onclick={() => (activeTab = tab.value)}
 			>
-				<div class="tab-icon">
+				<div class="flex items-center justify-center">
 					<tab.icon size={18} strokeWidth={2} />
 				</div>
-				<span class="tab-label">{tab.label}</span>
+				<span class="font-heading">{tab.label}</span>
 			</button>
 		{/each}
 	</div>
 
 	<!-- Tab Content -->
-	<div class="tabs-content" role="tabpanel">
+	<div class="min-h-[400px]" role="tabpanel">
 		{#if activePosts.length === 0}
-			<div class="empty-state" in:fly={{ y: 20, duration: 400 }}>
+			<div
+				class="text-muted flex items-center justify-center p-10 italic"
+				in:fly={{ y: 20, duration: 400 }}
+			>
 				<p>Nenhuma nota neste estágio ainda.</p>
 			</div>
 		{:else}
-			<div class="posts-list">
+			<div class="flex flex-col gap-4">
 				{#each activePosts as post, i (post.slug)}
-					<a
-						href="/posts/{post.slug}"
-						class="post-item"
-						in:fly={{ y: 20, duration: 400, delay: i * 50 }}
-					>
-						<div class="post-header">
-							<h3 class="post-title">{post.title}</h3>
-							<div class="post-badges">
-								<RipenessBadge ripeness={post.ripeness} showLabel={false} />
-								{#if post.updatedAt}
-									<span class="post-date">{formatRelativeDate(post.updatedAt)}</span>
-								{/if}
+					<div in:fly={{ y: 20, duration: 400, delay: i * 50 }}>
+						<Card
+							href="/posts/{post.slug}"
+							class="flex flex-col gap-2 p-4 hover:translate-x-1 sm:px-5"
+							variant="default"
+						>
+							<div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-start sm:gap-4">
+								<h3 class="text-text m-0 flex-1 text-lg leading-tight font-semibold">
+									{post.title}
+								</h3>
+								<div class="flex shrink-0 items-center gap-2 self-start sm:self-auto">
+									<RipenessBadge ripeness={post.ripeness} showLabel={false} />
+									{#if post.updatedAt}
+										<span
+											class="text-muted text-xs font-semibold tracking-wider whitespace-nowrap uppercase"
+											>{formatRelativeDate(post.updatedAt)}</span
+										>
+									{/if}
+								</div>
 							</div>
-						</div>
-						{#if post.summary}
-							<p class="post-summary">{post.summary}</p>
-						{/if}
-					</a>
+							{#if post.summary}
+								<p class="text-muted m-0 text-sm leading-normal">{post.summary}</p>
+							{/if}
+						</Card>
+					</div>
 				{/each}
 			</div>
 		{/if}
 	</div>
 </div>
-
-<style>
-	.ripeness-tabs {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-6);
-	}
-
-	/* Tab Header */
-	.tabs-header {
-		display: flex;
-		gap: var(--space-2);
-		border-bottom: 2px solid var(--color-border);
-		overflow-x: auto;
-		scrollbar-width: thin;
-	}
-
-	.tab-button {
-		display: flex;
-		align-items: center;
-		gap: var(--space-2);
-		padding: var(--space-3) var(--space-5);
-		background: transparent;
-		border: none;
-		border-bottom: 2px solid transparent;
-		margin-bottom: -2px;
-		color: var(--color-muted);
-		font-size: var(--type-1);
-		font-weight: 600;
-		cursor: pointer;
-		transition: all var(--motion-base) var(--motion-ease);
-		white-space: nowrap;
-	}
-
-	.tab-button:hover {
-		color: var(--color-text);
-		background: var(--color-action-hover);
-	}
-
-	.tab-button.active {
-		color: var(--color-text);
-		border-bottom-color: var(--color-primary);
-	}
-
-	.tab-icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: currentColor;
-	}
-
-	.tab-label {
-		font-family: var(--font-heading);
-	}
-
-	/* Tab Content */
-	.tabs-content {
-		min-height: 400px;
-	}
-
-	.empty-state {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: var(--space-10);
-		color: var(--color-muted);
-		font-size: var(--type-1);
-		font-style: italic;
-	}
-
-	.posts-list {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-4);
-	}
-
-	.post-item {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-2);
-		padding: var(--space-4) var(--space-5);
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-2);
-		text-decoration: none;
-		transition: all var(--motion-base) var(--motion-ease);
-	}
-
-	.post-item:hover {
-		border-color: var(--color-border-vivid);
-		box-shadow: var(--shadow-2);
-		transform: translateX(4px);
-	}
-
-	.post-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-		gap: var(--space-4);
-	}
-
-	.post-title {
-		font-size: var(--type-2);
-		font-weight: 600;
-		color: var(--color-text);
-		margin: 0;
-		line-height: var(--line-height-heading);
-		flex: 1;
-	}
-
-	.post-badges {
-		display: flex;
-		align-items: center;
-		gap: var(--space-2);
-		flex-shrink: 0;
-	}
-
-	.post-date {
-		font-size: var(--type-0);
-		color: var(--color-muted);
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		font-weight: 600;
-		white-space: nowrap;
-	}
-
-	.post-summary {
-		font-size: var(--type-1);
-		color: var(--color-muted);
-		line-height: var(--line-height-body);
-		margin: 0;
-	}
-
-	@media (max-width: 640px) {
-		.post-header {
-			flex-direction: column;
-			gap: var(--space-2);
-		}
-
-		.post-badges {
-			align-self: flex-start;
-		}
-	}
-</style>

@@ -70,8 +70,8 @@
 </script>
 
 {#if headings.length > 0}
-	<nav class="hidden lg:sticky lg:top-24 lg:block lg:h-fit lg:w-64" aria-label="Sumário">
-		<h4 class="text-type-1 mb-4 font-bold uppercase">Sumário</h4>
+	<nav class="hidden lg:sticky lg:top-24 lg:block lg:h-fit lg:w-64" aria-label="Índice">
+		<h4 class="font-body text-type-1 mb-4 font-bold uppercase">Índice</h4>
 		<ul class="border-border space-y-3 border-l py-1">
 			{#each headings as { id, text, level }, i (id)}
 				<li

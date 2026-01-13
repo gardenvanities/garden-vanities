@@ -63,6 +63,7 @@
 	}
 
 	.section-subtitle {
+		font-family: var(--font-article-body);
 		font-size: var(--type-1);
 		color: var(--color-muted);
 		margin: var(--space-2) 0 0 0;

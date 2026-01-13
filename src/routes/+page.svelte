@@ -39,12 +39,12 @@
 <!-- SECTION A: Hero -->
 <Section class="py-16 md:py-24">
 	<Container size="lg">
-		<div class="hero" in:fly={{ y: 30, duration: 1000, delay: 100 }}>
-			<h1 class="hero-title">
-				<Map class="text-primary mr-2 inline-block" size={32} />
+		<div class="mx-auto max-w-4xl text-center" in:fly={{ y: 30, duration: 1000, delay: 100 }}>
+			<h1 class="font-heading text-text mb-6 text-6xl font-bold">
+				<Map class="text-primary mr-2 inline-block -translate-y-2" size={48} strokeWidth={2.5} />
 				Explore o Jardim
 			</h1>
-			<p class="hero-subtitle">
+			<p class="text-muted text-3xl leading-relaxed font-light">
 				Este é um jardim de ideias em crescimento. Algumas notas ainda estão brotando, outras já
 				deram frutos. Escolha um caminho e caminhe sem pressa.
 			</p>
@@ -79,52 +79,85 @@
 	<Container size="lg">
 		<div in:fly={{ y: 30, duration: 800, delay: 400 }}>
 			<SectionHeader icon={Compass} title="Tipos de Conteúdo" subtitle="Explore por formato" />
-			<div class="curation-grid">
+			<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
 				<!-- Column 1: Essays & Thoughts -->
-				<div class="curation-column">
-					<h3 class="curation-title">Ensaios & Reflexões</h3>
+				<div class="flex flex-col gap-4">
+					<h3 class="font-heading text-text border-border border-b-2 pb-2 text-2xl font-semibold">
+						Ensaios & Reflexões
+					</h3>
 					{#if data.postsByKind.essay.length > 0 || data.postsByKind.thought.length > 0}
-						<ul class="curation-list">
+						<ul class="m-0 flex list-none flex-col gap-3 p-0">
 							{#each [...data.postsByKind.essay, ...data.postsByKind.thought] as post (post.slug)}
-								<li>
-									<a href="/posts/{post.slug}" class="curation-link">{post.title}</a>
+								<li class="group relative pl-5">
+									<span
+										class="text-primary absolute left-0 font-bold transition-transform group-hover:translate-x-1"
+										>→</span
+									>
+									<a
+										href="/posts/{post.slug}"
+										class="text-text hover:text-primary decoration-primary/30 decoration-2 underline-offset-4 transition-colors hover:underline"
+									>
+										{post.title}
+									</a>
 								</li>
 							{/each}
 						</ul>
 					{:else}
-						<p class="curation-empty">Nenhum ensaio ainda.</p>
+						<p class="text-muted text-sm italic">Nenhum ensaio ainda.</p>
 					{/if}
 				</div>
 
 				<!-- Column 2: Tutorials -->
-				<div class="curation-column">
-					<h3 class="curation-title">Tutoriais e Guias</h3>
+				<div class="flex flex-col gap-4">
+					<h3 class="font-heading text-text border-border border-b-2 pb-2 text-2xl font-semibold">
+						Tutoriais e Guias
+					</h3>
 					{#if data.postsByKind.tutorial.length > 0}
-						<ul class="curation-list">
+						<ul class="m-0 flex list-none flex-col gap-3 p-0">
 							{#each data.postsByKind.tutorial as post (post.slug)}
-								<li>
-									<a href="/posts/{post.slug}" class="curation-link">{post.title}</a>
+								<li class="group relative pl-5">
+									<span
+										class="text-primary absolute left-0 font-bold transition-transform group-hover:translate-x-1"
+										>→</span
+									>
+									<a
+										href="/posts/{post.slug}"
+										class="text-text hover:text-primary decoration-primary/30 decoration-2 underline-offset-4 transition-colors hover:underline"
+									>
+										{post.title}
+									</a>
 								</li>
 							{/each}
 						</ul>
 					{:else}
-						<p class="curation-empty">Nenhum tutorial ainda.</p>
+						<p class="text-muted text-sm italic">Nenhum tutorial ainda.</p>
 					{/if}
 				</div>
 
 				<!-- Column 3: Notes -->
-				<div class="curation-column">
-					<h3 class="curation-title">Notas Rápidas</h3>
+				<div class="flex flex-col gap-4">
+					<h3 class="font-heading text-text border-border border-b-2 pb-2 text-2xl font-semibold">
+						Notas Rápidas
+					</h3>
 					{#if data.postsByKind.note.length > 0}
-						<ul class="curation-list">
+						<ul class="m-0 flex list-none flex-col gap-3 p-0">
 							{#each data.postsByKind.note as post (post.slug)}
-								<li>
-									<a href="/posts/{post.slug}" class="curation-link">{post.title}</a>
+								<li class="group relative pl-5">
+									<span
+										class="text-primary absolute left-0 font-bold transition-transform group-hover:translate-x-1"
+										>→</span
+									>
+									<a
+										href="/posts/{post.slug}"
+										class="text-text hover:text-primary decoration-primary/30 decoration-2 underline-offset-4 transition-colors hover:underline"
+									>
+										{post.title}
+									</a>
 								</li>
 							{/each}
 						</ul>
 					{:else}
-						<p class="curation-empty">Nenhuma nota ainda.</p>
+						<p class="text-muted text-sm italic">Nenhuma nota ainda.</p>
 					{/if}
 				</div>
 			</div>
@@ -132,8 +165,9 @@
 	</Container>
 </Section>
 
-<!-- SECTION D: Ripeness - INTERACTIVE (Most Important) -->
-<Section class="bg-surface-subtle py-12">
+<!-- SECTION D: Ripeness -->
+<Section class="bg-surface-elevated/50 relative overflow-hidden py-12">
+	<div class="bg-grid-pattern pointer-events-none absolute inset-0 opacity-[0.03]"></div>
 	<Container size="lg">
 		<div in:fly={{ y: 30, duration: 800, delay: 600 }}>
 			<SectionHeader
@@ -152,16 +186,32 @@
 		<Container size="lg">
 			<div in:fly={{ y: 30, duration: 800, delay: 800 }}>
 				<SectionHeader icon={Library} title="Séries Especiais" subtitle="Coleções organizadas" />
-				<div class="series-grid">
+				<div class="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
 					{#each data.series as serie, i (serie.name)}
-						<div class="series-card" in:fly={{ y: 20, duration: 600, delay: 900 + i * 80 }}>
-							<h3 class="series-name">{serie.name}</h3>
-							<ol class="series-list">
+						<div
+							class="bg-surface border-border rounded-lg border p-6 shadow-sm transition-all duration-300 hover:shadow-md"
+							in:fly={{ y: 20, duration: 600, delay: 900 + i * 80 }}
+						>
+							<h3
+								class="font-heading text-text border-primary mb-6 border-b-2 pb-3 text-2xl font-bold"
+							>
+								{serie.name}
+							</h3>
+							<ol class="m-0 flex list-none flex-col gap-3 p-0">
 								{#each serie.posts as post (post.slug)}
-									<li class="series-item">
-										<a href="/posts/{post.slug}" class="series-link">
-											<span class="series-order">{post.series?.order || 0}</span>
-											<span class="series-title">{post.title}</span>
+									<li class="m-0">
+										<a
+											href="/posts/{post.slug}"
+											class="hover:bg-action-hover group flex items-center gap-3 rounded-md p-2 transition-colors"
+										>
+											<span
+												class="bg-primary text-primary-contrast flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold"
+												>{post.series?.order || 0}</span
+											>
+											<span
+												class="text-text group-hover:text-primary flex-1 text-base transition-colors"
+												>{post.title}</span
+											>
 										</a>
 									</li>
 								{/each}
@@ -174,7 +224,7 @@
 	</Section>
 {/if}
 
-<!-- SECTION F: Freshness (Recently Updated) -->
+<!-- SECTION F: Freshness -->
 {#if data.freshPosts.length > 0}
 	<Section class="py-12">
 		<Container size="lg">
@@ -184,20 +234,20 @@
 					title="Recém-Atualizadas"
 					subtitle="As notas mais frescas do jardim"
 				/>
-				<div class="fresh-list">
+				<div class="flex flex-col gap-4">
 					{#each data.freshPosts as post, i (post.slug)}
 						<a
 							href="/posts/{post.slug}"
-							class="fresh-item"
+							class="bg-surface border-border hover:border-border-vivid flex items-center gap-4 rounded-lg border p-5 no-underline transition-all hover:translate-x-1 hover:shadow-md"
 							in:fly={{ y: 20, duration: 600, delay: 1100 + i * 80 }}
 						>
-							<div class="fresh-content">
-								<h3 class="fresh-title">{post.title}</h3>
-								<div class="fresh-meta">
-									<span class="fresh-date">
+							<div class="min-w-0 flex-1">
+								<h3 class="text-text mb-2 text-xl leading-tight font-semibold">{post.title}</h3>
+								<div class="text-muted flex items-center gap-3 text-xs">
+									<span class="font-bold tracking-wider uppercase">
 										{post.updatedAt ? formatRelativeDate(post.updatedAt) : ""}
 									</span>
-									<span class="fresh-separator">•</span>
+									<span class="text-border-vivid">•</span>
 									<RipenessBadge ripeness={post.ripeness} showLabel={false} />
 								</div>
 							</div>
@@ -208,247 +258,3 @@
 		</Container>
 	</Section>
 {/if}
-
-<style>
-	/* ═══════════════════════════════════════════════════════════════════════════
-     SECTION A: Hero
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-	.hero {
-		text-align: center;
-		max-width: 800px;
-		margin: 0 auto;
-	}
-
-	.hero-title {
-		font-family: var(--font-heading);
-		font-size: var(--type-6);
-		font-weight: 700;
-		color: var(--color-text);
-		margin: 0 0 var(--space-6) 0;
-		line-height: var(--line-height-heading);
-	}
-
-	.hero-subtitle {
-		font-size: var(--type-3);
-		color: var(--color-muted);
-		line-height: var(--line-height-body);
-		margin: 0;
-		font-weight: 300;
-	}
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     SECTION C: Curation
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-	.curation-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-		gap: var(--space-6);
-	}
-
-	.curation-column {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-3);
-	}
-
-	.curation-title {
-		font-family: var(--font-heading);
-		font-size: var(--type-2);
-		font-weight: 600;
-		color: var(--color-text);
-		margin: 0;
-		padding-bottom: var(--space-2);
-		border-bottom: 2px solid var(--color-border);
-	}
-
-	.curation-list {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-2);
-	}
-
-	.curation-list li {
-		position: relative;
-		padding-left: var(--space-4);
-	}
-
-	.curation-list li::before {
-		content: "→";
-		position: absolute;
-		left: 0;
-		color: var(--color-primary);
-		font-weight: 700;
-	}
-
-	.curation-link {
-		color: var(--color-text);
-		text-decoration: none;
-		font-size: var(--type-1);
-		line-height: var(--line-height-body);
-		transition: color var(--motion-fast) var(--motion-ease);
-	}
-
-	.curation-link:hover {
-		color: var(--color-primary);
-		text-decoration: underline;
-	}
-
-	.curation-empty {
-		font-size: var(--type-0);
-		color: var(--color-muted);
-		font-style: italic;
-		margin: 0;
-	}
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     SECTION D: Handled by RipenessTabs component
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-	/* Background for ripeness section */
-	:global(.bg-surface-subtle) {
-		background: oklch(from var(--color-surface) l c h / 0.5);
-	}
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     SECTION E: Freshness
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-	.fresh-list {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-3);
-	}
-
-	.fresh-item {
-		display: flex;
-		align-items: center;
-		padding: var(--space-4) var(--space-5);
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-2);
-		text-decoration: none;
-		transition: all var(--motion-base) var(--motion-ease);
-	}
-
-	.fresh-item:hover {
-		border-color: var(--color-border-vivid);
-		box-shadow: var(--shadow-2);
-		transform: translateX(4px);
-	}
-
-	.fresh-content {
-		flex: 1;
-		min-width: 0;
-	}
-
-	.fresh-title {
-		font-size: var(--type-2);
-		font-weight: 600;
-		color: var(--color-text);
-		margin: 0 0 var(--space-2) 0;
-		line-height: var(--line-height-heading);
-	}
-
-	.fresh-meta {
-		display: flex;
-		align-items: center;
-		gap: var(--space-2);
-		font-size: var(--type-0);
-		color: var(--color-muted);
-	}
-
-	.fresh-date {
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		font-weight: 600;
-	}
-
-	.fresh-separator {
-		color: var(--color-border-vivid);
-	}
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     SECTION F: Series
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-	.series-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-		gap: var(--space-6);
-	}
-
-	.series-card {
-		padding: var(--space-5);
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-2);
-		box-shadow: var(--shadow-1);
-	}
-
-	.series-name {
-		font-family: var(--font-heading);
-		font-size: var(--type-3);
-		font-weight: 700;
-		color: var(--color-text);
-		margin: 0 0 var(--space-4) 0;
-		padding-bottom: var(--space-3);
-		border-bottom: 2px solid var(--color-primary);
-	}
-
-	.series-list {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-2);
-	}
-
-	.series-item {
-		margin: 0;
-	}
-
-	.series-link {
-		display: flex;
-		align-items: center;
-		gap: var(--space-3);
-		padding: var(--space-2);
-		text-decoration: none;
-		border-radius: var(--radius-1);
-		transition: all var(--motion-fast) var(--motion-ease);
-	}
-
-	.series-link:hover {
-		background: var(--color-action-hover);
-	}
-
-	.series-order {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 28px;
-		height: 28px;
-		background: var(--color-primary);
-		color: var(--color-primary-contrast);
-		border-radius: var(--radius-full);
-		font-size: var(--type-0);
-		font-weight: 700;
-		flex-shrink: 0;
-	}
-
-	.series-title {
-		flex: 1;
-		color: var(--color-text);
-		font-size: var(--type-1);
-		line-height: var(--line-height-body);
-	}
-
-	.series-link:hover .series-title {
-		color: var(--color-primary);
-	}
-</style>

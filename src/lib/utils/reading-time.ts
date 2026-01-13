@@ -9,8 +9,8 @@ export function calculateReadingTime(content: string): number {
 }
 
 export function getReadingTimeLabel(minutes: number): "short" | "medium" | "long" {
-	if (minutes <= 15) return "short";
-	if (minutes <= 30) return "medium";
+	if (minutes <= 5) return "short"; // Adjusted from 15
+	if (minutes <= 10) return "medium"; // Adjusted from 30
 	return "long";
 }
 

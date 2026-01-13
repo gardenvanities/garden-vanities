@@ -35,7 +35,7 @@
 					{#each backlinks as post (post.slug)}
 						<a
 							href="{base}/posts/{post.slug}"
-							class="group bg-surface/50 border-border hover:border-primary/30 hover:shadow-primary/5 relative flex flex-col gap-4 rounded-xl border p-5 transition-all duration-300 hover:bg-white/5 hover:shadow-lg"
+							class="group bg-surface/50 border-border hover:border-primary/30 hover:shadow-primary/5 hover:bg-action-hover relative flex flex-col gap-4 rounded-xl border p-5 transition-all duration-300 hover:shadow-lg"
 						>
 							<div class="flex items-start justify-between gap-4">
 								<div class="space-y-1.5">
