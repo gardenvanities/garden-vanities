@@ -9,6 +9,14 @@
 	import RipenessBadge from "$lib/components/garden/RipenessBadge.svelte";
 	import { formatRelativeDate } from "$lib/utils/date";
 	import { fly } from "svelte/transition";
+	import { 
+		Map, 
+		FolderOpen, 
+		Compass, 
+		Sprout, 
+		Library, 
+		Sparkles 
+	} from "@lucide/svelte";
 	import type { PostFrontmatter } from "$lib/types";
 
 	interface Props {
@@ -39,7 +47,10 @@
 <Section class="py-16 md:py-24">
 	<Container size="lg">
 		<div class="hero" in:fly={{ y: 30, duration: 1000, delay: 100 }}>
-			<h1 class="hero-title">🗺️ Explore o Jardim</h1>
+			<h1 class="hero-title">
+				<Map class="inline-block mr-2 text-primary" size={32} />
+				Explore o Jardim
+			</h1>
 			<p class="hero-subtitle">
 				Este é um jardim de ideias em crescimento. Algumas notas ainda estão brotando, outras já
 				deram frutos. Escolha um caminho e caminhe sem pressa.
@@ -53,7 +64,7 @@
 	<Section class="py-12">
 		<Container size="lg">
 			<div in:fly={{ y: 30, duration: 800, delay: 200 }}>
-				<SectionHeader emoji="🗂️" title="Áreas de Interesse" subtitle="Explore por grandes temas" />
+				<SectionHeader icon={FolderOpen} title="Áreas de Interesse" subtitle="Explore por grandes temas" />
 				<Grid cols={2} gap="md">
 					{#each data.mocs as moc, i (moc.name)}
 						<div in:fly={{ y: 20, duration: 600, delay: 300 + i * 80 }}>
@@ -70,7 +81,7 @@
 <Section class="py-12">
 	<Container size="lg">
 		<div in:fly={{ y: 30, duration: 800, delay: 400 }}>
-			<SectionHeader emoji="🧭" title="Tipos de Conteúdo" subtitle="Explore por formato" />
+			<SectionHeader icon={Compass} title="Tipos de Conteúdo" subtitle="Explore por formato" />
 			<div class="curation-grid">
 				<!-- Column 1: Essays & Thoughts -->
 				<div class="curation-column">
@@ -129,7 +140,7 @@
 	<Container size="lg">
 		<div in:fly={{ y: 30, duration: 800, delay: 600 }}>
 			<SectionHeader
-				emoji="🌳"
+				icon={Sprout}
 				title="Estágio de Maturação"
 				subtitle="Navegue pelas notas conforme seu estado de crescimento"
 			/>
@@ -143,7 +154,7 @@
 	<Section class="py-12">
 		<Container size="lg">
 			<div in:fly={{ y: 30, duration: 800, delay: 800 }}>
-				<SectionHeader emoji="📚" title="Séries Especiais" subtitle="Coleções organizadas" />
+				<SectionHeader icon={Library} title="Séries Especiais" subtitle="Coleções organizadas" />
 				<div class="series-grid">
 					{#each data.series as serie, i (serie.name)}
 						<div class="series-card" in:fly={{ y: 20, duration: 600, delay: 900 + i * 80 }}>
@@ -172,7 +183,7 @@
 		<Container size="lg">
 			<div in:fly={{ y: 30, duration: 800, delay: 1000 }}>
 				<SectionHeader
-					emoji="🌟"
+					icon={Sparkles}
 					title="Recém-Atualizadas"
 					subtitle="As notas mais frescas do jardim"
 				/>

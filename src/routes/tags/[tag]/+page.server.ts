@@ -9,9 +9,7 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
 	const tag = decodeURIComponent(params.tag).toLowerCase();
 	const allPosts = await getAllPosts({ ripeness: ["fruit", "root", "seed"] });
 
-	const posts = allPosts.filter((p) => 
-		p.tags?.some(t => t.toLowerCase() === tag)
-	);
+	const posts = allPosts.filter((p) => p.tags?.some((t) => t.toLowerCase() === tag));
 
 	return {
 		tag,

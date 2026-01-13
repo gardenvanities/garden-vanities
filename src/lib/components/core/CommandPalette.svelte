@@ -34,7 +34,10 @@
 		action: () => void;
 	}
 
-	let { searchIndex = [] }: { searchIndex?: SearchItem[] } = $props();
+	// No longer receiving props, fetching internally
+	let searchIndex = $state<SearchItem[]>([]);
+	let isLoading = $state(false);
+	let hasLoaded = $state(false);
 
 	let searchInputElement = $state<HTMLInputElement>();
 	let query = $state("");
@@ -42,6 +45,22 @@
 
 	// Sync local expanded state with store
 	let isSearchExpanded = $derived(commandPalette.isOpen);
+
+	// Lazy load search index when opened
+	$effect(() => {
+		if (isSearchExpanded && !hasLoaded && !isLoading) {
+			isLoading = true;
+			fetch("/api/search.json")
+				.then((res) => res.json())
+				.then((data) => {
+					searchIndex = data;
+					hasLoaded = true;
+				})
+				.finally(() => {
+					isLoading = false;
+				});
+		}
+	});
 
 	// Hardcoded static actions
 	const staticActions: CommandItem[] = [
@@ -339,6 +358,11 @@
 						{/if}
 					</button>
 				{/each}
+			</div>
+		{:else if isLoading}
+			<div class="flex animate-pulse flex-col items-center justify-center py-8 text-center">
+				<SearchCode size={32} class="mb-2 text-zinc-300 dark:text-zinc-600" />
+				<p class="text-sm text-zinc-500">Cultivando índice...</p>
 			</div>
 		{:else}
 			<div class="flex flex-col items-center justify-center py-8 text-center">

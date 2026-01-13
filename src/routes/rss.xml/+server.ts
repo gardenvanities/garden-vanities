@@ -3,7 +3,8 @@ import type { PostFrontmatter } from "$lib/types";
 
 const SITE_URL = "https://gardenofvanities.vercel.app";
 const SITE_TITLE = "Garden of Vanities";
-const SITE_DESCRIPTION = "Um jardim digital de ideias, ensaios e notas sobre tecnologia e filosofia."; // Customize as needed
+const SITE_DESCRIPTION =
+	"Um jardim digital de ideias, ensaios e notas sobre tecnologia e filosofia."; // Customize as needed
 
 export const GET = async () => {
 	const posts = await getAllPosts({ ripeness: ["fruit", "root"] });

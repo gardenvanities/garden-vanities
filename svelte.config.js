@@ -1,6 +1,5 @@
 import { mdsvex, escapeSvelte } from "mdsvex";
 import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import remarkMath from "remark-math";
 import rehypeKatexSvelte from "rehype-katex-svelte";
 import adapter from "@sveltejs/adapter-auto";
@@ -23,7 +22,6 @@ const config = {
 			remarkPlugins: [remarkMath],
 			rehypePlugins: [
 				rehypeSlug,
-				[rehypeAutolinkHeadings, { behavior: "wrap" }],
 				rehypeKatexSvelte
 			],
 			highlight: {

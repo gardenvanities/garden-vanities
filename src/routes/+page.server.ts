@@ -40,8 +40,6 @@ function groupBySeries(posts: PostFrontmatter[]): Map<string, PostFrontmatter[]>
 	return groups;
 }
 
-
-
 export const load: PageServerLoad = async ({ setHeaders }) => {
 	// Cache for 1 hour in browser, 1 day in CDN
 	setHeaders({

@@ -30,7 +30,7 @@
 			</div>
 		{/if}
 
-		<h1 class="text-text-heading text-3xl font-bold tracking-tight sm:text-4xl">
+		<h1 class="article-title text-text-heading text-3xl font-bold tracking-tight sm:text-4xl">
 			{metadata.title}
 		</h1>
 

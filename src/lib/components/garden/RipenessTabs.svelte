@@ -4,6 +4,8 @@
 	import { formatRelativeDate } from "$lib/utils/date";
 	import { fly } from "svelte/transition";
 
+	import { Sprout, Leaf, Apple } from "@lucide/svelte";
+
 	interface Props {
 		posts: {
 			seed: PostFrontmatter[];
@@ -16,10 +18,10 @@
 
 	let activeTab = $state<Ripeness>("fruit");
 
-	const tabs: Array<{ value: Ripeness; label: string; emoji: string }> = [
-		{ value: "seed", label: "Sementes", emoji: "🌱" },
-		{ value: "root", label: "Raízes", emoji: "🌿" },
-		{ value: "fruit", label: "Frutos", emoji: "🍎" }
+	const tabs: Array<{ value: Ripeness; label: string; icon: any }> = [
+		{ value: "seed", label: "Sementes", icon: Sprout },
+		{ value: "root", label: "Raízes", icon: Leaf },
+		{ value: "fruit", label: "Frutos", icon: Apple }
 	];
 
 	const activePosts = $derived(posts[activeTab]);
@@ -37,7 +39,9 @@
 				class:active={activeTab === tab.value}
 				onclick={() => (activeTab = tab.value)}
 			>
-				<span class="tab-emoji">{tab.emoji}</span>
+				<div class="tab-icon">
+					<tab.icon size={18} strokeWidth={2} />
+				</div>
 				<span class="tab-label">{tab.label}</span>
 			</button>
 		{/each}
@@ -119,9 +123,11 @@
 		border-bottom-color: var(--color-primary);
 	}
 
-	.tab-emoji {
-		font-size: 1.25rem;
-		line-height: 1;
+	.tab-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: currentColor;
 	}
 
 	.tab-label {

@@ -7,16 +7,6 @@
 	import { onMount } from "svelte";
 	import CommandPalette from "./CommandPalette.svelte";
 
-	interface SearchItem {
-		title: string;
-		slug: string;
-		kind?: string;
-		tags?: string[];
-		content?: string;
-	}
-
-	let { searchIndex = [] }: { searchIndex?: SearchItem[] } = $props();
-
 	// Sync local expanded state with store
 	let isSearchExpanded = $derived(commandPalette.isOpen);
 
@@ -107,11 +97,11 @@
 			<!-- Collapsed State: Navigation Icons -->
 			<div class="flex items-center gap-1" in:fade={{ duration: 200, delay: 100 }}>
 				<!-- Home -->
-				{#if page.url.pathname === '/'}
+				{#if page.url.pathname === "/"}
 					<button
 						type="button"
 						class="text-brand-primary! group flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:bg-black/5 dark:hover:bg-white/10 dark:hover:text-white"
-						onclick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+						onclick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
 						aria-label="Ir para o topo"
 					>
 						<Telescope size={20} class="transition-transform group-hover:scale-110" />
@@ -156,7 +146,7 @@
 		{:else}
 			<!-- Expanded State: Search Input (CommandPalette) -->
 			<div class="w-full" in:fade={{ duration: 200, delay: 50 }} out:fade={{ duration: 100 }}>
-				<CommandPalette {searchIndex} />
+				<CommandPalette />
 			</div>
 		{/if}
 	</div>

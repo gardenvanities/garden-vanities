@@ -10,7 +10,7 @@
 	import HoverPreview from "$lib/components/garden/HoverPreview.svelte";
 	import LinkPreviewDelegator from "$lib/components/garden/LinkPreviewDelegator.svelte";
 
-	const { children, data } = $props();
+	const { children } = $props();
 
 	onMount(() => {
 		const lenis = new Lenis({
@@ -60,6 +60,6 @@
 
 	<Footer />
 
-	<FloatingNav searchIndex={data.searchIndex} />
+	<FloatingNav />
 	<HoverPreview />
 </div>
