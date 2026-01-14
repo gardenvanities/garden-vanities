@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { Ripeness } from "$lib/types";
 	import { Sprout, TreeDeciduous, Apple } from "@lucide/svelte";
-
-	import { cn } from "$lib/utils/merge-class";
+	import Badge from "$lib/components/ui/Badge.svelte";
 
 	interface Props {
 		ripeness: Ripeness;
@@ -38,13 +37,10 @@
 </script>
 
 {#if config}
-	<span
-		class={cn(
-			"inline-flex items-center gap-1 rounded-sm border px-2 py-0.5 text-xs font-bold tracking-widest uppercase transition-colors",
-			config.color,
-			className
-		)}
-		data-ripeness={ripeness}
+	<Badge
+		variant="outline"
+		class="gap-1 border font-bold tracking-widest uppercase {config.color} {className}"
+		as="span"
 	>
 		{#if showIcon}
 			<config.icon size={12} strokeWidth={2.5} />
@@ -52,5 +48,5 @@
 		{#if showLabel}
 			{config.label}
 		{/if}
-	</span>
+	</Badge>
 {/if}

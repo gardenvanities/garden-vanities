@@ -14,6 +14,8 @@
 		type?: "button" | "submit" | "reset";
 		disabled?: boolean;
 		onclick?: (event: MouseEvent) => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		[key: string]: any;
 	}
 
 	let {
@@ -24,7 +26,8 @@
 		href,
 		type = "button",
 		disabled = false,
-		onclick
+		onclick,
+		...rest
 	}: Props = $props();
 
 	const baseStyles =
@@ -51,6 +54,7 @@
 		class={cn(baseStyles, variants[variant], sizes[size], className)}
 		role="button"
 		onclick={onclick as ((event: MouseEvent) => void) | undefined}
+		{...rest}
 	>
 		{@render children()}
 	</a>
@@ -60,6 +64,7 @@
 		{disabled}
 		class={cn(baseStyles, variants[variant], sizes[size], className)}
 		{onclick}
+		{...rest}
 	>
 		{@render children()}
 	</button>

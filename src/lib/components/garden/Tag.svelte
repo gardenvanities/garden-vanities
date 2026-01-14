@@ -1,5 +1,7 @@
 <!-- src/lib/components/garden/Tag.svelte -->
 <script lang="ts">
+	import Badge from "$lib/components/ui/Badge.svelte";
+
 	interface Props {
 		tag: string;
 		onclick?: (tag: string) => void;
@@ -14,7 +16,14 @@
 	}
 </script>
 
-<button type="button" {disabled} onclick={handleClick} class="badge badge--interactive">
-	<span class="opacity-40">#</span>
-	{tag}
-</button>
+<Badge
+	as="button"
+	type="button"
+	{disabled}
+	onclick={handleClick}
+	variant="secondary"
+	class="group hover:border-primary/50 cursor-pointer"
+>
+	<span class="group-hover:text-primary opacity-40 transition-colors">#</span>
+	<span class="ml-0.5">{tag}</span>
+</Badge>

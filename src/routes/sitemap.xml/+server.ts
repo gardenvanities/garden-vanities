@@ -33,8 +33,9 @@ export const GET: RequestHandler = async () => {
 
 	const pages = [
 		{ url: "/", priority: 1.0, changefreq: "daily" },
-		{ url: "/garden", priority: 0.8, changefreq: "weekly" },
-		{ url: "/posts", priority: 0.8, changefreq: "weekly" }
+		{ url: "/explore", priority: 0.9, changefreq: "daily" },
+		{ url: "/topics", priority: 0.8, changefreq: "weekly" },
+		{ url: "/series", priority: 0.8, changefreq: "weekly" }
 	];
 
 	const urls = [

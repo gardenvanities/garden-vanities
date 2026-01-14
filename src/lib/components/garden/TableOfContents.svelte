@@ -10,9 +10,10 @@
 
 	interface Props {
 		key?: string;
+		title?: string;
 	}
 
-	let { key }: Props = $props();
+	let { key, title = "Índice" }: Props = $props();
 
 	let headings = $state<Heading[]>([]);
 	let activeId = $state("");
@@ -70,8 +71,11 @@
 </script>
 
 {#if headings.length > 0}
-	<nav class="hidden lg:sticky lg:top-24 lg:block lg:h-fit lg:w-64" aria-label="Índice">
-		<h4 class="font-body text-type-1 mb-4 font-bold uppercase">Índice</h4>
+	<nav class="hidden h-fit w-64 lg:sticky lg:top-24 lg:block" aria-label={title}>
+		<h4 class="text-muted font-body mb-4 text-xs font-bold uppercase tracking-widest">
+			{title}
+		</h4>
+
 		<ul class="border-border space-y-3 border-l py-1">
 			{#each headings as { id, text, level }, i (id)}
 				<li
@@ -98,10 +102,3 @@
 		</ul>
 	</nav>
 {/if}
-
-<style>
-	/* Esconder se houver poucos itens */
-	nav:empty {
-		display: none;
-	}
-</style>

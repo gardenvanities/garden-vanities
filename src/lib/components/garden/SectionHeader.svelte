@@ -10,63 +10,23 @@
 	let { title, subtitle, emoji, icon: Icon }: Props = $props();
 </script>
 
-<header class="section-header">
+<header class="mb-6 flex items-start gap-4">
 	{#if Icon}
-		<div class="section-icon">
+		<div class="text-primary flex shrink-0 items-center justify-center text-[2rem] leading-none">
 			<Icon size={32} strokeWidth={1.5} />
 		</div>
 	{:else if emoji}
-		<span class="section-emoji">{emoji}</span>
+		<span class="text-primary shrink-0 text-[2rem] leading-none">{emoji}</span>
 	{/if}
 
-	<div class="section-text">
-		<h2 class="section-title">{title}</h2>
+	<div class="flex-1">
+		<h2 class="font-heading text-text m-0 text-2xl font-bold leading-tight">
+			{title}
+		</h2>
 		{#if subtitle}
-			<p class="section-subtitle">{subtitle}</p>
+			<p class="font-article-body text-muted mt-2 mb-0 text-base leading-normal">
+				{subtitle}
+			</p>
 		{/if}
 	</div>
 </header>
-
-<style>
-	.section-header {
-		display: flex;
-		align-items: flex-start;
-		gap: var(--space-4);
-		margin-bottom: var(--space-6);
-	}
-
-	.section-icon,
-	.section-emoji {
-		font-size: 2rem;
-		line-height: 1;
-		flex-shrink: 0;
-		color: var(--color-primary);
-	}
-
-	.section-icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.section-text {
-		flex: 1;
-	}
-
-	.section-title {
-		font-family: var(--font-heading);
-		font-size: var(--type-4);
-		font-weight: 700;
-		color: var(--color-text);
-		margin: 0;
-		line-height: var(--line-height-heading);
-	}
-
-	.section-subtitle {
-		font-family: var(--font-article-body);
-		font-size: var(--type-1);
-		color: var(--color-muted);
-		margin: var(--space-2) 0 0 0;
-		line-height: var(--line-height-body);
-	}
-</style>

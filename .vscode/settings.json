@@ -14,5 +14,7 @@
 	"workbench.editor.showTabs": "single",
 	"workbench.layoutControl.enabled": false,
 	"editor.scrollbar.vertical": "hidden",
-	"editor.scrollbar.horizontal": "hidden"
+	"editor.scrollbar.horizontal": "hidden",
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true
 }

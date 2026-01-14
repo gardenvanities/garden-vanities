@@ -11,6 +11,8 @@
 		href?: string;
 		onclick?: (event: MouseEvent) => void;
 		as?: string;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		[key: string]: any;
 	}
 
 	let {
@@ -19,7 +21,8 @@
 		class: className = "",
 		href,
 		onclick,
-		as = "div"
+		as = "div",
+		...rest
 	}: Props = $props();
 
 	const baseStyles = "block rounded-md transition-all duration-200";
@@ -32,7 +35,7 @@
 </script>
 
 {#if href}
-	<a {href} class={cn(baseStyles, variants[variant], className)} {onclick}>
+	<a {href} class={cn(baseStyles, variants[variant], className)} {onclick} {...rest}>
 		{@render children()}
 	</a>
 {:else}
@@ -45,6 +48,7 @@
 		onkeydown={onclick
 			? (e) => e.key === "Enter" && onclick(e as unknown as MouseEvent)
 			: undefined}
+		{...rest}
 	>
 		{@render children()}
 	</svelte:element>

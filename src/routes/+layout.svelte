@@ -7,8 +7,6 @@
 
 	import ReadingProgress from "$lib/components/core/ReadingProgress.svelte";
 	import Footer from "$lib/components/core/Footer.svelte";
-	import HoverPreview from "$lib/components/garden/HoverPreview.svelte";
-	import LinkPreviewDelegator from "$lib/components/garden/LinkPreviewDelegator.svelte";
 
 	const { children } = $props();
 
@@ -52,14 +50,11 @@
 <div
 	class="text-text bg-bg selection:bg-primary/20 selection:text-primary flex min-h-screen flex-col font-sans antialiased"
 >
-	<LinkPreviewDelegator>
-		<main class="grow pb-24">
-			{@render children?.()}
-		</main>
-	</LinkPreviewDelegator>
+	<main class="grow pb-24">
+		{@render children?.()}
+	</main>
 
 	<Footer />
 
 	<FloatingNav />
-	<HoverPreview />
 </div>

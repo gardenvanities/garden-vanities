@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { Kind } from "$lib/types";
 	import { FileText, BookOpen, GraduationCap, Lightbulb } from "@lucide/svelte";
-
-	import { cn } from "$lib/utils/merge-class";
+	import Badge from "$lib/components/ui/Badge.svelte";
 
 	interface Props {
 		kind: Kind;
@@ -39,17 +38,14 @@
 </script>
 
 {#if config}
-	<span
-		class={cn(
-			"inline-flex items-center gap-1 rounded-sm border px-2 py-0.5 text-xs font-bold tracking-widest uppercase transition-colors",
-			config.color,
-			className
-		)}
-		data-kind={kind}
+	<Badge
+		variant="outline"
+		class="gap-1 border font-bold tracking-widest uppercase {config.color} {className}"
+		as="span"
 	>
 		{#if showIcon}
 			<config.icon size={12} strokeWidth={2.5} />
 		{/if}
 		{config.label}
-	</span>
+	</Badge>
 {/if}

@@ -21,10 +21,10 @@ You are an expert Senior Frontend Engineer assisting a user with a SvelteKit pro
   - Children/Slots: `let { children }: { children: Snippet } = $props();` (Import `Snippet` from 'svelte').
 - **Derived**: Use `$derived(expression)` for simple values and `$derived.by(() => { ... })` for complex logic.
 - **Effects**: Use `$effect(() => { ... })` for side effects. Avoid using effects for derived state.
-- **Events**: Do NOT use `createEventDispatcher`. Use callback props instead (e.g., `let { onsave }: { onsave?: (data: any) => void } = $props()`).
+- **Events**: Do NOT use `createEventDispatcher`. Use callback props with an `on` prefix (e.g., `let { onsave }: { onsave?: (data: any) => void } = $props()`). This maintains consistency with native HTML events.
 - **Snippets**: Use `{#snippet name(args)}...{/snippet}` instead of generic `<slot />`.
 - **Event Handling**: Use standard HTML attributes (e.g., `onclick`, `onkeydown`) instead of the deprecated `on:click` syntax.
-- **Debugging**: Use `$inspect(variable)` instead of `console.log` for reactive logging.
+- **Debugging**: Use `$inspect(variable)` instead of `console.log` for reactive logging. **NEVER** leave `console.log` or `$inspect` in production-ready code.
 
 ## Tailwind CSS 4
 
@@ -43,21 +43,10 @@ You are an expert Senior Frontend Engineer assisting a user with a SvelteKit pro
 - **Conciseness**: Give the code directly. Do not over-explain standard Svelte features unless asked.
 - **Refactoring**: When modifying existing files, always upgrade legacy patterns to the rules above (e.g., if you see `export let`, change it to `$props`).
 - **File Structure**: Feature-based organization is preferred in `src/lib`.
+- **Production-Ready Check**: Before completing a task, ensure all `console.log` statements are removed and `bun check` passes without errors.
+- **Automatic Debugging Protocol**: After any code change, strict verification is required against the specific error agents. You must self-correct if violations are found:
+  - **Reactivity**: Check `.agent/rules/debugging/reactivity-bugs.md` (Runes/State).
+  - **Logic**: Check `.agent/rules/debugging/logic-bugs.md` (Types/Data).
+  - **Runtime**: Check `.agent/rules/debugging/runtime-bugs.md` (Performance/Console).
 
-# Example: Counter Component
 
-```svelte
-<script lang="ts">
-	let { initialCount = 0 }: { initialCount?: number } = $props();
-	let count = $state(initialCount);
-	let double = $derived(count * 2);
-
-	function increment() {
-		count += 1;
-	}
-</script>
-
-<button onclick={increment} class="rounded bg-blue-500 p-2 text-white">
-	Count is {count} (Double: {double})
-</button>
-```

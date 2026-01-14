@@ -9,9 +9,17 @@
 		variant?: Variant;
 		class?: string;
 		as?: string;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		[key: string]: any;
 	}
 
-	let { children, variant = "default", class: className = "", as = "div" }: Props = $props();
+	let {
+		children,
+		variant = "default",
+		class: className = "",
+		as = "div",
+		...rest
+	}: Props = $props();
 
 	const baseStyles =
 		"inline-flex items-center rounded-sm px-2 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2";
@@ -27,6 +35,6 @@
 	};
 </script>
 
-<svelte:element this={as} class={cn(baseStyles, variants[variant], className)}>
+<svelte:element this={as} class={cn(baseStyles, variants[variant], className)} {...rest}>
 	{@render children()}
 </svelte:element>

@@ -33,12 +33,18 @@
 						<a href="/garden" class="text-text hover:text-primary transition-colors"> O Jardim </a>
 					</li>
 					<li>
-						<a href="/posts" class="text-text hover:text-primary transition-colors"> Artigos </a>
+						<a href="/explore" class="text-text hover:text-primary transition-colors"> Explorar </a>
 					</li>
 					<li>
-						<a href="/author" class="text-text hover:text-primary transition-colors">
-							Sobre o Autor
+						<a href="/sobre" class="text-text hover:text-primary transition-colors"> Sobre nós </a>
+					</li>
+					<li>
+						<a href="/termos" class="text-text hover:text-primary transition-colors">
+							Termos de uso
 						</a>
+					</li>
+					<li>
+						<a href="/author" class="text-text hover:text-primary transition-colors"> Autor </a>
 					</li>
 				</ul>
 			</nav>

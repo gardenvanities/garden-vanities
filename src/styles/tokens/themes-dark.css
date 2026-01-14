@@ -10,10 +10,10 @@
        DARK THEME PALETTE (Source of Truth)
        ═══════════════════════════════════════════════════════════════════════════ */
 
-	/* Backgrounds & Surfaces */
-	--dt-bg: oklch(var(--gray-1000));
-	--dt-surface: oklch(var(--gray-950));
-	--dt-surface-elevated: oklch(var(--gray-900)); /* Optimized for Modals/Floaters */
+	/* Backgrounds & Surfaces (Dark Academia Solids) */
+	--dt-bg: oklch(0.08 0.01 80); /* Near-black with warm undertone */
+	--dt-surface: oklch(0.12 0.01 80); /* Dark card surface */
+	--dt-surface-elevated: oklch(0.16 0.02 80); /* Modals/Elevated */
 
 	/* Text */
 	--dt-text: oklch(var(--gray-50));
@@ -39,9 +39,10 @@
 	--dt-border-vivid: oklch(var(--gray-700));
 
 	/* Shadows (Adjusted for dark mode visibility) */
-	--dt-shadow-1: 0 1px 2px oklch(0 0 0 / 0.3);
-	--dt-shadow-2: 0 2px 8px oklch(0 0 0 / 0.4), 0 1px 2px oklch(0 0 0 / 0.3);
-	--dt-shadow-3: 0 4px 16px oklch(0 0 0 / 0.5), 0 2px 4px oklch(0 0 0 / 0.3);
+	/* Shadows (Depth Layers) */
+	--dt-shadow-1: var(--shadow-depth-1);
+	--dt-shadow-2: var(--shadow-depth-2);
+	--dt-shadow-3: var(--shadow-depth-3);
 
 	/* Content Types (Muted for dark mode readability) */
 	--dt-kind-note: oklch(0.75 0.12 250);

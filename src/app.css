@@ -35,7 +35,9 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* Layer 1: Primitive tokens (raw values) */
-@import "./styles/tokens/tokens-primitive.css";
+/* Layer 1: Primitive tokens (Geist Structure + HIG Materials) */
+@import "./styles/tokens/tokens-structure.css";
+@import "./styles/tokens/tokens-materials.css";
 
 /* Layer 2: Semantic tokens (light theme) */
 @import "./styles/tokens/theme.css";
@@ -119,6 +121,7 @@
 	--transition-fast: var(--motion-fast);
 	--transition-base: var(--motion-base);
 	--transition-slow: var(--motion-slow);
+	--ease-out-quint: var(--motion-ease-out-quint);
 
 	/* Shadows */
 	--shadow-sm: var(--shadow-1);

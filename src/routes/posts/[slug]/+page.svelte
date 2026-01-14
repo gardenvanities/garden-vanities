@@ -51,7 +51,7 @@
 
 			<!-- Sidebar Direita: Sumário -->
 			<div class="relative">
-				<TableOfContents key={metadata.slug} />
+				<TableOfContents key={metadata.slug} title={metadata.title} />
 			</div>
 		</div>
 	</Container>

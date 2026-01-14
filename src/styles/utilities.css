@@ -57,6 +57,27 @@
 	}
 
 	/* ═══════════════════════════════════════════════════════════════════════════
+     MATERIALS — Apple HIG Utilities
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+	.bg-material-thick {
+		background-color: var(--material-thick);
+		backdrop-filter: blur(20px);
+	}
+	.bg-material-regular {
+		background-color: var(--material-regular);
+		backdrop-filter: blur(16px);
+	}
+	.bg-material-thin {
+		background-color: var(--material-thin);
+		backdrop-filter: blur(12px);
+	}
+	.bg-material-ultrathin {
+		background-color: var(--material-ultrathin);
+		backdrop-filter: blur(8px);
+	}
+
+	/* ═══════════════════════════════════════════════════════════════════════════
      ACCESSIBILITY
      ═══════════════════════════════════════════════════════════════════════════ */
 

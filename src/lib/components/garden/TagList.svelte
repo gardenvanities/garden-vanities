@@ -1,6 +1,7 @@
 <!-- src/lib/components/garden/TagList.svelte -->
 <script lang="ts">
 	import TagBadge from "./Tag.svelte";
+	import Badge from "$lib/components/ui/Badge.svelte";
 
 	interface Props {
 		tags: string[];
@@ -20,10 +21,8 @@
 	{/each}
 
 	{#if remaining > 0}
-		<span
-			class="border-border/50 text-muted/60 bg-surface/50 inline-flex items-center rounded border px-1.5 py-0.5 text-[10px] font-medium"
-		>
+		<Badge variant="outline" class="border-border/50 text-muted/60 bg-surface/50 text-[10px]">
 			+{remaining}
-		</span>
+		</Badge>
 	{/if}
 </div>
