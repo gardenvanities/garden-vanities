@@ -7,8 +7,9 @@
 	import PostCard from "$lib/components/garden/PostCard.svelte";
 	import Card from "$lib/components/ui/Card.svelte";
 	import { formatRelativeDate } from "$lib/utils/date";
-	import { fly } from "svelte/transition";
-	import { FolderOpen, Sparkles, Library, Map as MapIcon } from "@lucide/svelte";
+	import { fly, fade } from "svelte/transition";
+	import { cubicOut } from "svelte/easing";
+	import { FolderOpen, Sparkles, Library, ArrowDown } from "@lucide/svelte";
 	import type { PostFrontmatter } from "$lib/types";
 
 	interface SeriesItem {
@@ -29,30 +30,74 @@
 	let { data }: Props = $props();
 </script>
 
-<SEO title="Explore o Jardim | Garden of Vanities" type="website" />
+<SEO title="Garden of Vanities" type="website" />
 
-<!-- SECTION A: Hero -->
-<Section class="py-16 md:py-24">
+<!-- SECTION A: Hero (Premium) -->
+<Section class="relative flex min-h-[75vh] items-center overflow-hidden py-20 md:py-32">
+	<!-- Glow decorativo de fundo -->
+	<div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+		<div
+			class="absolute left-1/2 top-1/3 h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-accent/25 via-primary/15 to-transparent opacity-50 blur-[100px] dark:from-accent/15 dark:via-primary/10 dark:opacity-40"
+		></div>
+		<div
+			class="absolute bottom-0 left-1/2 h-[300px] w-[600px] -translate-x-1/2 translate-y-1/2 rounded-full bg-gradient-to-t from-primary/20 to-transparent opacity-40 blur-[80px] dark:opacity-25"
+		></div>
+	</div>
+
 	<Container size="lg">
-		<div class="mx-auto max-w-4xl text-center" in:fly={{ y: 30, duration: 1000, delay: 100 }}>
-			<h1 class="font-heading text-text mb-6 text-6xl font-bold">
-				<MapIcon
-					class="text-primary mr-2 inline-block -translate-y-2"
-					size={48}
-					strokeWidth={2.5}
-				/>
-				Explore o Jardim
-			</h1>
-			<p class="text-muted text-3xl leading-relaxed font-light">
-				Este é um jardim de ideias em crescimento. Algumas notas ainda estão brotando, outras já
-				deram frutos. Escolha um caminho e caminhe sem pressa.
+		<div class="mx-auto max-w-3xl space-y-10 text-center">
+			<!-- Tagline -->
+			<p
+				class="text-muted text-xs font-medium uppercase tracking-[0.25em] md:text-sm"
+				in:fade={{ duration: 800, delay: 0, easing: cubicOut }}
+			>
+				Um labirinto de pensamentos cultivados à meia-luz
 			</p>
+
+			<!-- Título principal -->
+			<h1
+				class="font-heading text-6xl font-bold leading-[0.95] tracking-tight md:text-8xl"
+				in:fly={{ y: 30, duration: 1000, delay: 150, easing: cubicOut }}
+			>
+				<span
+					class="bg-gradient-to-b from-text via-text/90 to-muted/70 bg-clip-text text-transparent"
+				>
+					Garden of
+				</span>
+				<br />
+				<span
+					class="bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent"
+				>
+					Vanities
+				</span>
+			</h1>
+
+			<!-- Descrição poética -->
+			<p
+				class="text-muted/80 mx-auto max-w-xl text-lg font-light leading-relaxed md:text-xl"
+				in:fly={{ y: 20, duration: 800, delay: 350, easing: cubicOut }}
+			>
+				Onde ideias brotam como flores noturnas. Algumas ainda são sementes adormecidas; outras já
+				perfumam o escuro.
+				<span class="text-accent mt-1 block italic">Entre. Não há pressa aqui.</span>
+			</p>
+
+			<!-- CTA sutil -->
+			<div in:fade={{ duration: 600, delay: 550, easing: cubicOut }}>
+				<a
+					href="#content"
+					class="text-muted hover:text-primary inline-flex items-center gap-2 pt-4 transition-colors duration-300"
+				>
+					<span class="text-sm tracking-wide">Começar a explorar</span>
+					<ArrowDown size={16} class="animate-bounce" />
+				</a>
+			</div>
 		</div>
 	</Container>
 </Section>
 
 <!-- SECTION F: Freshness -->
-<Section class="py-12">
+<Section id="content" class="py-12">
 	<Container size="lg">
 		<div in:fly={{ y: 30, duration: 800, delay: 400 }}>
 			<!-- Section: Areas of Interest (MOCs) -->
