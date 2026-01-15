@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { page } from "$app/state";
-	import { commandPalette } from "$lib/stores/command-palette.svelte.js";
+	import { commandPalette } from "$lib/stores/command-palette.svelte";
+	import { cn } from "$lib/utils/merge-class";
 
 	import { Sparkles, Telescope, House, Library, FolderOpen } from "@lucide/svelte";
-	import { fade } from "svelte/transition";
+	import { fade, scale } from "svelte/transition";
+	import { cubicOut } from "svelte/easing";
 	import { onMount } from "svelte";
 	import CommandPalette from "./CommandPalette.svelte";
+
 
 	// Sync local expanded state with store
 	let isSearchExpanded = $derived(commandPalette.isOpen);
@@ -60,96 +63,103 @@
 <!-- Backdrop Overlay for Command Palette -->
 {#if isSearchExpanded}
 	<div
-		class="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm transition-all duration-300"
+		class="fixed inset-0 z-40 bg-black/30 backdrop-blur-md transition-all duration-400"
 		onclick={() => commandPalette.close()}
 		onkeydown={(e) => e.key === "Escape" && commandPalette.close()}
 		role="button"
 		tabindex="-1"
 		aria-label="Fechar busca"
-		transition:fade={{ duration: 300 }}
+		transition:fade={{ duration: 250, easing: cubicOut }}
 	></div>
 {/if}
 
 <!-- Floating Navigation -->
 <nav
-	class={[
-		"fixed bottom-6 left-1/2 z-50 -translate-x-1/2 transition-all duration-500 ease-in-out sm:bottom-8",
+	class={cn(
+		"fixed bottom-6 left-1/2 z-50 -translate-x-1/2 transition-all duration-500 ease-[var(--motion-ease-out-quint)] sm:bottom-8",
 		isVisible || isSearchExpanded ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"
-	].join(" ")}
+	)}
 	aria-label="Navegação principal"
 >
-	<!-- Glow Effect -->
+	<!-- Glow Effect (Premium) -->
 	<div
-		class="pointer-events-none absolute inset-0 -z-10 opacity-60 blur-2xl transition-all duration-500"
-		class:scale-110={isSearchExpanded}
+		class={cn(
+			"pointer-events-none absolute -inset-2 -z-10 blur-3xl transition-all duration-700 ease-[var(--motion-ease-out-quint)]",
+			isSearchExpanded ? "scale-125 opacity-80" : "scale-100 opacity-50"
+		)}
 	>
 		<div
-			class="from-primary/40 via-primary/30 to-accent/40 h-full w-full rounded-full bg-linear-to-r"
+			class="h-full w-full rounded-full bg-gradient-to-r from-accent/60 via-primary/70 to-accent/60 animate-pulse-slow"
 		></div>
 	</div>
 
-	<!-- Navigation Pill -->
+	<!-- Navigation Pill (Premium Glassmorphism) -->
 	<div
-		class={[
-			"bg-surface/90 relative flex items-center rounded-full border border-white/20 p-1.5 shadow-2xl shadow-black/10 backdrop-blur-xl transition-all duration-500 ease-out dark:border-white/10",
-			isSearchExpanded ? "w-[min(500px,calc(100vw-2rem))]" : "w-auto min-w-max"
-		].join(" ")}
+		class={cn(
+			"relative flex items-center rounded-full p-1.5 transition-all duration-500 ease-[var(--motion-ease-out-quint)]",
+			"bg-surface/65 backdrop-blur-2xl backdrop-saturate-150",
+			"border border-white/15 dark:border-white/10",
+			"shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]",
+			"ring-1 ring-white/10 dark:ring-white/5",
+			isSearchExpanded ? "w-[min(520px,calc(100vw-2rem))]" : "w-auto min-w-max"
+		)}
 	>
 		{#if !isSearchExpanded}
 			<!-- Collapsed State: Navigation Icons -->
-			<div class="flex items-center gap-1.5 px-0.5" in:fade={{ duration: 200, delay: 100 }}>
+			<div class="flex items-center gap-1" in:scale={{ duration: 250, delay: 50, easing: cubicOut }}>
 				<!-- Home -->
 				{#if page.url.pathname === "/"}
 					<button
 						type="button"
-						class="bg-primary/10 text-primary group flex h-10 items-center gap-2 rounded-full px-4 transition-all duration-300"
+						class="group flex h-10 items-center gap-2 rounded-full bg-primary/15 px-4 text-primary ring-1 ring-primary/20 transition-all duration-200 ease-out hover:bg-primary/20 active:scale-[0.97]"
 						onclick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
 						aria-label="Ir para o topo"
 					>
-						<House size={18} class="shrink-0 transition-transform group-hover:scale-110" />
-						<span class="text-xs font-bold tracking-wider uppercase">Home</span>
+						<House size={18} class="shrink-0 transition-transform duration-200 group-hover:scale-110" />
+						<span class="text-[10px] font-semibold uppercase tracking-[0.08em]">Home</span>
 					</button>
 				{:else}
 					<a
 						href="/"
-						class="text-muted hover:text-text group hover:bg-action-hover flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200"
+						class="group flex h-10 w-10 items-center justify-center rounded-full text-muted transition-all duration-200 ease-out hover:bg-white/10 hover:text-text active:scale-[0.95]"
 						aria-label="Home"
 					>
-						<House size={18} class="transition-transform group-hover:scale-110" />
+						<House size={18} class="transition-transform duration-200 group-hover:scale-110" />
 					</a>
 				{/if}
 
 				<!-- Search Trigger Button -->
 				<button
 					type="button"
-					class="text-text group bg-surface-elevated hover:bg-action-hover hover:text-primary flex h-10 items-center gap-2 rounded-full px-4 text-sm font-medium transition-all duration-300"
+					class="group flex h-10 items-center gap-2.5 rounded-full bg-white/10 px-4 text-sm font-medium text-text transition-all duration-200 ease-out hover:bg-white/15 hover:text-primary active:scale-[0.97] dark:bg-white/5 dark:hover:bg-white/10"
 					onclick={openSearch}
-					aria-label="Buscar"
+					aria-label="Buscar (⌘K)"
 				>
 					<Sparkles
 						size={16}
-						class="text-primary transition-transform group-hover:scale-110 group-hover:rotate-12"
+						class="text-primary transition-all duration-200 group-hover:scale-110 group-hover:rotate-12"
 					/>
-					<span class="hidden sm:inline">Buscar</span>
+					<span class="hidden text-[13px] tracking-tight sm:inline">Buscar</span>
+					<kbd class="ml-1 hidden rounded border border-border/50 bg-surface/50 px-1.5 py-0.5 font-mono text-[10px] text-muted sm:inline">⌘K</kbd>
 				</button>
 
-				<!-- Explore/Library -->
+				<!-- Explore -->
 				{#if isActive("/explore")}
 					<a
 						href="/explore"
-						class="bg-primary/10 text-primary group flex h-10 items-center gap-2 rounded-full px-4 transition-all duration-300"
+						class="group flex h-10 items-center gap-2 rounded-full bg-primary/15 px-4 text-primary ring-1 ring-primary/20 transition-all duration-200 ease-out hover:bg-primary/20 active:scale-[0.97]"
 						aria-label="Explorar"
 					>
-						<Telescope size={18} class="shrink-0 transition-transform group-hover:scale-110" />
-						<span class="text-xs font-bold tracking-wider uppercase">Explorar</span>
+						<Telescope size={18} class="shrink-0 transition-transform duration-200 group-hover:scale-110" />
+						<span class="text-[10px] font-semibold uppercase tracking-[0.08em]">Explorar</span>
 					</a>
 				{:else}
 					<a
 						href="/explore"
-						class="text-muted hover:text-text group hover:bg-action-hover flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200"
+						class="group flex h-10 w-10 items-center justify-center rounded-full text-muted transition-all duration-200 ease-out hover:bg-white/10 hover:text-text active:scale-[0.95]"
 						aria-label="Explorar"
 					>
-						<Telescope size={18} class="transition-transform group-hover:scale-110" />
+						<Telescope size={18} class="transition-transform duration-200 group-hover:scale-110" />
 					</a>
 				{/if}
 
@@ -157,47 +167,67 @@
 				{#if isActive("/series")}
 					<a
 						href="/series"
-						class="bg-primary/10 text-primary group flex h-10 items-center gap-2 rounded-full px-4 transition-all duration-300"
+						class="group flex h-10 items-center gap-2 rounded-full bg-primary/15 px-4 text-primary ring-1 ring-primary/20 transition-all duration-200 ease-out hover:bg-primary/20 active:scale-[0.97]"
 						aria-label="Séries"
 					>
-						<Library size={18} class="shrink-0 transition-transform group-hover:scale-110" />
-						<span class="text-xs font-bold tracking-wider uppercase">Séries</span>
+						<Library size={18} class="shrink-0 transition-transform duration-200 group-hover:scale-110" />
+						<span class="text-[10px] font-semibold uppercase tracking-[0.08em]">Séries</span>
 					</a>
 				{:else}
 					<a
 						href="/series"
-						class="text-muted hover:text-text group hover:bg-action-hover flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200"
+						class="group flex h-10 w-10 items-center justify-center rounded-full text-muted transition-all duration-200 ease-out hover:bg-white/10 hover:text-text active:scale-[0.95]"
 						aria-label="Séries"
 					>
-						<Library size={18} class="transition-transform group-hover:scale-110" />
+						<Library size={18} class="transition-transform duration-200 group-hover:scale-110" />
 					</a>
 				{/if}
 
-				<!-- Topics/MoC -->
+				<!-- Topics -->
 				{#if isActive("/topics")}
 					<a
 						href="/topics"
-						class="bg-primary/10 text-primary group flex h-10 items-center gap-2 rounded-full px-4 transition-all duration-300"
+						class="group flex h-10 items-center gap-2 rounded-full bg-primary/15 px-4 text-primary ring-1 ring-primary/20 transition-all duration-200 ease-out hover:bg-primary/20 active:scale-[0.97]"
 						aria-label="Tópicos"
 					>
-						<FolderOpen size={18} class="shrink-0 transition-transform group-hover:scale-110" />
-						<span class="text-xs font-bold tracking-wider uppercase">Tópicos</span>
+						<FolderOpen size={18} class="shrink-0 transition-transform duration-200 group-hover:scale-110" />
+						<span class="text-[10px] font-semibold uppercase tracking-[0.08em]">Tópicos</span>
 					</a>
 				{:else}
 					<a
 						href="/topics"
-						class="text-muted hover:text-text group hover:bg-action-hover flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200"
+						class="group flex h-10 w-10 items-center justify-center rounded-full text-muted transition-all duration-200 ease-out hover:bg-white/10 hover:text-text active:scale-[0.95]"
 						aria-label="Tópicos"
 					>
-						<FolderOpen size={18} class="transition-transform group-hover:scale-110" />
+						<FolderOpen size={18} class="transition-transform duration-200 group-hover:scale-110" />
 					</a>
 				{/if}
+
 			</div>
 		{:else}
-			<!-- Expanded State: Search Input (CommandPalette) -->
-			<div class="w-full" in:fade={{ duration: 250, delay: 150 }} out:fade={{ duration: 150 }}>
+			<!-- Expanded State: Search Input -->
+			<div class="w-full" in:scale={{ duration: 300, delay: 100, easing: cubicOut }} out:fade={{ duration: 150 }}>
 				<CommandPalette />
 			</div>
 		{/if}
 	</div>
 </nav>
+
+<style>
+	/* Premium glow animation */
+	:global(.animate-pulse-slow) {
+		animation: pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+	}
+
+	@keyframes pulse-glow {
+		0%,
+		100% {
+			opacity: 0.5;
+			transform: scale(1);
+		}
+		50% {
+			opacity: 0.7;
+			transform: scale(1.05);
+		}
+	}
+</style>

@@ -5,6 +5,7 @@
 	import Grid from "$lib/components/layout/Grid.svelte";
 	import SectionHeader from "$lib/components/garden/SectionHeader.svelte";
 	import PostCard from "$lib/components/garden/PostCard.svelte";
+	import Card from "$lib/components/ui/Card.svelte";
 	import { formatRelativeDate } from "$lib/utils/date";
 	import { fly } from "svelte/transition";
 	import { FolderOpen, Sparkles, Library, Map as MapIcon } from "@lucide/svelte";
@@ -69,9 +70,11 @@
 
 					<Grid cols={3} gap="md">
 						{#each data.mocs as moc (moc.name)}
-							<a
+							<Card
+								as="a"
 								href={moc.href}
-								class="bg-surface border-border hover:border-border-vivid group flex items-center justify-between rounded-lg border p-4 transition-all hover:-translate-y-0.5"
+								class="group flex items-center justify-between p-4 transition-all hover:-translate-y-1"
+								variant="default"
 							>
 								<span class="text-text group-hover:text-primary font-medium transition-colors">
 									{moc.name}
@@ -81,7 +84,7 @@
 								>
 									{moc.count}
 								</span>
-							</a>
+							</Card>
 						{/each}
 					</Grid>
 				</div>
@@ -102,9 +105,11 @@
 
 					<Grid cols={3} gap="md">
 						{#each data.series as serie (serie.slug)}
-							<a
+							<Card
+								as="a"
 								href="/series/{serie.slug}"
-								class="bg-surface group border-border hover:border-border-vivid relative flex flex-col gap-3 rounded-xl border p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+								class="group relative flex flex-col gap-3 p-5 transition-all duration-300 hover:-translate-y-1"
+								variant="default"
 							>
 								<div class="flex items-center justify-between">
 									<h3
@@ -122,7 +127,7 @@
 									<span>{serie.count} partes</span>
 									<span>Atualizado {formatRelativeDate(serie.lastUpdated)}</span>
 								</div>
-							</a>
+							</Card>
 						{/each}
 					</Grid>
 				</div>

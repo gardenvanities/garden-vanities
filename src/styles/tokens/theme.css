@@ -31,18 +31,21 @@
 	--color-text: oklch(var(--gray-900));
 	--color-muted: oklch(var(--gray-600));
 
-	/* Primary — Pastel Purple */
-	--color-primary: oklch(0.7 0.13 290);
-	--color-primary-contrast: oklch(var(--gray-900));
+	/* Primary — Highlighter (Energy, Focus) */
+	--color-primary: oklch(var(--brand-highlighter));
+	--color-primary-contrast: oklch(var(--gray-950)); /* Dark text on bright yellow */
 
-	/* Accent — Warm sienna */
-	--color-accent: oklch(0.55 0.12 55);
-	--color-accent-contrast: oklch(0.98 0.005 80);
+	/* Accent — Bubblegum (Creativity, Play) */
+	--color-accent: oklch(var(--brand-bubblegum));
+	--color-accent-contrast: oklch(var(--gray-950));
+
+	/* Secondary/Structural — Orchid */
+	--color-secondary: oklch(var(--brand-orchid));
 
 	/* Semantic States */
-	--color-danger: oklch(0.55 0.2 25);
-	--color-warning: oklch(0.6 0.15 70);
-	--color-success: oklch(0.55 0.12 145);
+	--color-danger: oklch(0.6 0.18 20); /* Red shifted matches warm vibe */
+	--color-warning: oklch(var(--brand-highlighter)); /* Highlighter works as warning too */
+	--color-success: oklch(0.85 0.15 140); /* Bright green to match vibrancy */
 
 	/* Semantic Backgrounds (Using Relative Colors for consistency) */
 	--color-danger-bg: oklch(from var(--color-danger) l c h / 0.1);
@@ -56,7 +59,7 @@
 
 	/* Border & Dividers */
 	--color-border: oklch(var(--gray-200));
-	--color-border-vivid: oklch(var(--gray-300));
+	--color-border-vivid: oklch(var(--brand-orchid) / 0.4); /* Orchid for active borders */
 
 	/* ═══════════════════════════════════════════════════════════════════════════
        SHADOWS — Soft, humanist aesthetic
@@ -70,13 +73,13 @@
        KIND TOKENS — Content types (KindBadge)
        ═══════════════════════════════════════════════════════════════════════════ */
 
-	--color-kind-note: oklch(0.65 0.12 250);
+	--color-kind-note: oklch(var(--brand-highlighter));
 	--color-kind-note-bg: oklch(from var(--color-kind-note) l c h / 0.1);
 
-	--color-kind-essay: oklch(0.65 0.12 300);
+	--color-kind-essay: oklch(var(--brand-orchid));
 	--color-kind-essay-bg: oklch(from var(--color-kind-essay) l c h / 0.1);
 
-	--color-kind-tutorial: oklch(0.65 0.12 150);
+	--color-kind-tutorial: oklch(var(--brand-bubblegum));
 	--color-kind-tutorial-bg: oklch(from var(--color-kind-tutorial) l c h / 0.1);
 
 	--color-kind-thought: oklch(0.7 0.12 80);
@@ -86,12 +89,12 @@
        RIPENESS TOKENS — Content maturity
        ═══════════════════════════════════════════════════════════════════════════ */
 
-	--color-ripeness-seed: oklch(0.65 0.1 135);
+	--color-ripeness-seed: oklch(var(--brand-highlighter));
 	--color-ripeness-seed-bg: oklch(from var(--color-ripeness-seed) l c h / 0.1);
 
-	--color-ripeness-root: oklch(0.55 0.12 155);
+	--color-ripeness-root: oklch(var(--brand-orchid));
 	--color-ripeness-root-bg: oklch(from var(--color-ripeness-root) l c h / 0.1);
 
-	--color-ripeness-fruit: oklch(0.65 0.15 35);
+	--color-ripeness-fruit: oklch(var(--brand-bubblegum));
 	--color-ripeness-fruit-bg: oklch(from var(--color-ripeness-fruit) l c h / 0.1);
 }

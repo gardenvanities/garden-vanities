@@ -26,6 +26,15 @@
 	--gray-1000: 0 0 0;
 
 	/* ═══════════════════════════════════════════════════════════════════════════
+       BRAND PRIMITIVES — User Defined
+       Highlighter (Primary), Bubblegum (Creative), Orchid (Structural)
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--brand-highlighter: 0.9 0.18 97; /* #DEF408 */
+	--brand-bubblegum: 0.75 0.17 337; /* #EF8EC6 */
+	--brand-orchid: 0.57 0.13 293; /* #A88CEA */
+
+	/* ═══════════════════════════════════════════════════════════════════════════
        MATERIALS (Translucency)
        Based on Apple HIG "Materials" concept.
        ═══════════════════════════════════════════════════════════════════════════ */

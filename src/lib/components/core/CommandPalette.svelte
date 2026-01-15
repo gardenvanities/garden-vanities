@@ -6,7 +6,7 @@
 	import { cn } from "$lib/utils/merge-class";
 	import Fuse from "fuse.js";
 	import { fly } from "svelte/transition";
-	import { backOut } from "svelte/easing";
+	import { cubicOut } from "svelte/easing";
 	import {
 		Home,
 		SearchCode,
@@ -15,7 +15,9 @@
 		Moon,
 		Monitor,
 		FileText,
-		CornerDownLeft
+		CornerDownLeft,
+		Sparkles,
+		X
 	} from "@lucide/svelte";
 	import type { Component } from "svelte";
 
@@ -328,36 +330,36 @@
 	}
 </script>
 
-<!-- Results Popover -->
+<!-- Results Popover (Premium) -->
 <div
-	class="bg-surface-elevated/95 border-border absolute bottom-full left-0 mb-5 w-full origin-bottom overflow-hidden rounded-2xl border shadow-2xl backdrop-blur-xl"
-	transition:fly={{ y: 20, duration: 300, easing: backOut }}
+	class="absolute bottom-full left-0 mb-4 w-full origin-bottom overflow-hidden rounded-2xl border border-border-vivid/20 bg-surface-elevated/80 shadow-[var(--shadow-depth-4)] ring-1 ring-white/10 backdrop-blur-2xl backdrop-saturate-150 dark:border-border-vivid/15 dark:ring-white/5"
+	transition:fly={{ y: 16, duration: 400, easing: cubicOut }}
 >
 	<div class="scrollbar-none max-h-[50vh] overflow-y-auto p-2">
 		{#if filteredResults.length > 0}
-			<div class="flex flex-col gap-1">
+			<div class="flex flex-col gap-0.5">
 				{#each filteredResults as item, i (item.id)}
 					<button
 						class={cn(
-							"flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors",
+							"flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all duration-150 ease-out",
 							selectedIndex === i
-								? "bg-primary/10 text-primary"
-								: "text-muted hover:bg-muted/10 hover:text-text"
+								? "bg-primary/15 text-primary ring-1 ring-primary/25"
+								: "text-muted hover:bg-white/8 hover:text-text active:scale-[0.98] dark:hover:bg-white/5"
 						)}
 						onclick={item.action}
 						data-nav-index={i}
 					>
-						<div class="flex h-5 w-5 shrink-0 items-center justify-center">
-							<item.icon size={18} />
+						<div class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-surface/50">
+							<item.icon size={16} />
 						</div>
 						<div class="min-w-0 flex-1">
-							<p class="truncate text-sm font-medium">{item.title}</p>
+							<p class="truncate text-sm font-medium tracking-tight">{item.title}</p>
 							{#if item.type === "post"}
-								<p class="truncate text-xs opacity-60">Artigo</p>
+								<p class="truncate text-[11px] opacity-50">Artigo</p>
 							{/if}
 						</div>
 						{#if selectedIndex === i}
-							<CornerDownLeft class="shrink-0 opacity-50" size={14} />
+							<CornerDownLeft class="shrink-0 opacity-40" size={14} />
 						{/if}
 					</button>
 				{/each}
@@ -375,69 +377,49 @@
 		{/if}
 	</div>
 
-	<!-- Footer Hints -->
+	<!-- Footer Hints (Premium KBD Styling) -->
 	<div
-		class="border-border bg-muted/5 text-muted flex items-center justify-between border-t px-3 py-2 text-[10px]"
+		class="flex items-center justify-between border-t border-border/50 bg-surface/30 px-4 py-2.5 text-[10px] text-muted"
 	>
-		<div class="flex gap-2">
-			<span class="flex items-center gap-1"><kbd class="font-sans">↑↓</kbd> navegar</span>
-			<span class="flex items-center gap-1"><kbd class="font-sans">↵</kbd> selecionar</span>
+		<div class="flex items-center gap-3">
+			<span class="flex items-center gap-1.5">
+				<kbd class="inline-flex h-5 min-w-5 items-center justify-center rounded border border-border/60 bg-surface px-1 font-mono text-[9px] shadow-sm">↑↓</kbd>
+				<span class="opacity-70">navegar</span>
+			</span>
+			<span class="flex items-center gap-1.5">
+				<kbd class="inline-flex h-5 min-w-5 items-center justify-center rounded border border-border/60 bg-surface px-1.5 font-mono text-[9px] shadow-sm">↵</kbd>
+				<span class="opacity-70">selecionar</span>
+			</span>
 		</div>
 		<div>
-			<span class="flex items-center gap-1"><kbd class="font-sans">esc</kbd> fechar</span>
+			<span class="flex items-center gap-1.5">
+				<kbd class="inline-flex h-5 items-center justify-center rounded border border-border/60 bg-surface px-1.5 font-mono text-[9px] shadow-sm">esc</kbd>
+				<span class="opacity-70">fechar</span>
+			</span>
 		</div>
 	</div>
 </div>
 
-<!-- Input Area -->
-<div class="flex w-full items-center gap-3 px-2">
-	<!-- Note: Original had in:fade out:fade here. We should keep it or let parent handle? 
-         If parent switches {#if}, it applies to the whole component. 
-         But we want the INPUT to fade. The Popover flies. 
-         So we can put fade on this div. -->
-	<div class="text-primary shrink-0">
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="18"
-			height="18"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			class="lucide lucide-sparkles"
-			><path
-				d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"
-			/></svg
-		>
+<!-- Input Area (Premium) -->
+<div class="flex w-full items-center gap-3 px-3">
+	<div class="shrink-0 text-primary">
+		<Sparkles size={18} class="animate-pulse" />
 	</div>
 	<input
 		bind:this={searchInputElement}
 		bind:value={query}
 		type="text"
 		placeholder="Buscar artigos, temas..."
-		class="text-text placeholder:text-muted flex-1 bg-transparent text-sm focus:outline-none"
+		class="flex-1 bg-transparent text-sm tracking-tight text-text placeholder:text-muted/60 focus:outline-none"
 		onkeydown={handleKeydown}
 	/>
 	<button
 		type="button"
-		class="bg-muted/10 text-muted hover:bg-muted/20 hover:text-text flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors"
+		class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-muted transition-all duration-150 ease-out hover:bg-white/15 hover:text-text active:scale-95 dark:bg-white/5 dark:hover:bg-white/10"
 		onclick={closeSearch}
-		aria-label="Fechar busca"
+		aria-label="Fechar busca (Esc)"
 	>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="16"
-			height="16"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			class="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg
-		>
+		<X size={16} />
 	</button>
 </div>
 

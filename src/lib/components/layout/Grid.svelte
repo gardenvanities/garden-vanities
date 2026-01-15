@@ -8,9 +8,18 @@
 		gap?: "sm" | "md" | "lg";
 		class?: string;
 		as?: string;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		[key: string]: any;
 	}
 
-	let { children, cols = 3, gap = "md", class: className = "", as = "div" }: Props = $props();
+	let {
+		children,
+		cols = 3,
+		gap = "md",
+		class: className = "",
+		as = "div",
+		...rest
+	}: Props = $props();
 
 	const gridCols = {
 		1: "grid-cols-1",
@@ -26,6 +35,6 @@
 	};
 </script>
 
-<svelte:element this={as} class={cn("grid", gridCols[cols], gaps[gap], className)}>
+<svelte:element this={as} class={cn("grid", gridCols[cols], gaps[gap], className)} {...rest}>
 	{@render children()}
 </svelte:element>

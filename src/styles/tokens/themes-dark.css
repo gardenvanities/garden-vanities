@@ -20,15 +20,15 @@
 	--dt-muted: oklch(var(--gray-400));
 
 	/* Interactive */
-	--dt-primary: oklch(0.78 0.12 290);
+	--dt-primary: oklch(var(--brand-highlighter));
 	--dt-primary-contrast: oklch(var(--gray-950));
-	--dt-accent: oklch(0.62 0.14 50);
-	--dt-accent-contrast: oklch(0.12 0.01 55);
+	--dt-accent: oklch(var(--brand-bubblegum));
+	--dt-accent-contrast: oklch(var(--gray-950));
 
 	/* Semantic States */
 	--dt-danger: oklch(0.65 0.18 25);
-	--dt-warning: oklch(0.75 0.14 75);
-	--dt-success: oklch(0.65 0.12 145);
+	--dt-warning: oklch(var(--brand-highlighter));
+	--dt-success: oklch(0.75 0.15 140);
 
 	/* Interactions */
 	--dt-action-hover: oklch(var(--gray-50) / 0.1);
@@ -36,7 +36,7 @@
 
 	/* Borders */
 	--dt-border: oklch(var(--gray-800));
-	--dt-border-vivid: oklch(var(--gray-700));
+	--dt-border-vivid: oklch(var(--brand-orchid) / 0.6);
 
 	/* Shadows (Adjusted for dark mode visibility) */
 	/* Shadows (Depth Layers) */
@@ -45,15 +45,15 @@
 	--dt-shadow-3: var(--shadow-depth-3);
 
 	/* Content Types (Muted for dark mode readability) */
-	--dt-kind-note: oklch(0.75 0.12 250);
-	--dt-kind-essay: oklch(0.75 0.12 300);
-	--dt-kind-tutorial: oklch(0.75 0.12 150);
+	--dt-kind-note: oklch(var(--brand-highlighter));
+	--dt-kind-essay: oklch(var(--brand-orchid));
+	--dt-kind-tutorial: oklch(var(--brand-bubblegum));
 	--dt-kind-thought: oklch(0.8 0.12 80);
 
 	/* Ripeness (Muted for dark mode) */
-	--dt-ripeness-seed: oklch(0.75 0.12 135);
-	--dt-ripeness-root: oklch(0.7 0.14 155);
-	--dt-ripeness-fruit: oklch(0.75 0.16 35);
+	--dt-ripeness-seed: oklch(var(--brand-highlighter));
+	--dt-ripeness-root: oklch(var(--brand-orchid));
+	--dt-ripeness-fruit: oklch(var(--brand-bubblegum));
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════

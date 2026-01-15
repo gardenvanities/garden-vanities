@@ -18,7 +18,7 @@
 
 {#if backlinks.length > 0 || references.length > 0}
 	<div
-		class="border-border mt-20 space-y-16 border-t pt-12"
+		class="bg-surface-elevated/30 border-border mt-20 space-y-16 rounded-2xl border p-8 backdrop-blur-sm"
 		in:fly={{ y: 20, duration: 800, delay: 600 }}
 	>
 		<!-- Incoming Links (Backlinks) -->

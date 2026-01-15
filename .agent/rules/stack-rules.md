@@ -48,5 +48,3 @@ You are an expert Senior Frontend Engineer assisting a user with a SvelteKit pro
   - **Reactivity**: Check `.agent/rules/debugging/reactivity-bugs.md` (Runes/State).
   - **Logic**: Check `.agent/rules/debugging/logic-bugs.md` (Types/Data).
   - **Runtime**: Check `.agent/rules/debugging/runtime-bugs.md` (Performance/Console).
-
-

@@ -20,7 +20,7 @@
 	{/if}
 
 	<div class="flex-1">
-		<h2 class="font-heading text-text m-0 text-2xl font-bold leading-tight">
+		<h2 class="font-heading text-text m-0 text-2xl leading-tight font-bold">
 			{title}
 		</h2>
 		{#if subtitle}

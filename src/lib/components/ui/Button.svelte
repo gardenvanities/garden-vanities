@@ -13,7 +13,6 @@
 		href?: string;
 		type?: "button" | "submit" | "reset";
 		disabled?: boolean;
-		onclick?: (event: MouseEvent) => void;
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		[key: string]: any;
 	}
@@ -26,7 +25,6 @@
 		href,
 		type = "button",
 		disabled = false,
-		onclick,
 		...rest
 	}: Props = $props();
 
@@ -53,7 +51,6 @@
 		{href}
 		class={cn(baseStyles, variants[variant], sizes[size], className)}
 		role="button"
-		onclick={onclick as ((event: MouseEvent) => void) | undefined}
 		{...rest}
 	>
 		{@render children()}
@@ -63,7 +60,6 @@
 		{type}
 		{disabled}
 		class={cn(baseStyles, variants[variant], sizes[size], className)}
-		{onclick}
 		{...rest}
 	>
 		{@render children()}

@@ -52,7 +52,7 @@
 @import "./styles/prose.css";
 
 /* Layer 6: Components */
-/* @import "./styles/components.css"; */
+/* Components are now defined in .svelte files or using @apply in specific places */
 
 /* Layer 7: Utilities */
 @import "./styles/utilities.css";
@@ -110,6 +110,19 @@
 	--tracking-wide: var(--letter-spacing-wide);
 	--tracking-wider: var(--letter-spacing-wider);
 	--tracking-caps: var(--letter-spacing-caps);
+
+	/* Spacing — Map to Tailwind scale */
+	--spacing-0: var(--space-0);
+	--spacing-1: var(--space-1);
+	--spacing-2: var(--space-2);
+	--spacing-3: var(--space-3);
+	--spacing-4: var(--space-4);
+	--spacing-5: var(--space-5);
+	--spacing-6: var(--space-6);
+	--spacing-7: var(--space-7);
+	--spacing-8: var(--space-8);
+	--spacing-9: var(--space-9);
+	--spacing-10: var(--space-10);
 
 	/* Border Radius */
 	--radius-sm: var(--radius-1);

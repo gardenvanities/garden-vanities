@@ -3,6 +3,7 @@
 	import { formatRelativeDate } from "$lib/utils/date";
 	import KindBadge from "./KindBadge.svelte";
 	import RipenessBadge from "./RipenessBadge.svelte";
+	import Card from "$lib/components/ui/Card.svelte";
 	import { Library, FolderOpen } from "@lucide/svelte";
 
 	interface Props {
@@ -23,8 +24,9 @@
 	);
 </script>
 
-<div
-	class="bg-surface group border-border hover:border-border-vivid relative flex flex-col gap-4 rounded-xl border p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+<Card
+	class="group relative flex flex-col gap-4 p-5 transition-all duration-300 hover:-translate-y-1"
+	variant="default"
 >
 	<!-- Main Link Overlay -->
 	<a href="/posts/{post.slug}" class="absolute inset-0 z-0" aria-label="Ler {post.title}"></a>
@@ -79,4 +81,4 @@
 		</div>
 		<RipenessBadge ripeness={post.ripeness} showLabel={!compact} />
 	</div>
-</div>
+</Card>
