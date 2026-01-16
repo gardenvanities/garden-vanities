@@ -2,6 +2,7 @@
 	import PostHeader from "$lib/components/garden/posts/PostHeader.svelte";
 	import PostNavigation from "$lib/components/garden/posts/PostNavigation.svelte";
 	import Backlinks from "$lib/components/garden/Backlinks.svelte";
+	import ReadingProgress from "$lib/components/core/ReadingProgress.svelte";
 	import TableOfContents from "$lib/components/garden/TableOfContents.svelte";
 	import SEO from "$lib/components/core/SEO.svelte";
 	import { fly } from "svelte/transition";
@@ -51,7 +52,12 @@
 
 			<!-- Sidebar Direita: Sumário -->
 			<div class="relative">
-				<div class="sticky top-32">
+				<div class="sticky top-32 flex flex-col gap-6">
+					<!-- Leitura & Progresso -->
+					<div in:fly={{ x: 20, duration: 800, delay: 200 }}>
+						<ReadingProgress variant="sidebar" />
+					</div>
+					
 					<TableOfContents key={metadata.slug} title={metadata.title} />
 				</div>
 			</div>

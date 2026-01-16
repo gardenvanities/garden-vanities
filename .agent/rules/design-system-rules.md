@@ -87,5 +87,5 @@ Components must layer these systems:
 
 - **Refactoring:** When touching `src/styles`, split `tokens` into `structure` (Geist) and `materials` (HIG).
 - **New Components:** Must define their structure first (Geist), then apply their material (HIG).
-- **Tailwind-First**: Preference is given to Tailwind utility classes.
+- **Token-First (Priority)**: Sempre use as classes e tokens definidos no sistema (ex: `.glass`, `.prose`, `text-primary`). Utilize classes utilitárias do Tailwind apenas se não houver um token ou classe específica para a necessidade, mas a prioridade absoluta é das classes e tokens customizados do projeto.
 - **Transitions**: Every interactive state (hover, focus) should have a subtle transition (e.g., `transition-colors duration-200`).

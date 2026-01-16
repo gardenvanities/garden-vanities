@@ -4,8 +4,6 @@
 	import { onNavigate } from "$app/navigation";
 	import Lenis from "lenis";
 	import FloatingNav from "$lib/components/core/FloatingNav.svelte";
-
-	import ReadingProgress from "$lib/components/core/ReadingProgress.svelte";
 	import Footer from "$lib/components/core/Footer.svelte";
 
 	const { children } = $props();
@@ -44,8 +42,6 @@
 		});
 	});
 </script>
-
-<ReadingProgress />
 
 <div
 	class="text-text bg-bg selection:bg-primary/20 selection:text-primary flex min-h-screen flex-col font-sans antialiased"

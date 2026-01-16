@@ -31,7 +31,7 @@ You are an expert Senior Frontend Engineer assisting a user with a SvelteKit pro
 - Use the `@tailwindcss/vite` plugin approach.
 - **Variables**: Use CSS variables defined in `@theme` blocks or plain CSS files for tokens (colors, spacing).
 - **Dynamic Classes**: ALWAYS use `clsx` or `tailwind-merge` for conditional classes. standard string interpolation for class names is discouraged if complex.
-- **Structure**: Keep custom CSS in minimal blocks; prefer utility classes for everything possible.
+- **Structure**: Priorize o uso de tokens de design e classes customizadas definidas no projeto. Use classes utilitárias do Tailwind somente quando não houver um token ou classe específica disponível no sistema.
 
 ## TypeScript
 
