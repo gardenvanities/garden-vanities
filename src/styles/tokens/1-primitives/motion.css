@@ -1,0 +1,24 @@
+/**
+ * Primitive Motion Tokens — Layer 1
+ * 
+ * Raw animation durations and easing functions. Context-free.
+ * These are referenced by component transitions.
+ */
+
+:root {
+	/* ═══════════════════════════════════════════════════════════════════════════
+       DURATIONS
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--motion-fast: 120ms;
+	--motion-base: 200ms;
+	--motion-slow: 320ms;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+       EASING FUNCTIONS
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+	--motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+	--motion-ease-out: cubic-bezier(0, 0, 0.2, 1);
+	--motion-ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+}

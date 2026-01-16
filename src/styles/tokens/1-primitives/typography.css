@@ -1,8 +1,8 @@
 /**
- * Structural Design Tokens — Geist Layer (tokens-structure.css)
+ * Primitive Typography Tokens — Layer 1
  * 
- * These are raw, context-free values for typography, spacing, and layout.
- * They should be referenced by semantic tokens in theme files.
+ * Raw typography values. Context-free.
+ * These are referenced by semantic tokens in Layer 2.
  */
 
 :root {
@@ -94,61 +94,4 @@
 	--type-5: clamp(2.75rem, calc(2.5rem + 1.5vw), 3.05rem);
 	--type-6: clamp(3.44rem, calc(3rem + 2vw), 3.81rem);
 	--type-7: clamp(4.3rem, calc(3.75rem + 2.5vw), 4.77rem);
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       SPACING SCALE — Restrictive primitives
-       ═══════════════════════════════════════════════════════════════════════════ */
-
-	--space-0: 0rem;
-	--space-1: 0.25rem;
-	--space-2: 0.5rem;
-	--space-3: 0.75rem;
-	--space-4: 1rem;
-	--space-5: 1.25rem;
-	--space-6: 1.5rem;
-	--space-7: 1.75rem;
-	--space-8: 2rem;
-	--space-9: 2.5rem;
-	--space-10: 3rem;
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       RADII
-       ═══════════════════════════════════════════════════════════════════════════ */
-
-	--radius-0: 0;
-	--radius-1: 0.25rem;
-	--radius-2: 0.5rem;
-	--radius-3: 0.75rem;
-	--radius-full: 9999px;
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       Z-INDEX
-       ═══════════════════════════════════════════════════════════════════════════ */
-
-	--z-below: -1;
-	--z-base: 0;
-	--z-above: 10;
-	--z-sticky: 100;
-	--z-overlay: 500;
-	--z-modal: 1000;
-	--z-toast: 1100;
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       MOTION
-       ═══════════════════════════════════════════════════════════════════════════ */
-
-	--motion-fast: 120ms;
-	--motion-base: 200ms;
-	--motion-slow: 320ms;
-	--motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
-	--motion-ease-out: cubic-bezier(0, 0, 0.2, 1);
-	--motion-ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       LAYOUT CONSTANTS
-       ═══════════════════════════════════════════════════════════════════════════ */
-
-	--prose-width: 65ch;
-	--content-width: 75ch;
-	--container-width: 1200px;
 }

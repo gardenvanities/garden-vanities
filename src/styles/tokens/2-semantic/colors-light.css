@@ -1,7 +1,7 @@
 /**
- * Semantic Design Tokens — Light Theme (Default)
+ * Semantic Color Tokens — Light Theme (Default)
  * 
- * These provide meaning and context to primitive tokens.
+ * These provide meaning and context to primitive color tokens.
  * Used throughout the application via CSS custom properties.
  */
 
@@ -31,20 +31,20 @@
 	--color-text: oklch(var(--gray-900));
 	--color-muted: oklch(var(--gray-600));
 
-	/* Primary — Green Brand */
-	--color-primary: oklch(var(--brand-primary));
-	--color-primary-contrast: oklch(1 0 0); /* White text on green */
+	/* Primary — Indigo Brand */
+	--color-primary: oklch(var(--brand-on-light));
+	--color-primary-contrast: oklch(1 0 0); /* White text on brand */
 
-	/* Accent — Green (Unified) */
-	--color-accent: oklch(var(--brand-primary));
+	/* Accent — Indigo (Unified) */
+	--color-accent: oklch(var(--brand-on-light));
 	--color-accent-contrast: oklch(1 0 0);
 
-	/* Secondary/Structural — Green (Unified) */
-	--color-secondary: oklch(var(--brand-primary));
+	/* Secondary/Structural — Indigo (Unified) */
+	--color-secondary: oklch(var(--brand-on-light));
 
 	/* Semantic States */
 	--color-danger: oklch(0.6 0.18 20); /* Red */
-	--color-warning: oklch(0.85 0.16 85); /* Proper Orange/Yellow for warning, not brand green */
+	--color-warning: oklch(0.85 0.16 85); /* Standard Warning Yellow */
 	--color-success: oklch(0.7 0.18 145); /* Green */
 
 	/* Semantic Backgrounds (Using Relative Colors for consistency) */
@@ -59,7 +59,7 @@
 
 	/* Border & Dividers */
 	--color-border: oklch(var(--gray-200));
-	--color-border-vivid: oklch(var(--brand-primary) / 0.4);
+	--color-border-vivid: oklch(var(--brand-on-light) / 0.4);
 
 	/* ═══════════════════════════════════════════════════════════════════════════
        SHADOWS — Soft, humanist aesthetic
@@ -73,13 +73,13 @@
        KIND TOKENS — Content types (Unified Brand)
        ═══════════════════════════════════════════════════════════════════════════ */
 
-	--color-kind-note: oklch(var(--brand-primary));
+	--color-kind-note: oklch(var(--brand-on-light));
 	--color-kind-note-bg: oklch(from var(--color-kind-note) l c h / 0.1);
 
-	--color-kind-essay: oklch(var(--brand-primary));
+	--color-kind-essay: oklch(var(--brand-on-light));
 	--color-kind-essay-bg: oklch(from var(--color-kind-essay) l c h / 0.1);
 
-	--color-kind-tutorial: oklch(var(--brand-primary));
+	--color-kind-tutorial: oklch(var(--brand-on-light));
 	--color-kind-tutorial-bg: oklch(from var(--color-kind-tutorial) l c h / 0.1);
 
 	--color-kind-thought: oklch(0.7 0.12 260);
@@ -89,12 +89,12 @@
        RIPENESS TOKENS — Content maturity
        ═══════════════════════════════════════════════════════════════════════════ */
 
-	--color-ripeness-seed: oklch(var(--brand-primary));
+	--color-ripeness-seed: oklch(var(--brand-on-light));
 	--color-ripeness-seed-bg: oklch(from var(--color-ripeness-seed) l c h / 0.1);
 
-	--color-ripeness-root: oklch(var(--brand-primary));
+	--color-ripeness-root: oklch(var(--brand-on-light));
 	--color-ripeness-root-bg: oklch(from var(--color-ripeness-root) l c h / 0.1);
 
-	--color-ripeness-fruit: oklch(var(--brand-primary));
+	--color-ripeness-fruit: oklch(var(--brand-on-light));
 	--color-ripeness-fruit-bg: oklch(from var(--color-ripeness-fruit) l c h / 0.1);
 }

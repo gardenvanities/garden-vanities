@@ -1,5 +1,5 @@
 /**
- * Dark Theme Overrides — Dark Academia Aesthetic
+ * Semantic Color Tokens — Dark Theme
  * 
  * Strategy: Single Source of Truth via --dt-* (Dark Token) variables.
  * These are mapped to specific selectors to support both System Prefs and Manual Toggle.
@@ -10,19 +10,19 @@
        DARK THEME PALETTE (Source of Truth)
        ═══════════════════════════════════════════════════════════════════════════ */
 
-	/* Backgrounds & Surfaces (Dark Blue Tinted) */
-	--dt-bg: oklch(0.08 0.05 260); /* Very dark blue */
-	--dt-surface: oklch(0.12 0.04 260); /* Dark blue surface */
-	--dt-surface-elevated: oklch(0.16 0.04 260); /* Elevated blue surface */
+	/* Backgrounds & Surfaces (Softened Dark Blue) */
+	--dt-bg: oklch(0.08 0.015 260);
+	--dt-surface: oklch(0.12 0.012 260);
+	--dt-surface-elevated: oklch(0.16 0.012 260);
 
 	/* Text */
 	--dt-text: oklch(var(--gray-50));
 	--dt-muted: oklch(var(--gray-400));
 
 	/* Interactive */
-	--dt-primary: oklch(var(--brand-primary));
+	--dt-primary: oklch(var(--brand-on-dark));
 	--dt-primary-contrast: oklch(1 0 0);
-	--dt-accent: oklch(var(--brand-primary));
+	--dt-accent: oklch(var(--brand-on-dark));
 	--dt-accent-contrast: oklch(1 0 0);
 
 	/* Semantic States */
@@ -36,24 +36,23 @@
 
 	/* Borders */
 	--dt-border: oklch(var(--gray-800));
-	--dt-border-vivid: oklch(var(--brand-primary) / 0.6);
+	--dt-border-vivid: oklch(var(--brand-on-dark) / 0.6);
 
-	/* Shadows (Adjusted for dark mode visibility) */
 	/* Shadows (Depth Layers) */
 	--dt-shadow-1: var(--shadow-depth-1);
 	--dt-shadow-2: var(--shadow-depth-2);
 	--dt-shadow-3: var(--shadow-depth-3);
 
 	/* Content Types (Unified) */
-	--dt-kind-note: oklch(var(--brand-primary));
-	--dt-kind-essay: oklch(var(--brand-primary));
-	--dt-kind-tutorial: oklch(var(--brand-primary));
+	--dt-kind-note: oklch(var(--brand-on-dark));
+	--dt-kind-essay: oklch(var(--brand-on-dark));
+	--dt-kind-tutorial: oklch(var(--brand-on-dark));
 	--dt-kind-thought: oklch(0.8 0.12 260);
 
 	/* Ripeness (Unified) */
-	--dt-ripeness-seed: oklch(var(--brand-primary));
-	--dt-ripeness-root: oklch(var(--brand-primary));
-	--dt-ripeness-fruit: oklch(var(--brand-primary));
+	--dt-ripeness-seed: oklch(var(--brand-on-dark));
+	--dt-ripeness-root: oklch(var(--brand-on-dark));
+	--dt-ripeness-fruit: oklch(var(--brand-on-dark));
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
