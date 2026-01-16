@@ -140,6 +140,21 @@
 	--shadow-sm: var(--shadow-1);
 	--shadow-md: var(--shadow-2);
 	--shadow-lg: var(--shadow-3);
+
+	/* Materials */
+	--color-material-thick: var(--material-thick);
+	--color-material-regular: var(--material-regular);
+	--color-material-thin: var(--material-thin);
+	--color-material-ultrathin: var(--material-ultrathin);
+
+	/* Interaction */
+	--color-action-hover: var(--color-action-hover);
+	--color-focus: var(--color-focus);
+
+	/* Semantic Backgrounds */
+	--color-danger-bg: var(--color-danger-bg);
+	--color-warning-bg: var(--color-warning-bg);
+	--color-success-bg: var(--color-success-bg);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════

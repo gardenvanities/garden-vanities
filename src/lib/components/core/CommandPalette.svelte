@@ -332,7 +332,7 @@
 
 <!-- Results Popover (Premium) -->
 <div
-	class="absolute bottom-full left-0 mb-4 w-full origin-bottom overflow-hidden rounded-2xl border border-border-vivid/20 bg-surface-elevated/80 shadow-[var(--shadow-depth-4)] ring-1 ring-white/10 backdrop-blur-2xl backdrop-saturate-150 dark:border-border-vivid/15 dark:ring-white/5"
+	class="border-border-vivid/20 bg-surface-elevated/80 dark:border-border-vivid/15 absolute bottom-full left-0 mb-4 w-full origin-bottom overflow-hidden rounded-2xl border ring-1 shadow-[var(--shadow-depth-4)] ring-white/10 backdrop-blur-2xl backdrop-saturate-150 dark:ring-white/5"
 	transition:fly={{ y: 16, duration: 400, easing: cubicOut }}
 >
 	<div class="scrollbar-none max-h-[50vh] overflow-y-auto p-2">
@@ -343,13 +343,13 @@
 						class={cn(
 							"flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all duration-150 ease-out",
 							selectedIndex === i
-								? "bg-primary/15 text-primary ring-1 ring-primary/25"
-								: "text-muted hover:bg-white/8 hover:text-text active:scale-[0.98] dark:hover:bg-white/5"
+								? "bg-primary/15 text-primary ring-primary/25 ring-1"
+								: "text-muted hover:text-text hover:bg-action-hover active:scale-[0.98]"
 						)}
 						onclick={item.action}
 						data-nav-index={i}
 					>
-						<div class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-surface/50">
+						<div class="bg-surface/50 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg">
 							<item.icon size={16} />
 						</div>
 						<div class="min-w-0 flex-1">
@@ -379,21 +379,30 @@
 
 	<!-- Footer Hints (Premium KBD Styling) -->
 	<div
-		class="flex items-center justify-between border-t border-border/50 bg-surface/30 px-4 py-2.5 text-[10px] text-muted"
+		class="border-border/50 bg-surface/30 text-muted flex items-center justify-between border-t px-4 py-2.5 text-[10px]"
 	>
 		<div class="flex items-center gap-3">
 			<span class="flex items-center gap-1.5">
-				<kbd class="inline-flex h-5 min-w-5 items-center justify-center rounded border border-border/60 bg-surface px-1 font-mono text-[9px] shadow-sm">↑↓</kbd>
+				<kbd
+					class="border-border/60 bg-surface inline-flex h-5 min-w-5 items-center justify-center rounded border px-1 font-mono text-[9px] shadow-sm"
+					>↑↓</kbd
+				>
 				<span class="opacity-70">navegar</span>
 			</span>
 			<span class="flex items-center gap-1.5">
-				<kbd class="inline-flex h-5 min-w-5 items-center justify-center rounded border border-border/60 bg-surface px-1.5 font-mono text-[9px] shadow-sm">↵</kbd>
+				<kbd
+					class="border-border/60 bg-surface inline-flex h-5 min-w-5 items-center justify-center rounded border px-1.5 font-mono text-[9px] shadow-sm"
+					>↵</kbd
+				>
 				<span class="opacity-70">selecionar</span>
 			</span>
 		</div>
 		<div>
 			<span class="flex items-center gap-1.5">
-				<kbd class="inline-flex h-5 items-center justify-center rounded border border-border/60 bg-surface px-1.5 font-mono text-[9px] shadow-sm">esc</kbd>
+				<kbd
+					class="border-border/60 bg-surface inline-flex h-5 items-center justify-center rounded border px-1.5 font-mono text-[9px] shadow-sm"
+					>esc</kbd
+				>
 				<span class="opacity-70">fechar</span>
 			</span>
 		</div>
@@ -402,7 +411,7 @@
 
 <!-- Input Area (Premium) -->
 <div class="flex w-full items-center gap-3 px-3">
-	<div class="shrink-0 text-primary">
+	<div class="text-primary shrink-0">
 		<Sparkles size={18} class="animate-pulse" />
 	</div>
 	<input
@@ -410,12 +419,12 @@
 		bind:value={query}
 		type="text"
 		placeholder="Buscar artigos, temas..."
-		class="flex-1 bg-transparent text-sm tracking-tight text-text placeholder:text-muted/60 focus:outline-none"
+		class="text-text placeholder:text-muted/60 flex-1 bg-transparent text-sm tracking-tight focus:outline-none"
 		onkeydown={handleKeydown}
 	/>
 	<button
 		type="button"
-		class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-muted transition-all duration-150 ease-out hover:bg-white/15 hover:text-text active:scale-95 dark:bg-white/5 dark:hover:bg-white/10"
+		class="text-muted hover:text-text flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-action-hover transition-all duration-150 ease-out hover:bg-white/15 active:scale-95 dark:bg-white/5 dark:hover:bg-white/10"
 		onclick={closeSearch}
 		aria-label="Fechar busca (Esc)"
 	>

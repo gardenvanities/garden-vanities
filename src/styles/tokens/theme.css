@@ -31,21 +31,21 @@
 	--color-text: oklch(var(--gray-900));
 	--color-muted: oklch(var(--gray-600));
 
-	/* Primary — Highlighter (Energy, Focus) */
-	--color-primary: oklch(var(--brand-highlighter));
-	--color-primary-contrast: oklch(var(--gray-950)); /* Dark text on bright yellow */
+	/* Primary — Green Brand */
+	--color-primary: oklch(var(--brand-primary));
+	--color-primary-contrast: oklch(1 0 0); /* White text on green */
 
-	/* Accent — Bubblegum (Creativity, Play) */
-	--color-accent: oklch(var(--brand-bubblegum));
-	--color-accent-contrast: oklch(var(--gray-950));
+	/* Accent — Green (Unified) */
+	--color-accent: oklch(var(--brand-primary));
+	--color-accent-contrast: oklch(1 0 0);
 
-	/* Secondary/Structural — Orchid */
-	--color-secondary: oklch(var(--brand-orchid));
+	/* Secondary/Structural — Green (Unified) */
+	--color-secondary: oklch(var(--brand-primary));
 
 	/* Semantic States */
-	--color-danger: oklch(0.6 0.18 20); /* Red shifted matches warm vibe */
-	--color-warning: oklch(var(--brand-highlighter)); /* Highlighter works as warning too */
-	--color-success: oklch(0.85 0.15 140); /* Bright green to match vibrancy */
+	--color-danger: oklch(0.6 0.18 20); /* Red */
+	--color-warning: oklch(0.85 0.16 85); /* Proper Orange/Yellow for warning, not brand green */
+	--color-success: oklch(0.7 0.18 145); /* Green */
 
 	/* Semantic Backgrounds (Using Relative Colors for consistency) */
 	--color-danger-bg: oklch(from var(--color-danger) l c h / 0.1);
@@ -59,7 +59,7 @@
 
 	/* Border & Dividers */
 	--color-border: oklch(var(--gray-200));
-	--color-border-vivid: oklch(var(--brand-orchid) / 0.4); /* Orchid for active borders */
+	--color-border-vivid: oklch(var(--brand-primary) / 0.4);
 
 	/* ═══════════════════════════════════════════════════════════════════════════
        SHADOWS — Soft, humanist aesthetic
@@ -70,31 +70,31 @@
 	--shadow-3: 0 4px 16px oklch(0.18 0.01 80 / 0.08), 0 2px 4px oklch(0.18 0.01 80 / 0.04);
 
 	/* ═══════════════════════════════════════════════════════════════════════════
-       KIND TOKENS — Content types (KindBadge)
+       KIND TOKENS — Content types (Unified Brand)
        ═══════════════════════════════════════════════════════════════════════════ */
 
-	--color-kind-note: oklch(var(--brand-highlighter));
+	--color-kind-note: oklch(var(--brand-primary));
 	--color-kind-note-bg: oklch(from var(--color-kind-note) l c h / 0.1);
 
-	--color-kind-essay: oklch(var(--brand-orchid));
+	--color-kind-essay: oklch(var(--brand-primary));
 	--color-kind-essay-bg: oklch(from var(--color-kind-essay) l c h / 0.1);
 
-	--color-kind-tutorial: oklch(var(--brand-bubblegum));
+	--color-kind-tutorial: oklch(var(--brand-primary));
 	--color-kind-tutorial-bg: oklch(from var(--color-kind-tutorial) l c h / 0.1);
 
-	--color-kind-thought: oklch(0.7 0.12 80);
+	--color-kind-thought: oklch(0.7 0.12 260);
 	--color-kind-thought-bg: oklch(from var(--color-kind-thought) l c h / 0.1);
 
 	/* ═══════════════════════════════════════════════════════════════════════════
        RIPENESS TOKENS — Content maturity
        ═══════════════════════════════════════════════════════════════════════════ */
 
-	--color-ripeness-seed: oklch(var(--brand-highlighter));
+	--color-ripeness-seed: oklch(var(--brand-primary));
 	--color-ripeness-seed-bg: oklch(from var(--color-ripeness-seed) l c h / 0.1);
 
-	--color-ripeness-root: oklch(var(--brand-orchid));
+	--color-ripeness-root: oklch(var(--brand-primary));
 	--color-ripeness-root-bg: oklch(from var(--color-ripeness-root) l c h / 0.1);
 
-	--color-ripeness-fruit: oklch(var(--brand-bubblegum));
+	--color-ripeness-fruit: oklch(var(--brand-primary));
 	--color-ripeness-fruit-bg: oklch(from var(--color-ripeness-fruit) l c h / 0.1);
 }

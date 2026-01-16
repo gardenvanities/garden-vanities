@@ -10,25 +10,25 @@
        DARK THEME PALETTE (Source of Truth)
        ═══════════════════════════════════════════════════════════════════════════ */
 
-	/* Backgrounds & Surfaces (Dark Academia Solids) */
-	--dt-bg: oklch(0.08 0.01 80); /* Near-black with warm undertone */
-	--dt-surface: oklch(0.12 0.01 80); /* Dark card surface */
-	--dt-surface-elevated: oklch(0.16 0.02 80); /* Modals/Elevated */
+	/* Backgrounds & Surfaces (Dark Blue Tinted) */
+	--dt-bg: oklch(0.08 0.05 260); /* Very dark blue */
+	--dt-surface: oklch(0.12 0.04 260); /* Dark blue surface */
+	--dt-surface-elevated: oklch(0.16 0.04 260); /* Elevated blue surface */
 
 	/* Text */
 	--dt-text: oklch(var(--gray-50));
 	--dt-muted: oklch(var(--gray-400));
 
 	/* Interactive */
-	--dt-primary: oklch(var(--brand-highlighter));
-	--dt-primary-contrast: oklch(var(--gray-950));
-	--dt-accent: oklch(var(--brand-bubblegum));
-	--dt-accent-contrast: oklch(var(--gray-950));
+	--dt-primary: oklch(var(--brand-primary));
+	--dt-primary-contrast: oklch(1 0 0);
+	--dt-accent: oklch(var(--brand-primary));
+	--dt-accent-contrast: oklch(1 0 0);
 
 	/* Semantic States */
 	--dt-danger: oklch(0.65 0.18 25);
-	--dt-warning: oklch(var(--brand-highlighter));
-	--dt-success: oklch(0.75 0.15 140);
+	--dt-warning: oklch(0.85 0.16 85);
+	--dt-success: oklch(0.75 0.15 145);
 
 	/* Interactions */
 	--dt-action-hover: oklch(var(--gray-50) / 0.1);
@@ -36,7 +36,7 @@
 
 	/* Borders */
 	--dt-border: oklch(var(--gray-800));
-	--dt-border-vivid: oklch(var(--brand-orchid) / 0.6);
+	--dt-border-vivid: oklch(var(--brand-primary) / 0.6);
 
 	/* Shadows (Adjusted for dark mode visibility) */
 	/* Shadows (Depth Layers) */
@@ -44,16 +44,16 @@
 	--dt-shadow-2: var(--shadow-depth-2);
 	--dt-shadow-3: var(--shadow-depth-3);
 
-	/* Content Types (Muted for dark mode readability) */
-	--dt-kind-note: oklch(var(--brand-highlighter));
-	--dt-kind-essay: oklch(var(--brand-orchid));
-	--dt-kind-tutorial: oklch(var(--brand-bubblegum));
-	--dt-kind-thought: oklch(0.8 0.12 80);
+	/* Content Types (Unified) */
+	--dt-kind-note: oklch(var(--brand-primary));
+	--dt-kind-essay: oklch(var(--brand-primary));
+	--dt-kind-tutorial: oklch(var(--brand-primary));
+	--dt-kind-thought: oklch(0.8 0.12 260);
 
-	/* Ripeness (Muted for dark mode) */
-	--dt-ripeness-seed: oklch(var(--brand-highlighter));
-	--dt-ripeness-root: oklch(var(--brand-orchid));
-	--dt-ripeness-fruit: oklch(var(--brand-bubblegum));
+	/* Ripeness (Unified) */
+	--dt-ripeness-seed: oklch(var(--brand-primary));
+	--dt-ripeness-root: oklch(var(--brand-primary));
+	--dt-ripeness-fruit: oklch(var(--brand-primary));
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════

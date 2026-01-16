@@ -30,7 +30,7 @@
 		outline: "text-text border border-border",
 		primary: "border-transparent bg-primary text-primary-contrast shadow hover:bg-primary/80",
 		danger: "border-transparent bg-danger text-primary-contrast shadow hover:bg-danger/80",
-		warning: "border-transparent bg-warning text-primary-contrast shadow hover:bg-warning/80",
+		warning: "border-transparent bg-warning text-gray-950 shadow hover:bg-warning/80",
 		success: "border-transparent bg-success text-primary-contrast shadow hover:bg-success/80"
 	};
 </script>
