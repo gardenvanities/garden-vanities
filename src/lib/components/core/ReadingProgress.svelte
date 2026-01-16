@@ -39,14 +39,32 @@
 			return;
 		}
 
+		// Find the article content element specifically
+		const articleEl = document.getElementById("article-content") || document.querySelector("article.prose");
+		
+		if (!articleEl) {
+			isVisible = variant === "sidebar";
+			return;
+		}
+
+		const rect = articleEl.getBoundingClientRect();
+		const articleTop = rect.top + window.scrollY;
+		const articleHeight = rect.height;
 		const scrollTop = window.scrollY;
-		const docHeight = document.documentElement.scrollHeight;
 		const winHeight = window.innerHeight;
 
-		// Calculate raw percentage
+		// Calculate progress based on article element position
+		// Progress starts when article enters viewport, ends when article bottom leaves viewport
+		const startOffset = articleTop - winHeight * 0.2; // Start a bit before article enters
+		const endOffset = articleTop + articleHeight - winHeight * 0.8; // End when most of article is scrolled
+
 		let rawPercent = 0;
-		if (docHeight > winHeight) {
-			rawPercent = (scrollTop / (docHeight - winHeight)) * 100;
+		if (scrollTop <= startOffset) {
+			rawPercent = 0;
+		} else if (scrollTop >= endOffset) {
+			rawPercent = 100;
+		} else {
+			rawPercent = ((scrollTop - startOffset) / (endOffset - startOffset)) * 100;
 		}
 
 		// Clamp
@@ -56,9 +74,9 @@
 		progressSpring.set(clamped);
 
 		if (variant === "floating") {
-			// Show only after scrolling a bit (better UX) and if not at the very bottom
-			const notAtBottom = (scrollTop + winHeight) < (docHeight - 100);
-			isVisible = scrollTop > 150 && notAtBottom;
+			// Show only when article is in viewport
+			const articleInView = rect.top < winHeight && rect.bottom > 0;
+			isVisible = articleInView && rawPercent < 100;
 		} else {
 			// Always visible in sidebar
 			isVisible = true;

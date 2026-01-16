@@ -1,8 +1,10 @@
 <script lang="ts">
 	import PostHeader from "$lib/components/garden/posts/PostHeader.svelte";
+	import Cover from "$lib/components/garden/posts/Cover.svelte";
 	import PostNavigation from "$lib/components/garden/posts/PostNavigation.svelte";
 	import Backlinks from "$lib/components/garden/Backlinks.svelte";
 	import ReadingProgress from "$lib/components/core/ReadingProgress.svelte";
+	import PostMetaSidebar from "$lib/components/garden/posts/PostMetaSidebar.svelte";
 	import TableOfContents from "$lib/components/garden/TableOfContents.svelte";
 	import SEO from "$lib/components/core/SEO.svelte";
 	import { fly } from "svelte/transition";
@@ -26,41 +28,80 @@
 
 <Section class="py-12! sm:py-20!">
 	<Container size="xl">
-		<div class="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_minmax(0,680px)_1fr]">
-			<!-- Sidebar Esquerda (Espaço vazio ou secundário no futuro) -->
-			<div class="hidden lg:block"></div>
+		<!-- 
+			LAYOUT STRUCTURE (Based on User Wireframe):
+			1. ARTICLE HEADER - Full width
+			2. SIDEBAR (left) | ARTICLE CONTENT (right) - 2 columns
+			3. ARTICLE COMPONENTS - Full width (Navigation, Backlinks)
+		-->
+		
+		<!-- ═══════════════════════════════════════════════════════════════════ -->
+		<!-- ARTICLE HEADER (Full Width) -->
+		<!-- ═══════════════════════════════════════════════════════════════════ -->
+		<header class="mb-12" in:fly={{ y: 20, duration: 800, delay: 100 }}>
+			<PostHeader {metadata} />
+		</header>
 
-			<!-- Coluna Central: Conteúdo -->
-			<article>
-				<div in:fly={{ y: 20, duration: 800, delay: 100 }}>
-					<PostHeader {metadata} />
+		<!-- ═══════════════════════════════════════════════════════════════════ -->
+		<!-- SIDEBAR + ARTICLE CONTENT (2-Column Grid) -->
+		<!-- ═══════════════════════════════════════════════════════════════════ -->
+		<div class="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(200px,280px)_minmax(0,1fr)]">
+			
+			<!-- SIDEBAR (Left) -->
+			<aside class="hidden lg:block relative order-2 lg:order-1">
+				<div 
+					class="sticky top-24 flex flex-col gap-6 max-h-[calc(100vh-8rem)] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent overscroll-y-contain"
+					data-lenis-prevent
+				>
+					<!-- Reading Progress -->
+					<div in:fly={{ x: -20, duration: 800, delay: 200 }}>
+						<ReadingProgress variant="sidebar" />
+					</div>
+
+					<!-- Table of Contents -->
+					<div in:fly={{ x: -20, duration: 800, delay: 300 }}>
+						<TableOfContents key={metadata.slug} />
+					</div>
+
+					<!-- Metadata Card (About this note) -->
+					<div in:fly={{ x: -20, duration: 800, delay: 400 }}>
+						<PostMetaSidebar {metadata} />
+					</div>
 				</div>
+			</aside>
 
-				<!-- Conteúdo do Post -->
-				<div class="prose max-w-none" in:fly={{ y: 20, duration: 800, delay: 300 }}>
-					<Content />
-				</div>
-
-				{#if navigation}
-					<div class="mt-16" in:fly={{ y: 20, duration: 800, delay: 500 }}>
-						<PostNavigation {navigation} seriesName={metadata.series?.name} />
+			<!-- ARTICLE CONTENT (Right) -->
+			<article 
+				id="article-content"
+				class="prose max-w-none order-1 lg:order-2" 
+				in:fly={{ y: 20, duration: 800, delay: 300 }}
+			>
+				{#if metadata.cover}
+					<div class="not-prose mb-12">
+						<Cover
+							publicId={metadata.cover.url}
+							alt={metadata.cover.alt}
+							caption={metadata.cover.caption}
+							priority={true}
+						/>
 					</div>
 				{/if}
 
-				<Backlinks {backlinks} references={data.references} />
+				<Content />
 			</article>
+		</div>
 
-			<!-- Sidebar Direita: Sumário -->
-			<div class="relative">
-				<div class="sticky top-32 flex flex-col gap-6">
-					<!-- Leitura & Progresso -->
-					<div in:fly={{ x: 20, duration: 800, delay: 200 }}>
-						<ReadingProgress variant="sidebar" />
-					</div>
-					
-					<TableOfContents key={metadata.slug} title={metadata.title} />
+		<!-- ═══════════════════════════════════════════════════════════════════ -->
+		<!-- ARTICLE COMPONENTS (Full Width) -->
+		<!-- ═══════════════════════════════════════════════════════════════════ -->
+		<div class="mt-16 space-y-12">
+			{#if navigation}
+				<div in:fly={{ y: 20, duration: 800, delay: 500 }}>
+					<PostNavigation {navigation} seriesName={metadata.series?.name} />
 				</div>
-			</div>
+			{/if}
+
+			<Backlinks {backlinks} references={data.references} />
 		</div>
 	</Container>
 </Section>
