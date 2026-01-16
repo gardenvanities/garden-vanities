@@ -39,14 +39,17 @@
 {#if config}
 	<Badge
 		variant="outline"
-		class="gap-1 border font-bold tracking-widest uppercase {config.color} {className}"
+		class="gap-1.5 rounded-[4px] border px-2 py-0.5 font-bold tracking-widest uppercase shadow-sm backdrop-blur-sm {config.color} {className}"
 		as="span"
 	>
 		{#if showIcon}
-			<config.icon size={12} strokeWidth={2.5} />
+			<!-- Icon container for better alignment -->
+			<span class="-ml-0.5 flex items-center opacity-80">
+				<config.icon size={12} strokeWidth={2.5} />
+			</span>
 		{/if}
 		{#if showLabel}
-			{config.label}
+			<span class="pt-[1px] text-[10px] sm:text-[11px]">{config.label}</span>
 		{/if}
 	</Badge>
 {/if}

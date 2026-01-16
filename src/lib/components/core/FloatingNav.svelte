@@ -126,7 +126,7 @@
 				{:else}
 					<a
 						href="/"
-						class="group text-muted hover:text-text flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 ease-out hover:bg-action-hover active:scale-[0.95]"
+						class="group text-muted hover:text-text hover:bg-action-hover flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 ease-out active:scale-[0.95]"
 						aria-label="Home"
 					>
 						<House size={18} class="transition-transform duration-200 group-hover:scale-110" />
@@ -136,7 +136,7 @@
 				<!-- Search Trigger Button -->
 				<button
 					type="button"
-					class="group text-text hover:text-primary flex h-10 items-center gap-2.5 rounded-full bg-action-hover px-4 text-sm font-medium transition-all duration-200 ease-out hover:bg-white/15 active:scale-[0.97] dark:bg-white/5 dark:hover:bg-white/10"
+					class="group text-text hover:text-primary bg-action-hover flex h-10 items-center gap-2.5 rounded-full px-4 text-sm font-medium transition-all duration-200 ease-out hover:bg-white/15 active:scale-[0.97] dark:bg-white/5 dark:hover:bg-white/10"
 					onclick={openSearch}
 					aria-label="Buscar (⌘K)"
 				>
@@ -167,7 +167,7 @@
 				{:else}
 					<a
 						href="/explore"
-						class="group text-muted hover:text-text flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 ease-out hover:bg-action-hover active:scale-[0.95]"
+						class="group text-muted hover:text-text hover:bg-action-hover flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 ease-out active:scale-[0.95]"
 						aria-label="Explorar"
 					>
 						<Telescope size={18} class="transition-transform duration-200 group-hover:scale-110" />
@@ -190,7 +190,7 @@
 				{:else}
 					<a
 						href="/series"
-						class="group text-muted hover:text-text flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 ease-out hover:bg-action-hover active:scale-[0.95]"
+						class="group text-muted hover:text-text hover:bg-action-hover flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 ease-out active:scale-[0.95]"
 						aria-label="Séries"
 					>
 						<Library size={18} class="transition-transform duration-200 group-hover:scale-110" />
@@ -213,7 +213,7 @@
 				{:else}
 					<a
 						href="/topics"
-						class="group text-muted hover:text-text flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 ease-out hover:bg-action-hover active:scale-[0.95]"
+						class="group text-muted hover:text-text hover:bg-action-hover flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 ease-out active:scale-[0.95]"
 						aria-label="Tópicos"
 					>
 						<FolderOpen size={18} class="transition-transform duration-200 group-hover:scale-110" />

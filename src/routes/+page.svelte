@@ -47,7 +47,7 @@
 					também eu me rirei na vossa desgraça."
 				</p>
 				<footer
-					class="text-muted text-sm font-medium tracking-caps uppercase text-opacity-80 md:text-base"
+					class="text-muted tracking-caps text-opacity-80 text-sm font-medium uppercase md:text-base"
 				>
 					— Provérbios 1:20, 25, 26
 				</footer>

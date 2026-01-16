@@ -34,7 +34,7 @@
 			2. SIDEBAR (left) | ARTICLE CONTENT (right) - 2 columns
 			3. ARTICLE COMPONENTS - Full width (Navigation, Backlinks)
 		-->
-		
+
 		<!-- ═══════════════════════════════════════════════════════════════════ -->
 		<!-- ARTICLE HEADER (Full Width) -->
 		<!-- ═══════════════════════════════════════════════════════════════════ -->
@@ -46,11 +46,10 @@
 		<!-- SIDEBAR + ARTICLE CONTENT (2-Column Grid) -->
 		<!-- ═══════════════════════════════════════════════════════════════════ -->
 		<div class="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(200px,280px)_minmax(0,1fr)]">
-			
 			<!-- SIDEBAR (Left) -->
-			<aside class="hidden lg:block relative order-2 lg:order-1">
-				<div 
-					class="sticky top-24 flex flex-col gap-6 max-h-[calc(100vh-8rem)] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent overscroll-y-contain"
+			<aside class="relative order-2 hidden lg:order-1 lg:block">
+				<div
+					class="scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent sticky top-24 flex max-h-[calc(100vh-8rem)] flex-col gap-6 overflow-y-auto overscroll-y-contain pr-4"
 					data-lenis-prevent
 				>
 					<!-- Reading Progress -->
@@ -71,9 +70,9 @@
 			</aside>
 
 			<!-- ARTICLE CONTENT (Right) -->
-			<article 
+			<article
 				id="article-content"
-				class="prose max-w-none order-1 lg:order-2" 
+				class="prose order-1 max-w-none lg:order-2"
 				in:fly={{ y: 20, duration: 800, delay: 300 }}
 			>
 				{#if metadata.cover}

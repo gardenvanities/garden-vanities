@@ -15,8 +15,8 @@
 <aside class="flex flex-col gap-6 text-sm">
 	<!-- About this note -->
 	<div class="space-y-4">
-		<h4 class="text-xs font-bold tracking-widest text-muted uppercase mb-2">Sobre esta nota</h4>
-		
+		<h4 class="text-muted mb-2 text-xs font-bold tracking-widest uppercase">Sobre esta nota</h4>
+
 		<!-- Badges Row -->
 		<div class="flex flex-wrap gap-2">
 			{#if metadata.ripeness}
@@ -29,13 +29,15 @@
 
 		<!-- Date -->
 		{#if displayDate}
-			<div class="flex items-start gap-3 mt-2">
-				<div class="p-1.5 rounded-md bg-surface border border-border text-muted">
+			<div class="mt-2 flex items-start gap-3">
+				<div class="bg-surface border-border text-muted rounded-md border p-1.5">
 					<Calendar size={14} />
 				</div>
 				<div class="flex flex-col gap-0.5">
-					<span class="text-[10px] uppercase font-bold tracking-wider text-muted/70">{dateLabel}</span>
-					<time datetime={displayDate} class="font-medium text-text">
+					<span class="text-muted/70 text-[10px] font-bold tracking-wider uppercase"
+						>{dateLabel}</span
+					>
+					<time datetime={displayDate} class="text-text font-medium">
 						{formatShortDate(displayDate)}
 					</time>
 				</div>
@@ -45,19 +47,23 @@
 
 	<!-- Context (Series / MoC) -->
 	{#if metadata.series || metadata.moc}
-		<div class="space-y-4 border-t border-border pt-6">
-			<h4 class="text-xs font-bold tracking-widest text-muted uppercase mb-2">Contexto</h4>
-			
+		<div class="border-border space-y-4 border-t pt-6">
+			<h4 class="text-muted mb-2 text-xs font-bold tracking-widest uppercase">Contexto</h4>
+
 			{#if metadata.series?.name}
 				<div class="flex items-start gap-3">
-					<div class="p-1.5 rounded-md bg-surface border border-border text-muted">
+					<div class="bg-surface border-border text-muted rounded-md border p-1.5">
 						<Layers size={14} />
 					</div>
 					<div class="flex flex-col gap-0.5">
-						<span class="text-[10px] uppercase font-bold tracking-wider text-muted/70">Série</span>
-						<span class="font-medium text-primary leading-tight">{metadata.series.name}</span>
+						<span class="text-muted/70 text-[10px] font-bold tracking-wider uppercase">Série</span>
+						<span class="text-primary leading-tight font-medium">{metadata.series.name}</span>
 						{#if metadata.series.order}
-							<span class="text-xs text-muted">Parte {metadata.series.order}{metadata.series.total ? ` de ${metadata.series.total}` : ''}</span>
+							<span class="text-muted text-xs"
+								>Parte {metadata.series.order}{metadata.series.total
+									? ` de ${metadata.series.total}`
+									: ""}</span
+							>
 						{/if}
 					</div>
 				</div>
@@ -65,12 +71,17 @@
 
 			{#if metadata.moc}
 				<div class="flex items-start gap-3">
-					<div class="p-1.5 rounded-md bg-surface border border-border text-muted">
+					<div class="bg-surface border-border text-muted rounded-md border p-1.5">
 						<Network size={14} />
 					</div>
 					<div class="flex flex-col gap-0.5">
-						<span class="text-[10px] uppercase font-bold tracking-wider text-muted/70">Map of Content</span>
-						<a href="/posts/{metadata.moc}" class="font-medium text-primary hover:underline decoration-primary/30 underline-offset-4 leading-tight">
+						<span class="text-muted/70 text-[10px] font-bold tracking-wider uppercase"
+							>Map of Content</span
+						>
+						<a
+							href="/posts/{metadata.moc}"
+							class="text-primary decoration-primary/30 leading-tight font-medium underline-offset-4 hover:underline"
+						>
 							{metadata.moc}
 						</a>
 					</div>
@@ -81,8 +92,8 @@
 
 	<!-- Tags -->
 	{#if metadata.tags && metadata.tags.length > 0}
-		<div class="space-y-3 border-t border-border pt-6">
-			<h4 class="text-xs font-bold tracking-widest text-muted uppercase mb-2">Tags</h4>
+		<div class="border-border space-y-3 border-t pt-6">
+			<h4 class="text-muted mb-2 text-xs font-bold tracking-widest uppercase">Tags</h4>
 			<TagList tags={metadata.tags} />
 		</div>
 	{/if}

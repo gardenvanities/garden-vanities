@@ -332,7 +332,7 @@
 
 <!-- Results Popover (Premium) -->
 <div
-	class="border-border-vivid/20 bg-surface-elevated/80 dark:border-border-vivid/15 absolute bottom-full left-0 mb-4 w-full origin-bottom overflow-hidden rounded-2xl border ring-1 shadow-[var(--shadow-depth-4)] ring-white/10 backdrop-blur-2xl backdrop-saturate-150 dark:ring-white/5"
+	class="border-border-vivid/20 bg-surface-elevated/80 dark:border-border-vivid/15 absolute bottom-full left-0 mb-4 w-full origin-bottom overflow-hidden rounded-2xl border shadow-[var(--shadow-depth-4)] ring-1 ring-white/10 backdrop-blur-2xl backdrop-saturate-150 dark:ring-white/5"
 	transition:fly={{ y: 16, duration: 400, easing: cubicOut }}
 >
 	<div class="scrollbar-none max-h-[50vh] overflow-y-auto p-2">
@@ -424,7 +424,7 @@
 	/>
 	<button
 		type="button"
-		class="text-muted hover:text-text flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-action-hover transition-all duration-150 ease-out hover:bg-white/15 active:scale-95 dark:bg-white/5 dark:hover:bg-white/10"
+		class="text-muted hover:text-text bg-action-hover flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all duration-150 ease-out hover:bg-white/15 active:scale-95 dark:bg-white/5 dark:hover:bg-white/10"
 		onclick={closeSearch}
 		aria-label="Fechar busca (Esc)"
 	>
