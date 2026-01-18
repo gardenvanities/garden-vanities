@@ -4,7 +4,7 @@
 	import Section from "$lib/layout/Section.svelte";
 	import Grid from "$lib/layout/Grid.svelte";
 	import PostCard from "$lib/modules/posts/components/PostCard.svelte";
-	import { Search, X, Hash, Info } from "@lucide/svelte";
+	import { Search, X, Hash } from "@lucide/svelte";
 	import { fly, slide } from "svelte/transition";
 
 	let { data } = $props();
@@ -12,7 +12,7 @@
 	let searchQuery = $state("");
 	let selectedKinds = $state<string[]>([]);
 	let selectedTags = $state<string[]>([]);
-	
+
 	let inputElement = $state<HTMLInputElement>();
 	let autocompleteOpen = $state(false);
 	let autocompleteMode = $state<"tag" | "kind">("tag");
@@ -27,9 +27,9 @@
 	];
 
 	let availableTags = $derived.by(() => {
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity
 		const tags = new Set<string>();
 		data.posts.forEach((post) => {
-			if (post.ripeness === "seed") return;
 			post.tags?.forEach((tag) => tags.add(tag));
 		});
 		return Array.from(tags).sort();
@@ -40,14 +40,15 @@
 			return availableTags
 				.filter(
 					(tag) =>
-						tag.toLowerCase().includes(autocompleteTerm.toLowerCase()) && !selectedTags.includes(tag)
+						tag.toLowerCase().includes(autocompleteTerm.toLowerCase()) &&
+						!selectedTags.includes(tag)
 				)
 				.slice(0, 5);
 		} else {
 			return kinds
 				.filter(
 					(kind) =>
-						kind.value.toLowerCase().includes(autocompleteTerm.toLowerCase()) && 
+						kind.value.toLowerCase().includes(autocompleteTerm.toLowerCase()) &&
 						!selectedKinds.includes(kind.value)
 				)
 				.slice(0, 5);
@@ -56,9 +57,6 @@
 
 	let filteredPosts = $derived(
 		data.posts.filter((post) => {
-			// Always filter out seeds
-			if (post.ripeness === "seed") return false;
-
 			const searchLower = searchQuery.toLowerCase();
 			const matchesSearch =
 				searchQuery === "" ||
@@ -174,7 +172,7 @@
 	}
 
 	function getKindLabel(value: string) {
-		return kinds.find(k => k.value === value)?.label || value;
+		return kinds.find((k) => k.value === value)?.label || value;
 	}
 </script>
 
@@ -187,37 +185,41 @@
 	<Container size="lg">
 		<div in:fly={{ y: 20, duration: 800 }}>
 			<div class="mb-12 text-center">
-				<h1 class="font-bold font-header text-5xl mb-4 text-text">Biblioteca do Jardim</h1>
-				<p class="text-xl text-muted">
+				<h1 class="font-header text-text mb-4 text-5xl font-bold">Biblioteca do Jardim</h1>
+				<p class="text-muted text-xl">
 					Explore {filteredPosts.length} notas cultivadas.
 				</p>
 			</div>
 
-			<div class="max-w-3xl mx-auto mb-16 relative">
+			<div class="relative mx-auto mb-16 max-w-3xl">
 				<!-- Main Search Bar -->
 				<div
-					class="relative flex flex-wrap items-center gap-2 p-4 rounded-2xl bg-surface/50 backdrop-blur-md border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] transition-all duration-300 focus-within:shadow-[0_8px_40px_rgba(var(--color-primary),0.15)] focus-within:border-primary/30 group"
+					class="search-bar group relative flex flex-wrap items-center gap-2.5 rounded-2xl border px-5 py-4 transition-all duration-300"
 					onclick={focusInput}
 					onkeydown={(e) => e.key === "Enter" && focusInput()}
 					role="button"
 					tabindex="0"
 				>
-					<Search class="text-muted group-focus-within:text-primary transition-colors ml-2 mr-1" size={22} />
+					<Search
+						class="search-icon text-muted group-focus-within:text-primary transition-colors duration-200"
+						size={20}
+					/>
 
 					<!-- Selected Kinds -->
 					{#each selectedKinds as kind (kind)}
 						<div
 							transition:slide={{ axis: "x", duration: 200 }}
-							class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-elevated border border-border/50 text-sm font-medium text-text animate-in zoom-in-50"
+							class="chip chip-kind flex items-center gap-1.5 rounded-full py-1 pr-2 pl-2.5 text-xs font-semibold tracking-wide uppercase"
 						>
-							<Info size={14} class="text-secondary" />
+							<span class="chip-prefix">!</span>
 							{getKindLabel(kind)}
 							<button
 								onclick={(e) => {
 									e.stopPropagation();
 									removeKind(kind);
 								}}
-								class="ml-1 p-0.5 rounded-full hover:bg-surface-hover hover:text-action-destructive transition-colors"
+								class="chip-remove ml-0.5 rounded-full p-0.5 transition-colors"
+								aria-label="Remover filtro de tipo"
 							>
 								<X size={12} />
 							</button>
@@ -228,16 +230,17 @@
 					{#each selectedTags as tag (tag)}
 						<div
 							transition:slide={{ axis: "x", duration: 200 }}
-							class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 border border-primary/20 text-sm font-medium text-primary animate-in zoom-in-50"
+							class="chip chip-tag flex items-center gap-1.5 rounded-full py-1 pr-2 pl-2.5 text-xs font-semibold"
 						>
-							<Hash size={12} />
+							<Hash size={12} class="opacity-70" />
 							{tag}
 							<button
 								onclick={(e) => {
 									e.stopPropagation();
 									removeTag(tag);
 								}}
-								class="ml-1 p-0.5 rounded-full hover:bg-primary/20 hover:text-action-destructive transition-colors"
+								class="chip-remove ml-0.5 rounded-full p-0.5 transition-colors"
+								aria-label="Remover filtro de tag"
 							>
 								<X size={12} />
 							</button>
@@ -250,20 +253,23 @@
 						bind:value={searchQuery}
 						oninput={handleInput}
 						onkeydown={handleKeydown}
-						placeholder={selectedTags.length === 0 && selectedKinds.length === 0 ? "Buscar... (use # para tags, ! para tipos)" : ""}
-						class="flex-1 min-w-[200px] bg-transparent text-lg text-text placeholder-muted/60 focus:outline-none ml-1"
+						placeholder={selectedTags.length === 0 && selectedKinds.length === 0
+							? "Buscar notas..."
+							: ""}
+						class="search-input text-text placeholder:text-muted/50 min-w-[180px] flex-1 bg-transparent text-base focus:outline-none"
 					/>
-					
+
 					{#if searchQuery || selectedTags.length > 0 || selectedKinds.length > 0}
-						<button 
+						<button
 							onclick={(e) => {
 								e.stopPropagation();
 								clearFilters();
 							}}
-							class="text-muted hover:text-text transition-colors p-2"
+							class="clear-btn text-muted hover:text-text hover:bg-surface-hover rounded-lg p-1.5 transition-colors"
 							transition:fly={{ x: 10, duration: 200 }}
+							aria-label="Limpar todos os filtros"
 						>
-							<X size={18} />
+							<X size={16} />
 						</button>
 					{/if}
 				</div>
@@ -271,22 +277,26 @@
 				<!-- Autocomplete Dropdown -->
 				{#if autocompleteOpen && filteredAutocompleteItems.length > 0}
 					<div
-						class="absolute top-full left-0 right-0 mt-2 p-1 bg-surface-elevated/95 backdrop-blur-xl border border-white/5 rounded-xl shadow-2xl z-50 overflow-hidden"
+						class="autocomplete-dropdown absolute top-full right-0 left-0 z-50 mt-2 overflow-hidden rounded-xl p-1.5"
 						transition:fly={{ y: -10, duration: 200 }}
 					>
-						{#each filteredAutocompleteItems as item, i}
+						{#each filteredAutocompleteItems as item, i (typeof item === "string" ? item : item.value)}
 							<button
-								class="w-full flex items-center gap-3 px-4 py-3 text-left rounded-lg transition-all duration-200 {i === activeIndex
-									? 'bg-primary/10 text-primary'
-									: 'text-text hover:bg-surface-hover'}"
-								onclick={() => autocompleteMode === 'tag' ? selectTag(item as string) : selectKind((item as {value: string}).value)}
+								class="autocomplete-item flex w-full items-center gap-3 rounded-lg px-4 py-2.5 text-left transition-all duration-150 {i ===
+								activeIndex
+									? 'active'
+									: ''}"
+								onclick={() =>
+									autocompleteMode === "tag"
+										? selectTag(item as string)
+										: selectKind((item as { value: string }).value)}
 							>
-								{#if autocompleteMode === 'tag'}
+								{#if autocompleteMode === "tag"}
 									<Hash size={14} class="opacity-50" />
 									<span class="font-medium">{item}</span>
 								{:else}
-									<Info size={14} class="opacity-50" />
-									<span class="font-medium">{(item as {label: string}).label}</span>
+									<span class="text-secondary text-xs font-bold">!</span>
+									<span class="font-medium">{(item as { label: string }).label}</span>
 								{/if}
 							</button>
 						{/each}
@@ -294,14 +304,14 @@
 				{/if}
 
 				<!-- Helper Text -->
-				<div class="mt-4 flex justify-center gap-6 text-xs text-muted/60 font-medium uppercase tracking-wider">
-					<span class="flex items-center gap-1.5">
-						<kbd class="px-1.5 py-0.5 rounded bg-surface border border-border text-[10px] font-sans">#</kbd>
-						Filtrar Tags
+				<div class="helper-text text-muted/50 mt-4 flex justify-center gap-8 text-xs font-medium">
+					<span class="flex items-center gap-2">
+						<kbd class="kbd">#</kbd>
+						<span>Tags</span>
 					</span>
-					<span class="flex items-center gap-1.5">
-						<kbd class="px-1.5 py-0.5 rounded bg-surface border border-border text-[10px] font-sans">!</kbd>
-						Filtrar Tipos
+					<span class="flex items-center gap-2">
+						<kbd class="kbd">!</kbd>
+						<span>Tipos</span>
 					</span>
 				</div>
 			</div>
@@ -317,18 +327,18 @@
 					{/each}
 				</Grid>
 			{:else}
-				<div class="text-center py-24">
-					<div class="inline-flex items-center justify-center p-4 rounded-full bg-surface-elevated mb-4 text-muted">
+				<div class="py-24 text-center">
+					<div
+						class="bg-surface-elevated text-muted mb-4 inline-flex items-center justify-center rounded-full p-4"
+					>
 						<Search size={32} />
 					</div>
-					<h3 class="text-xl font-bold text-text mb-2">Nada encontrado</h3>
-					<p class="text-muted max-w-sm mx-auto">
-						Não conseguimos encontrar nada com esses filtros. Tente remover alguns termos ou buscar por outra coisa.
+					<h3 class="text-text mb-2 text-xl font-bold">Nada encontrado</h3>
+					<p class="text-muted mx-auto max-w-sm">
+						Não conseguimos encontrar nada com esses filtros. Tente remover alguns termos ou buscar
+						por outra coisa.
 					</p>
-					<button 
-						onclick={clearFilters} 
-						class="mt-6 text-primary font-semibold hover:underline"
-					>
+					<button onclick={clearFilters} class="text-primary mt-6 font-semibold hover:underline">
 						Limpar tudo
 					</button>
 				</div>
@@ -336,3 +346,92 @@
 		</div>
 	</Container>
 </Section>
+
+<style>
+	/* Search Bar Container */
+	.search-bar {
+		background: oklch(from var(--color-surface) l c h / 0.6);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		border-color: oklch(from var(--color-border) l c h / 0.5);
+		box-shadow:
+			0 4px 24px -4px oklch(0% 0 0 / 0.08),
+			0 0 0 1px oklch(100% 0 0 / 0.02) inset;
+	}
+
+	.search-bar:focus-within {
+		border-color: oklch(from var(--color-primary) l c h / 0.4);
+		box-shadow:
+			0 4px 32px -4px oklch(from var(--color-primary) l c h / 0.15),
+			0 0 0 1px oklch(from var(--color-primary) l c h / 0.1) inset;
+	}
+
+	/* Chips - Kind */
+	.chip-kind {
+		background: oklch(from var(--color-secondary) l c h / 0.12);
+		border: 1px solid oklch(from var(--color-secondary) l c h / 0.25);
+		color: var(--color-secondary);
+	}
+
+	.chip-kind .chip-prefix {
+		opacity: 0.6;
+		font-weight: 700;
+	}
+
+	.chip-kind .chip-remove:hover {
+		background: oklch(from var(--color-secondary) l c h / 0.2);
+		color: var(--color-action-destructive);
+	}
+
+	/* Chips - Tag */
+	.chip-tag {
+		background: oklch(from var(--color-primary) l c h / 0.1);
+		border: 1px solid oklch(from var(--color-primary) l c h / 0.2);
+		color: var(--color-primary);
+	}
+
+	.chip-tag .chip-remove:hover {
+		background: oklch(from var(--color-primary) l c h / 0.2);
+		color: var(--color-action-destructive);
+	}
+
+	/* Autocomplete Dropdown */
+	.autocomplete-dropdown {
+		background: oklch(from var(--color-surface-elevated) l c h / 0.95);
+		backdrop-filter: blur(24px);
+		-webkit-backdrop-filter: blur(24px);
+		border: 1px solid oklch(from var(--color-border) l c h / 0.3);
+		box-shadow:
+			0 16px 48px -12px oklch(0% 0 0 / 0.25),
+			0 0 0 1px oklch(100% 0 0 / 0.03) inset;
+	}
+
+	.autocomplete-item {
+		color: var(--color-text);
+	}
+
+	.autocomplete-item:hover {
+		background: var(--color-surface-hover);
+	}
+
+	.autocomplete-item.active {
+		background: oklch(from var(--color-primary) l c h / 0.1);
+		color: var(--color-primary);
+	}
+
+	/* Helper Text */
+	.kbd {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.5rem;
+		height: 1.5rem;
+		border-radius: 0.375rem;
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		font-family: var(--font-mono);
+		font-size: 0.6875rem;
+		font-weight: 500;
+		color: var(--color-muted);
+	}
+</style>

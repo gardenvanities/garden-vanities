@@ -45,7 +45,7 @@
 			</span>
 		{/if}
 		{#if showLabel}
-			<span class="pt-px ml-1.5 text-[11px] font-medium">{config.label}</span>
+			<span class="ml-1.5 pt-px text-[11px] font-medium">{config.label}</span>
 		{/if}
 	</Badge>
 {/if}

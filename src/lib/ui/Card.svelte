@@ -12,7 +12,7 @@
 		onclick?: (event: MouseEvent) => void;
 		as?: string;
 
-		[key: string]: any;
+		[key: string]: unknown;
 	}
 
 	let {

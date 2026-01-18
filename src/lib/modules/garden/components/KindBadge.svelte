@@ -44,6 +44,6 @@
 				<Shapes size={12} strokeWidth={2.5} />
 			</span>
 		{/if}
-		<span class="pt-px ml-1.5 text-[11px] font-medium">{config.label}</span>
+		<span class="ml-1.5 pt-px text-[11px] font-medium">{config.label}</span>
 	</Badge>
 {/if}

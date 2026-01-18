@@ -71,9 +71,7 @@
 						<Network size={14} />
 					</div>
 					<div class="flex flex-col gap-0.5">
-						<span class="text-muted/70 text-[10px] font-bold tracking-wider uppercase"
-							>Set</span
-						>
+						<span class="text-muted/70 text-[10px] font-bold tracking-wider uppercase">Set</span>
 						<a
 							href="/sets/{encodeURIComponent(metadata.set)}"
 							class="text-primary decoration-primary/30 leading-tight font-medium underline-offset-4 hover:underline"

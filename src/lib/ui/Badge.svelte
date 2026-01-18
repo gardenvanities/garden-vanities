@@ -10,7 +10,7 @@
 		class?: string;
 		as?: string;
 
-		[key: string]: any;
+		[key: string]: unknown;
 	}
 
 	let {

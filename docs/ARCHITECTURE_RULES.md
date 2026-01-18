@@ -20,6 +20,7 @@ We follow a strict **Clean Architecture** approach tailored for SvelteKit.
 - **`+page.svelte` (The Face)**:
   - **Responsibilities**: Receiving `data`, rendering UI, managing _transient_ state (open/close toggles, form inputs).
   - **Usage**:
+
     ```svelte
     <script lang="ts">
     	let { data } = $props(); // Svelte 5 Props

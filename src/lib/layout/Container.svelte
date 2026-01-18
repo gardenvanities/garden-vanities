@@ -8,7 +8,7 @@
 		size?: "sm" | "md" | "lg" | "xl" | "full";
 		as?: string;
 
-		[key: string]: any;
+		[key: string]: unknown;
 	}
 
 	let { children, class: className = "", size = "lg", as = "div", ...rest }: Props = $props();

@@ -1,6 +1,11 @@
 <script lang="ts">
 	import TagList from "./TagList.svelte";
-	import { formatRelativeDate, formatShortDate, getISODate, isValidDate } from "$lib/modules/posts/utils/date";
+	import {
+		formatRelativeDate,
+		formatShortDate,
+		getISODate,
+		isValidDate
+	} from "$lib/modules/posts/utils/date";
 
 	interface Props {
 		post: {

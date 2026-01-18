@@ -43,15 +43,15 @@
 			<PostHeader {metadata} />
 		</header>
 
-		<div 
+		<div
 			class="grid grid-cols-1 gap-12 transition-[grid-template-columns] duration-500 ease-in-out"
 			class:lg:grid-cols-[minmax(200px,280px)_minmax(0,1fr)]={ui.sidebarVisible}
 			class:lg:grid-cols-1={!ui.sidebarVisible}
 		>
 			{#if ui.sidebarVisible}
-				<aside 
+				<aside
 					class="relative order-2 hidden lg:order-1 lg:block"
-					transition:slide={{ axis: 'x', duration: 400 }}
+					transition:slide={{ axis: "x", duration: 400 }}
 				>
 					<div
 						class="scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent sticky top-24 flex max-h-[calc(100vh-8rem)] flex-col gap-6 overflow-y-auto overscroll-y-contain pr-4"
@@ -93,4 +93,3 @@
 		</div>
 	</Container>
 </Section>
-

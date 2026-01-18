@@ -29,3 +29,12 @@ Ao testar no navegador:
 2. Interaja com o elemento modificado.
 3. Se houver erro no console, capture-o.
 4. Relate apenas o necessário (sucesso/falha visual ou erro técnico).
+
+### Permissões Automáticas
+
+O browser agent tem permissão explícita para executar as seguintes ações **sem solicitar aprovação do usuário**:
+
+- **Executar JavaScript** (`browser_execute_javascript`) — Para inspecionar DOM, testar interações, validar estados.
+- **Capturar screenshots** — Para documentar resultados visuais.
+- **Navegar entre páginas** — Para validar fluxos e links.
+- **Clicar, digitar e scrollar** — Para simular interações reais.

@@ -59,6 +59,7 @@
 	});
 
 	const jsonLdScript = $derived(
+		// eslint-disable-next-line no-useless-escape
 		`<script type="application/ld+json">${JSON.stringify(jsonLd)}<\/script>`
 	);
 </script>
@@ -93,5 +94,6 @@
 	<meta name="twitter:description" content={description} />
 	<meta name="twitter:image" content={ogImage} />
 
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	{@html jsonLdScript}
 </svelte:head>

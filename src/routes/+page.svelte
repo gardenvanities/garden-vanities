@@ -6,11 +6,11 @@
 	import SectionHeader from "$lib/modules/garden/components/SectionHeader.svelte";
 	import PostCard from "$lib/modules/posts/components/PostCard.svelte";
 	import Card from "$lib/ui/Card.svelte";
-    import Hero from "./_components/Hero.svelte";
+	import Hero from "./_components/Hero.svelte";
 	import { formatRelativeDate } from "$lib/modules/posts/utils/date";
-	import { fly, fade } from "svelte/transition";
-	import { cubicOut } from "svelte/easing";
-	import { FolderOpen, Sparkles, Library, ArrowDown } from "@lucide/svelte";
+	import { fly } from "svelte/transition";
+
+	import { FolderOpen, Sparkles, Library } from "@lucide/svelte";
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
 
 	interface SeriesItem {

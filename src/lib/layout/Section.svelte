@@ -7,7 +7,7 @@
 		class?: string;
 		as?: string;
 
-		[key: string]: any;
+		[key: string]: unknown;
 	}
 
 	let { children, class: className = "", as = "section", ...rest }: Props = $props();
