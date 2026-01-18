@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Ripeness } from "$lib/modules/posts/types";
-	import { Sprout, TreeDeciduous, Apple } from "@lucide/svelte";
+	import { Signal } from "@lucide/svelte";
 	import Badge from "$lib/ui/Badge.svelte";
 
 	interface Props {
@@ -16,20 +16,17 @@
 		seed: {
 			label: "Semente",
 			emoji: "🌱",
-			icon: Sprout,
-			color: "text-ripeness-seed bg-ripeness-seed-bg border-ripeness-seed/20"
+			color: "text-ripeness-seed"
 		},
 		root: {
 			label: "Raiz",
 			emoji: "🌿",
-			icon: TreeDeciduous,
-			color: "text-ripeness-root bg-ripeness-root-bg border-ripeness-root/20"
+			color: "text-ripeness-root"
 		},
 		fruit: {
 			label: "Fruto",
 			emoji: "🍎",
-			icon: Apple,
-			color: "text-ripeness-fruit bg-ripeness-fruit-bg border-ripeness-fruit/20"
+			color: "text-ripeness-fruit"
 		}
 	} as const;
 
@@ -38,17 +35,17 @@
 
 {#if config}
 	<Badge
-		variant="outline"
-		class="gap-1.5 rounded-[4px] border px-2 py-0.5 font-bold tracking-widest uppercase shadow-sm backdrop-blur-sm {config.color} {className}"
+		variant="secondary"
+		class="group hover:border-primary/50 hover:bg-surface-elevated cursor-default rounded-[4px] px-2 py-0.5 transition-all duration-300 hover:shadow-sm {className}"
 		as="span"
 	>
 		{#if showIcon}
-			<span class="-ml-0.5 flex items-center opacity-80">
-				<config.icon size={12} strokeWidth={2.5} />
+			<span class="-ml-0.5 flex items-center {config.color}">
+				<Signal size={12} strokeWidth={2.5} />
 			</span>
 		{/if}
 		{#if showLabel}
-			<span class="pt-px text-[10px] sm:text-[11px]">{config.label}</span>
+			<span class="pt-px ml-1.5 text-[11px] font-medium">{config.label}</span>
 		{/if}
 	</Badge>
 {/if}

@@ -3,7 +3,8 @@
 	import { commandPalette } from "$lib/core/navigation/command-palette.svelte";
 	import { cn } from "$lib/shared/merge-class";
 
-	import { Sparkles, Telescope, House, Library, FolderOpen } from "@lucide/svelte";
+	import { ui } from "$lib/stores/ui.svelte";
+	import { Sparkles, Telescope, House, Library, FolderOpen, PanelLeft } from "@lucide/svelte";
 	import { onMount } from "svelte";
 	import CommandPalette from "./CommandPalette.svelte";
 
@@ -132,6 +133,20 @@
 						<FolderOpen size={18} class="nav-icon" />
 					</a>
 				{/if}
+
+				{#if page.url.pathname.startsWith("/posts/") && page.url.pathname !== "/posts"}
+					<div class="mx-1 h-4 w-px bg-white/10"></div>
+					<button
+						type="button"
+						class="nav-item"
+						class:active={ui.sidebarVisible}
+						onclick={() => ui.toggleSidebar()}
+						aria-label={ui.sidebarVisible ? "Ocultar sidebar" : "Mostrar sidebar"}
+					>
+						<PanelLeft size={18} class="nav-icon" />
+					</button>
+				{/if}
+
 			</div>
 
 			<div class="command-palette-wrapper" class:hidden={!isSearchExpanded}>
