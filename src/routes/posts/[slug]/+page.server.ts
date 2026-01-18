@@ -5,7 +5,7 @@ import {
 	getPostRawContent,
 	getReferences
 } from "$lib/server/posts";
-import { computeSerieNavigation } from "$lib/utils/serie";
+import { computeSerieNavigation } from "$lib/modules/series/utils";
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
@@ -24,7 +24,7 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
 	const navigation = computeSerieNavigation(post.metadata, allPosts);
 	const backlinks = await getBacklinks(params.slug);
 
-	let references: import("$lib/types").LinkReference[] = [];
+	let references: import("$lib/modules/posts/types").LinkReference[] = [];
 	const rawContent = await getPostRawContent(params.slug);
 	if (rawContent) {
 		references = await getReferences(rawContent);

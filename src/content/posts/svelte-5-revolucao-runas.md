@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "note"
-moc: "Engenharia de Software"
+set: "Engenharia de Software"
 tags: ["svelte", "javascript", "webdev", "frontend"]
 
 cover:

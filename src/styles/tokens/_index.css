@@ -1,38 +1,13 @@
-/**
- * Design Tokens — Entry Point
- * 
- * This file imports all token layers in the correct order.
- * Import order matters for CSS variable resolution.
- * 
- * ARCHITECTURE:
- * - Layer 1: Primitives (raw values, context-free)
- * - Layer 2: Semantic (contextual meaning, theme-aware)
- * - Layer 3: Tailwind (expose tokens to Tailwind utilities)
- */
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   LAYER 1: PRIMITIVES
-   Raw, context-free values. The foundation of the design system.
-   ═══════════════════════════════════════════════════════════════════════════ */
-
 @import "./1-primitives/colors.css";
 @import "./1-primitives/typography.css";
 @import "./1-primitives/spacing.css";
 @import "./1-primitives/motion.css";
+@import "./1-primitives/z-index.css";
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   LAYER 2: SEMANTIC
-   Contextual tokens with meaning. Theme-aware.
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-@import "./2-semantic/materials.css"; /* Must come before colors (defines shadow-depth-*) */
+@import "./2-semantic/materials.css";
+@import "./2-semantic/layout.css";
 @import "./2-semantic/colors-light.css";
 @import "./2-semantic/colors-dark.css";
 @import "./2-semantic/typography.css";
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   LAYER 3: TAILWIND INTEGRATION
-   Expose design tokens to Tailwind CSS utilities.
-   ═══════════════════════════════════════════════════════════════════════════ */
 
 @import "./3-tailwind.css";

@@ -1,24 +1,9 @@
-/**
- * Primitive Typography Tokens — Layer 1
- * 
- * Raw typography values. Context-free.
- * These are referenced by semantic tokens in Layer 2.
- */
-
 :root {
-	/* ═══════════════════════════════════════════════════════════════════════════
-       FONT FAMILIES — Variable Fonts
-       ═══════════════════════════════════════════════════════════════════════════ */
-
 	--font-heading: "Fraunces", Georgia, "Times New Roman", serif;
 	--font-body: "Red Hat Display", system-ui, -apple-system, sans-serif;
 	--font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 	--font-article-body: "Rowan", Georgia, "Times New Roman", serif;
 	--font-article-title: "Fraunces", Georgia, "Times New Roman", serif;
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       FONT WEIGHTS
-       ═══════════════════════════════════════════════════════════════════════════ */
 
 	--font-weight-100: 100;
 	--font-weight-200: 200;
@@ -30,18 +15,10 @@
 	--font-weight-800: 800;
 	--font-weight-900: 900;
 
-	/* ═══════════════════════════════════════════════════════════════════════════
-       FONT FEATURES
-       ═══════════════════════════════════════════════════════════════════════════ */
-
 	--font-feature-default: "kern" 1, "liga" 1, "calt" 1;
 	--font-feature-prose: "kern" 1, "liga" 1, "calt" 1, "onum" 1;
 	--font-feature-ui: "kern" 1, "liga" 1, "tnum" 1, "lnum" 1;
 	--font-feature-code: "kern" 1, "liga" 1, "calt" 1, "ss01" 1;
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       LETTER SPACING
-       ═══════════════════════════════════════════════════════════════════════════ */
 
 	--letter-spacing-tighter: -0.04em;
 	--letter-spacing-tight: -0.02em;
@@ -50,10 +27,6 @@
 	--letter-spacing-wider: 0.04em;
 	--letter-spacing-caps: 0.08em;
 
-	/* ═══════════════════════════════════════════════════════════════════════════
-       LINE HEIGHTS
-       ═══════════════════════════════════════════════════════════════════════════ */
-
 	--line-height-compact: 1.1;
 	--line-height-tight: 1.15;
 	--line-height-snug: 1.25;
@@ -61,18 +34,10 @@
 	--line-height-relaxed: 1.6;
 	--line-height-loose: 1.75;
 
-	/* ═══════════════════════════════════════════════════════════════════════════
-       MEASURE (Line Length)
-       ═══════════════════════════════════════════════════════════════════════════ */
-
 	--measure-narrow: 55ch;
 	--measure-prose: 65ch;
 	--measure-wide: 75ch;
 	--measure-code: 80ch;
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       TEXT DECORATION
-       ═══════════════════════════════════════════════════════════════════════════ */
 
 	--text-underline-offset-small: 0.1em;
 	--text-underline-offset-normal: 0.15em;
@@ -80,10 +45,6 @@
 	--text-decoration-thickness-thin: 0.05em;
 	--text-decoration-thickness-normal: 0.1em;
 	--text-decoration-thickness-bold: 0.15em;
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       TYPE SCALE — Fluid Typography (r = 1.25)
-       ═══════════════════════════════════════════════════════════════════════════ */
 
 	--type--1: clamp(0.72rem, calc(0.7rem + 0.15vw), 0.8rem);
 	--type-0: clamp(0.9rem, calc(0.85rem + 0.25vw), 1rem);

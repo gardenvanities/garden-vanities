@@ -1,50 +1,23 @@
-/**
- * Semantic Typography Tokens — Layer 2
- * 
- * Contextual typography tokens that map primitive type scale
- * to semantic use cases (headings, body, display, etc.)
- */
-
 :root {
-	/* ═══════════════════════════════════════════════════════════════════════════
-       SEMANTIC TEXT SIZES — Body & UI
-       ═══════════════════════════════════════════════════════════════════════════ */
+	--text-caption: var(--type--1);
+	--text-body-sm: var(--type-0);
+	--text-body: var(--type-1);
+	--text-body-lg: var(--type-2);
 
-	--text-caption: var(--type--1); /* Small labels, footnotes */
-	--text-body-sm: var(--type-0); /* Secondary body text, metadata */
-	--text-body: var(--type-1); /* Primary body text */
-	--text-body-lg: var(--type-2); /* Lead paragraphs, intro text */
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       SEMANTIC HEADING SIZES — Hierarchical
-       ═══════════════════════════════════════════════════════════════════════════ */
-
-	--text-h6: var(--type-1); /* Smallest heading */
+	--text-h6: var(--type-1);
 	--text-h5: var(--type-2);
 	--text-h4: var(--type-2);
 	--text-h3: var(--type-3);
 	--text-h2: var(--type-4);
-	--text-h1: var(--type-5); /* Page title */
+	--text-h1: var(--type-5);
 
-	/* ═══════════════════════════════════════════════════════════════════════════
-       DISPLAY SIZES — Hero & Feature
-       ═══════════════════════════════════════════════════════════════════════════ */
-
-	--text-display: var(--type-6); /* Hero sections */
-	--text-display-lg: var(--type-7); /* Large hero, landing pages */
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       SEMANTIC LINE HEIGHTS — Contextual
-       ═══════════════════════════════════════════════════════════════════════════ */
+	--text-display: var(--type-6);
+	--text-display-lg: var(--type-7);
 
 	--leading-heading: var(--line-height-tight);
 	--leading-body: var(--line-height-normal);
 	--leading-prose: var(--line-height-relaxed);
 	--leading-ui: var(--line-height-snug);
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       SEMANTIC LETTER SPACING — Contextual
-       ═══════════════════════════════════════════════════════════════════════════ */
 
 	--tracking-heading: var(--letter-spacing-tight);
 	--tracking-body: var(--letter-spacing-normal);

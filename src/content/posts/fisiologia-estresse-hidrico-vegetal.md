@@ -7,7 +7,7 @@ summary: "Exploração técnica das respostas bioquímicas e estruturais das pla
 ripeness: "fruit"
 
 kind: "tutorial"
-moc: Botânica
+set: Botânica
 tags: ["botânica", "fisiologia-vegetal", "biologia-molecular", "estresse-abiótico"]
 
 cover:

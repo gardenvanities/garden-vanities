@@ -16,5 +16,23 @@
 	"editor.scrollbar.vertical": "hidden",
 	"editor.scrollbar.horizontal": "hidden",
 	"typescript.tsdk": "node_modules/typescript/lib",
-	"typescript.enablePromptUseWorkspaceTsdk": true
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/CVS": true,
+		"**/.DS_Store": true,
+		"**/Thumbs.db": true,
+		"**/node_modules": true,
+		"**/.svelte-kit": true,
+		"**/.env": true
+	},
+	"explorer.fileNesting.enabled": true,
+	"explorer.fileNesting.expand": false,
+	"explorer.fileNesting.patterns": {
+		"+page.svelte": "+page.server.ts, +page.ts, +server.ts",
+		"+layout.svelte": "+layout.server.ts, +layout.ts",
+		"package.json": "package-lock.json, bun.lock, .npmrc, .yarnrc, .yarnrc.yml, eslint.config.js, svelte.config.js, vite.config.ts, tsconfig.json, postcss.config.js, tailwind.config.ts, .prettierrc, .gitignore, README.md, .env.example, .env"
+	}
 }

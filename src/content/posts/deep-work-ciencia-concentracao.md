@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "tutorial"
-moc: Produtividade
+set: Produtividade
 tags: ["productivity", "neuroscience", "focus", "psychology"]
 
 cover:
@@ -52,4 +52,4 @@ Quando focamos intensamente, nosso cérebro fortalece a **mielina**, uma camada 
 - **Time Blocking**: Dedique as primeiras 4 horas do dia ao seu projeto mais importante.
 - **Shutdown Ritual**: Defina um horário para encerrar o dia de trabalho e desligar o modo "alerta".
 
-Este conteúdo testa a ausência de capa e o MoC de Produtividade.
+Este conteúdo testa a ausência de capa e o Set de Produtividade.

@@ -1,15 +1,4 @@
-/**
- * Tailwind CSS 4.1 Theme Integration
- * 
- * Exposes design system tokens to Tailwind utilities.
- * This allows using tokens with Tailwind classes (e.g., bg-surface, text-primary).
- */
-
 @theme {
-	/* ═══════════════════════════════════════════════════════════════════════════
-       COLORS
-       ═══════════════════════════════════════════════════════════════════════════ */
-
 	--color-bg: var(--color-bg);
 	--color-surface: var(--color-surface);
 	--color-surface-elevated: var(--color-surface-elevated);
@@ -25,35 +14,23 @@
 	--color-border: var(--color-border);
 	--color-border-vivid: var(--color-border-vivid);
 
-	/* Interaction */
 	--color-action-hover: var(--color-action-hover);
 	--color-focus: var(--color-focus);
 
-	/* Semantic Backgrounds */
 	--color-danger-bg: var(--color-danger-bg);
 	--color-warning-bg: var(--color-warning-bg);
 	--color-success-bg: var(--color-success-bg);
 
-	/* Materials */
 	--color-material-thick: var(--material-thick);
 	--color-material-regular: var(--material-regular);
 	--color-material-thin: var(--material-thin);
 	--color-material-ultrathin: var(--material-ultrathin);
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       FONT FAMILIES
-       ═══════════════════════════════════════════════════════════════════════════ */
 
 	--font-heading: var(--font-heading);
 	--font-body: var(--font-body);
 	--font-mono: var(--font-mono);
 	--font-article-body: var(--font-article-body);
 
-	/* ═══════════════════════════════════════════════════════════════════════════
-       FONT SIZES — Semantic Scale
-       ═══════════════════════════════════════════════════════════════════════════ */
-
-	/* Primitive Scale */
 	--text-xs: var(--type--1);
 	--text-sm: var(--type-0);
 	--text-base: var(--type-1);
@@ -64,7 +41,6 @@
 	--text-4xl: var(--type-6);
 	--text-5xl: var(--type-7);
 
-	/* Semantic Scale */
 	--text-caption: var(--text-caption);
 	--text-body-sm: var(--text-body-sm);
 	--text-body: var(--text-body);
@@ -78,10 +54,6 @@
 	--text-display: var(--text-display);
 	--text-display-lg: var(--text-display-lg);
 
-	/* ═══════════════════════════════════════════════════════════════════════════
-       LINE HEIGHTS
-       ═══════════════════════════════════════════════════════════════════════════ */
-
 	--leading-compact: var(--line-height-compact);
 	--leading-tight: var(--line-height-tight);
 	--leading-snug: var(--line-height-snug);
@@ -89,15 +61,10 @@
 	--leading-relaxed: var(--line-height-relaxed);
 	--leading-loose: var(--line-height-loose);
 
-	/* Semantic */
 	--leading-heading: var(--leading-heading);
 	--leading-body: var(--leading-body);
 	--leading-prose: var(--leading-prose);
 	--leading-ui: var(--leading-ui);
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       LETTER SPACING
-       ═══════════════════════════════════════════════════════════════════════════ */
 
 	--tracking-tighter: var(--letter-spacing-tighter);
 	--tracking-tight: var(--letter-spacing-tight);
@@ -106,14 +73,9 @@
 	--tracking-wider: var(--letter-spacing-wider);
 	--tracking-caps: var(--letter-spacing-caps);
 
-	/* Semantic */
 	--tracking-heading: var(--tracking-heading);
 	--tracking-body: var(--tracking-body);
 	--tracking-display: var(--tracking-display);
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       SPACING
-       ═══════════════════════════════════════════════════════════════════════════ */
 
 	--spacing-0: var(--space-0);
 	--spacing-1: var(--space-1);
@@ -127,29 +89,26 @@
 	--spacing-9: var(--space-9);
 	--spacing-10: var(--space-10);
 
-	/* ═══════════════════════════════════════════════════════════════════════════
-       BORDER RADIUS
-       ═══════════════════════════════════════════════════════════════════════════ */
-
 	--radius-sm: var(--radius-1);
 	--radius-md: var(--radius-2);
 	--radius-lg: var(--radius-3);
 	--radius-full: var(--radius-full);
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       TRANSITIONS
-       ═══════════════════════════════════════════════════════════════════════════ */
 
 	--transition-fast: var(--motion-fast);
 	--transition-base: var(--motion-base);
 	--transition-slow: var(--motion-slow);
 	--ease-out-quint: var(--motion-ease-out-quint);
 
-	/* ═══════════════════════════════════════════════════════════════════════════
-       SHADOWS
-       ═══════════════════════════════════════════════════════════════════════════ */
-
 	--shadow-sm: var(--shadow-1);
 	--shadow-md: var(--shadow-2);
 	--shadow-lg: var(--shadow-3);
+
+	--z-negative: var(--z-negative);
+	--z-base: var(--z-base);
+	--z-elevated: var(--z-elevated);
+	--z-nav: var(--z-nav);
+	--z-overlay: var(--z-overlay);
+	--z-modal: var(--z-modal);
+	--z-toast: var(--z-toast);
+	--z-critical: var(--z-critical);
 }

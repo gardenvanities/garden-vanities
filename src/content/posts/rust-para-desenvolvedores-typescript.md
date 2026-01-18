@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "tutorial"
-moc: "Engenharia de Software"
+set: "Engenharia de Software"
 tags: ["rust", "typescript", "performance", "backend", "systems-programming"]
 
 cover:
@@ -47,4 +47,4 @@ fn main() {
 2.  **Concurrency sem Medo**: Evite data races em tempo de compilação.
 3.  **WASM**: O futuro do frontend de alta performance.
 
-Este post testa tags técnicas e um MoC já existente com novo conteúdo.
+Este post testa tags técnicas e um Set já existente com novo conteúdo.

@@ -3,8 +3,8 @@
 	import { onMount } from "svelte";
 	import { onNavigate } from "$app/navigation";
 	import Lenis from "lenis";
-	import FloatingNav from "$lib/components/core/FloatingNav.svelte";
-	import Footer from "$lib/components/core/Footer.svelte";
+	import FloatingNav from "$lib/core/navigation/FloatingNav.svelte";
+	import Footer from "$lib/core/Footer.svelte";
 
 	const { children } = $props();
 

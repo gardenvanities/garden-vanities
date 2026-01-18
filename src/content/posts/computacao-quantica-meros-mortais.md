@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "note"
-moc: Ciência
+set: Ciência
 tags: ["physics", "computing", "future", "science"]
 
 cover:
@@ -39,4 +39,4 @@ $$ |\psi\rangle = \alpha|0\rangle + \beta|1\rangle $$
 
 Manter a **decoerência** é o maior desafio técnico. Um qubit é tão sensível que até um fóton passando pode destruir o cálculo.
 
-Este post testa o MoC Ciência, data distante no futuro e o uso de LaTeX básico.
+Este post testa o Set Ciência, data distante no futuro e o uso de LaTeX básico.

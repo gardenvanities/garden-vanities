@@ -7,7 +7,7 @@ summary: "Uma investigação sobre as espirais de Fermat e a sequência de Fibon
 ripeness: "fruit"
 
 kind: "note"
-moc: Botânica
+set: Botânica
 tags: ["Botânica", "Matemática", "Filotaxia"]
 
 cover:

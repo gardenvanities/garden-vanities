@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "thought"
-moc: Filosofia
+set: Filosofia
 tags: ["estoicismo", "mindset", "carreira", "desenvolvimento"]
 
 cover:
@@ -40,4 +40,4 @@ O desenvolvimento de software é 20% escrever código e 80% lidar com frustraç�
 
 Antes de abrir o IDE, pergunte-se: _Se meu código falhar hoje, eu fiz o meu melhor para torná-lo resiliente?_
 
-Este post testa o MoC Filosofia e o autor principal.
+Este post testa o Set Filosofia e o autor principal.

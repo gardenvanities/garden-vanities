@@ -1,22 +1,20 @@
 <script lang="ts">
-	import SEO from "$lib/components/core/SEO.svelte";
-	import Container from "$lib/components/layout/Container.svelte";
-	import Section from "$lib/components/layout/Section.svelte";
-	import Grid from "$lib/components/layout/Grid.svelte";
-	import PostCard from "$lib/components/garden/PostCard.svelte";
+	import SEO from "$lib/core/seo/SEO.svelte";
+	import Container from "$lib/layout/Container.svelte";
+	import Section from "$lib/layout/Section.svelte";
+	import Grid from "$lib/layout/Grid.svelte";
+	import PostCard from "$lib/modules/posts/components/PostCard.svelte";
 	import { Search, X, Sprout, Hash } from "@lucide/svelte";
 	import { fly, slide } from "svelte/transition";
 
 	let { data } = $props();
 
-	// State
 	let searchQuery = $state("");
 	let selectedKinds = $state<string[]>([]);
 	let selectedRipeness = $state<string[]>([]);
 	let selectedTags = $state<string[]>([]);
 	let showSeeds = $state(false);
 
-	// Autocomplete State
 	let inputElement = $state<HTMLInputElement>();
 	let autocompleteOpen = $state(false);
 	let autocompleteTerm = $state("");
@@ -34,9 +32,7 @@
 		{ value: "fruit", label: "Frutos (Maduros)" }
 	];
 
-	// Extract unique tags from non-seed posts (unless seeds are shown)
 	let availableTags = $derived.by(() => {
-		// eslint-disable-next-line svelte/prefer-svelte-reactivity
 		const tags = new Set<string>();
 		data.posts.forEach((post) => {
 			if (post.ripeness === "seed" && !showSeeds) return;
@@ -45,7 +41,6 @@
 		return Array.from(tags).sort();
 	});
 
-	// Filtered tags for autocomplete
 	let filteredAutocompleteTags = $derived(
 		availableTags
 			.filter(
@@ -55,13 +50,10 @@
 			.slice(0, 5)
 	);
 
-	// Derived Filter Logic (Strict AND)
 	let filteredPosts = $derived(
 		data.posts.filter((post) => {
-			// 1. Seed Policy
 			if (post.ripeness === "seed" && !showSeeds) return false;
 
-			// 2. Search Text
 			const searchLower = searchQuery.toLowerCase();
 			const matchesSearch =
 				searchQuery === "" ||
@@ -72,14 +64,11 @@
 
 			if (!matchesSearch) return false;
 
-			// 3. Kind Filter (OR within kinds, but AND with other filters)
 			if (selectedKinds.length > 0 && (!post.kind || !selectedKinds.includes(post.kind)))
 				return false;
 
-			// 4. Ripeness Filter
 			if (selectedRipeness.length > 0 && !selectedRipeness.includes(post.ripeness)) return false;
 
-			// 5. Tag Filter
 			if (selectedTags.length > 0) {
 				const hasAllTags = selectedTags.every((tag) => post.tags?.includes(tag));
 				if (!hasAllTags) return false;
@@ -112,14 +101,13 @@
 		searchQuery = "";
 	}
 
-	// Autocomplete Logic
 	function handleInput(e: Event) {
 		const value = (e.target as HTMLInputElement).value;
 		const lastWord = value.split(" ").pop() || "";
 
 		if (lastWord.startsWith("#")) {
 			autocompleteOpen = true;
-			autocompleteTerm = lastWord.slice(1); // remove #
+			autocompleteTerm = lastWord.slice(1);
 			activeIndex = 0;
 		} else {
 			autocompleteOpen = false;
@@ -128,7 +116,6 @@
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (!autocompleteOpen) {
-			// If Backspace and input empty, remove last tag
 			if (e.key === "Backspace" && searchQuery === "" && selectedTags.length > 0) {
 				selectedTags = selectedTags.slice(0, -1);
 			}
@@ -155,17 +142,14 @@
 	function selectTag(tag: string) {
 		selectedTags = [...selectedTags, tag];
 
-		// Remove the #term from searchQuery
-		// We rebuild the query without the last #term segment
 		const words = searchQuery.split(" ");
-		words.pop(); // remove triggering term
+		words.pop();
 		searchQuery = words.join(" ") + (words.length > 0 ? " " : "");
 
 		autocompleteOpen = false;
 		inputElement?.focus();
 	}
 
-	// Focus input when clicking container
 	function focusInput() {
 		inputElement?.focus();
 	}
@@ -186,9 +170,7 @@
 				</p>
 			</div>
 
-			<!-- Search & Filter Controls -->
 			<div class="bg-surface border-border mb-12 rounded-xl border p-6 shadow-sm">
-				<!-- Power Search Bar -->
 				<div
 					class="bg-surface-elevated border-border focus-within:border-primary focus-within:ring-primary/20 relative mb-8 flex flex-wrap items-center gap-2 rounded-lg border px-4 py-3 transition-all focus-within:ring-4"
 					onclick={focusInput}
@@ -198,7 +180,6 @@
 				>
 					<Search class="text-muted mr-2 shrink-0" size={20} />
 
-					<!-- Selected Tag Chips -->
 					{#each selectedTags as tag (tag)}
 						<div
 							transition:slide={{ axis: "x", duration: 200 }}
@@ -229,7 +210,6 @@
 					/>
 				</div>
 
-				<!-- Autocomplete Dropdown -->
 				{#if autocompleteOpen && filteredAutocompleteTags.length > 0}
 					<div
 						class="bg-surface border-border absolute z-50 -mt-8 w-[300px] overflow-hidden rounded-lg border shadow-xl"
@@ -251,9 +231,7 @@
 				{/if}
 
 				<div class="flex flex-col gap-8 md:flex-row">
-					<!-- Primary Filters -->
 					<div class="flex flex-1 flex-col gap-6 md:flex-row">
-						<!-- Kinds -->
 						<div>
 							<h3 class="text-text mb-3 text-xs font-bold tracking-widest uppercase">Tipo</h3>
 							<div class="flex flex-wrap gap-2">
@@ -272,7 +250,6 @@
 							</div>
 						</div>
 
-						<!-- Ripeness -->
 						<div>
 							<h3 class="text-text mb-3 text-xs font-bold tracking-widest uppercase">Maturidade</h3>
 							<div class="flex flex-wrap gap-2">
@@ -289,7 +266,6 @@
 									</button>
 								{/each}
 
-								<!-- Seed Toggle -->
 								<button
 									onclick={() => (showSeeds = !showSeeds)}
 									class="flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium transition-all {showSeeds
@@ -318,7 +294,6 @@
 				{/if}
 			</div>
 
-			<!-- Results -->
 			{#if filteredPosts.length > 0}
 				<div class="mb-4 flex items-center justify-between">
 					<span class="text-muted text-sm font-medium">

@@ -1,15 +1,4 @@
-/**
- * Semantic Color Tokens — Light Theme (Default)
- * 
- * These provide meaning and context to primitive color tokens.
- * Used throughout the application via CSS custom properties.
- */
-
 :root {
-	/* ═══════════════════════════════════════════════════════════════════════════
-       TYPOGRAPHY SEMANTICS
-       ═══════════════════════════════════════════════════════════════════════════ */
-
 	--font-weight-body: var(--font-weight-400);
 	--font-weight-emphasis: var(--font-weight-500);
 	--font-weight-heading: var(--font-weight-600);
@@ -18,60 +7,38 @@
 	--type-base: var(--type-0);
 	--type-body: var(--type-1);
 
-	/* ═══════════════════════════════════════════════════════════════════════════
-       COLOR TOKENS — Light Theme
-       ═══════════════════════════════════════════════════════════════════════════ */
-
-	/* Background & Surface */
 	--color-bg: oklch(var(--gray-50));
 	--color-surface: oklch(var(--gray-0));
-	--color-surface-elevated: oklch(var(--gray-0)); /* Same as surface in light, relies on shadow */
+	--color-surface-elevated: oklch(var(--gray-0));
 
-	/* Text */
 	--color-text: oklch(var(--gray-900));
 	--color-muted: oklch(var(--gray-600));
 
-	/* Primary — Indigo Brand */
 	--color-primary: oklch(var(--brand-on-light));
-	--color-primary-contrast: oklch(1 0 0); /* White text on brand */
+	--color-primary-contrast: oklch(1 0 0);
 
-	/* Accent — Indigo (Unified) */
 	--color-accent: oklch(var(--brand-on-light));
 	--color-accent-contrast: oklch(1 0 0);
 
-	/* Secondary/Structural — Indigo (Unified) */
 	--color-secondary: oklch(var(--brand-on-light));
 
-	/* Semantic States */
-	--color-danger: oklch(0.6 0.18 20); /* Red */
-	--color-warning: oklch(0.85 0.16 85); /* Standard Warning Yellow */
-	--color-success: oklch(0.7 0.18 145); /* Green */
+	--color-danger: oklch(0.6 0.18 20);
+	--color-warning: oklch(0.85 0.16 85);
+	--color-success: oklch(0.7 0.18 145);
 
-	/* Semantic Backgrounds (Using Relative Colors for consistency) */
 	--color-danger-bg: oklch(from var(--color-danger) l c h / 0.1);
 	--color-warning-bg: oklch(from var(--color-warning) l c h / 0.1);
 	--color-success-bg: oklch(from var(--color-success) l c h / 0.1);
 
-	/* Interaction States */
-	/* Hover: slightly dark overlay on light theme */
 	--color-action-hover: oklch(var(--gray-950) / 0.06);
 	--color-focus: var(--color-primary);
 
-	/* Border & Dividers */
 	--color-border: oklch(var(--gray-200));
 	--color-border-vivid: oklch(var(--brand-on-light) / 0.4);
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       SHADOWS — Soft, humanist aesthetic
-       ═══════════════════════════════════════════════════════════════════════════ */
 
 	--shadow-1: 0 1px 2px oklch(0.18 0.01 80 / 0.04);
 	--shadow-2: 0 2px 8px oklch(0.18 0.01 80 / 0.06), 0 1px 2px oklch(0.18 0.01 80 / 0.04);
 	--shadow-3: 0 4px 16px oklch(0.18 0.01 80 / 0.08), 0 2px 4px oklch(0.18 0.01 80 / 0.04);
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       KIND TOKENS — Content types (Unified Brand)
-       ═══════════════════════════════════════════════════════════════════════════ */
 
 	--color-kind-note: oklch(var(--brand-on-light));
 	--color-kind-note-bg: oklch(from var(--color-kind-note) l c h / 0.1);
@@ -84,10 +51,6 @@
 
 	--color-kind-thought: oklch(0.7 0.12 260);
 	--color-kind-thought-bg: oklch(from var(--color-kind-thought) l c h / 0.1);
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       RIPENESS TOKENS — Content maturity
-       ═══════════════════════════════════════════════════════════════════════════ */
 
 	--color-ripeness-seed: oklch(var(--brand-on-light));
 	--color-ripeness-seed-bg: oklch(from var(--color-ripeness-seed) l c h / 0.1);

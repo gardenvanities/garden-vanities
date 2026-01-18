@@ -1,16 +1,4 @@
-/**
- * Primitive Color Tokens — Layer 1
- * 
- * Raw OKLCH color values. Context-free.
- * These are referenced by semantic tokens in Layer 2.
- */
-
 :root {
-	/* ═══════════════════════════════════════════════════════════════════════════
-       GRAY SCALE — Blue-Tinted Grays (Softened Chroma)
-       OKLCH Components: L C H
-       ═══════════════════════════════════════════════════════════════════════════ */
-
 	--gray-0: 1 0 0;
 	--gray-50: 0.99 0.002 260;
 	--gray-100: 0.97 0.003 260;
@@ -25,16 +13,9 @@
 	--gray-950: 0.08 0.02 260;
 	--gray-1000: 0 0 0;
 
-	/* ═══════════════════════════════════════════════════════════════════════════
-       BRAND PRIMITIVES — Indigo/Violet (280)
-       Strategy: Split tones for Light and Dark modes
-       ═══════════════════════════════════════════════════════════════════════════ */
-
 	--brand-hue: 280;
 
-	/* Light Mode: Deep, saturated Indigo for contrast on light backgrounds */
 	--brand-on-light: 0.55 0.22 280;
 
-	/* Dark Mode: Vibrant, pastel Lilac/Violet for visibility on dark backgrounds */
 	--brand-on-dark: 0.75 0.16 280;
 }

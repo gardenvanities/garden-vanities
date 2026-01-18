@@ -7,7 +7,7 @@ summary: "Análise técnica da biogênese da parede primária e secundária, o p
 ripeness: "fruit"
 
 kind: "note"
-moc: Botânica
+set: Botânica
 tags: ["botânica", "citologia", "biopolímeros", "biotecnologia"]
 
 cover:

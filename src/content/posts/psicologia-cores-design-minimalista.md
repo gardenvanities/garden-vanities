@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "essay"
-moc: Design
+set: Design
 tags: ["design", "minimalismo", "psicologia", "uicharity"]
 
 cover:

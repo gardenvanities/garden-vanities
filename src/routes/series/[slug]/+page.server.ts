@@ -2,7 +2,6 @@ import { getAllPosts } from "$lib/server/posts";
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
-// Simple slugify for matching (should match however you generate links)
 function toSlug(str: string) {
 	return str
 		.toLowerCase()
@@ -26,7 +25,6 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
 		error(404, "Série não encontrada");
 	}
 
-	// Sort by order
 	seriesPosts.sort((a, b) => (a.series?.order || 0) - (b.series?.order || 0));
 
 	const seriesName = seriesPosts[0].series?.name;

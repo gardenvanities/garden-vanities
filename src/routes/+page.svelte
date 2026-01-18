@@ -1,16 +1,16 @@
 <script lang="ts">
-	import SEO from "$lib/components/core/SEO.svelte";
-	import Container from "$lib/components/layout/Container.svelte";
-	import Section from "$lib/components/layout/Section.svelte";
-	import Grid from "$lib/components/layout/Grid.svelte";
-	import SectionHeader from "$lib/components/garden/SectionHeader.svelte";
-	import PostCard from "$lib/components/garden/PostCard.svelte";
-	import Card from "$lib/components/ui/Card.svelte";
-	import { formatRelativeDate } from "$lib/utils/date";
+	import SEO from "$lib/core/seo/SEO.svelte";
+	import Container from "$lib/layout/Container.svelte";
+	import Section from "$lib/layout/Section.svelte";
+	import Grid from "$lib/layout/Grid.svelte";
+	import SectionHeader from "$lib/modules/garden/components/SectionHeader.svelte";
+	import PostCard from "$lib/modules/posts/components/PostCard.svelte";
+	import Card from "$lib/ui/Card.svelte";
+	import { formatRelativeDate } from "$lib/modules/posts/utils/date";
 	import { fly, fade } from "svelte/transition";
 	import { cubicOut } from "svelte/easing";
 	import { FolderOpen, Sparkles, Library, ArrowDown } from "@lucide/svelte";
-	import type { PostFrontmatter } from "$lib/types";
+	import type { PostFrontmatter } from "$lib/modules/posts/types";
 
 	interface SeriesItem {
 		name: string;
@@ -21,7 +21,7 @@
 
 	interface Props {
 		data: {
-			mocs: Array<{ name: string; count: number; href: string }>;
+			sets: Array<{ name: string; count: number; href: string }>;
 			series: SeriesItem[];
 			freshPosts: PostFrontmatter[];
 		};
@@ -32,7 +32,6 @@
 
 <SEO title="Garden of Vanities" type="website" />
 
-<!-- SECTION A: Hero (Minimalist) -->
 <Section class="relative flex min-h-[85vh] items-center justify-center py-20">
 	<Container size="md">
 		<div
@@ -56,38 +55,36 @@
 	</Container>
 </Section>
 
-<!-- SECTION F: Freshness -->
 <Section id="content" class="py-12">
 	<Container size="lg">
 		<div in:fly={{ y: 30, duration: 800, delay: 400 }}>
-			<!-- Section: Areas of Interest (MOCs) -->
-			{#if data.mocs.length > 0}
+			{#if data.sets.length > 0}
 				<div class="space-y-8">
 					<div class="flex items-center justify-between">
 						<SectionHeader title="Áreas de Interesse" icon={FolderOpen} />
 						<a
-							href="/topics"
+							href="/sets"
 							class="text-muted hover:text-primary text-sm font-medium transition-colors"
 						>
-							Ver <strong>{data.mocs.length}+</strong> tópicos →
+							Ver <strong>{data.sets.length}+</strong> sets →
 						</a>
 					</div>
 
 					<Grid cols={3} gap="md">
-						{#each data.mocs as moc (moc.name)}
+						{#each data.sets as set (set.name)}
 							<Card
 								as="a"
-								href={moc.href}
+								href={set.href}
 								class="group flex items-center justify-between p-4 transition-all hover:-translate-y-1"
 								variant="default"
 							>
 								<span class="text-text group-hover:text-primary font-medium transition-colors">
-									{moc.name}
+									{set.name}
 								</span>
 								<span
 									class="bg-surface-elevated text-muted rounded-full px-2 py-0.5 text-xs font-bold"
 								>
-									{moc.count}
+									{set.count}
 								</span>
 							</Card>
 						{/each}
@@ -95,7 +92,6 @@
 				</div>
 			{/if}
 
-			<!-- Section: Series -->
 			{#if data.series && data.series.length > 0}
 				<div class="mt-12 space-y-8" in:fly={{ y: 20, duration: 800, delay: 100 }}>
 					<div class="flex items-center justify-between">
@@ -138,7 +134,6 @@
 				</div>
 			{/if}
 
-			<!-- Section: Fresh Posts -->
 			{#if data.freshPosts.length > 0}
 				<div class="space-y-8">
 					<SectionHeader title="Atividade Recente" icon={Sparkles} />

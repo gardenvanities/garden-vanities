@@ -1,67 +1,41 @@
-/**
- * Semantic Color Tokens — Dark Theme
- * 
- * Strategy: Single Source of Truth via --dt-* (Dark Token) variables.
- * These are mapped to specific selectors to support both System Prefs and Manual Toggle.
- */
-
 :root {
-	/* ═══════════════════════════════════════════════════════════════════════════
-       DARK THEME PALETTE (Source of Truth)
-       ═══════════════════════════════════════════════════════════════════════════ */
-
-	/* Backgrounds & Surfaces (Softened Dark Blue) */
 	--dt-bg: oklch(0.08 0.015 260);
 	--dt-surface: oklch(0.12 0.012 260);
 	--dt-surface-elevated: oklch(0.16 0.012 260);
 
-	/* Text */
 	--dt-text: oklch(var(--gray-50));
 	--dt-muted: oklch(var(--gray-400));
 
-	/* Interactive */
 	--dt-primary: oklch(var(--brand-on-dark));
 	--dt-primary-contrast: oklch(1 0 0);
 	--dt-accent: oklch(var(--brand-on-dark));
 	--dt-accent-contrast: oklch(1 0 0);
 
-	/* Semantic States */
 	--dt-danger: oklch(0.65 0.18 25);
 	--dt-warning: oklch(0.85 0.16 85);
 	--dt-success: oklch(0.75 0.15 145);
 
-	/* Interactions */
 	--dt-action-hover: oklch(var(--gray-50) / 0.1);
 	--dt-focus: var(--dt-primary);
 
-	/* Borders */
 	--dt-border: oklch(var(--gray-800));
 	--dt-border-vivid: oklch(var(--brand-on-dark) / 0.6);
 
-	/* Shadows (Depth Layers) */
 	--dt-shadow-1: var(--shadow-depth-1);
 	--dt-shadow-2: var(--shadow-depth-2);
 	--dt-shadow-3: var(--shadow-depth-3);
 
-	/* Content Types (Unified) */
 	--dt-kind-note: oklch(var(--brand-on-dark));
 	--dt-kind-essay: oklch(var(--brand-on-dark));
 	--dt-kind-tutorial: oklch(var(--brand-on-dark));
 	--dt-kind-thought: oklch(0.8 0.12 260);
 
-	/* Ripeness (Unified) */
 	--dt-ripeness-seed: oklch(var(--brand-on-dark));
 	--dt-ripeness-root: oklch(var(--brand-on-dark));
 	--dt-ripeness-fruit: oklch(var(--brand-on-dark));
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   APPLICATION (Mapping)
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-/* Manual dark mode toggle */
 .dark {
-	/* Core */
 	--color-bg: var(--dt-bg);
 	--color-surface: var(--dt-surface);
 	--color-surface-elevated: var(--dt-surface-elevated);
@@ -69,13 +43,11 @@
 	--color-text: var(--dt-text);
 	--color-muted: var(--dt-muted);
 
-	/* Brand */
 	--color-primary: var(--dt-primary);
 	--color-primary-contrast: var(--dt-primary-contrast);
 	--color-accent: var(--dt-accent);
 	--color-accent-contrast: var(--dt-accent-contrast);
 
-	/* States */
 	--color-danger: var(--dt-danger);
 	--color-warning: var(--dt-warning);
 	--color-success: var(--dt-success);
@@ -84,20 +56,16 @@
 	--color-warning-bg: oklch(from var(--dt-warning) l c h / 0.15);
 	--color-success-bg: oklch(from var(--dt-success) l c h / 0.15);
 
-	/* Interaction */
 	--color-action-hover: var(--dt-action-hover);
 	--color-focus: var(--dt-focus);
 
-	/* Borders */
 	--color-border: var(--dt-border);
 	--color-border-vivid: var(--dt-border-vivid);
 
-	/* Shadows */
 	--shadow-1: var(--dt-shadow-1);
 	--shadow-2: var(--dt-shadow-2);
 	--shadow-3: var(--dt-shadow-3);
 
-	/* Kinds (With Auto-generated backgrounds) */
 	--color-kind-note: var(--dt-kind-note);
 	--color-kind-note-bg: oklch(from var(--dt-kind-note) l c h / 0.15);
 
@@ -110,7 +78,6 @@
 	--color-kind-thought: var(--dt-kind-thought);
 	--color-kind-thought-bg: oklch(from var(--dt-kind-thought) l c h / 0.15);
 
-	/* Ripeness */
 	--color-ripeness-seed: var(--dt-ripeness-seed);
 	--color-ripeness-seed-bg: oklch(from var(--dt-ripeness-seed) l c h / 0.15);
 
@@ -121,10 +88,8 @@
 	--color-ripeness-fruit-bg: oklch(from var(--dt-ripeness-fruit) l c h / 0.15);
 }
 
-/* System preference for dark mode (only when no manual override) */
 @media (prefers-color-scheme: dark) {
 	:root:not(.light):not(.dark) {
-		/* Core */
 		--color-bg: var(--dt-bg);
 		--color-surface: var(--dt-surface);
 		--color-surface-elevated: var(--dt-surface-elevated);
@@ -132,13 +97,11 @@
 		--color-text: var(--dt-text);
 		--color-muted: var(--dt-muted);
 
-		/* Brand */
 		--color-primary: var(--dt-primary);
 		--color-primary-contrast: var(--dt-primary-contrast);
 		--color-accent: var(--dt-accent);
 		--color-accent-contrast: var(--dt-accent-contrast);
 
-		/* States */
 		--color-danger: var(--dt-danger);
 		--color-warning: var(--dt-warning);
 		--color-success: var(--dt-success);
@@ -147,20 +110,16 @@
 		--color-warning-bg: oklch(from var(--dt-warning) l c h / 0.15);
 		--color-success-bg: oklch(from var(--dt-success) l c h / 0.15);
 
-		/* Interaction */
 		--color-action-hover: var(--dt-action-hover);
 		--color-focus: var(--dt-focus);
 
-		/* Borders */
 		--color-border: var(--dt-border);
 		--color-border-vivid: var(--dt-border-vivid);
 
-		/* Shadows */
 		--shadow-1: var(--dt-shadow-1);
 		--shadow-2: var(--dt-shadow-2);
 		--shadow-3: var(--dt-shadow-3);
 
-		/* Kinds (With Auto-generated backgrounds) */
 		--color-kind-note: var(--dt-kind-note);
 		--color-kind-note-bg: oklch(from var(--dt-kind-note) l c h / 0.15);
 
@@ -173,7 +132,6 @@
 		--color-kind-thought: var(--dt-kind-thought);
 		--color-kind-thought-bg: oklch(from var(--dt-kind-thought) l c h / 0.15);
 
-		/* Ripeness */
 		--color-ripeness-seed: var(--dt-ripeness-seed);
 		--color-ripeness-seed-bg: oklch(from var(--dt-ripeness-seed) l c h / 0.15);
 

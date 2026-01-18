@@ -3,17 +3,12 @@ import type { RequestHandler } from "./$types";
 
 const SITE_URL = "https://gardenofvanities.vercel.app";
 
-/**
- * Remove trailing slash from base and ensures path starts with single slash.
- * Root path '/' returns base without adding extra slash.
- */
 function absoluteUrl(path: string) {
-	const base = SITE_URL.replace(/\/+$/, ""); // remove trailing slash(es)
+	const base = SITE_URL.replace(/\/+$/, "");
 	if (!path || path === "/") return base;
 	return `${base}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
-/** Escape XML special chars */
 function escapeXml(str: string) {
 	return str
 		.replace(/&/g, "&amp;")
@@ -23,7 +18,6 @@ function escapeXml(str: string) {
 		.replace(/'/g, "&apos;");
 }
 
-/** Format date as YYYY-MM-DD (preferred for <lastmod>) */
 function formatDateToYMD(date: Date) {
 	return date.toISOString().split("T")[0];
 }
@@ -34,7 +28,7 @@ export const GET: RequestHandler = async () => {
 	const pages = [
 		{ url: "/", priority: 1.0, changefreq: "daily" },
 		{ url: "/explore", priority: 0.9, changefreq: "daily" },
-		{ url: "/topics", priority: 0.8, changefreq: "weekly" },
+		{ url: "/sets", priority: 0.8, changefreq: "weekly" },
 		{ url: "/series", priority: 0.8, changefreq: "weekly" }
 	];
 
@@ -42,7 +36,7 @@ export const GET: RequestHandler = async () => {
 		...pages.map((page) => {
 			const loc = escapeXml(absoluteUrl(page.url));
 			const priority = Number(page.priority).toFixed(1);
-			// keep changefreq if you want; it's optional for crawlers
+
 			return `<url><loc>${loc}</loc><changefreq>${page.changefreq}</changefreq><priority>${priority}</priority></url>`;
 		}),
 		...posts.map((post) => {

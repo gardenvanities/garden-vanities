@@ -1,0 +1,16 @@
+:root {
+	/* Z-Index Semantics */
+	--z-negative: var(--z-min);
+	--z-base: var(--z-0);
+	--z-elevated: var(--z-10);
+
+	--z-nav: var(--z-100);
+	--z-dropdown: var(--z-100);
+	--z-sticky: var(--z-100);
+
+	--z-overlay: 200; /* Custom primitive for now if needed, or map appropriately */
+	--z-modal: 300;
+	--z-toast: 400;
+
+	--z-critical: var(--z-max);
+}

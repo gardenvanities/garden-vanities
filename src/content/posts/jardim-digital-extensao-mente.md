@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "thought"
-moc: Filosofia
+set: Filosofia
 tags: ["filosofia", "indieweb", "aprendizado", "pkm"]
 
 cover:

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import SEO from "$lib/components/core/SEO.svelte";
-	import Container from "$lib/components/layout/Container.svelte";
-	import Section from "$lib/components/layout/Section.svelte";
-	import PostCard from "$lib/components/garden/PostCard.svelte"; // Reusing PostCard but maybe in a list/compact mode?
-	// Actually, for series, a chronological list is nice. PostCard is grid-optimized but works.
+	import SEO from "$lib/core/seo/SEO.svelte";
+	import Container from "$lib/layout/Container.svelte";
+	import Section from "$lib/layout/Section.svelte";
+	import PostCard from "$lib/modules/posts/components/PostCard.svelte";
+
 	import { Library, ArrowLeft } from "@lucide/svelte";
 	import { fly } from "svelte/transition";
 
@@ -46,14 +46,12 @@
 						class="relative flex items-start gap-4 md:gap-8"
 						in:fly={{ y: 20, duration: 500, delay: i * 100 }}
 					>
-						<!-- Number/Step -->
 						<div
 							class="bg-surface border-border text-muted relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-sm font-bold shadow-sm md:h-20 md:w-20 md:text-2xl"
 						>
 							{post.series?.order || i + 1}
 						</div>
 
-						<!-- Content -->
 						<div class="flex-1">
 							<PostCard {post} />
 						</div>

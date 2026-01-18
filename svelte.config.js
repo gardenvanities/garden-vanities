@@ -12,7 +12,6 @@ const highlighter = await createHighlighter({
 	langs: ["javascript", "typescript", "css", "svelte", "markdown", "bash"]
 });
 
-/** @type {import('@sveltejs/kit').Config} */
 const config = {
 	extensions: [".svelte", ".md", ".svx"],
 	preprocess: [

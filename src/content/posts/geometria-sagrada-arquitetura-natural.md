@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "essay"
-moc: Arte
+set: Arte
 tags: ["geometria", "arte", "natureza", "fractais", "estética", "proporção-áurea", "padrões"]
 
 cover:

@@ -8,7 +8,6 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 
 	const allPosts = await getAllPosts({ ripeness: ["root", "fruit", "seed"] });
 
-	// Group by Series
 	const seriesMap = new Map<
 		string,
 		{ name: string; slug: string; count: number; lastUpdated: string }
@@ -17,7 +16,7 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 	for (const post of allPosts) {
 		if (post.series?.name) {
 			const name = post.series.name;
-			// Simple slugify (match what we did in [slug])
+
 			const slug = name
 				.toLowerCase()
 				.replace(/[^a-z0-9]+/g, "-")
@@ -42,7 +41,6 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 	}
 
 	const series = Array.from(seriesMap.values()).sort((a, b) => {
-		// Sort by last updated
 		return b.lastUpdated.localeCompare(a.lastUpdated);
 	});
 

@@ -7,7 +7,7 @@ summary: "Uma investigação sobre os mecanismos de percepção de luz e gravida
 ripeness: "fruit"
 
 kind: "thought"
-moc: Botânica
+set: Botânica
 tags: ["botânica", "fisiologia-vegetal", "hormonas", "biologia-do-desenvolvimento"]
 
 cover:

@@ -1,21 +1,6 @@
-/**
- * Materials & Shadows — Apple HIG Soul Layer
- * 
- * Glassmorphism, translucency, and depth effects.
- * These create the "Liquid Glass" aesthetic.
- */
-
 :root {
-	/* ═══════════════════════════════════════════════════════════════════════════
-       SHADOW COLOR BASE
-       ═══════════════════════════════════════════════════════════════════════════ */
-
-	--shadow-color: 0deg 0% 0%; /* Black base */
+	--shadow-color: 0deg 0% 0%;
 	--shadow-strength: 1%;
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       SHADOW DEPTH LAYERS — For elevated surfaces
-       ═══════════════════════════════════════════════════════════════════════════ */
 
 	--shadow-depth-1:
 		0 1px 2px -1px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%)),
@@ -33,19 +18,10 @@
 		0 10px 25px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%)),
 		0 8px 40px -6px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%));
 
-	/* ═══════════════════════════════════════════════════════════════════════════
-       MATERIALS — Light Mode (Default)
-       Based on Apple HIG "Materials" concept.
-       ═══════════════════════════════════════════════════════════════════════════ */
-
 	--material-thick: oklch(0.99 0 0 / 0.95);
 	--material-regular: oklch(0.99 0 0 / 0.8);
 	--material-thin: oklch(0.99 0 0 / 0.6);
 	--material-ultrathin: oklch(0.99 0 0 / 0.3);
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-       BLUR LEVELS — For backdrop-filter
-       ═══════════════════════════════════════════════════════════════════════════ */
 
 	--blur-sm: 8px;
 	--blur-md: 12px;
@@ -53,17 +29,12 @@
 	--blur-xl: 20px;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   MATERIALS — Dark Mode Overrides
-   ═══════════════════════════════════════════════════════════════════════════ */
-
 .dark {
 	--material-thick: oklch(0.12 0.012 260 / 0.95);
 	--material-regular: oklch(0.12 0.012 260 / 0.8);
 	--material-thin: oklch(0.12 0.012 260 / 0.6);
 	--material-ultrathin: oklch(0.12 0.012 260 / 0.3);
 
-	/* Increased shadow strength for dark mode */
 	--shadow-strength: 5%;
 }
 
@@ -74,7 +45,6 @@
 		--material-thin: oklch(0.12 0.012 260 / 0.6);
 		--material-ultrathin: oklch(0.12 0.012 260 / 0.3);
 
-		/* Increased shadow strength for dark mode */
 		--shadow-strength: 5%;
 	}
 }

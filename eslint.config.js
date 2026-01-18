@@ -3,7 +3,6 @@ import ts from "typescript-eslint";
 import svelte from "eslint-plugin-svelte";
 import globals from "globals";
 
-/** @type {import('eslint').Linter.Config[]} */
 export default [
 	js.configs.recommended,
 	...ts.configs.recommended,

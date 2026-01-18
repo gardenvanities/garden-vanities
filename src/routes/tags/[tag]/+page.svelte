@@ -1,10 +1,10 @@
 <script lang="ts">
-	import SEO from "$lib/components/core/SEO.svelte";
-	import Container from "$lib/components/layout/Container.svelte";
-	import Section from "$lib/components/layout/Section.svelte";
-	import PostAccordion from "$lib/components/garden/PostAccordion.svelte";
+	import SEO from "$lib/core/seo/SEO.svelte";
+	import Container from "$lib/layout/Container.svelte";
+	import Section from "$lib/layout/Section.svelte";
+	import PostAccordion from "$lib/modules/posts/components/PostAccordion.svelte";
 	import { fly } from "svelte/transition";
-	import type { PostFrontmatter } from "$lib/types";
+	import type { PostFrontmatter } from "$lib/modules/posts/types";
 
 	interface Props {
 		data: {

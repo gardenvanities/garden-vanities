@@ -7,7 +7,7 @@ summary: "Estudo da ultraestrutura dos plasmodesmos, o papel do desmotúbulo e a
 ripeness: "fruit"
 
 kind: "essay"
-moc: Botânica
+set: Botânica
 tags: ["botânica", "citologia", "transporte-em-plantas", "virologia-vegetal"]
 
 cover:

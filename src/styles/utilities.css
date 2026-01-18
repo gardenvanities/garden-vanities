@@ -1,15 +1,4 @@
-/**
- * Utility Classes — Approved helpers only
- * 
- * IMPORTANT: Prefer Tailwind utilities when available.
- * Custom utilities here are for design system specific needs.
- */
-
 @layer utilities {
-	/* ═══════════════════════════════════════════════════════════════════════════
-     LAYOUT CONTAINERS
-     ═══════════════════════════════════════════════════════════════════════════ */
-
 	.container {
 		width: 100%;
 		max-width: var(--container-width);
@@ -29,10 +18,6 @@
 		padding-inline: var(--space-4);
 	}
 
-	/* ═══════════════════════════════════════════════════════════════════════════
-     FLOW — Vertical rhythm (lobotomized owl)
-     ═══════════════════════════════════════════════════════════════════════════ */
-
 	.flow > * + * {
 		margin-top: var(--space-4);
 	}
@@ -45,20 +30,12 @@
 		margin-top: var(--space-6);
 	}
 
-	/* ═══════════════════════════════════════════════════════════════════════════
-     GLASSMORPHISM
-     ═══════════════════════════════════════════════════════════════════════════ */
-
 	.glass {
 		background-color: oklch(from var(--color-surface) l c h / 0.6);
 		backdrop-filter: blur(12px);
 		-webkit-backdrop-filter: blur(12px);
 		border: 1px solid var(--color-border);
 	}
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     MATERIALS — Apple HIG Utilities
-     ═══════════════════════════════════════════════════════════════════════════ */
 
 	.bg-material-thick {
 		background-color: var(--material-thick);
@@ -76,10 +53,6 @@
 		background-color: var(--material-ultrathin);
 		backdrop-filter: blur(8px);
 	}
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     ACCESSIBILITY
-     ═══════════════════════════════════════════════════════════════════════════ */
 
 	.focus-ring:focus {
 		outline: none;
@@ -102,10 +75,6 @@
 		border: 0;
 	}
 
-	/* ═══════════════════════════════════════════════════════════════════════════
-     TEXT — Design system specific
-     ═══════════════════════════════════════════════════════════════════════════ */
-
 	.text-muted {
 		color: var(--color-muted);
 	}
@@ -113,10 +82,6 @@
 	.text-primary {
 		color: var(--color-primary);
 	}
-
-	/* ═══════════════════════════════════════════════════════════════════════════
-     TRANSITIONS — Token-based
-     ═══════════════════════════════════════════════════════════════════════════ */
 
 	.transition-base {
 		transition-property: color, background-color, border-color, opacity, transform;
@@ -128,5 +93,14 @@
 		transition-property: color, background-color, border-color, opacity, transform;
 		transition-duration: var(--motion-fast);
 		transition-timing-function: var(--motion-ease);
+	}
+
+	.scrollbar-none {
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+
+	.scrollbar-none::-webkit-scrollbar {
+		display: none;
 	}
 }

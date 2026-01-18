@@ -1,77 +1,19 @@
-/**
- * Garden Vanities — Design System Entry Point
- * Humanist + Dark Academia Aesthetic
- * 
- * Built with Tailwind CSS 4.1
- * 
- * PHILOSOPHY:
- * 1. All values use design tokens — no ad-hoc values
- * 2. Mobile-first, fluid typography with clamp()
- * 3. Theme: system (default), dark, light
- * 4. Colors in OKLCH format for perceptual uniformity
- * 
- * ARCHITECTURE:
- * - Layer 1: Primitives (raw values, context-free)
- * - Layer 2: Semantic (contextual meaning, theme-aware)
- * - Layer 3: Tailwind (@theme exports)
- * - Base: Reset, Typography, Lenis
- * - Content: Prose (Markdown)
- * - Utilities: Custom helpers
- */
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   FONTS
-   ═══════════════════════════════════════════════════════════════════════════ */
-
 @import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap");
 @import url("https://api.fontshare.com/v2/css?f[]=red-hat-display@1,2&f[]=rowan@1,2&display=swap");
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   TAILWIND CSS 4.1
-   ═══════════════════════════════════════════════════════════════════════════ */
-
 @import "tailwindcss";
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   EXTERNAL LIBRARIES
-   ═══════════════════════════════════════════════════════════════════════════ */
 
 @import "katex/dist/katex.min.css";
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   DESIGN SYSTEM TOKENS
-   All three layers imported via single entry point.
-   ═══════════════════════════════════════════════════════════════════════════ */
-
 @import "./styles/tokens/_index.css";
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   BASE LAYER
-   Reset, element typography, and smooth scrolling.
-   ═══════════════════════════════════════════════════════════════════════════ */
 
 @import "./styles/base/reset.css";
 @import "./styles/base/typography.css";
 @import "./styles/base/lenis.css";
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   CONTENT LAYER
-   Long-form article styling (Markdown/mdsvex).
-   ═══════════════════════════════════════════════════════════════════════════ */
-
 @import "./styles/prose.css";
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   UTILITIES LAYER
-   Custom utility classes (prefer Tailwind when available).
-   ═══════════════════════════════════════════════════════════════════════════ */
-
 @import "./styles/utilities.css";
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   VIEW TRANSITIONS
-   SvelteKit page transition animations.
-   ═══════════════════════════════════════════════════════════════════════════ */
 
 @layer base {
 	::view-transition-old(root),
@@ -113,7 +55,6 @@
 	}
 }
 
-/* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
 	::view-transition-group(root) {
 		animation: none !important;

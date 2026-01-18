@@ -1,5 +1,4 @@
-// src/lib/server/posts.ts
-import type { PostFrontmatter, Ripeness, Backlink, LinkReference } from "$lib/types";
+import type { PostFrontmatter, Ripeness, Backlink, LinkReference } from "$lib/modules/posts/types";
 import type { Component } from "svelte";
 
 type MdsvexModule = {
@@ -7,12 +6,10 @@ type MdsvexModule = {
 	default: Component;
 };
 
-// Eager load all markdown modules
 const mdModules = import.meta.glob<MdsvexModule>("/src/content/posts/**/*.md", {
 	eager: true
 });
 
-// Eager load all raw content for analysis
 const rawModules = import.meta.glob("/src/content/posts/**/*.md", {
 	query: "?raw",
 	import: "default",
@@ -31,7 +28,6 @@ export async function getAllPosts(
 
 		if (!metadata) continue;
 
-		// Ensure slug exists (fallback to filename if needed)
 		if (!metadata.slug) {
 			const match = path.match(/\/posts\/(.+)\.md$/);
 			if (match) metadata.slug = match[1];
@@ -48,7 +44,6 @@ export async function getAllPosts(
 		}
 	}
 
-	// Attach totals to series info
 	for (const post of posts) {
 		if (post.series?.name) {
 			post.series.total = seriesCounts.get(post.series.name);
@@ -65,16 +60,15 @@ export async function getAllPosts(
 
 function stripMarkdown(content: string): string {
 	return content
-		.replace(/---\n[\s\S]*?\n---/, "") // Remove frontmatter
-		.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // Remove links
-		.replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1") // Remove images
-		.replace(/[#*`_~]/g, "") // Remove formatting characters
-		.replace(/\n/g, " ") // Replace newlines with spaces
-		.replace(/\s+/g, " ") // Collapse whitespace
+		.replace(/---\n[\s\S]*?\n---/, "")
+		.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+		.replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1")
+		.replace(/[#*`_~]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\s+/g, " ")
 		.trim();
 }
 
-// New function for search indexing
 export async function getAllPostsForSearch(): Promise<
 	Array<PostFrontmatter & { content: string }>
 > {
@@ -83,7 +77,7 @@ export async function getAllPostsForSearch(): Promise<
 	return Promise.all(
 		posts.map(async (post) => {
 			const raw = await getPostRawContent(post.slug);
-			// Fallback to summary if raw content not found or is empty, to ensure we have something
+
 			const content = raw ? stripMarkdown(raw) : post.summary || "";
 			return { ...post, content };
 		})
@@ -103,7 +97,7 @@ export async function getPostBySlug(
 
 	for (const path in mdModules) {
 		const module = mdModules[path];
-		// Check metadata slug or filename slug
+
 		const pathSlug = path.match(/\/posts\/(.+)\.md$/)?.[1];
 
 		if (module.metadata?.slug === slug || pathSlug === slug) {
@@ -137,31 +131,28 @@ export async function getBacklinks(targetSlug: string): Promise<Backlink[]> {
 		if (!originSlugMatch) continue;
 
 		const originSlug = originSlugMatch[1];
-		// Skip self-reference
+
 		if (originSlug === targetSlug) continue;
 
-		// Regex to find links to the target slug
 		const linkRegex = new RegExp(`\\[(.*?)\\]\\((?:/posts/)?${targetSlug}(?:\\)|#)`, "g");
 
 		if (linkRegex.test(content)) {
 			const post = allPosts.find((p) => p.slug === originSlug);
 
 			if (post) {
-				// Extract context
 				linkRegex.lastIndex = 0;
 				const match = linkRegex.exec(content);
 				let context = "";
 
 				if (match) {
 					const index = match.index;
-					// Get ~100 chars around the link
+
 					const start = Math.max(0, index - 80);
 					const end = Math.min(content.length, index + match[0].length + 80);
 					const rawSnippet = content.slice(start, end);
 
-					// Clean up snippet
 					context = rawSnippet.replace(/[\r\n]+/g, " ");
-					// Strip markdown links [text](url) -> text
+
 					context = context.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
 					context = context.trim();
 					context = "..." + context + "...";
@@ -182,7 +173,6 @@ export async function getReferences(originalContent: string): Promise<LinkRefere
 	const allPosts = await getAllPosts({ ripeness: ["fruit", "root"] });
 	const results: LinkReference[] = [];
 
-	// Regex to find markdown links: [Label](url)
 	const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
 	let match;
 	const foundSlugs = new Set<string>();
@@ -198,7 +188,6 @@ export async function getReferences(originalContent: string): Promise<LinkRefere
 			potentialSlug = url.replace(/^posts\//, "");
 		}
 
-		// Remove anchor tags if any
 		potentialSlug = potentialSlug.split("#")[0];
 
 		if (potentialSlug && !foundSlugs.has(potentialSlug)) {

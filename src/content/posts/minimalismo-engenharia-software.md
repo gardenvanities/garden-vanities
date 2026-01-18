@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "essay"
-moc: "Engenharia de Software"
+set: "Engenharia de Software"
 tags: ["engenharia", "minimalismo", "arquitetura", "clean-code"]
 
 cover:

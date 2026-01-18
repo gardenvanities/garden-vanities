@@ -1,11 +1,11 @@
 <script lang="ts">
-	import SEO from "$lib/components/core/SEO.svelte";
-	import Container from "$lib/components/layout/Container.svelte";
-	import Section from "$lib/components/layout/Section.svelte";
-	import Grid from "$lib/components/layout/Grid.svelte";
+	import SEO from "$lib/core/seo/SEO.svelte";
+	import Container from "$lib/layout/Container.svelte";
+	import Section from "$lib/layout/Section.svelte";
+	import Grid from "$lib/layout/Grid.svelte";
 	import { Library, ArrowRight } from "@lucide/svelte";
 	import { fly } from "svelte/transition";
-	import { formatRelativeDate } from "$lib/utils/date";
+	import { formatRelativeDate } from "$lib/modules/posts/utils/date";
 
 	let { data } = $props();
 </script>

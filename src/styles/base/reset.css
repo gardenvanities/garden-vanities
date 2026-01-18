@@ -1,24 +1,14 @@
-/**
- * Base Reset — Minimal Normalization
- * 
- * Modern CSS reset with sensible defaults.
- * Focused on box-sizing, margin reset, and viewport handling.
- */
-
 @layer base {
-	/* Box sizing */
 	*,
 	*::before,
 	*::after {
 		box-sizing: border-box;
 	}
 
-	/* Remove default margins */
 	* {
 		margin: 0;
 	}
 
-	/* Viewport handling */
 	html {
 		font-size: 100%;
 		text-size-adjust: 100%;
@@ -26,13 +16,11 @@
 		scroll-behavior: smooth;
 	}
 
-	/* Body defaults */
 	body {
 		min-height: 100dvh;
 		line-height: 1.5;
 	}
 
-	/* Media defaults */
 	img,
 	picture,
 	video,
@@ -42,7 +30,6 @@
 		max-width: 100%;
 	}
 
-	/* Form element inheritance */
 	input,
 	button,
 	textarea,
@@ -50,7 +37,6 @@
 		font: inherit;
 	}
 
-	/* Text wrapping */
 	p,
 	h1,
 	h2,
@@ -61,7 +47,6 @@
 		overflow-wrap: break-word;
 	}
 
-	/* Stacking context for portals */
 	#root,
 	#__svelte,
 	#__next {
