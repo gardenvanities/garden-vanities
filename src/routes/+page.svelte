@@ -6,6 +6,7 @@
 	import SectionHeader from "$lib/modules/garden/components/SectionHeader.svelte";
 	import PostCard from "$lib/modules/posts/components/PostCard.svelte";
 	import Card from "$lib/ui/Card.svelte";
+    import Hero from "./_components/Hero.svelte";
 	import { formatRelativeDate } from "$lib/modules/posts/utils/date";
 	import { fly, fade } from "svelte/transition";
 	import { cubicOut } from "svelte/easing";
@@ -32,28 +33,7 @@
 
 <SEO title="Garden of Vanities" type="website" />
 
-<Section class="relative flex min-h-[85vh] items-center justify-center py-20">
-	<Container size="md">
-		<div
-			class="mx-auto max-w-4xl text-center"
-			in:fade={{ duration: 1000, delay: 200, easing: cubicOut }}
-		>
-			<blockquote class="space-y-8">
-				<p
-					class="font-heading text-text text-3xl leading-tight font-medium md:text-4xl lg:text-5xl"
-				>
-					"A Sabedoria clama lá fora [...] mas, visto que rejeitastes todo o meu conselho, [...]
-					também eu me rirei na vossa desgraça."
-				</p>
-				<footer
-					class="text-muted tracking-caps text-opacity-80 text-sm font-medium uppercase md:text-base"
-				>
-					— Provérbios 1:20, 25, 26
-				</footer>
-			</blockquote>
-		</div>
-	</Container>
-</Section>
+<Hero />
 
 <Section id="content" class="py-12">
 	<Container size="lg">
@@ -61,12 +41,12 @@
 			{#if data.sets.length > 0}
 				<div class="space-y-8">
 					<div class="flex items-center justify-between">
-						<SectionHeader title="Áreas de Interesse" icon={FolderOpen} />
+						<SectionHeader title="Coleções" icon={FolderOpen} />
 						<a
 							href="/sets"
 							class="text-muted hover:text-primary text-sm font-medium transition-colors"
 						>
-							Ver <strong>{data.sets.length}+</strong> sets →
+							Ver <strong>{data.sets.length}+</strong> Coleções →
 						</a>
 					</div>
 
@@ -95,7 +75,7 @@
 			{#if data.series && data.series.length > 0}
 				<div class="mt-12 space-y-8" in:fly={{ y: 20, duration: 800, delay: 100 }}>
 					<div class="flex items-center justify-between">
-						<SectionHeader title="Séries & Coleções" icon={Library} />
+						<SectionHeader title="Séries" icon={Library} />
 						<a
 							href="/series"
 							class="text-muted hover:text-primary text-sm font-medium transition-colors"

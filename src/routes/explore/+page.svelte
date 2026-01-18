@@ -4,55 +4,60 @@
 	import Section from "$lib/layout/Section.svelte";
 	import Grid from "$lib/layout/Grid.svelte";
 	import PostCard from "$lib/modules/posts/components/PostCard.svelte";
-	import { Search, X, Sprout, Hash } from "@lucide/svelte";
+	import { Search, X, Hash, Info } from "@lucide/svelte";
 	import { fly, slide } from "svelte/transition";
 
 	let { data } = $props();
 
 	let searchQuery = $state("");
 	let selectedKinds = $state<string[]>([]);
-	let selectedRipeness = $state<string[]>([]);
 	let selectedTags = $state<string[]>([]);
-	let showSeeds = $state(false);
-
+	
 	let inputElement = $state<HTMLInputElement>();
 	let autocompleteOpen = $state(false);
+	let autocompleteMode = $state<"tag" | "kind">("tag");
 	let autocompleteTerm = $state("");
 	let activeIndex = $state(0);
 
 	const kinds = [
-		{ value: "note", label: "Notas" },
-		{ value: "essay", label: "Ensaios" },
-		{ value: "tutorial", label: "Tutoriais" },
-		{ value: "thought", label: "Reflexões" }
-	];
-
-	const ripenessLevels = [
-		{ value: "root", label: "Raízes (Em progresso)" },
-		{ value: "fruit", label: "Frutos (Maduros)" }
+		{ value: "note", label: "Nota" },
+		{ value: "essay", label: "Ensaio" },
+		{ value: "tutorial", label: "Tutorial" },
+		{ value: "thought", label: "Reflexão" }
 	];
 
 	let availableTags = $derived.by(() => {
 		const tags = new Set<string>();
 		data.posts.forEach((post) => {
-			if (post.ripeness === "seed" && !showSeeds) return;
+			if (post.ripeness === "seed") return;
 			post.tags?.forEach((tag) => tags.add(tag));
 		});
 		return Array.from(tags).sort();
 	});
 
-	let filteredAutocompleteTags = $derived(
-		availableTags
-			.filter(
-				(tag) =>
-					tag.toLowerCase().includes(autocompleteTerm.toLowerCase()) && !selectedTags.includes(tag)
-			)
-			.slice(0, 5)
-	);
+	let filteredAutocompleteItems = $derived.by(() => {
+		if (autocompleteMode === "tag") {
+			return availableTags
+				.filter(
+					(tag) =>
+						tag.toLowerCase().includes(autocompleteTerm.toLowerCase()) && !selectedTags.includes(tag)
+				)
+				.slice(0, 5);
+		} else {
+			return kinds
+				.filter(
+					(kind) =>
+						kind.value.toLowerCase().includes(autocompleteTerm.toLowerCase()) && 
+						!selectedKinds.includes(kind.value)
+				)
+				.slice(0, 5);
+		}
+	});
 
 	let filteredPosts = $derived(
 		data.posts.filter((post) => {
-			if (post.ripeness === "seed" && !showSeeds) return false;
+			// Always filter out seeds
+			if (post.ripeness === "seed") return false;
 
 			const searchLower = searchQuery.toLowerCase();
 			const matchesSearch =
@@ -67,8 +72,6 @@
 			if (selectedKinds.length > 0 && (!post.kind || !selectedKinds.includes(post.kind)))
 				return false;
 
-			if (selectedRipeness.length > 0 && !selectedRipeness.includes(post.ripeness)) return false;
-
 			if (selectedTags.length > 0) {
 				const hasAllTags = selectedTags.every((tag) => post.tags?.includes(tag));
 				if (!hasAllTags) return false;
@@ -78,25 +81,16 @@
 		})
 	);
 
-	function toggleKind(kind: string) {
-		selectedKinds = selectedKinds.includes(kind)
-			? selectedKinds.filter((k) => k !== kind)
-			: [...selectedKinds, kind];
-	}
-
-	function toggleRipeness(ripeness: string) {
-		selectedRipeness = selectedRipeness.includes(ripeness)
-			? selectedRipeness.filter((r) => r !== ripeness)
-			: [...selectedRipeness, ripeness];
-	}
-
 	function removeTag(tag: string) {
 		selectedTags = selectedTags.filter((t) => t !== tag);
 	}
 
+	function removeKind(kind: string) {
+		selectedKinds = selectedKinds.filter((k) => k !== kind);
+	}
+
 	function clearFilters() {
 		selectedKinds = [];
-		selectedRipeness = [];
 		selectedTags = [];
 		searchQuery = "";
 	}
@@ -107,6 +101,12 @@
 
 		if (lastWord.startsWith("#")) {
 			autocompleteOpen = true;
+			autocompleteMode = "tag";
+			autocompleteTerm = lastWord.slice(1);
+			activeIndex = 0;
+		} else if (lastWord.startsWith("!")) {
+			autocompleteOpen = true;
+			autocompleteMode = "kind";
 			autocompleteTerm = lastWord.slice(1);
 			activeIndex = 0;
 		} else {
@@ -116,23 +116,35 @@
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (!autocompleteOpen) {
-			if (e.key === "Backspace" && searchQuery === "" && selectedTags.length > 0) {
-				selectedTags = selectedTags.slice(0, -1);
+			if (e.key === "Backspace" && searchQuery === "") {
+				if (selectedKinds.length > 0) {
+					// Remove last kind if exists, else last tag
+					selectedKinds = selectedKinds.slice(0, -1);
+				} else if (selectedTags.length > 0) {
+					selectedTags = selectedTags.slice(0, -1);
+				}
 			}
 			return;
 		}
 
+		if (filteredAutocompleteItems.length === 0) return;
+
 		if (e.key === "ArrowDown") {
 			e.preventDefault();
-			activeIndex = (activeIndex + 1) % filteredAutocompleteTags.length;
+			activeIndex = (activeIndex + 1) % filteredAutocompleteItems.length;
 		} else if (e.key === "ArrowUp") {
 			e.preventDefault();
 			activeIndex =
-				(activeIndex - 1 + filteredAutocompleteTags.length) % filteredAutocompleteTags.length;
+				(activeIndex - 1 + filteredAutocompleteItems.length) % filteredAutocompleteItems.length;
 		} else if (e.key === "Enter" || e.key === "Tab") {
 			e.preventDefault();
-			if (filteredAutocompleteTags[activeIndex]) {
-				selectTag(filteredAutocompleteTags[activeIndex]);
+			const item = filteredAutocompleteItems[activeIndex];
+			if (item) {
+				if (autocompleteMode === "tag") {
+					selectTag(item as string);
+				} else {
+					selectKind((item as { value: string }).value);
+				}
 			}
 		} else if (e.key === "Escape") {
 			autocompleteOpen = false;
@@ -141,17 +153,28 @@
 
 	function selectTag(tag: string) {
 		selectedTags = [...selectedTags, tag];
+		resetInput();
+	}
 
+	function selectKind(kindValue: string) {
+		selectedKinds = [...selectedKinds, kindValue];
+		resetInput();
+	}
+
+	function resetInput() {
 		const words = searchQuery.split(" ");
 		words.pop();
 		searchQuery = words.join(" ") + (words.length > 0 ? " " : "");
-
 		autocompleteOpen = false;
 		inputElement?.focus();
 	}
 
 	function focusInput() {
 		inputElement?.focus();
+	}
+
+	function getKindLabel(value: string) {
+		return kinds.find(k => k.value === value)?.label || value;
 	}
 </script>
 
@@ -164,26 +187,48 @@
 	<Container size="lg">
 		<div in:fly={{ y: 20, duration: 800 }}>
 			<div class="mb-12 text-center">
-				<h1 class="font-heading text-text mb-4 text-5xl font-bold">Biblioteca do Jardim</h1>
-				<p class="text-muted text-xl">
-					{filteredPosts.length} notas encontradas.
+				<h1 class="font-bold font-header text-5xl mb-4 text-text">Biblioteca do Jardim</h1>
+				<p class="text-xl text-muted">
+					Explore {filteredPosts.length} notas cultivadas.
 				</p>
 			</div>
 
-			<div class="bg-surface border-border mb-12 rounded-xl border p-6 shadow-sm">
+			<div class="max-w-3xl mx-auto mb-16 relative">
+				<!-- Main Search Bar -->
 				<div
-					class="bg-surface-elevated border-border focus-within:border-primary focus-within:ring-primary/20 relative mb-8 flex flex-wrap items-center gap-2 rounded-lg border px-4 py-3 transition-all focus-within:ring-4"
+					class="relative flex flex-wrap items-center gap-2 p-4 rounded-2xl bg-surface/50 backdrop-blur-md border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] transition-all duration-300 focus-within:shadow-[0_8px_40px_rgba(var(--color-primary),0.15)] focus-within:border-primary/30 group"
 					onclick={focusInput}
 					onkeydown={(e) => e.key === "Enter" && focusInput()}
 					role="button"
 					tabindex="0"
 				>
-					<Search class="text-muted mr-2 shrink-0" size={20} />
+					<Search class="text-muted group-focus-within:text-primary transition-colors ml-2 mr-1" size={22} />
 
+					<!-- Selected Kinds -->
+					{#each selectedKinds as kind (kind)}
+						<div
+							transition:slide={{ axis: "x", duration: 200 }}
+							class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-elevated border border-border/50 text-sm font-medium text-text animate-in zoom-in-50"
+						>
+							<Info size={14} class="text-secondary" />
+							{getKindLabel(kind)}
+							<button
+								onclick={(e) => {
+									e.stopPropagation();
+									removeKind(kind);
+								}}
+								class="ml-1 p-0.5 rounded-full hover:bg-surface-hover hover:text-action-destructive transition-colors"
+							>
+								<X size={12} />
+							</button>
+						</div>
+					{/each}
+
+					<!-- Selected Tags -->
 					{#each selectedTags as tag (tag)}
 						<div
 							transition:slide={{ axis: "x", duration: 200 }}
-							class="bg-primary/10 text-primary border-primary/20 animate-in zoom-in-50 flex items-center gap-1 rounded-md border px-2 py-1 text-sm font-bold"
+							class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 border border-primary/20 text-sm font-medium text-primary animate-in zoom-in-50"
 						>
 							<Hash size={12} />
 							{tag}
@@ -192,7 +237,7 @@
 									e.stopPropagation();
 									removeTag(tag);
 								}}
-								class="hover:text-action-destructive ml-1 rounded-full p-0.5 transition-colors"
+								class="ml-1 p-0.5 rounded-full hover:bg-primary/20 hover:text-action-destructive transition-colors"
 							>
 								<X size={12} />
 							</button>
@@ -205,101 +250,65 @@
 						bind:value={searchQuery}
 						oninput={handleInput}
 						onkeydown={handleKeydown}
-						placeholder={selectedTags.length === 0 ? "Buscar... (digite # para tags)" : ""}
-						class="text-text placeholder-muted min-w-[200px] flex-1 bg-transparent text-lg focus:outline-none"
+						placeholder={selectedTags.length === 0 && selectedKinds.length === 0 ? "Buscar... (use # para tags, ! para tipos)" : ""}
+						class="flex-1 min-w-[200px] bg-transparent text-lg text-text placeholder-muted/60 focus:outline-none ml-1"
 					/>
+					
+					{#if searchQuery || selectedTags.length > 0 || selectedKinds.length > 0}
+						<button 
+							onclick={(e) => {
+								e.stopPropagation();
+								clearFilters();
+							}}
+							class="text-muted hover:text-text transition-colors p-2"
+							transition:fly={{ x: 10, duration: 200 }}
+						>
+							<X size={18} />
+						</button>
+					{/if}
 				</div>
 
-				{#if autocompleteOpen && filteredAutocompleteTags.length > 0}
+				<!-- Autocomplete Dropdown -->
+				{#if autocompleteOpen && filteredAutocompleteItems.length > 0}
 					<div
-						class="bg-surface border-border absolute z-50 -mt-8 w-[300px] overflow-hidden rounded-lg border shadow-xl"
+						class="absolute top-full left-0 right-0 mt-2 p-1 bg-surface-elevated/95 backdrop-blur-xl border border-white/5 rounded-xl shadow-2xl z-50 overflow-hidden"
 						transition:fly={{ y: -10, duration: 200 }}
 					>
-						{#each filteredAutocompleteTags as tag, i (tag)}
+						{#each filteredAutocompleteItems as item, i}
 							<button
-								class="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors {i ===
-								activeIndex
+								class="w-full flex items-center gap-3 px-4 py-3 text-left rounded-lg transition-all duration-200 {i === activeIndex
 									? 'bg-primary/10 text-primary'
 									: 'text-text hover:bg-surface-hover'}"
-								onclick={() => selectTag(tag)}
+								onclick={() => autocompleteMode === 'tag' ? selectTag(item as string) : selectKind((item as {value: string}).value)}
 							>
-								<Hash size={14} class="opacity-50" />
-								<span class="font-medium">{tag}</span>
+								{#if autocompleteMode === 'tag'}
+									<Hash size={14} class="opacity-50" />
+									<span class="font-medium">{item}</span>
+								{:else}
+									<Info size={14} class="opacity-50" />
+									<span class="font-medium">{(item as {label: string}).label}</span>
+								{/if}
 							</button>
 						{/each}
 					</div>
 				{/if}
 
-				<div class="flex flex-col gap-8 md:flex-row">
-					<div class="flex flex-1 flex-col gap-6 md:flex-row">
-						<div>
-							<h3 class="text-text mb-3 text-xs font-bold tracking-widest uppercase">Tipo</h3>
-							<div class="flex flex-wrap gap-2">
-								{#each kinds as kind (kind.value)}
-									<button
-										onclick={() => toggleKind(kind.value)}
-										class="rounded-full px-4 py-1.5 text-sm font-medium transition-all {selectedKinds.includes(
-											kind.value
-										)
-											? 'bg-primary text-primary-contrast shadow-md'
-											: 'bg-surface-elevated text-muted hover:text-text hover:bg-surface-hover'}"
-									>
-										{kind.label}
-									</button>
-								{/each}
-							</div>
-						</div>
-
-						<div>
-							<h3 class="text-text mb-3 text-xs font-bold tracking-widest uppercase">Maturidade</h3>
-							<div class="flex flex-wrap gap-2">
-								{#each ripenessLevels as level (level.value)}
-									<button
-										onclick={() => toggleRipeness(level.value)}
-										class="rounded-full px-4 py-1.5 text-sm font-medium transition-all {selectedRipeness.includes(
-											level.value
-										)
-											? 'bg-primary text-primary-contrast shadow-md'
-											: 'bg-surface-elevated text-muted hover:text-text hover:bg-surface-hover'}"
-									>
-										{level.label}
-									</button>
-								{/each}
-
-								<button
-									onclick={() => (showSeeds = !showSeeds)}
-									class="flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium transition-all {showSeeds
-										? 'border-border-vivid bg-surface-elevated text-text'
-										: 'text-muted/60 hover:text-muted border-transparent'}"
-									title="Mostrar/Ocultar Rascunhos"
-								>
-									<Sprout size={14} />
-									<span>Rascunhos</span>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				{#if selectedKinds.length > 0 || selectedRipeness.length > 0 || selectedTags.length > 0 || searchQuery}
-					<div class="border-border mt-6 flex justify-end border-t pt-4" transition:slide>
-						<button
-							onclick={clearFilters}
-							class="text-muted hover:text-action-destructive flex items-center gap-2 text-sm transition-colors"
-						>
-							<X size={16} />
-							Limpar filtros
-						</button>
-					</div>
-				{/if}
-			</div>
-
-			{#if filteredPosts.length > 0}
-				<div class="mb-4 flex items-center justify-between">
-					<span class="text-muted text-sm font-medium">
-						Mostrando {filteredPosts.length} resultados
+				<!-- Helper Text -->
+				<div class="mt-4 flex justify-center gap-6 text-xs text-muted/60 font-medium uppercase tracking-wider">
+					<span class="flex items-center gap-1.5">
+						<kbd class="px-1.5 py-0.5 rounded bg-surface border border-border text-[10px] font-sans">#</kbd>
+						Filtrar Tags
+					</span>
+					<span class="flex items-center gap-1.5">
+						<kbd class="px-1.5 py-0.5 rounded bg-surface border border-border text-[10px] font-sans">!</kbd>
+						Filtrar Tipos
 					</span>
 				</div>
+			</div>
+
+			<!-- Quick Filters (Optional: if we want to show most popular tags or similar later) -->
+
+			{#if filteredPosts.length > 0}
 				<Grid cols={3} gap="lg">
 					{#each filteredPosts as post (post.slug)}
 						<div in:fly={{ y: 20, duration: 400 }}>
@@ -308,15 +317,19 @@
 					{/each}
 				</Grid>
 			{:else}
-				<div class="py-24 text-center">
-					<p class="text-muted text-xl">Nada encontrado para sua busca refinada.</p>
-					{#if selectedTags.length > 0}
-						<p class="text-muted mt-2 text-sm">
-							Tente remover alguns tópicos (chips) para ampliar a busca.
-						</p>
-					{/if}
-					<button onclick={clearFilters} class="text-primary mt-4 font-semibold hover:underline">
-						Limpar todos os filtros
+				<div class="text-center py-24">
+					<div class="inline-flex items-center justify-center p-4 rounded-full bg-surface-elevated mb-4 text-muted">
+						<Search size={32} />
+					</div>
+					<h3 class="text-xl font-bold text-text mb-2">Nada encontrado</h3>
+					<p class="text-muted max-w-sm mx-auto">
+						Não conseguimos encontrar nada com esses filtros. Tente remover alguns termos ou buscar por outra coisa.
+					</p>
+					<button 
+						onclick={clearFilters} 
+						class="mt-6 text-primary font-semibold hover:underline"
+					>
+						Limpar tudo
 					</button>
 				</div>
 			{/if}

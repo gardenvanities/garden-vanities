@@ -1,7 +1,11 @@
-# Project Rules & Guidelines Refinement
+# Task List: Redesign Home Hero Section
 
-- [x] Styling Rules & Architecture
-- [x] Define Routing Rules (`src/routes`) <!-- id: 14 -->
-  - [x] Analyze current structure <!-- id: 15 -->
-  - [x] Draft rules for Route Grouping, Layouts, and Data Loading <!-- id: 16 -->
-  - [x] Consolidate into `docs/ARCHITECTURE_RULES.md` (or similar) <!-- id: 17 -->
+- [x] Analyze current code and visual references <!-- id: 0 -->
+- [x] Create implementation plan <!-- id: 1 -->
+- [x] Create `Hero` component <!-- id: 2 -->
+  - [x] Create basic structure and layout <!-- id: 3 -->
+  - [x] Add typography and content <!-- id: 4 -->
+  - [x] Implement inline visual elements (stickers/badges) <!-- id: 5 -->
+  - [x] Add responsive styles (Mobile First) <!-- id: 6 -->
+- [x] Integrate `Hero` into `+page.svelte` <!-- id: 7 -->
+- [x] Verify design against references <!-- id: 8 -->
