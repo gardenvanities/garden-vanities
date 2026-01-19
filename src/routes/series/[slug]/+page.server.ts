@@ -1,40 +1,35 @@
+import { getSeriesBySlug } from "$lib/server/collections";
 import { getAllPosts } from "$lib/server/posts";
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
-function toSlug(str: string) {
-	return str
-		.toLowerCase()
-		.normalize("NFD")
-		.replace(/[\u0300-\u036f]/g, "")
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/^-+|-+$/g, "");
-}
-
 export const load: PageServerLoad = async ({ params, setHeaders }) => {
 	const slug = params.slug;
-
-	const allPosts = await getAllPosts({ ripeness: ["root", "fruit", "seed"] });
-
-	const seriesPosts = allPosts.filter((post) => {
-		if (!post.series?.name) return false;
-		return toSlug(post.series.name) === slug;
-	});
-
-	if (seriesPosts.length === 0) {
-		error(404, "Série não encontrada");
-	}
-
-	seriesPosts.sort((a, b) => (a.series?.order || 0) - (b.series?.order || 0));
-
-	const seriesName = seriesPosts[0].series?.name;
 
 	setHeaders({
 		"cache-control": "max-age=3600, s-maxage=86400"
 	});
 
+	// Get series metadata from dedicated content file
+	const series = getSeriesBySlug(slug);
+
+	if (!series) {
+		error(404, "Série não encontrada");
+	}
+
+	// Get all posts and filter by series slug
+	const allPosts = await getAllPosts({ ripeness: ["root", "fruit", "seed"] });
+
+	const seriesPosts = allPosts
+		.filter((post) => post.series?.slug === slug)
+		.sort((a, b) => (a.series?.order || 0) - (b.series?.order || 0));
+
+	if (seriesPosts.length === 0 && series.status === "draft") {
+		error(404, "Série não encontrada");
+	}
+
 	return {
-		seriesName,
+		series,
 		posts: seriesPosts
 	};
 };

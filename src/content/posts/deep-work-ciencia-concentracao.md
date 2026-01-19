@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "tutorial"
-set: Produtividade
+set: produtividade
 tags: ["productivity", "neuroscience", "focus", "psychology"]
 
 cover:

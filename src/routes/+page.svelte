@@ -14,15 +14,22 @@
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
 
 	interface SeriesItem {
-		name: string;
 		slug: string;
+		title: string;
 		count: number;
 		lastUpdated: string;
 	}
 
+	interface SetItem {
+		slug: string;
+		title: string;
+		count: number;
+		href: string;
+	}
+
 	interface Props {
 		data: {
-			sets: Array<{ name: string; count: number; href: string }>;
+			sets: SetItem[];
 			series: SeriesItem[];
 			freshPosts: PostFrontmatter[];
 		};
@@ -51,7 +58,7 @@
 					</div>
 
 					<Grid cols={3} gap="md">
-						{#each data.sets as set (set.name)}
+						{#each data.sets as set (set.slug)}
 							<Card
 								as="a"
 								href={set.href}
@@ -59,7 +66,7 @@
 								variant="default"
 							>
 								<span class="text-text group-hover:text-primary font-medium transition-colors">
-									{set.name}
+									{set.title}
 								</span>
 								<span
 									class="bg-surface-elevated text-muted rounded-full px-2 py-0.5 text-xs font-bold"
@@ -96,7 +103,7 @@
 									<h3
 										class="font-heading text-text group-hover:text-primary text-lg font-bold transition-colors"
 									>
-										{serie.name}
+										{serie.title}
 									</h3>
 									<Library
 										size={16}

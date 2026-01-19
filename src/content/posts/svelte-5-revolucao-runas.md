@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "note"
-set: "Engenharia de Software"
+set: engenharia-software
 tags: ["svelte", "javascript", "webdev", "frontend"]
 
 cover:
@@ -16,7 +16,7 @@ cover:
   caption:
 
 series:
-  name: "Modern Web Frameworks"
+  slug: modern-web-frameworks
   order: 1
 
 publishedAt: 2026-01-10

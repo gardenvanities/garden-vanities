@@ -13,14 +13,7 @@
 
 	let { post, compact = false }: Props = $props();
 
-	let seriesSlug = $derived(
-		post.series?.name
-			? post.series.name
-					.toLowerCase()
-					.replace(/[^a-z0-9]+/g, "-")
-					.replace(/^-+|-+$/g, "")
-			: ""
-	);
+	let seriesSlug = $derived(post.series?.slug || "");
 </script>
 
 <Card
@@ -57,7 +50,7 @@
 					class="bg-primary/10 text-primary hover:bg-primary/20 flex items-center gap-1 rounded-md px-2 py-1 transition-colors"
 				>
 					<Library size={12} />
-					{post.series.name}
+					{post.series.slug}
 					{#if post.series.order}
 						<span class="opacity-60">#{post.series.order}</span>
 					{/if}

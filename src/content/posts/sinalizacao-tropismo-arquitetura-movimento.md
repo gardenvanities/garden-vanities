@@ -7,7 +7,7 @@ summary: "Uma investigação sobre os mecanismos de percepção de luz e gravida
 ripeness: "fruit"
 
 kind: "thought"
-set: Botânica
+set: botanica
 tags: ["botânica", "fisiologia-vegetal", "hormonas", "biologia-do-desenvolvimento"]
 
 cover:
@@ -16,7 +16,7 @@ cover:
   caption: "Fototropismo positivo evidenciando a redistribuição lateral de fitormonas."
 
 series:
-  name: "Fisiologia Vegetal Comparada"
+  slug: fisiologia-vegetal-comparada
   order: 3
 
 publishedAt: 2025-12-18

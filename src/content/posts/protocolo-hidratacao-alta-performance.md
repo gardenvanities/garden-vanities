@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "tutorial"
-set: Saúde
+set: saude
 tags: ["biohacking", "health", "performance", "physiology"]
 
 cover:

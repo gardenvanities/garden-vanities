@@ -46,24 +46,25 @@
 		<div class="border-border space-y-4 border-t pt-6">
 			<h4 class="text-muted mb-2 text-xs font-bold tracking-widest uppercase">Contexto</h4>
 
-			{#if metadata.series?.name}
-				<div class="flex items-start gap-3">
-					<div class="bg-surface border-border text-muted rounded-md border p-1.5">
-						<Layers size={14} />
-					</div>
-					<div class="flex flex-col gap-0.5">
-						<span class="text-muted/70 text-[10px] font-bold tracking-wider uppercase">Série</span>
-						<span class="text-primary leading-tight font-medium">{metadata.series.name}</span>
-						{#if metadata.series.order}
-							<span class="text-muted text-xs"
-								>Parte {metadata.series.order}{metadata.series.total
-									? ` de ${metadata.series.total}`
-									: ""}</span
-							>
-						{/if}
-					</div>
+			{#if metadata.series?.slug}
+			<div class="flex items-start gap-3">
+				<div class="bg-surface border-border text-muted rounded-md border p-1.5">
+					<Layers size={14} />
 				</div>
-			{/if}
+				<div class="flex flex-col gap-0.5">
+					<span class="text-muted/70 text-[10px] font-bold tracking-wider uppercase">Série</span>
+					<a 
+						href="/series/{metadata.series.slug}"
+						class="text-primary decoration-primary/30 leading-tight font-medium underline-offset-4 hover:underline"
+					>
+						{metadata.series.slug}
+					</a>
+					{#if metadata.series.order}
+						<span class="text-muted text-xs">Parte {metadata.series.order}</span>
+					{/if}
+				</div>
+			</div>
+		{/if}
 
 			{#if metadata.set}
 				<div class="flex items-start gap-3">

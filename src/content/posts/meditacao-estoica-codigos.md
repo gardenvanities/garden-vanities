@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "thought"
-set: Filosofia
+set: filosofia
 tags: ["estoicismo", "mindset", "carreira", "desenvolvimento"]
 
 cover:

@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "note"
-set: Ciência
+set: ciencia
 tags: ["physics", "computing", "future", "science"]
 
 cover:

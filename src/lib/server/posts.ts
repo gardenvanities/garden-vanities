@@ -20,7 +20,6 @@ export async function getAllPosts(
 	filter: { ripeness?: Ripeness[] } = {}
 ): Promise<PostFrontmatter[]> {
 	const posts: PostFrontmatter[] = [];
-	const seriesCounts = new Map<string, number>();
 
 	for (const path in mdModules) {
 		const module = mdModules[path];
@@ -37,17 +36,6 @@ export async function getAllPosts(
 		if (!allowedRipeness.includes(metadata.ripeness)) continue;
 
 		posts.push(metadata);
-
-		if (metadata.series?.name) {
-			const name = metadata.series.name;
-			seriesCounts.set(name, (seriesCounts.get(name) ?? 0) + 1);
-		}
-	}
-
-	for (const post of posts) {
-		if (post.series?.name) {
-			post.series.total = seriesCounts.get(post.series.name);
-		}
 	}
 
 	return posts.sort((a, b) => {

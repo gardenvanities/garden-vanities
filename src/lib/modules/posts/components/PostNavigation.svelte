@@ -4,20 +4,20 @@
 
 	interface Props {
 		navigation: SerieNavigation;
-		seriesName?: string;
+		seriesSlug?: string;
 	}
 
-	let { navigation, seriesName }: Props = $props();
+	let { navigation, seriesSlug }: Props = $props();
 </script>
 
 {#if navigation && (navigation.prev || navigation.next)}
 	<footer class="border-border mt-16 border-t pt-12">
-		{#if seriesName}
+		{#if seriesSlug}
 			<div
 				class="text-muted mb-6 flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase"
 			>
 				<Layers size={14} class="opacity-50" />
-				Continuação da Série: <span class="text-primary">{seriesName}</span>
+				Continuação da Série: <a href="/series/{seriesSlug}" class="text-primary hover:underline">{seriesSlug}</a>
 			</div>
 		{/if}
 

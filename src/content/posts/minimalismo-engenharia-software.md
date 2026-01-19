@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "essay"
-set: "Engenharia de Software"
+set: engenharia-software
 tags: ["engenharia", "minimalismo", "arquitetura", "clean-code"]
 
 cover:
@@ -16,7 +16,7 @@ cover:
   caption:
 
 series:
-  name: "Filosofia do Código"
+  slug: filosofia-do-codigo
   order: 2
 
 publishedAt: 2024-04-02

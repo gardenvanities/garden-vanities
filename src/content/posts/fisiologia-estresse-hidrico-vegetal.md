@@ -7,7 +7,7 @@ summary: "Exploração técnica das respostas bioquímicas e estruturais das pla
 ripeness: "fruit"
 
 kind: "tutorial"
-set: Botânica
+set: botanica
 tags: ["botânica", "fisiologia-vegetal", "biologia-molecular", "estresse-abiótico"]
 
 cover:
@@ -16,7 +16,7 @@ cover:
   caption: "Complexo estomático em plena atividade transpiratória."
 
 series:
-  name: "Fisiologia Vegetal Comparada"
+  slug: fisiologia-vegetal-comparada
   order: 1
 
 publishedAt: 2025-12-18

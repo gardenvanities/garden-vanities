@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "thought"
-set: Filosofia
+set: filosofia
 tags: ["filosofia", "indieweb", "aprendizado", "pkm"]
 
 cover:
@@ -16,7 +16,7 @@ cover:
   caption:
 
 series:
-  name: "Filosofia do Código"
+  slug: filosofia-do-codigo
   order: 1
 
 publishedAt: 2024-03-15

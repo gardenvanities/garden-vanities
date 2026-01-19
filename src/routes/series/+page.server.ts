@@ -1,3 +1,4 @@
+import { getAllSeries } from "$lib/server/collections";
 import { getAllPosts } from "$lib/server/posts";
 import type { PageServerLoad } from "./$types";
 
@@ -6,45 +7,36 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 		"cache-control": "max-age=3600, s-maxage=86400"
 	});
 
+	// Get series from dedicated content files (synchronous)
+	const allSeries = getAllSeries({ status: ["ongoing", "completed"] });
+
+	// Get all posts to count posts per series
 	const allPosts = await getAllPosts({ ripeness: ["root", "fruit", "seed"] });
 
-	const seriesMap = new Map<
-		string,
-		{ name: string; slug: string; count: number; lastUpdated: string }
-	>();
+	// Enrich series with post counts and lastUpdated
+	const enrichedSeries = allSeries.map((series) => {
+		const seriesPosts = allPosts.filter(
+			(post) => post.series?.slug === series.slug
+		);
 
-	for (const post of allPosts) {
-		if (post.series?.name) {
-			const name = post.series.name;
-
-			const slug = name
-				.toLowerCase()
-				.replace(/[^a-z0-9]+/g, "-")
-				.replace(/^-+|-+$/g, "");
-
-			const existing = seriesMap.get(name) || {
-				name,
-				slug,
-				count: 0,
-				lastUpdated: ""
-			};
-
-			existing.count++;
-
+		const lastUpdated = seriesPosts.reduce((latest, post) => {
 			const postDate = post.updatedAt || post.publishedAt || "";
-			if (postDate > existing.lastUpdated) {
-				existing.lastUpdated = postDate;
-			}
+			return postDate > latest ? postDate : latest;
+		}, "");
 
-			seriesMap.set(name, existing);
-		}
-	}
+		return {
+			...series,
+			postCount: seriesPosts.length,
+			lastUpdated
+		};
+	});
 
-	const series = Array.from(seriesMap.values()).sort((a, b) => {
-		return b.lastUpdated.localeCompare(a.lastUpdated);
+	// Sort by lastUpdated descending
+	const sortedSeries = enrichedSeries.sort((a, b) => {
+		return (b.lastUpdated || "").localeCompare(a.lastUpdated || "");
 	});
 
 	return {
-		series
+		series: sortedSeries
 	};
 };

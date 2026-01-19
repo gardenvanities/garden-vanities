@@ -1,20 +1,6 @@
 import { getAllPosts } from "$lib/server/posts";
+import { getAllSeries, getAllSets } from "$lib/server/collections";
 import type { PageServerLoad } from "./$types";
-import type { PostFrontmatter } from "$lib/modules/posts/types";
-
-function groupBySet(posts: PostFrontmatter[]): Map<string, PostFrontmatter[]> {
-	const groups = new Map<string, PostFrontmatter[]>();
-
-	for (const post of posts) {
-		if (post.set) {
-			const existing = groups.get(post.set) || [];
-			existing.push(post);
-			groups.set(post.set, existing);
-		}
-	}
-
-	return groups;
-}
 
 export const load: PageServerLoad = async ({ setHeaders }) => {
 	setHeaders({
@@ -25,47 +11,45 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 		ripeness: ["fruit", "root"]
 	});
 
-	const setGroups = groupBySet(allPosts);
-	const sets = Array.from(setGroups.entries())
-		.map(([name, posts]) => ({
-			name,
-			count: posts.length,
-			href: `/sets/${encodeURIComponent(name)}`
-		}))
-
+	// Get sets from dedicated content files and enrich with post counts
+	const allSetsData = getAllSets();
+	const sets = allSetsData
+		.map((set) => {
+			const postCount = allPosts.filter((p) => p.set === set.slug).length;
+			return {
+				slug: set.slug,
+				title: set.title,
+				count: postCount,
+				href: `/sets/${encodeURIComponent(set.slug)}`
+			};
+		})
+		.filter((s) => s.count > 0)
 		.sort((a, b) => b.count - a.count)
-
 		.slice(0, 6);
 
-	const seriesMap = new Map<
-		string,
-		{ name: string; slug: string; count: number; lastUpdated: string }
-	>();
+	// Get series from dedicated content files and enrich with post counts
+	const allSeriesData = getAllSeries({ status: ["ongoing", "completed"] });
+	const series = allSeriesData
+		.map((s) => {
+			const seriesPosts = allPosts.filter((p) => p.series?.slug === s.slug);
+			const postCount = seriesPosts.length;
+			const lastUpdated = seriesPosts.reduce((latest, post) => {
+				const postDate = post.updatedAt || post.publishedAt || "";
+				return postDate > latest ? postDate : latest;
+			}, "");
 
-	for (const post of allPosts) {
-		if (post.series?.name) {
-			const name = post.series.name;
-			const slug = name
-				.toLowerCase()
-				.replace(/[^a-z0-9]+/g, "-")
-				.replace(/^-+|-+$/g, "");
-			const existing = seriesMap.get(name) || { name, slug, count: 0, lastUpdated: "" };
-
-			existing.count++;
-			const postDate = post.updatedAt || post.publishedAt || "";
-			if (postDate > existing.lastUpdated) {
-				existing.lastUpdated = postDate;
-			}
-			seriesMap.set(name, existing);
-		}
-	}
-
-	const series = Array.from(seriesMap.values())
+			return {
+				slug: s.slug,
+				title: s.title,
+				count: postCount,
+				lastUpdated
+			};
+		})
+		.filter((s) => s.count > 0)
 		.sort((a, b) => b.lastUpdated.localeCompare(a.lastUpdated))
 		.slice(0, 3);
 
 	const freshPosts = [...allPosts]
-
 		.sort((a, b) => {
 			const dateA = new Date(a.updatedAt || a.publishedAt || 0).getTime();
 			const dateB = new Date(b.updatedAt || b.publishedAt || 0).getTime();

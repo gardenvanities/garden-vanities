@@ -3,7 +3,7 @@
 	import Container from "$lib/layout/Container.svelte";
 	import Section from "$lib/layout/Section.svelte";
 	import Grid from "$lib/layout/Grid.svelte";
-	import { FolderOpen, ArrowRight } from "@lucide/svelte";
+	import { FolderOpen, ArrowRight, FileText } from "@lucide/svelte";
 	import { fly } from "svelte/transition";
 
 	let { data } = $props();
@@ -23,7 +23,7 @@
 			</div>
 
 			<Grid cols={3} gap="lg">
-				{#each data.sets as set, i (set.name)}
+				{#each data.sets as set, i (set.slug)}
 					<a
 						href={set.href}
 						in:fly={{ y: 20, duration: 800, delay: i * 50 }}
@@ -35,17 +35,25 @@
 							>
 								<FolderOpen size={20} />
 							</div>
-							<span class="bg-surface-elevated text-muted rounded-full px-3 py-1 text-xs font-bold">
-								{set.count}
+							<span
+								class="bg-surface-elevated text-muted flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold"
+							>
+								<FileText size={12} />
+								{set.postCount}
 							</span>
 						</div>
 
-						<div>
+						<div class="flex-1">
 							<h3
 								class="font-heading text-text group-hover:text-primary text-xl leading-tight font-bold transition-colors"
 							>
-								{set.name}
+								{set.title}
 							</h3>
+							{#if set.description}
+								<p class="text-muted mt-2 line-clamp-2 text-sm">
+									{set.description}
+								</p>
+							{/if}
 						</div>
 
 						<div class="text-muted mt-auto flex items-center gap-2 text-xs font-medium">

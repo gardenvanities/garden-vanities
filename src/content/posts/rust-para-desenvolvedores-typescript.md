@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "tutorial"
-set: "Engenharia de Software"
+set: engenharia-software
 tags: ["rust", "typescript", "performance", "backend", "systems-programming"]
 
 cover:

@@ -10,9 +10,8 @@ export interface CoverImage {
 }
 
 export interface Serie {
-	name: string;
+	slug: string;
 	order: number;
-	total?: number;
 }
 
 export interface SEO {

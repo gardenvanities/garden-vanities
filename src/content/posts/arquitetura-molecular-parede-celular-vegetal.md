@@ -7,7 +7,7 @@ summary: "Análise técnica da biogênese da parede primária e secundária, o p
 ripeness: "fruit"
 
 kind: "note"
-set: Botânica
+set: botanica
 tags: ["botânica", "citologia", "biopolímeros", "biotecnologia"]
 
 cover:
@@ -16,7 +16,7 @@ cover:
   caption: "Representação tridimensional da rede de polímeros da parede celular."
 
 series:
-  name: "Fisiologia Vegetal Comparada"
+  slug: fisiologia-vegetal-comparada
   order: 2
 
 publishedAt: 2025-12-18

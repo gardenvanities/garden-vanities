@@ -7,7 +7,7 @@ summary: "Como algoritmos de filotaxia podem inspirar componentes Svelte mais in
 ripeness: "fruit"
 
 kind: "essay"
-set: "Engenharia de Software"
+set: engenharia-software
 tags: ["Software", "Bio-Design", "Svelte"]
 
 cover:

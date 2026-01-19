@@ -7,7 +7,7 @@ summary:
 ripeness: "fruit"
 
 kind: "essay"
-set: Arte
+set: arte
 tags: ["geometria", "arte", "natureza", "fractais", "estética", "proporção-áurea", "padrões"]
 
 cover:
@@ -16,7 +16,7 @@ cover:
   caption:
 
 series:
-  name: "Filosofia do Código"
+  slug: filosofia-do-codigo
   order: 3
 
 publishedAt: 2026-01-11

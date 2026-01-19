@@ -85,7 +85,7 @@
 		<div class="mt-16 space-y-12">
 			{#if navigation}
 				<div in:fly={{ y: 20, duration: 800, delay: 500 }}>
-					<PostNavigation {navigation} seriesName={metadata.series?.name} />
+					<PostNavigation {navigation} seriesSlug={metadata.series?.slug} />
 				</div>
 			{/if}
 

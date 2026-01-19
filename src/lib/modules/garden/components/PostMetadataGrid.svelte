@@ -10,7 +10,7 @@
 	interface Props {
 		post: {
 			tags?: string[];
-			series?: { name: string; order: number; total?: number };
+			series?: { slug: string; order: number };
 			readingTime?: number;
 			readingTimeLabel?: "short" | "medium" | "long";
 			publishedAt?: string;
@@ -38,14 +38,14 @@
 		</div>
 	</div>
 
-	{#if post.series?.name}
+	{#if post.series?.slug}
 		<div class="space-y-2">
 			<h4 class="text-muted text-[10px] font-bold tracking-widest uppercase">Série</h4>
 			<p class="text-text text-sm font-medium">
-				<span class="text-primary">{post.series.name}</span>
+				<a href="/series/{post.series.slug}" class="text-primary hover:underline">{post.series.slug}</a>
 				{#if typeof post.series.order !== "undefined"}
 					<span class="text-muted ml-1">
-						({post.series.order}{post.series.total ? ` de ${post.series.total}` : ""})
+						(Parte {post.series.order})
 					</span>
 				{/if}
 			</p>

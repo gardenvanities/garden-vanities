@@ -7,7 +7,7 @@ summary:
 ripeness: "root"
 
 kind: "thought"
-set: Filosofia
+set: filosofia
 tags: ["cybernetics", "biology", "philosophy", "transhumanism"]
 
 cover:
