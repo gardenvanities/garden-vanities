@@ -7,6 +7,8 @@ export interface CoverImage {
 	url: string;
 	alt: string;
 	caption?: string;
+	aspectRatio?: string;
+	focalPoint?: { x: number; y: number };
 }
 
 export interface Serie {

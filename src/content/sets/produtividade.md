@@ -3,7 +3,7 @@ slug: produtividade
 title: "Produtividade"
 description: "Técnicas e ciência por trás do foco, concentração e trabalho eficiente."
 cover:
-  url:
+  url: "cover/e"
   alt: "Workspace focado"
 relatedSets:
   - saude

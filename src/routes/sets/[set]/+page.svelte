@@ -39,7 +39,7 @@
 
 			<div class="flex items-start gap-4">
 				<div
-					class="bg-primary/10 text-primary flex h-14 w-14 items-center justify-center rounded-xl shrink-0"
+					class="bg-primary/10 text-primary flex h-14 w-14 shrink-0 items-center justify-center rounded-xl"
 				>
 					<FolderOpen size={28} />
 				</div>
@@ -47,7 +47,7 @@
 				<div>
 					<h1 class="text-text font-heading text-4xl font-bold">{data.set.title}</h1>
 					{#if data.set.description}
-						<p class="text-muted mt-2 text-lg max-w-2xl">
+						<p class="text-muted mt-2 max-w-2xl text-lg">
 							{data.set.description}
 						</p>
 					{/if}
@@ -60,7 +60,7 @@
 
 			<!-- Related Sets -->
 			{#if data.set.relatedSets && data.set.relatedSets.length > 0}
-				<div class="mt-6 flex items-center gap-2 flex-wrap">
+				<div class="mt-6 flex flex-wrap items-center gap-2">
 					<span class="text-muted text-xs font-medium">Sets relacionados:</span>
 					{#each data.set.relatedSets as relatedSlug (relatedSlug)}
 						<a

@@ -3,7 +3,7 @@ slug: botanica
 title: "Botânica"
 description: "Explorações sobre fisiologia vegetal, crescimento e a inteligência das plantas."
 cover:
-  url:
+  url: "cover/a"
   alt: "Ilustração botânica"
 relatedSets:
   - ciencia

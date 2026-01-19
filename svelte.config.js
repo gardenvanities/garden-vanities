@@ -2,6 +2,7 @@ import { mdsvex, escapeSvelte } from "mdsvex";
 import rehypeSlug from "rehype-slug";
 import remarkMath from "remark-math";
 import rehypeKatexSvelte from "rehype-katex-svelte";
+import { remarkCloudinaryImages } from "./src/lib/server/remark-cloudinary-images.ts";
 import adapter from "@sveltejs/adapter-auto";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { createHighlighter } from "shiki";
@@ -18,7 +19,7 @@ const config = {
 		vitePreprocess(),
 		mdsvex({
 			extensions: [".md", ".svx"],
-			remarkPlugins: [remarkMath],
+			remarkPlugins: [remarkMath, remarkCloudinaryImages(process.env.PUBLIC_CLOUDINARY_CLOUD_NAME || "")],
 			rehypePlugins: [rehypeSlug, rehypeKatexSvelte],
 			highlight: {
 				highlighter: async (code, lang) => {

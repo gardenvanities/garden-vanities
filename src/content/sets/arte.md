@@ -3,7 +3,7 @@ slug: arte
 title: "Arte"
 description: "Explorações sobre geometria sagrada, estética e a beleza na natureza."
 cover:
-  url:
+  url: "cover/a"
   alt: "Padrões geométricos"
 relatedSets:
   - design

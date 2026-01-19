@@ -17,7 +17,8 @@
 				class="text-muted mb-6 flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase"
 			>
 				<Layers size={14} class="opacity-50" />
-				Continuação da Série: <a href="/series/{seriesSlug}" class="text-primary hover:underline">{seriesSlug}</a>
+				Continuação da Série:
+				<a href="/series/{seriesSlug}" class="text-primary hover:underline">{seriesSlug}</a>
 			</div>
 		{/if}
 

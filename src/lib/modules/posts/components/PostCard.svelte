@@ -38,7 +38,7 @@
 			{#if post.set}
 				<a
 					href="/sets/{encodeURIComponent(post.set)}"
-					class="bg-surface-elevated text-muted hover:text-primary hover:bg-surface-hover flex items-center gap-1 rounded-md px-2 py-1 transition-colors"
+					class="bg-surface-elevated text-muted hover:text-primary hover:bg-surface-hover flex items-center gap-1 rounded-sm px-2 py-1 transition-colors"
 				>
 					<FolderOpen size={12} />
 					{post.set}
@@ -47,7 +47,7 @@
 			{#if post.series}
 				<a
 					href="/series/{seriesSlug}"
-					class="bg-primary/10 text-primary hover:bg-primary/20 flex items-center gap-1 rounded-md px-2 py-1 transition-colors"
+					class="bg-primary/10 text-primary hover:bg-primary/20 flex items-center gap-1 rounded-sm px-2 py-1 transition-colors"
 				>
 					<Library size={12} />
 					{post.series.slug}

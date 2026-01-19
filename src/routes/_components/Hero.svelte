@@ -10,17 +10,17 @@
 	<Container size="xl">
 		<div class="w-full">
 			<!-- Main Typographic Statement - Full Width -->
-			<div class="space-y-3 md:space-y-5 lg:space-y-6">
+			<div class="space-y-3 md:space-y-4 lg:space-y-5">
 				<!-- Line 1 -->
 				<p
-					class="font-heading flex flex-wrap items-center justify-start gap-x-3 gap-y-2 text-2xl leading-[1.1] font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
+					class="font-heading flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-lg leading-[1.2] font-bold tracking-tight sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"
 					in:fly={{ y: 40, duration: 700, delay: 0 }}
 				>
 					<span class="text-text">Alguns</span>
 					<span
-						class="inline-flex items-center gap-1.5 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1 text-sm font-semibold text-green-600 md:px-4 md:py-1.5 md:text-xl dark:text-green-400"
+						class="inline-flex items-center gap-1 rounded-full border border-green-500/30 bg-green-500/10 px-2.5 py-0.5 text-xs font-semibold text-green-600 md:px-3 md:py-1 md:text-base dark:text-green-400"
 					>
-						<Leaf size={16} class="md:h-5 md:w-5" />
+						<Leaf size={14} class="md:h-4 md:w-4" />
 						<span>jardins</span>
 					</span>
 					<span class="text-text">você</span>
@@ -29,9 +29,9 @@
 					<span class="text-primary">—</span>
 					<span class="text-muted font-normal">passeia entre as flores,</span>
 					<span
-						class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-pink-500/10 text-pink-500 md:h-10 md:w-10"
+						class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-pink-500/10 text-pink-500 md:h-8 md:w-8"
 					>
-						<Flower2 size={18} />
+						<Flower2 size={16} />
 					</span>
 					<span class="text-muted font-normal">tira fotos</span>
 					<span class="text-muted font-serif italic">e vai embora.</span>
@@ -39,24 +39,24 @@
 
 				<!-- Line 2 -->
 				<p
-					class="font-heading flex flex-wrap items-center justify-start gap-x-3 gap-y-2 text-2xl leading-[1.1] font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
+					class="font-heading flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-lg leading-[1.2] font-bold tracking-tight sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"
 					in:fly={{ y: 40, duration: 700, delay: 150 }}
 				>
 					<span class="text-text">Outros</span>
 					<span
-						class="bg-primary text-primary-contrast inline-flex h-9 w-9 items-center justify-center rounded-xl shadow-lg md:h-12 md:w-12"
+						class="bg-primary text-primary-contrast inline-flex h-8 w-8 items-center justify-center rounded-xl shadow-lg md:h-10 md:w-10"
 					>
-						<Sparkles size={20} strokeWidth={2.5} />
+						<Sparkles size={18} strokeWidth={2.5} />
 					</span>
 					<span class="text-text">você</span>
-					<span class="text-primary font-sans font-black tracking-wider">cultiva</span>
+					<span class="text-primary font-sans font-black">cultiva</span>
 					<span class="text-primary">—</span>
 					<span class="text-muted font-normal">planta sementes,</span>
 					<span class="text-muted font-normal">rega</span>
 					<span class="text-text font-serif italic">com paciência,</span>
 					<span class="text-muted font-normal">e espera</span>
 					<span
-						class="border-border bg-surface-elevated text-muted inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-semibold md:px-4 md:py-1.5 md:text-xl"
+						class="border-border bg-surface-elevated text-muted inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-semibold md:px-3 md:py-1 md:text-base"
 					>
 						<span>florescer</span>
 					</span>
@@ -64,7 +64,7 @@
 
 				<!-- Line 3 -->
 				<p
-					class="font-heading flex flex-wrap items-center justify-start gap-x-3 gap-y-2 text-2xl leading-[1.1] font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
+					class="font-heading flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-lg leading-[1.2] font-bold tracking-tight sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"
 					in:fly={{ y: 40, duration: 700, delay: 300 }}
 				>
 					<span class="text-text">Este aqui</span>
@@ -83,7 +83,7 @@
 					</span>
 					<span class="text-muted font-normal">sem pressa,</span>
 					<span class="text-text font-serif italic">seguindo sua</span>
-					<span class="text-primary font-sans font-black tracking-wider">intuição</span>
+					<span class="text-primary font-sans font-black">intuição</span>
 					<span
 						class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-purple-500/10 text-purple-500 md:h-10 md:w-10"
 					>

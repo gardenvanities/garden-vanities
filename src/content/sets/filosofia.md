@@ -3,7 +3,7 @@ slug: filosofia
 title: "Filosofia"
 description: "Reflexões sobre existência, conhecimento e a condição humana."
 cover:
-  url:
+  url: "cover/e"
   alt: "Ilustração filosófica abstrata"
 relatedSets:
   - produtividade

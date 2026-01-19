@@ -3,7 +3,7 @@ slug: engenharia-software
 title: "Engenharia de Software"
 description: "Notas sobre arquitetura, design patterns e boas práticas de desenvolvimento."
 cover:
-  url:
+  url: "cover/b"
   alt: "Código abstrato representando engenharia de software"
 relatedSets:
   - devops

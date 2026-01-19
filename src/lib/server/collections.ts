@@ -19,9 +19,7 @@ const seriesModules = import.meta.glob<SeriesMdModule>("/src/content/series/**/*
 	eager: true
 });
 
-export function getAllSeries(
-	filter: { status?: CollectionStatus[] } = {}
-): SeriesMetadata[] {
+export function getAllSeries(filter: { status?: CollectionStatus[] } = {}): SeriesMetadata[] {
 	const series: SeriesMetadata[] = [];
 
 	for (const path in seriesModules) {

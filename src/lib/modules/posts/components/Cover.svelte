@@ -20,11 +20,11 @@
 	}: Props = $props();
 </script>
 
-<figure class="clounary-image">
+<figure class="cloudinary-image">
 	<img
 		src={buildCloudinaryUrl(publicId, { width })}
 		srcset={buildSrcSet(publicId)}
-		sizes="(max-width 768) 100vw, (max-width: 1200px) 80vw, 1200px"
+		sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
 		{alt}
 		loading={priority ? "eager" : "lazy"}
 		decoding={priority ? "sync" : "async"}
@@ -32,8 +32,9 @@
 		class="h-auto w-full rounded-md object-cover"
 	/>
 	{#if caption}
-		<figcaption class="text-muted-foreground mt-2 text-center text-sm">
+		<figcaption class="text-muted mt-2 text-center text-sm">
 			{caption}
 		</figcaption>
 	{/if}
 </figure>
+

@@ -19,6 +19,7 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 		return {
 			...set,
 			postCount: setPosts.length,
+			count: setPosts.length,
 			href: `/sets/${encodeURIComponent(set.slug)}`
 		};
 	});

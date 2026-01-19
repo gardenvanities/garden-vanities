@@ -3,7 +3,7 @@ slug: saude
 title: "Saúde"
 description: "Protocolos e insights sobre bem-estar físico e mental."
 cover:
-  url:
+  url: "cover/e"
   alt: "Ilustração de saúde e bem-estar"
 relatedSets:
   - produtividade

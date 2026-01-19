@@ -134,6 +134,41 @@ We are using Tailwind 4.0.
 - **Features**: We can use `oklch()` colors natively.
 - **Directives**: Use `@theme` to extend the system, not `tailwind.config.js`.
 
+### 🎨 Gradient Syntax (IMPORTANT - Common Issue)
+
+**⚠️ Breaking Change from v3**: In Tailwind v4, gradient syntax has changed.
+
+**❌ DEPRECATED (v3 syntax)**:
+
+```svelte
+<!-- DO NOT USE THESE -->
+<div class="bg-gradient-to-t from-black to-white">
+<div class="bg-gradient-to-r from-primary to-secondary">
+<div class="bg-gradient-to-br from-surface to-elevated">
+```
+
+**✅ CORRECT (v4 syntax)**:
+
+```svelte
+<!-- USE THESE INSTEAD -->
+<div class="bg-linear-to-t from-black to-white">
+<div class="bg-linear-to-r from-primary to-secondary">
+<div class="bg-linear-to-br from-surface to-elevated">
+```
+
+**Migration Rule**: Replace all `bg-gradient-to-*` with `bg-linear-to-*`:
+
+- `bg-gradient-to-t` → `bg-linear-to-t`
+- `bg-gradient-to-r` → `bg-linear-to-r`
+- `bg-gradient-to-b` → `bg-linear-to-b`
+- `bg-gradient-to-l` → `bg-linear-to-l`
+- `bg-gradient-to-tr` → `bg-linear-to-tr`
+- `bg-gradient-to-tl` → `bg-linear-to-tl`
+- `bg-gradient-to-br` → `bg-linear-to-br`
+- `bg-gradient-to-bl` → `bg-linear-to-bl`
+
+**Why?**: Tailwind v4 renamed these classes to be more explicit and align with CSS gradient terminology (`linear-gradient`). Using the old syntax will trigger linter warnings and may be removed in future versions.
+
 ---
 
 ## 7. Extended Policies

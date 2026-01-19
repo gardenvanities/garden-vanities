@@ -1,6 +1,6 @@
 import { getAllSeries } from "$lib/server/collections";
 import { getAllPosts } from "$lib/server/posts";
-import type { PageServerLoad } from "./$types";
+import type { PageServerLoad} from "./$types";
 
 export const load: PageServerLoad = async ({ setHeaders }) => {
 	setHeaders({
@@ -15,9 +15,7 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 
 	// Enrich series with post counts and lastUpdated
 	const enrichedSeries = allSeries.map((series) => {
-		const seriesPosts = allPosts.filter(
-			(post) => post.series?.slug === series.slug
-		);
+		const seriesPosts = allPosts.filter((post) => post.series?.slug === series.slug);
 
 		const lastUpdated = seriesPosts.reduce((latest, post) => {
 			const postDate = post.updatedAt || post.publishedAt || "";
@@ -40,3 +38,4 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 		series: sortedSeries
 	};
 };
+

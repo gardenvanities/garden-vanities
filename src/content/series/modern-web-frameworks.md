@@ -4,7 +4,7 @@ title: "Modern Web Frameworks"
 description: "Uma jornada explorando Svelte, React e o futuro da web."
 status: ongoing
 cover:
-  url:
+  url: "cover/c"
   alt: "Logos de frameworks web modernos"
 resources:
   - title: "Repositório de Código"

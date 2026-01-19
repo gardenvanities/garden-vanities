@@ -42,7 +42,9 @@
 		<div class="space-y-2">
 			<h4 class="text-muted text-[10px] font-bold tracking-widest uppercase">Série</h4>
 			<p class="text-text text-sm font-medium">
-				<a href="/series/{post.series.slug}" class="text-primary hover:underline">{post.series.slug}</a>
+				<a href="/series/{post.series.slug}" class="text-primary hover:underline"
+					>{post.series.slug}</a
+				>
 				{#if typeof post.series.order !== "undefined"}
 					<span class="text-muted ml-1">
 						(Parte {post.series.order})

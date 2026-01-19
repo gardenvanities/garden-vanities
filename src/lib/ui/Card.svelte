@@ -25,7 +25,7 @@
 		...rest
 	}: Props = $props();
 
-	const baseStyles = "block rounded-md transition-all duration-200";
+	const baseStyles = "block rounded-sm transition-all duration-200";
 
 	const variants = {
 		default: "bg-surface border border-border shadow-sm hover:border-border-vivid hover:shadow-md",

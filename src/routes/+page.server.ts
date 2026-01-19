@@ -19,6 +19,8 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 			return {
 				slug: set.slug,
 				title: set.title,
+				description: set.description,
+				cover: set.cover,
 				count: postCount,
 				href: `/sets/${encodeURIComponent(set.slug)}`
 			};
@@ -41,25 +43,19 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 			return {
 				slug: s.slug,
 				title: s.title,
-				count: postCount,
+				description: s.description,
+				cover: s.cover,
+				status: s.status,
+				postCount,
 				lastUpdated
 			};
 		})
-		.filter((s) => s.count > 0)
+		.filter((s) => s.postCount > 0)
 		.sort((a, b) => b.lastUpdated.localeCompare(a.lastUpdated))
 		.slice(0, 3);
 
-	const freshPosts = [...allPosts]
-		.sort((a, b) => {
-			const dateA = new Date(a.updatedAt || a.publishedAt || 0).getTime();
-			const dateB = new Date(b.updatedAt || b.publishedAt || 0).getTime();
-			return dateB - dateA;
-		})
-		.slice(0, 6);
-
 	return {
 		sets,
-		series,
-		freshPosts
+		series
 	};
 };

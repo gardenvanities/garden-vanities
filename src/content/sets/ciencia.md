@@ -3,7 +3,7 @@ slug: ciencia
 title: "Ciência"
 description: "Exploração de fronteiras científicas, da computação quântica à biologia."
 cover:
-  url:
+  url: "cover/c"
   alt: "Ilustração científica abstrata"
 relatedSets:
   - botanica

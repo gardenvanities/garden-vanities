@@ -4,25 +4,28 @@
 	import Section from "$lib/layout/Section.svelte";
 	import Grid from "$lib/layout/Grid.svelte";
 	import SectionHeader from "$lib/modules/garden/components/SectionHeader.svelte";
-	import PostCard from "$lib/modules/posts/components/PostCard.svelte";
-	import Card from "$lib/ui/Card.svelte";
+	import SetCard from "$lib/modules/garden/components/SetCard.svelte";
 	import Hero from "./_components/Hero.svelte";
-	import { formatRelativeDate } from "$lib/modules/posts/utils/date";
 	import { fly } from "svelte/transition";
+	import { buildCloudinaryUrl } from "$lib/shared/cloudinary";
 
-	import { FolderOpen, Sparkles, Library } from "@lucide/svelte";
-	import type { PostFrontmatter } from "$lib/modules/posts/types";
+	import { FolderOpen, Library, Layers } from "@lucide/svelte";
 
 	interface SeriesItem {
 		slug: string;
 		title: string;
-		count: number;
+		description?: string;
+		cover?: { url: string; alt?: string };
+		status: string;
+		postCount: number;
 		lastUpdated: string;
 	}
 
 	interface SetItem {
 		slug: string;
 		title: string;
+		description?: string;
+		cover?: { url: string; alt?: string };
 		count: number;
 		href: string;
 	}
@@ -31,11 +34,19 @@
 		data: {
 			sets: SetItem[];
 			series: SeriesItem[];
-			freshPosts: PostFrontmatter[];
 		};
 	}
 
 	let { data }: Props = $props();
+
+	function getStatusLabel(status: string) {
+		const labels: Record<string, string> = {
+			ongoing: "Em andamento",
+			completed: "Completa",
+			archived: "Arquivada"
+		};
+		return labels[status] || labels.ongoing;
+	}
 </script>
 
 <SEO title="Garden of Vanities" type="website" />
@@ -59,21 +70,7 @@
 
 					<Grid cols={3} gap="md">
 						{#each data.sets as set (set.slug)}
-							<Card
-								as="a"
-								href={set.href}
-								class="group flex items-center justify-between p-4 transition-all hover:-translate-y-1"
-								variant="default"
-							>
-								<span class="text-text group-hover:text-primary font-medium transition-colors">
-									{set.title}
-								</span>
-								<span
-									class="bg-surface-elevated text-muted rounded-full px-2 py-0.5 text-xs font-bold"
-								>
-									{set.count}
-								</span>
-							</Card>
+							<SetCard {set} class="h-96" />
 						{/each}
 					</Grid>
 				</div>
@@ -93,44 +90,69 @@
 
 					<Grid cols={3} gap="md">
 						{#each data.series as serie (serie.slug)}
-							<Card
-								as="a"
+							{@const statusInfo = getStatusLabel(serie.status)}
+							<a
 								href="/series/{serie.slug}"
-								class="group relative flex flex-col gap-3 p-5 transition-all duration-300 hover:-translate-y-1"
-								variant="default"
+								class="group relative block h-[400px] overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 							>
-								<div class="flex items-center justify-between">
-									<h3
-										class="font-heading text-text group-hover:text-primary text-lg font-bold transition-colors"
+								<!-- Background Image -->
+								{#if serie.cover?.url}
+									<img
+										src={buildCloudinaryUrl(serie.cover.url, { width: 800, height: 600, crop: "fill" })}
+										alt={serie.cover.alt || serie.title}
+										class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+									/>
+								{:else}
+									<!-- Fallback gradient background -->
+									<div class="bg-primary/10 absolute inset-0 bg-linear-to-br from-primary/20 to-primary/5"></div>
+								{/if}
+
+								<!-- Layers Icon - Top Left (Series Identifier) -->
+								<div class="absolute top-4 left-4 z-20">
+									<div
+										class="flex items-center justify-center rounded-sm border border-white/10 bg-black/40 p-2 backdrop-blur-md transition-all duration-300 group-hover:border-white/20 group-hover:bg-black/50"
 									>
+										<Layers size={16} class="text-white/90" />
+									</div>
+								</div>
+
+								<!-- Badges - Top Right -->
+								<div class="absolute top-4 right-4 z-20 flex items-center gap-2">
+									<!-- Post Count Tag -->
+									<span
+										class="flex items-center gap-1.5 rounded-sm border border-white/10 bg-black/40 px-3 py-1 text-xs font-medium text-white backdrop-blur-md transition-all duration-300 group-hover:border-white/20 group-hover:bg-black/50"
+									>
+										{serie.postCount}
+										{serie.postCount === 1 ? "parte" : "partes"}
+									</span>
+
+									<!-- Status Tag -->
+									<span
+										class="rounded-sm border border-white/10 bg-black/40 px-3 py-1 text-xs font-medium text-white backdrop-blur-md transition-all duration-300 group-hover:border-white/20 group-hover:bg-black/50"
+									>
+										{statusInfo}
+									</span>
+								</div>
+
+								<!-- Gradient Overlay -->
+								<div
+									class="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col justify-end gap-2 bg-linear-to-t from-black/90 via-black/60 to-transparent p-5 pb-5 pt-16 transition-all duration-300"
+								>
+									<!-- Title -->
+									<h3 class="font-heading text-xl font-bold leading-tight text-white">
 										{serie.title}
 									</h3>
-									<Library
-										size={16}
-										class="text-muted group-hover:text-primary transition-colors"
-									/>
-								</div>
 
-								<div class="text-muted mt-auto flex items-center justify-between pt-2 text-xs">
-									<span>{serie.count} partes</span>
-									<span>Atualizado {formatRelativeDate(serie.lastUpdated)}</span>
+									<!-- Description -->
+									{#if serie.description}
+										<p class="line-clamp-2 text-sm text-white/80">
+											{serie.description}
+										</p>
+									{/if}
 								</div>
-							</Card>
+							</a>
 						{/each}
 					</Grid>
-				</div>
-			{/if}
-
-			{#if data.freshPosts.length > 0}
-				<div class="space-y-8">
-					<SectionHeader title="Atividade Recente" icon={Sparkles} />
-					<div class="space-y-6">
-						{#each data.freshPosts as post (post.slug)}
-							<div class="group">
-								<PostCard {post} compact />
-							</div>
-						{/each}
-					</div>
 				</div>
 			{/if}
 		</div>

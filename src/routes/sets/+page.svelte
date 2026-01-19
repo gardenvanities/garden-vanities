@@ -3,7 +3,7 @@
 	import Container from "$lib/layout/Container.svelte";
 	import Section from "$lib/layout/Section.svelte";
 	import Grid from "$lib/layout/Grid.svelte";
-	import { FolderOpen, ArrowRight, FileText } from "@lucide/svelte";
+	import SetCard from "$lib/modules/garden/components/SetCard.svelte";
 	import { fly } from "svelte/transition";
 
 	let { data } = $props();
@@ -24,43 +24,9 @@
 
 			<Grid cols={3} gap="lg">
 				{#each data.sets as set, i (set.slug)}
-					<a
-						href={set.href}
-						in:fly={{ y: 20, duration: 800, delay: i * 50 }}
-						class="bg-surface group border-border hover:border-border-vivid relative flex flex-col gap-4 rounded-xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-					>
-						<div class="flex items-center justify-between">
-							<div
-								class="bg-primary/5 text-primary flex h-10 w-10 items-center justify-center rounded-lg"
-							>
-								<FolderOpen size={20} />
-							</div>
-							<span
-								class="bg-surface-elevated text-muted flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold"
-							>
-								<FileText size={12} />
-								{set.postCount}
-							</span>
-						</div>
-
-						<div class="flex-1">
-							<h3
-								class="font-heading text-text group-hover:text-primary text-xl leading-tight font-bold transition-colors"
-							>
-								{set.title}
-							</h3>
-							{#if set.description}
-								<p class="text-muted mt-2 line-clamp-2 text-sm">
-									{set.description}
-								</p>
-							{/if}
-						</div>
-
-						<div class="text-muted mt-auto flex items-center gap-2 text-xs font-medium">
-							<span>Explorar set</span>
-							<ArrowRight size={14} class="transition-transform group-hover:translate-x-1" />
-						</div>
-					</a>
+					<div in:fly={{ y: 20, duration: 800, delay: i * 50 }}>
+						<SetCard {set} class="h-96" />
+					</div>
 				{/each}
 			</Grid>
 		</div>

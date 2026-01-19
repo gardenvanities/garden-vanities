@@ -3,7 +3,15 @@
 	import Container from "$lib/layout/Container.svelte";
 	import Section from "$lib/layout/Section.svelte";
 	import PostCard from "$lib/modules/posts/components/PostCard.svelte";
-	import { Library, ArrowLeft, ExternalLink, Github, Youtube, FileText, Link } from "@lucide/svelte";
+	import {
+		Library,
+		ArrowLeft,
+		ExternalLink,
+		Github,
+		Youtube,
+		FileText,
+		Link
+	} from "@lucide/svelte";
 	import { fly } from "svelte/transition";
 	import type { ResourceLink } from "$lib/modules/posts/collections";
 
@@ -34,7 +42,8 @@
 
 <SEO
 	title="{data.series.title} | Séries do Jardim"
-	description={data.series.description || `Uma coleção de notas ordenadas sobre ${data.series.title}.`}
+	description={data.series.description ||
+		`Uma coleção de notas ordenadas sobre ${data.series.title}.`}
 />
 
 <Section class="py-12">
@@ -50,7 +59,7 @@
 		<div in:fly={{ y: 20, duration: 800 }}>
 			<!-- Series Header -->
 			<div class="mb-12 text-center">
-				<div class="flex items-center justify-center gap-3 mb-6">
+				<div class="mb-6 flex items-center justify-center gap-3">
 					<div
 						class="bg-primary/10 text-primary flex h-16 w-16 items-center justify-center rounded-2xl"
 					>
@@ -65,20 +74,21 @@
 				<h1 class="font-heading text-text mt-4 mb-4 text-4xl font-bold">{data.series.title}</h1>
 
 				{#if data.series.description}
-					<p class="text-muted text-xl max-w-2xl mx-auto">
+					<p class="text-muted mx-auto max-w-2xl text-xl">
 						{data.series.description}
 					</p>
 				{/if}
 
-				<p class="text-muted text-sm mt-4">
-					{data.posts.length} {data.posts.length === 1 ? "parte" : "partes"} nesta coleção.
+				<p class="text-muted mt-4 text-sm">
+					{data.posts.length}
+					{data.posts.length === 1 ? "parte" : "partes"} nesta coleção.
 				</p>
 			</div>
 
 			<!-- Resources Section -->
 			{#if data.series.resources && data.series.resources.length > 0}
-				<div class="bg-surface-elevated border-border rounded-xl border p-6 mb-10">
-					<h2 class="text-text font-heading text-lg font-bold mb-4">Recursos da Série</h2>
+				<div class="bg-surface-elevated border-border mb-10 rounded-xl border p-6">
+					<h2 class="text-text font-heading mb-4 text-lg font-bold">Recursos da Série</h2>
 					<div class="flex flex-wrap gap-3">
 						{#each data.series.resources as resource (resource.url)}
 							{@const IconComponent = getResourceIcon(resource.type)}
