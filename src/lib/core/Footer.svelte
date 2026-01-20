@@ -1,90 +1,153 @@
 <script lang="ts">
-	import { Github, Twitter, Mail } from "@lucide/svelte";
+	import { Github, Twitter, Mail, Rss } from "@lucide/svelte";
 	import ThemeToggle from "$lib/core/theme/ThemeToggle.svelte";
+	import { onMount } from "svelte";
 
 	const currentYear = new Date().getFullYear();
+
+	const socialLinks = [
+		{ href: "https://github.com/themageking", label: "GitHub", icon: Github },
+		{ href: "https://twitter.com/themageking", label: "Twitter", icon: Twitter },
+		{ href: "mailto:contato@exemplo.com", label: "Email", icon: Mail },
+		{ href: "/rss.xml", label: "RSS Feed", icon: Rss }
+	];
+
+	let svgText: SVGTextElement;
+	let viewBox = "0 0 0 0";
+
+	onMount(() => {
+		const updateBox = () => {
+			if (svgText) {
+				const { x, y, width, height } = svgText.getBBox();
+				viewBox = `${x} ${y} ${width} ${height}`;
+			}
+		};
+
+		document.fonts.ready.then(updateBox);
+		updateBox();
+	});
 </script>
 
-<footer class="border-border bg-bg mt-20 border-t">
-	<div class="mx-auto max-w-5xl px-6 py-12">
-		<div class="flex flex-col items-center justify-between gap-8 md:flex-row md:items-start">
-			<div class="flex flex-col items-center gap-4 text-center md:items-start md:text-left">
-				<div class="flex items-center gap-2">
-					<div class="bg-primary h-2 w-2 animate-pulse rounded-full"></div>
-					<span class="text-text font-serif text-lg font-semibold tracking-tight">
-						Garden of Vanities
-					</span>
-				</div>
-				<p class="text-muted max-w-xs text-sm leading-relaxed">
-					"Vaidade de vaidades, diz o pregador; vaidade de vaidades, tudo é vaidade" <b
-						>Eclesiastes 1:2</b
-					>
-				</p>
-			</div>
-
-			<nav class="flex flex-col items-center gap-4 md:items-start">
-				<span class="text-muted text-[10px] font-bold tracking-widest uppercase">Navegação</span>
-				<ul
-					class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-medium md:flex-col md:gap-3"
-				>
+<footer class="bg-surface/30 border-border/30 mt-32 border-t">
+	<!-- Links Grid -->
+	<div class="mx-auto max-w-6xl px-4 sm:px-6">
+		<div class="border-border/30 grid grid-cols-2 gap-8 border-b py-10 sm:gap-10 sm:py-12 lg:grid-cols-4">
+			<!-- Navegação -->
+			<div>
+				<h4 class="font-sans text-muted mb-3 text-[10px] font-bold uppercase tracking-widest sm:mb-4">
+					Navegação
+				</h4>
+				<ul class="list-none p-0 space-y-2 sm:space-y-2.5">
 					<li>
-						<a href="/garden" class="text-text hover:text-primary transition-colors"> O Jardim </a>
-					</li>
-					<li>
-						<a href="/explore" class="text-text hover:text-primary transition-colors"> Explorar </a>
-					</li>
-					<li>
-						<a href="/sobre" class="text-text hover:text-primary transition-colors"> Sobre nós </a>
-					</li>
-					<li>
-						<a href="/termos" class="text-text hover:text-primary transition-colors">
-							Termos de uso
+						<a href="/explore" class="text-text/80 hover:text-text text-sm transition-colors">
+							Explorar
 						</a>
 					</li>
 					<li>
-						<a href="/author" class="text-text hover:text-primary transition-colors"> Autor </a>
+						<a href="/series" class="text-text/80 hover:text-text text-sm transition-colors">
+							Séries
+						</a>
+					</li>
+					<li>
+						<a href="/sets" class="text-text/80 hover:text-text text-sm transition-colors">
+							Coleções
+						</a>
 					</li>
 				</ul>
-			</nav>
+			</div>
 
-			<div class="flex flex-col items-center gap-4 md:items-start">
-				<span class="text-muted text-[10px] font-bold tracking-widest uppercase">Conectar</span>
-				<div class="flex items-center gap-4">
-					<a
-						href="https://github.com/themageking"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-muted hover:text-text transition-all hover:-translate-y-0.5"
-						aria-label="GitHub"
-					>
-						<Github size={20} />
-					</a>
-					<a
-						href="https://twitter.com/themageking"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-muted hover:text-text transition-all hover:-translate-y-0.5"
-						aria-label="Twitter/X"
-					>
-						<Twitter size={20} />
-					</a>
-					<a
-						href="mailto:contato@exemplo.com"
-						class="text-muted hover:text-text transition-all hover:-translate-y-0.5"
-						aria-label="Email"
-					>
-						<Mail size={20} />
-					</a>
-					<div class="bg-border h-4 w-px"></div>
-					<ThemeToggle />
-				</div>
+			<!-- Conteúdo -->
+			<div>
+				<h4 class="font-sans text-muted mb-3 text-[10px] font-bold uppercase tracking-widest sm:mb-4">
+					Conteúdo
+				</h4>
+				<ul class="list-none p-0 space-y-2 sm:space-y-2.5">
+					<li>
+						<a href="/changelog" class="text-text/80 hover:text-text text-sm transition-colors">
+							Changelog
+						</a>
+					</li>
+					<li>
+						<a href="/tags" class="text-text/80 hover:text-text text-sm transition-colors">
+							Tags
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<!-- Sobre -->
+			<div>
+				<h4 class="font-sans text-muted mb-3 text-[10px] font-bold uppercase tracking-widest sm:mb-4">
+					Sobre
+				</h4>
+				<ul class="list-none p-0 space-y-2 sm:space-y-2.5">
+					<li>
+						<a href="/about" class="text-text/80 hover:text-text text-sm transition-colors">
+							O Jardim
+						</a>
+					</li>
+					<li>
+						<a href="/author" class="text-text/80 hover:text-text text-sm transition-colors">
+							Autor
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<!-- Conectar -->
+			<div>
+				<h4 class="font-sans text-muted mb-3 text-[10px] font-bold uppercase tracking-widest sm:mb-4">
+					Conectar
+				</h4>
+				<ul class="list-none p-0 space-y-2 sm:space-y-2.5">
+					{#each socialLinks as { href, label, icon }}
+						<li>
+							<a
+								{href}
+								target={href.startsWith("http") ? "_blank" : undefined}
+								rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+								class="text-text/80 hover:text-text inline-flex items-center gap-2 text-sm transition-colors"
+							>
+								<svelte:component this={icon} size={14} class="opacity-60" />
+								{label}
+							</a>
+						</li>
+					{/each}
+				</ul>
 			</div>
 		</div>
 
-		<div
-			class="border-border text-muted/60 mt-12 flex flex-col items-center justify-between border-t pt-8 text-[11px] md:flex-row"
-		>
-			<p>© {currentYear} Garden of Vanities. Todos os direitos reservados.</p>
+		<!-- Brand Text - Fluid Width -->
+		<div class="w-full py-8 sm:py-10">
+			<svg
+				{viewBox}
+				class="text-text block h-auto w-full select-none"
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<text
+					bind:this={svgText}
+					x="50%"
+					y="50%"
+					font-size="100"
+					dominant-baseline="central"
+					text-anchor="middle"
+					class="font-serif fill-current font-bold tracking-tighter"
+				>
+					Garden of Vanities.
+				</text>
+			</svg>
+			<span class="sr-only">Garden of Vanities.</span>
+		</div>
+
+		<!-- Bottom Meta Row -->
+		<div class="border-border/30 flex flex-wrap items-center justify-between gap-4 border-t py-5">
+			<div class="flex items-center gap-3 sm:gap-4">
+				<span class="text-muted/40 text-[10px] sm:text-xs">© {currentYear}</span>
+				<div class="bg-border/30 h-3 w-px sm:h-4"></div>
+				<span class="text-muted/40 text-[10px] sm:text-xs">SvelteKit</span>
+			</div>
+			<ThemeToggle />
 		</div>
 	</div>
 </footer>

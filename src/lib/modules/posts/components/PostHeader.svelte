@@ -64,174 +64,64 @@
 	const fallbackGradient = $derived(getGradientFromSlug(metadata.slug));
 </script>
 
-<header class="article-header has-cover">
+<header
+	class="relative flex min-h-[50vh] flex-col justify-end overflow-hidden rounded-2xl p-8 md:min-h-[55vh] md:p-12"
+>
 	<!-- Background -->
-	<div class="header-background">
+	<div class="absolute inset-0 z-0">
 		{#if hasCover && coverUrl}
-			<img 
-				src={coverUrl} 
-				alt="" 
-				class="background-image"
-				loading="eager"
-			/>
+			<img src={coverUrl} alt="" class="h-full w-full object-cover object-center" loading="eager" />
 		{:else}
-			<div class="background-gradient" style:background={fallbackGradient}></div>
+			<div class="h-full w-full" style:background={fallbackGradient}></div>
 		{/if}
-		<div class="background-overlay"></div>
+		<div
+			class="absolute inset-0 bg-linear-to-t from-black/85 via-black/60 to-transparent"
+		></div>
 	</div>
 
 	<!-- Content -->
-	<div class="header-content">
+	<div class="relative z-10 flex max-w-4xl flex-col items-start gap-4">
 		<!-- Top Meta Row -->
-		<div class="header-meta" in:fade={{ duration: 400, delay: 100 }}>
+		<div
+			class="flex flex-wrap items-center gap-3 text-sm"
+			in:fade={{ duration: 400, delay: 100 }}
+		>
 			{#if metadata.kind}
-				<span class="meta-kind">{getKindLabel(metadata.kind)}</span>
+				<span
+					class="bg-white/15 border-white/20 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.05em] text-white backdrop-blur-sm"
+					>{getKindLabel(metadata.kind)}</span
+				>
 			{/if}
 
 			{#if metadata.publishedAt}
-				<span class="meta-separator">•</span>
-				<time class="meta-date" datetime={metadata.publishedAt.toString()}>
+				<span class="text-white opacity-40">•</span>
+				<time
+					class="font-medium text-white/80"
+					datetime={metadata.publishedAt.toString()}
+				>
 					{formatDate(metadata.publishedAt)}
 				</time>
-			{/if}
-
-			{#if metadata.readingTime}
-				<span class="meta-separator">•</span>
-				<span class="meta-reading">{metadata.readingTime} min de leitura</span>
 			{/if}
 		</div>
 
 		<!-- Title -->
-		<h1 class="header-title" in:fly={{ y: 20, duration: 600, delay: 150 }}>
+		<h1
+			class="font-article-title text-shadow-lg my-2 text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.15] tracking-[-0.02em] text-white text-balance"
+			in:fly={{ y: 20, duration: 600, delay: 150 }}
+		>
 			{metadata.title}
 		</h1>
 
 		<!-- Subtitle -->
 		{#if metadata.subtitle}
-			<p class="header-subtitle" in:fly={{ y: 15, duration: 500, delay: 250 }}>
+			<p
+				class="font-article-body text-shadow-sm my-0 max-w-[42ch] text-xl font-normal leading-[1.6] text-white/85 text-balance"
+				in:fly={{ y: 15, duration: 500, delay: 250 }}
+			>
 				{metadata.subtitle}
 			</p>
 		{/if}
 	</div>
 </header>
 
-<style>
-	.article-header {
-		position: relative;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end;
-		border-radius: 1rem;
-		overflow: hidden;
-		min-height: 50vh;
-		padding: 2rem;
-	}
 
-	@media (min-width: 768px) {
-		.article-header {
-			min-height: 55vh;
-			padding: 3rem;
-		}
-	}
-
-	/* Background */
-	.header-background {
-		position: absolute;
-		inset: 0;
-		z-index: 0;
-	}
-
-	.background-image {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: center;
-	}
-
-	.background-gradient {
-		width: 100%;
-		height: 100%;
-	}
-
-	.background-overlay {
-		position: absolute;
-		inset: 0;
-		background: linear-gradient(
-			to top,
-			oklch(0% 0 0 / 0.85) 0%,
-			oklch(0% 0 0 / 0.6) 35%,
-			oklch(0% 0 0 / 0.3) 70%,
-			oklch(0% 0 0 / 0.1) 100%
-		);
-	}
-
-	/* Content */
-	.header-content {
-		position: relative;
-		z-index: 1;
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 1rem;
-		max-width: 56rem;
-	}
-
-	/* Meta Row */
-	.header-meta {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-		flex-wrap: wrap;
-		font-size: 0.875rem;
-	}
-
-	.meta-kind {
-		padding: 0.25rem 0.75rem;
-		border-radius: 9999px;
-		font-size: 0.75rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		background: oklch(100% 0 0 / 0.15);
-		color: white;
-		border: 1px solid oklch(100% 0 0 / 0.2);
-		backdrop-filter: blur(4px);
-	}
-
-	.meta-separator {
-		color: white;
-		opacity: 0.4;
-	}
-
-	.meta-date,
-	.meta-reading {
-		color: oklch(100% 0 0 / 0.8);
-		font-weight: 450;
-	}
-
-	/* Title */
-	.header-title {
-		font-family: var(--font-article-title);
-		font-size: clamp(2rem, 5vw, 3.5rem);
-		font-weight: 700;
-		line-height: 1.15;
-		letter-spacing: -0.02em;
-		color: white;
-		margin: 0.5rem 0 0 0;
-		text-wrap: balance;
-		text-shadow: 0 2px 20px oklch(0% 0 0 / 0.3);
-	}
-
-	/* Subtitle */
-	.header-subtitle {
-		font-family: var(--font-article-body);
-		font-size: 1.25rem;
-		line-height: 1.6;
-		color: oklch(100% 0 0 / 0.85);
-		font-weight: 400;
-		margin: 0;
-		text-wrap: balance;
-		max-width: 42ch;
-		text-shadow: 0 1px 10px oklch(0% 0 0 / 0.2);
-	}
-</style>

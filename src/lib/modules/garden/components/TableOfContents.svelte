@@ -67,31 +67,33 @@
 </script>
 
 {#if headings.length > 0}
-	<nav class="hidden h-fit w-64 lg:sticky lg:top-24 lg:block" aria-label={title}>
+	<nav class="block h-fit w-full lg:sticky lg:top-24" aria-label={title}>
 		<h4 class="text-muted font-body mb-4 text-xs font-bold tracking-widest uppercase">
 			{title}
 		</h4>
 
-		<ul class="border-border space-y-3 border-l py-1">
+		<ul class="space-y-2">
 			{#each headings as { id, text, level }, i (id)}
+				{@const isActive = activeId === id}
+				{@const indent = level === 2 ? "pl-0" : level === 3 ? "pl-4" : "pl-8"}
 				<li
-					class={level === 3 ? "ml-4" : ""}
+					class={indent}
 					in:fly={{ x: 10, duration: 600, delay: 400 + i * 50 }}
 				>
 					<a
 						href="#{id}"
-						class="block text-sm transition-all duration-300 {activeId === id
+						class="group flex items-center gap-2 py-1 text-sm transition-all duration-300 {isActive
 							? 'text-primary font-medium'
 							: 'text-muted hover:text-text'}"
 						onclick={(e) => handleAnchorClick(e, id)}
 					>
+						<!-- Dot Indicator -->
 						<span
-							class="mr-2 inline-block h-px w-3 bg-current opacity-20 transition-all {activeId ===
-							id
-								? 'w-6 opacity-100'
-								: ''}"
+							class="h-1.5 w-1.5 shrink-0 rounded-full transition-all duration-300 {isActive
+								? 'bg-primary scale-100 opacity-100'
+								: 'bg-muted scale-75 opacity-0 group-hover:scale-100 group-hover:opacity-50'}"
 						></span>
-						{text}
+						<span class="leading-snug">{text}</span>
 					</a>
 				</li>
 			{/each}

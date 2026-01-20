@@ -41,7 +41,7 @@
 	}
 </script>
 
-<figure class="cloudinary-image {className}">
+<figure class="relative overflow-hidden {className}">
 	<!-- LQIP Background -->
 	{#if !priority && lqip && !loaded}
 		<img
@@ -85,9 +85,4 @@
 	{/if}
 </figure>
 
-<style>
-	.cloudinary-image {
-		position: relative;
-		overflow: hidden;
-	}
-</style>
+

@@ -60,3 +60,44 @@
 		animation: none !important;
 	}
 }
+
+/* Article Layout - Fluido com Sidebar Colapsável */
+@layer components {
+	.article-layout {
+		display: flex;
+		gap: 3rem;
+	}
+
+	.article-sidebar {
+		flex-shrink: 0;
+		width: 280px;
+		opacity: 1;
+		transform: translateX(0);
+		transition:
+			width 500ms var(--motion-ease-out-quint),
+			opacity 300ms var(--motion-ease-out),
+			transform 400ms var(--motion-ease-out-quint);
+		will-change: width, opacity, transform;
+	}
+
+	.article-sidebar.collapsed {
+		width: 0;
+		opacity: 0;
+		transform: translateX(-20px);
+		overflow: hidden;
+		pointer-events: none;
+	}
+
+	.article-content {
+		flex: 1;
+		min-width: 0; /* Prevent overflow */
+		transition: transform 500ms var(--motion-ease-out-quint);
+	}
+}
+
+/* Mobile: Sidebar completamente oculta, gerenciada pelo Drawer */
+@media (max-width: 1023px) {
+	.article-sidebar {
+		display: none;
+	}
+}

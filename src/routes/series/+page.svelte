@@ -28,16 +28,29 @@
 	<Container size="lg">
 		<div in:fly={{ y: 20, duration: 800 }}>
 			<!-- Premium Page Header -->
-			<header class="page-header mb-16 md:mb-20">
-				<div class="header-content">
-					<div class="header-icon" in:fade={{ duration: 600, delay: 200 }}>
+			<!-- Premium Page Header -->
+			<header class="mb-16 flex flex-col items-center text-center md:mb-20">
+				<div class="flex flex-col items-center gap-4">
+					<div
+						class="bg-primary/8 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-full"
+						in:fade={{ duration: 600, delay: 200 }}
+					>
 						<Layers size={20} strokeWidth={1.5} />
 					</div>
-					<h1 class="header-title" in:fly={{ y: 15, duration: 700, delay: 100 }}>
+					<h1
+						class="font-heading text-text my-0 text-[clamp(2.5rem,6vw,4rem)] font-bold leading-[1.1] tracking-[-0.02em]"
+						in:fly={{ y: 15, duration: 700, delay: 100 }}
+					>
 						Séries
 					</h1>
-					<div class="header-line" in:fade={{ duration: 800, delay: 300 }}></div>
-					<p class="header-subtitle" in:fly={{ y: 10, duration: 600, delay: 250 }}>
+					<div
+						class="bg-linear-to-r from-transparent via-primary/50 to-transparent my-2 h-0.5 w-16"
+						in:fade={{ duration: 800, delay: 300 }}
+					></div>
+					<p
+						class="text-muted my-0 max-w-[32ch] text-lg font-normal tracking-[0.01em]"
+						in:fly={{ y: 10, duration: 600, delay: 250 }}
+					>
 						Trilhas de conhecimento para ler em ordem
 					</p>
 				</div>
@@ -113,61 +126,4 @@
 	</Container>
 </Section>
 
-<style>
-	.page-header {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-	}
 
-	.header-content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 1rem;
-	}
-
-	.header-icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 3rem;
-		height: 3rem;
-		border-radius: 50%;
-		background: oklch(from var(--color-primary) l c h / 0.08);
-		color: var(--color-primary);
-		margin-bottom: 0.5rem;
-	}
-
-	.header-title {
-		font-family: var(--font-heading);
-		font-size: clamp(2.5rem, 6vw, 4rem);
-		font-weight: 700;
-		letter-spacing: -0.02em;
-		line-height: 1.1;
-		color: var(--color-text);
-		margin: 0;
-	}
-
-	.header-line {
-		width: 4rem;
-		height: 2px;
-		background: linear-gradient(
-			90deg,
-			transparent,
-			oklch(from var(--color-primary) l c h / 0.5),
-			transparent
-		);
-		margin: 0.5rem 0;
-	}
-
-	.header-subtitle {
-		font-size: 1.125rem;
-		color: var(--color-muted);
-		font-weight: 400;
-		letter-spacing: 0.01em;
-		max-width: 32ch;
-		margin: 0;
-	}
-</style>

@@ -1,87 +1,85 @@
 <script lang="ts">
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
-	import { Calendar, Layers, Network } from "@lucide/svelte";
+	import { Calendar, Hash, Layers, Network, Sprout } from "@lucide/svelte";
 	import { formatShortDate } from "$lib/modules/posts/utils/date";
-	import RipenessBadge from "$lib/modules/garden/components/RipenessBadge.svelte";
-	import KindBadge from "$lib/modules/garden/components/KindBadge.svelte";
 
 	let { metadata }: { metadata: PostFrontmatter } = $props();
 
 	const displayDate = $derived(metadata.updatedAt || metadata.publishedAt);
-	const dateLabel = $derived(metadata.updatedAt ? "Atualizado em" : "Criado em");
+	const dateLabel = $derived(metadata.updatedAt ? "Atualizado" : "Criado");
+
+	function getRipenessLabel(ripeness: string) {
+		const labels: Record<string, string> = {
+			seed: "Semente",
+			root: "Raiz",
+			fruit: "Fruto"
+		};
+		return labels[ripeness] || ripeness;
+	}
 </script>
 
-<aside class="flex flex-col gap-6 text-sm">
-	<div class="space-y-4">
-		<h4 class="text-muted mb-2 text-xs font-bold tracking-widest uppercase">Sobre esta nota</h4>
+<aside class="text-sm">
+	<h4 class="text-muted mb-4 text-xs font-bold tracking-widest uppercase">Metadados</h4>
 
-		<div class="flex flex-wrap gap-2">
-			{#if metadata.ripeness}
-				<RipenessBadge ripeness={metadata.ripeness} />
-			{/if}
-			{#if metadata.kind}
-				<KindBadge kind={metadata.kind} />
-			{/if}
-		</div>
+	<div class="space-y-3">
+		<!-- Ripeness -->
+		{#if metadata.ripeness}
+			<div class="text-muted flex items-center gap-2">
+				<Sprout size={14} class="shrink-0 opacity-60" />
+				<span class="text-text">{getRipenessLabel(metadata.ripeness)}</span>
+			</div>
+		{/if}
 
+		<!-- Date -->
 		{#if displayDate}
-			<div class="mt-2 flex items-start gap-3">
-				<div class="bg-surface border-border text-muted rounded-md border p-1.5">
-					<Calendar size={14} />
-				</div>
-				<div class="flex flex-col gap-0.5">
-					<span class="text-muted/70 text-[10px] font-bold tracking-wider uppercase"
-						>{dateLabel}</span
-					>
-					<time datetime={displayDate} class="text-text font-medium">
-						{formatShortDate(displayDate)}
-					</time>
-				</div>
+			<div class="text-muted flex items-center gap-2">
+				<Calendar size={14} class="shrink-0 opacity-60" />
+				<span class="text-text">{dateLabel} {formatShortDate(displayDate)}</span>
+			</div>
+		{/if}
+
+		<!-- Series -->
+		{#if metadata.series?.slug}
+			<div class="text-muted flex items-center gap-2">
+				<Layers size={14} class="shrink-0 opacity-60" />
+				<a
+					href="/series/{metadata.series.slug}"
+					class="text-primary decoration-primary/30 hover:underline underline-offset-4"
+				>
+					{metadata.series.slug}
+				</a>
+				{#if metadata.series.order}
+					<span class="text-muted text-xs">#{metadata.series.order}</span>
+				{/if}
+			</div>
+		{/if}
+
+		<!-- Set -->
+		{#if metadata.set}
+			<div class="text-muted flex items-center gap-2">
+				<Network size={14} class="shrink-0 opacity-60" />
+				<a
+					href="/sets/{encodeURIComponent(metadata.set)}"
+					class="text-primary decoration-primary/30 hover:underline underline-offset-4"
+				>
+					{metadata.set}
+				</a>
 			</div>
 		{/if}
 	</div>
 
-	{#if metadata.series || metadata.set}
-		<div class="border-border space-y-4 border-t pt-6">
-			<h4 class="text-muted mb-2 text-xs font-bold tracking-widest uppercase">Contexto</h4>
-
-			{#if metadata.series?.slug}
-				<div class="flex items-start gap-3">
-					<div class="bg-surface border-border text-muted rounded-md border p-1.5">
-						<Layers size={14} />
-					</div>
-					<div class="flex flex-col gap-0.5">
-						<span class="text-muted/70 text-[10px] font-bold tracking-wider uppercase">Série</span>
-						<a
-							href="/series/{metadata.series.slug}"
-							class="text-primary decoration-primary/30 leading-tight font-medium underline-offset-4 hover:underline"
-						>
-							{metadata.series.slug}
-						</a>
-						{#if metadata.series.order}
-							<span class="text-muted text-xs">Parte {metadata.series.order}</span>
-						{/if}
-					</div>
-				</div>
-			{/if}
-
-			{#if metadata.set}
-				<div class="flex items-start gap-3">
-					<div class="bg-surface border-border text-muted rounded-md border p-1.5">
-						<Network size={14} />
-					</div>
-					<div class="flex flex-col gap-0.5">
-						<span class="text-muted/70 text-[10px] font-bold tracking-wider uppercase">Set</span>
-						<a
-							href="/sets/{encodeURIComponent(metadata.set)}"
-							class="text-primary decoration-primary/30 leading-tight font-medium underline-offset-4 hover:underline"
-						>
-							{metadata.set}
-						</a>
-					</div>
-				</div>
-			{/if}
+	<!-- Tags -->
+	{#if metadata.tags && metadata.tags.length > 0}
+		<div class="border-border mt-4 flex flex-wrap gap-1.5 border-t pt-4">
+			{#each metadata.tags as tag}
+				<a
+					href="/explore?q=%23{encodeURIComponent(tag)}"
+					class="text-muted hover:text-primary inline-flex items-center gap-0.5 text-xs transition-colors"
+				>
+					<Hash size={10} />
+					{tag}
+				</a>
+			{/each}
 		</div>
 	{/if}
-
 </aside>
