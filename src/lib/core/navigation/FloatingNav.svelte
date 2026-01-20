@@ -2,13 +2,12 @@
 	import { page } from "$app/state";
 	import { commandPalette } from "$lib/core/navigation/command-palette.svelte";
 	import { cn } from "$lib/shared/merge-class";
-
 	import { ui } from "$lib/stores/ui.svelte";
-	import { Sparkles, Telescope, House, Library, FolderOpen, PanelLeft } from "@lucide/svelte";
+	import { Sparkles, Telescope, House, Library, FolderOpen, PanelLeft, Search } from "@lucide/svelte";
 	import { onMount } from "svelte";
 	import CommandPalette from "./CommandPalette.svelte";
 
-	let isSearchExpanded = $derived(commandPalette.isOpen);
+	let isSearchOpen = $derived(commandPalette.isOpen);
 
 	onMount(() => {
 		const listener = (e: KeyboardEvent) => {
@@ -34,8 +33,12 @@
 	let lastScrollY = $state(0);
 
 	$effect(() => {
-		if (isSearchExpanded) {
+		if (isSearchOpen) {
 			isVisible = true;
+			// Block page scroll when command palette is open
+			document.body.style.overflow = 'hidden';
+		} else {
+			document.body.style.overflow = '';
 		}
 	});
 
@@ -45,392 +48,172 @@
 			if (currentScrollY < 10 || currentScrollY < lastScrollY) {
 				isVisible = true;
 			} else if (currentScrollY > lastScrollY && currentScrollY > 10) {
-				isVisible = isSearchExpanded;
+				isVisible = isSearchOpen;
 			}
 			lastScrollY = currentScrollY;
 		};
 		window.addEventListener("scroll", handleScroll, { passive: true });
 		return () => window.removeEventListener("scroll", handleScroll);
 	});
+
+	// Hover magnification state
+	let hoveredIndex = $state<number | null>(null);
+
+	const navItems = [
+		{ path: "/", icon: House, label: "Home" },
+		{ path: "/explore", icon: Telescope, label: "Explorar" },
+		{ path: "/series", icon: Library, label: "Séries" },
+		{ path: "/sets", icon: FolderOpen, label: "Sets" }
+	];
+
+	function getScale(index: number): number {
+		if (hoveredIndex === null) return 1;
+		const distance = Math.abs(index - hoveredIndex);
+		if (distance === 0) return 1.25;
+		if (distance === 1) return 1.1;
+		return 1;
+	}
+
+	const isPostPage = $derived(
+		page.url.pathname.startsWith("/posts/") && page.url.pathname !== "/posts"
+	);
 </script>
 
-<button
-	type="button"
-	class="floating-nav-backdrop"
-	class:visible={isSearchExpanded}
-	onclick={() => commandPalette.close()}
-	onkeydown={(e) => e.key === "Escape" && commandPalette.close()}
-	aria-label="Fechar busca"
-	aria-hidden={!isSearchExpanded}
-	tabindex={isSearchExpanded ? 0 : -1}
-></button>
+<!-- Command Palette Modal Backdrop -->
+{#if isSearchOpen}
+	<button
+		type="button"
+		class="command-backdrop"
+		onclick={() => commandPalette.close()}
+		onkeydown={(e) => e.key === "Escape" && commandPalette.close()}
+		aria-label="Fechar busca"
+		tabindex={0}
+	></button>
+{/if}
 
+<!-- Command Palette Modal -->
+{#if isSearchOpen}
+	<div class="command-modal">
+		<CommandPalette />
+	</div>
+{/if}
+
+<!-- Floating Navigation Dock -->
 <nav
-	class={cn("floating-nav", isVisible || isSearchExpanded ? "visible" : "hidden")}
+	class={cn("floating-dock", isVisible ? "visible" : "hidden")}
 	aria-label="Navegação principal"
 >
-	<div class="floating-nav-glow" class:expanded={isSearchExpanded}></div>
-
-	<div class={cn("floating-nav-pill", isSearchExpanded && "expanded")}>
-		<div class="floating-nav-content">
-			<div class="nav-links" class:hidden={isSearchExpanded}>
-				{#if page.url.pathname === "/"}
+	<div class="dock-container">
+		<!-- Navigation Items -->
+		<div class="dock-nav">
+			{#each navItems as item, index (item.path)}
+				{@const active = isActive(item.path)}
+				{@const scale = getScale(index)}
+				{#if active && item.path === "/"}
 					<button
 						type="button"
-						class="nav-item active"
+						class="dock-item active"
+						style="--scale: {scale}"
+						onmouseenter={() => (hoveredIndex = index)}
+						onmouseleave={() => (hoveredIndex = null)}
 						onclick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-						aria-label="Ir para o topo"
+						aria-label={item.label}
 					>
-						<House size={18} class="nav-icon" />
-						<span class="nav-label">Home</span>
+						<item.icon size={20} strokeWidth={2} />
+						<span class="dock-tooltip">{item.label}</span>
+						<span class="dock-indicator"></span>
 					</button>
 				{:else}
-					<a href="/" class="nav-item" aria-label="Home">
-						<House size={18} class="nav-icon" />
-					</a>
-				{/if}
-
-				<button type="button" class="search-trigger" onclick={openSearch} aria-label="Buscar (⌘K)">
-					<Sparkles size={16} class="search-icon" />
-					<span class="search-text">Buscar</span>
-					<kbd class="search-kbd">⌘K</kbd>
-				</button>
-
-				{#if isActive("/explore")}
-					<a href="/explore" class="nav-item active" aria-label="Explorar">
-						<Telescope size={18} class="nav-icon" />
-						<span class="nav-label">Explorar</span>
-					</a>
-				{:else}
-					<a href="/explore" class="nav-item" aria-label="Explorar">
-						<Telescope size={18} class="nav-icon" />
-					</a>
-				{/if}
-
-				{#if isActive("/series")}
-					<a href="/series" class="nav-item active" aria-label="Séries">
-						<Library size={18} class="nav-icon" />
-						<span class="nav-label">Séries</span>
-					</a>
-				{:else}
-					<a href="/series" class="nav-item" aria-label="Séries">
-						<Library size={18} class="nav-icon" />
-					</a>
-				{/if}
-
-				{#if isActive("/sets")}
-					<a href="/sets" class="nav-item active" aria-label="Sets">
-						<FolderOpen size={18} class="nav-icon" />
-						<span class="nav-label">Sets</span>
-					</a>
-				{:else}
-					<a href="/sets" class="nav-item" aria-label="Sets">
-						<FolderOpen size={18} class="nav-icon" />
-					</a>
-				{/if}
-
-				{#if page.url.pathname.startsWith("/posts/") && page.url.pathname !== "/posts"}
-					<div class="mx-1 h-4 w-px bg-white/10"></div>
-					<button
-						type="button"
-						class="nav-item"
-						class:active={ui.sidebarVisible}
-						onclick={() => ui.toggleSidebar()}
-						aria-label={ui.sidebarVisible ? "Ocultar sidebar" : "Mostrar sidebar"}
+					<a
+						href={item.path}
+						class={cn("dock-item", active && "active")}
+						style="--scale: {scale}"
+						onmouseenter={() => (hoveredIndex = index)}
+						onmouseleave={() => (hoveredIndex = null)}
+						aria-label={item.label}
 					>
-						<PanelLeft size={18} class="nav-icon" />
-					</button>
+						<item.icon size={20} strokeWidth={2} />
+						<span class="dock-tooltip">{item.label}</span>
+						{#if active}
+							<span class="dock-indicator"></span>
+						{/if}
+					</a>
 				{/if}
-			</div>
-
-			<div class="command-palette-wrapper" class:hidden={!isSearchExpanded}>
-				{#if isSearchExpanded}
-					<CommandPalette />
-				{/if}
-			</div>
+			{/each}
 		</div>
+
+		<!-- Divider -->
+		<div class="dock-divider"></div>
+
+		<!-- Search Button -->
+		<button
+			type="button"
+			class="dock-search"
+			onclick={openSearch}
+			aria-label="Buscar (⌘K)"
+		>
+			<div class="search-icon-wrapper">
+				<Sparkles size={16} strokeWidth={2} />
+			</div>
+			<span class="search-label">Buscar</span>
+			<kbd class="search-kbd">⌘K</kbd>
+		</button>
+
+		<!-- Post Page Sidebar Toggle -->
+		{#if isPostPage}
+			<div class="dock-divider"></div>
+			<button
+				type="button"
+				class={cn("dock-item", ui.sidebarVisible && "active")}
+				onclick={() => ui.toggleSidebar()}
+				aria-label={ui.sidebarVisible ? "Ocultar sidebar" : "Mostrar sidebar"}
+			>
+				<PanelLeft size={20} strokeWidth={2} />
+				<span class="dock-tooltip">Sidebar</span>
+			</button>
+		{/if}
 	</div>
 </nav>
 
 <style>
 	@layer components {
 		/* ============================================
-   * FLOATING NAV - Main Navigation Bar
-   * ============================================ */
+		 * COMMAND PALETTE MODAL
+		 * ============================================ */
 
-		.floating-nav-backdrop {
+		.command-backdrop {
 			position: fixed;
 			inset: 0;
-			z-index: 40;
-			background: oklch(0 0 0 / 0.3);
-			backdrop-filter: blur(12px);
+			z-index: 90;
+			background: oklch(0 0 0 / 0.6);
+			backdrop-filter: blur(8px);
 			border: none;
 			cursor: default;
-			opacity: 0;
-			visibility: hidden;
-			pointer-events: none;
-			transition:
-				opacity 200ms var(--motion-ease-out),
-				visibility 200ms var(--motion-ease-out);
+			animation: fade-in 200ms var(--motion-ease-out) forwards;
 		}
 
-		.floating-nav-backdrop.visible {
-			opacity: 1;
-			visibility: visible;
-			pointer-events: auto;
-		}
-
-		.floating-nav {
+		.command-modal {
 			position: fixed;
-			bottom: 1.5rem;
+			top: 20%;
 			left: 50%;
-			z-index: 50;
-			transform: translateX(-50%) translateY(0);
-			opacity: 1;
-			transition:
-				transform 300ms var(--motion-ease-out-quint),
-				opacity 150ms var(--motion-ease-out);
+			transform: translateX(-50%);
+			z-index: 100;
+			width: min(560px, calc(100vw - 2rem));
+			animation: modal-in 250ms var(--motion-ease-out-quint) forwards;
 		}
 
-		@media (min-width: 640px) {
-			.floating-nav {
-				bottom: 2rem;
+		@keyframes modal-in {
+			from {
+				opacity: 0;
+				transform: translateX(-50%) translateY(8px) scale(0.96);
+			}
+			to {
+				opacity: 1;
+				transform: translateX(-50%) translateY(0) scale(1);
 			}
 		}
 
-		.floating-nav.hidden {
-			transform: translateX(-50%) translateY(6rem);
-			opacity: 0;
-			pointer-events: none;
-		}
-
-		/* Glow Effect */
-		.floating-nav-glow {
-			position: absolute;
-			inset: -0.5rem;
-			z-index: -1;
-			filter: blur(24px);
-			opacity: 0.5;
-			transition:
-				transform 400ms var(--motion-ease-out-quint),
-				opacity 400ms var(--motion-ease-out-quint);
-		}
-
-		.floating-nav-glow::before {
-			content: "";
-			display: block;
-			width: 100%;
-			height: 100%;
-			border-radius: 9999px;
-			background: linear-gradient(
-				to right,
-				oklch(from var(--color-accent) l c h / 0.6),
-				oklch(from var(--color-primary) l c h / 0.7),
-				oklch(from var(--color-accent) l c h / 0.6)
-			);
-			animation: floating-nav-pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-		}
-
-		.floating-nav-glow.expanded {
-			transform: scale(1.25);
-			opacity: 0.8;
-		}
-
-		/* Pill Container */
-		.floating-nav-pill {
-			position: relative;
-			display: flex;
-			align-items: center;
-			padding: 0.375rem;
-			border-radius: 9999px;
-			background: var(--material-thin);
-			backdrop-filter: blur(24px) saturate(1.5);
-			border: 1px solid oklch(from var(--color-border) l c h / 0.5);
-			box-shadow:
-				0 8px 32px oklch(0 0 0 / 0.12),
-				0 2px 8px oklch(0 0 0 / 0.08);
-			transition:
-				width 400ms var(--motion-ease-out-quint),
-				border-color 200ms var(--motion-ease);
-		}
-
-		:global(.dark) .floating-nav-pill {
-			border-color: oklch(1 0 0 / 0.1);
-		}
-
-		.floating-nav-pill.expanded {
-			width: min(520px, calc(100vw - 2rem));
-		}
-
-		/* Content Areas */
-		.floating-nav-content {
-			display: flex;
-			align-items: center;
-			width: 100%;
-			position: relative;
-		}
-
-		.nav-links {
-			display: flex;
-			align-items: center;
-			gap: 0.25rem;
-			opacity: 1;
-			transform: scale(1);
-			transition:
-				opacity 150ms var(--motion-ease-out),
-				transform 150ms var(--motion-ease-out);
-		}
-
-		.nav-links.hidden {
-			position: absolute;
-			opacity: 0;
-			transform: scale(0.96);
-			pointer-events: none;
-		}
-
-		.command-palette-wrapper {
-			width: 100%;
-			opacity: 1;
-			transform: scale(1);
-			transition:
-				opacity 200ms var(--motion-ease-out) 50ms,
-				transform 200ms var(--motion-ease-out) 50ms;
-		}
-
-		.command-palette-wrapper.hidden {
-			position: absolute;
-			opacity: 0;
-			transform: scale(0.96);
-			pointer-events: none;
-		}
-
-		/* Navigation Items */
-		.nav-item {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			min-height: 2.75rem;
-			min-width: 2.75rem;
-			padding: 0 0.625rem;
-			border-radius: 9999px;
-			color: var(--color-muted);
-			text-decoration: none;
-			border: none;
-			background: transparent;
-			cursor: pointer;
-			transition: all 200ms var(--motion-ease-out);
-		}
-
-		.nav-item:hover {
-			color: var(--color-text);
-			background: var(--color-action-hover);
-		}
-
-		.nav-item:active {
-			transform: scale(0.95);
-		}
-
-		.nav-item.active {
-			gap: 0.5rem;
-			padding: 0 1rem;
-			color: var(--color-primary);
-			background: oklch(from var(--color-primary) l c h / 0.15);
-			box-shadow: inset 0 0 0 1px oklch(from var(--color-primary) l c h / 0.2);
-		}
-
-		.nav-item :global(.nav-icon) {
-			flex-shrink: 0;
-			transition: transform 200ms var(--motion-ease-out);
-		}
-
-		.nav-item:hover :global(.nav-icon) {
-			transform: scale(1.1);
-		}
-
-		.nav-label {
-			font-size: 10px;
-			font-weight: 600;
-			text-transform: uppercase;
-			letter-spacing: 0.08em;
-		}
-
-		/* Search Trigger Button */
-		.search-trigger {
-			display: flex;
-			align-items: center;
-			gap: 0.625rem;
-			min-height: 2.75rem;
-			padding: 0 1rem;
-			border-radius: 9999px;
-			color: var(--color-text);
-			font-size: 0.8125rem;
-			font-weight: 500;
-			letter-spacing: -0.01em;
-			background: var(--color-action-hover);
-			border: none;
-			cursor: pointer;
-			transition: all 200ms var(--motion-ease-out);
-		}
-
-		:global(.dark) .search-trigger {
-			background: oklch(1 0 0 / 0.05);
-		}
-
-		.search-trigger:hover {
-			color: var(--color-primary);
-			background: oklch(1 0 0 / 0.15);
-		}
-
-		:global(.dark) .search-trigger:hover {
-			background: oklch(1 0 0 / 0.1);
-		}
-
-		.search-trigger:active {
-			transform: scale(0.97);
-		}
-
-		.search-trigger :global(.search-icon) {
-			color: var(--color-primary);
-			transition: all 200ms var(--motion-ease-out);
-		}
-
-		.search-trigger:hover :global(.search-icon) {
-			transform: scale(1.1) rotate(12deg);
-		}
-
-		.search-text {
-			display: none;
-		}
-
-		@media (min-width: 640px) {
-			.search-text {
-				display: inline;
-			}
-		}
-
-		.search-kbd {
-			display: none;
-			margin-left: 0.25rem;
-			padding: 0.125rem 0.375rem;
-			font-family: var(--font-mono);
-			font-size: 10px;
-			color: var(--color-muted);
-			background: oklch(from var(--color-surface) l c h / 0.5);
-			border: 1px solid oklch(from var(--color-border) l c h / 0.5);
-			border-radius: 0.25rem;
-		}
-
-		@media (min-width: 640px) {
-			.search-kbd {
-				display: inline;
-			}
-		}
-
-		/* ============================================
-   * KEYFRAMES
-   * ============================================ */
-
-		@keyframes floating-nav-fade-in {
+		@keyframes fade-in {
 			from {
 				opacity: 0;
 			}
@@ -439,15 +222,223 @@
 			}
 		}
 
-		@keyframes floating-nav-pulse-glow {
-			0%,
-			100% {
-				opacity: 0.5;
-				transform: scale(1);
+		/* ============================================
+		 * FLOATING DOCK
+		 * ============================================ */
+
+		.floating-dock {
+			position: fixed;
+			bottom: 1.25rem;
+			left: 50%;
+			z-index: 50;
+			transform: translateX(-50%) translateY(0);
+			opacity: 1;
+			transition:
+				transform 350ms var(--motion-ease-out-quint),
+				opacity 200ms var(--motion-ease-out);
+		}
+
+		@media (min-width: 640px) {
+			.floating-dock {
+				bottom: 1.75rem;
 			}
-			50% {
-				opacity: 0.7;
-				transform: scale(1.05);
+		}
+
+		.floating-dock.hidden {
+			transform: translateX(-50%) translateY(calc(100% + 2rem));
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		.dock-container {
+			display: flex;
+			align-items: center;
+			gap: 0.25rem;
+			padding: 0.5rem;
+			border-radius: 1.25rem;
+			background: oklch(from var(--color-surface) calc(l * 1.05) c h / 0.85);
+			backdrop-filter: blur(24px) saturate(1.8);
+			border: 1px solid oklch(1 0 0 / 0.12);
+			box-shadow:
+				0 0 0 1px oklch(0 0 0 / 0.03),
+				0 8px 40px oklch(0 0 0 / 0.15),
+				0 2px 12px oklch(0 0 0 / 0.08);
+		}
+
+		:global(.dark) .dock-container {
+			background: oklch(from var(--color-surface) calc(l * 0.8) c h / 0.75);
+			border-color: oklch(1 0 0 / 0.08);
+		}
+
+		/* ============================================
+		 * NAV SECTION
+		 * ============================================ */
+
+		.dock-nav {
+			display: flex;
+			align-items: center;
+			gap: 0.125rem;
+		}
+
+		.dock-item {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 2.75rem;
+			height: 2.75rem;
+			border-radius: 0.875rem;
+			color: var(--color-muted);
+			text-decoration: none;
+			border: none;
+			background: transparent;
+			cursor: pointer;
+			transform: scale(var(--scale, 1));
+			transform-origin: bottom center;
+			transition:
+				transform 200ms var(--motion-ease-out),
+				color 150ms var(--motion-ease),
+				background 150ms var(--motion-ease);
+		}
+
+		.dock-item:hover {
+			color: var(--color-text);
+		}
+
+		.dock-item:active {
+			transform: scale(calc(var(--scale, 1) * 0.92));
+		}
+
+		.dock-item.active {
+			color: var(--color-primary);
+			background: oklch(from var(--color-primary) l c h / 0.12);
+		}
+
+		/* Tooltip */
+		.dock-tooltip {
+			position: absolute;
+			bottom: calc(100% + 0.75rem);
+			left: 50%;
+			transform: translateX(-50%) translateY(4px);
+			padding: 0.375rem 0.625rem;
+			font-size: 0.6875rem;
+			font-weight: 600;
+			letter-spacing: 0.02em;
+			white-space: nowrap;
+			color: var(--color-text);
+			background: var(--color-surface-elevated);
+			border: 1px solid oklch(from var(--color-border) l c h / 0.5);
+			border-radius: 0.5rem;
+			box-shadow: 0 4px 12px oklch(0 0 0 / 0.15);
+			opacity: 0;
+			visibility: hidden;
+			pointer-events: none;
+			transition:
+				opacity 150ms var(--motion-ease),
+				transform 150ms var(--motion-ease),
+				visibility 150ms var(--motion-ease);
+		}
+
+		.dock-item:hover .dock-tooltip {
+			opacity: 1;
+			visibility: visible;
+			transform: translateX(-50%) translateY(0);
+		}
+
+		/* Active Indicator Dot */
+		.dock-indicator {
+			position: absolute;
+			bottom: 0.25rem;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 4px;
+			height: 4px;
+			border-radius: 50%;
+			background: var(--color-primary);
+			box-shadow: 0 0 8px oklch(from var(--color-primary) l c h / 0.6);
+		}
+
+		/* ============================================
+		 * DIVIDER
+		 * ============================================ */
+
+		.dock-divider {
+			width: 1px;
+			height: 1.5rem;
+			margin: 0 0.375rem;
+			background: oklch(from var(--color-border) l c h / 0.4);
+		}
+
+		/* ============================================
+		 * SEARCH BUTTON
+		 * ============================================ */
+
+		.dock-search {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			height: 2.5rem;
+			padding: 0 0.875rem;
+			border-radius: 0.75rem;
+			color: var(--color-text);
+			font-size: 0.8125rem;
+			font-weight: 500;
+			letter-spacing: -0.01em;
+			background: oklch(from var(--color-text) l c h / 0.06);
+			border: none;
+			cursor: pointer;
+			transition: all 180ms var(--motion-ease-out);
+		}
+
+		:global(.dark) .dock-search {
+			background: oklch(1 0 0 / 0.06);
+		}
+
+		.dock-search:hover {
+			background: oklch(from var(--color-primary) l c h / 0.15);
+		}
+
+		.dock-search:active {
+			transform: scale(0.96);
+		}
+
+		.search-icon-wrapper {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--color-primary);
+			transition: transform 200ms var(--motion-ease-out);
+		}
+
+		.dock-search:hover .search-icon-wrapper {
+			transform: scale(1.1) rotate(8deg);
+		}
+
+		.search-label {
+			display: none;
+		}
+
+		@media (min-width: 640px) {
+			.search-label {
+				display: inline;
+			}
+		}
+
+		.search-kbd {
+			display: none;
+			padding: 0.125rem 0.375rem;
+			font-family: var(--font-mono);
+			font-size: 0.625rem;
+			font-weight: 500;
+			color: var(--color-muted);
+			background: oklch(from var(--color-surface) l c h / 0.6);
+			border: 1px solid oklch(from var(--color-border) l c h / 0.4);
+			border-radius: 0.25rem;
+		}
+
+		@media (min-width: 640px) {
+			.search-kbd {
+				display: inline;
 			}
 		}
 	}

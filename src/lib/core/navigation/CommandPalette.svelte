@@ -7,7 +7,7 @@
 	import Fuse from "fuse.js";
 	import {
 		Home,
-		SearchCode,
+		Telescope,
 		BookOpen,
 		Sun,
 		Moon,
@@ -15,7 +15,9 @@
 		FileText,
 		CornerDownLeft,
 		Sparkles,
-		X
+		X,
+		Zap,
+		Palette
 	} from "@lucide/svelte";
 	import type { Component } from "svelte";
 
@@ -31,7 +33,8 @@
 		id: string;
 		title: string;
 		icon: Component;
-		type: "post" | "action";
+		type: "post" | "action" | "navigation";
+		category?: string;
 		action: () => void;
 	}
 
@@ -43,10 +46,10 @@
 	let query = $state("");
 	let selectedIndex = $state(0);
 
-	let isSearchExpanded = $derived(commandPalette.isOpen);
+	let isSearchOpen = $derived(commandPalette.isOpen);
 
 	$effect(() => {
-		if (isSearchExpanded && !hasLoaded && !isLoading) {
+		if (isSearchOpen && !hasLoaded && !isLoading) {
 			isLoading = true;
 			fetch("/api/search.json")
 				.then((res) => res.json())
@@ -60,44 +63,19 @@
 		}
 	});
 
-	const staticActions: CommandItem[] = [
-		{ id: "home", title: "Ir para Home", icon: Home, type: "action", action: () => navigate("/") },
-		{
-			id: "garden",
-			title: "Explorar Jardim",
-			icon: SearchCode,
-			type: "action",
-			action: () => navigate("/garden")
-		},
-		{
-			id: "posts",
-			title: "Ver Artigos",
-			icon: BookOpen,
-			type: "action",
-			action: () => navigate("/posts")
-		},
-		{
-			id: "theme-light",
-			title: "Tema: Claro",
-			icon: Sun,
-			type: "action",
-			action: () => updateTheme("light")
-		},
-		{
-			id: "theme-dark",
-			title: "Tema: Escuro",
-			icon: Moon,
-			type: "action",
-			action: () => updateTheme("dark")
-		},
-		{
-			id: "theme-system",
-			title: "Tema: Sistema",
-			icon: Monitor,
-			type: "action",
-			action: () => updateTheme("system")
-		}
+	const navigationActions: CommandItem[] = [
+		{ id: "home", title: "Ir para Home", icon: Home, type: "navigation", category: "Navegação", action: () => navigate("/") },
+		{ id: "explore", title: "Explorar Jardim", icon: Telescope, type: "navigation", category: "Navegação", action: () => navigate("/explore") },
+		{ id: "posts", title: "Ver Artigos", icon: BookOpen, type: "navigation", category: "Navegação", action: () => navigate("/posts") }
 	];
+
+	const themeActions: CommandItem[] = [
+		{ id: "theme-light", title: "Tema Claro", icon: Sun, type: "action", category: "Aparência", action: () => updateTheme("light") },
+		{ id: "theme-dark", title: "Tema Escuro", icon: Moon, type: "action", category: "Aparência", action: () => updateTheme("dark") },
+		{ id: "theme-system", title: "Tema do Sistema", icon: Monitor, type: "action", category: "Aparência", action: () => updateTheme("system") }
+	];
+
+	const staticActions: CommandItem[] = [...navigationActions, ...themeActions];
 
 	const searchableData = $derived([
 		...staticActions,
@@ -106,6 +84,7 @@
 			title: p.title,
 			icon: FileText,
 			type: "post" as const,
+			category: "Artigos",
 			action: () => navigate(`/posts/${p.slug}`),
 			tags: p.tags,
 			content: p.content
@@ -129,10 +108,24 @@
 
 	const filteredResults = $derived.by(() => {
 		const q = query.trim();
-		if (!q) return searchableData;
+		if (!q) return searchableData.slice(0, 8); // Show top 8 when empty
 		const results = fuse.search(q);
 		return results.map((r) => r.item);
 	});
+
+	// Group results by category
+	const groupedResults = $derived.by(() => {
+		const groups: Record<string, CommandItem[]> = {};
+		for (const item of filteredResults) {
+			const cat = item.category || "Outros";
+			if (!groups[cat]) groups[cat] = [];
+			groups[cat].push(item);
+		}
+		return groups;
+	});
+
+	// Flat index for keyboard navigation
+	const flatResults = $derived(filteredResults);
 
 	$effect(() => {
 		void filteredResults.length;
@@ -140,14 +133,15 @@
 	});
 
 	$effect(() => {
-		if (isSearchExpanded) {
-			setTimeout(() => searchInputElement?.focus(), 150);
+		if (isSearchOpen) {
+			setTimeout(() => searchInputElement?.focus(), 100);
+		} else {
+			query = "";
 		}
 	});
 
 	function closeSearch() {
 		commandPalette.close();
-		query = "";
 	}
 
 	function navigate(path: string) {
@@ -166,121 +160,418 @@
 			closeSearch();
 		} else if (e.key === "ArrowDown") {
 			e.preventDefault();
-			selectedIndex = (selectedIndex + 1) % filteredResults.length;
+			selectedIndex = (selectedIndex + 1) % flatResults.length;
 			scrollIntoView();
 		} else if (e.key === "ArrowUp") {
 			e.preventDefault();
-			selectedIndex = (selectedIndex - 1 + filteredResults.length) % filteredResults.length;
+			selectedIndex = (selectedIndex - 1 + flatResults.length) % flatResults.length;
 			scrollIntoView();
 		} else if (e.key === "Enter") {
 			e.preventDefault();
-			const selected = filteredResults[selectedIndex];
+			const selected = flatResults[selectedIndex];
 			if (selected) selected.action();
 		}
 	}
 
 	function scrollIntoView() {
-		const activeEl = document.querySelector(`[data-nav-index="${selectedIndex}"]`);
+		const activeEl = document.querySelector(`[data-command-index="${selectedIndex}"]`);
 		if (activeEl) {
 			activeEl.scrollIntoView({ block: "nearest" });
 		}
 	}
+
+	function getCategoryIcon(category: string): Component {
+		switch (category) {
+			case "Navegação":
+				return Zap;
+			case "Aparência":
+				return Palette;
+			case "Artigos":
+				return BookOpen;
+			default:
+				return Sparkles;
+		}
+	}
 </script>
 
-<div
-	class="border-border-vivid/20 bg-surface-elevated/80 dark:border-border-vivid/15 absolute bottom-full left-0 mb-4 w-full origin-bottom overflow-hidden rounded-2xl border shadow-(--shadow-depth-4) ring-1 ring-white/10 backdrop-blur-2xl backdrop-saturate-150 dark:ring-white/5"
->
-	<div class="scrollbar-none max-h-[50vh] overflow-y-auto p-2">
-		{#if filteredResults.length > 0}
-			<div class="flex flex-col gap-0.5">
-				{#each filteredResults as item, i (item.id)}
-					<button
-						class={cn(
-							"flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all duration-150 ease-out",
-							selectedIndex === i
-								? "bg-primary/15 text-primary ring-primary/25 ring-1"
-								: "text-muted hover:text-text hover:bg-action-hover active:scale-[0.98]"
-						)}
-						onclick={item.action}
-						data-nav-index={i}
-					>
-						<div class="bg-surface/50 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg">
-							<item.icon size={16} />
-						</div>
-						<div class="min-w-0 flex-1">
-							<p class="truncate text-sm font-medium tracking-tight">{item.title}</p>
-							{#if item.type === "post"}
-								<p class="truncate text-[11px] opacity-50">Artigo</p>
-							{/if}
-						</div>
-						{#if selectedIndex === i}
-							<CornerDownLeft class="shrink-0 opacity-40" size={14} />
-						{/if}
-					</button>
-				{/each}
+<div class="command-container">
+	<!-- Search Input -->
+	<div class="command-header">
+		<div class="command-search-icon">
+			<Sparkles size={18} strokeWidth={2} />
+		</div>
+		<input
+			bind:this={searchInputElement}
+			bind:value={query}
+			type="text"
+			placeholder="Buscar artigos, ações..."
+			class="command-input"
+			onkeydown={handleKeydown}
+		/>
+		<button
+			type="button"
+			class="command-close"
+			onclick={closeSearch}
+			aria-label="Fechar busca (Esc)"
+		>
+			<X size={16} strokeWidth={2} />
+		</button>
+	</div>
+
+	<!-- Results -->
+	<div class="command-results">
+		{#if isLoading}
+			<div class="command-empty">
+				<div class="command-empty-icon pulse">
+					<Sparkles size={28} strokeWidth={1.5} />
+				</div>
+				<p class="command-empty-text">Carregando índice...</p>
 			</div>
-		{:else if isLoading}
-			<div class="flex animate-pulse flex-col items-center justify-center py-8 text-center">
-				<SearchCode size={32} class="text-muted/50 mb-2" />
-				<p class="text-muted text-sm">Cultivando índice...</p>
+		{:else if flatResults.length === 0}
+			<div class="command-empty">
+				<div class="command-empty-icon">
+					<Telescope size={28} strokeWidth={1.5} />
+				</div>
+				<p class="command-empty-text">Nenhum resultado encontrado</p>
 			</div>
 		{:else}
-			<div class="flex flex-col items-center justify-center py-8 text-center">
-				<SearchCode size={32} class="text-muted/50 mb-2" />
-				<p class="text-muted text-sm">Nada encontrado</p>
-			</div>
+			{#each Object.entries(groupedResults) as [category, items]}
+				{@const CategoryIcon = getCategoryIcon(category)}
+				<div class="command-group">
+					<div class="command-group-header">
+						<CategoryIcon size={12} strokeWidth={2} />
+						<span>{category}</span>
+					</div>
+					<div class="command-group-items">
+						{#each items as item}
+							{@const globalIndex = flatResults.indexOf(item)}
+							<button
+								class={cn(
+									"command-item",
+									selectedIndex === globalIndex && "selected"
+								)}
+								onclick={item.action}
+								data-command-index={globalIndex}
+							>
+								<div class="command-item-icon">
+									<item.icon size={16} strokeWidth={2} />
+								</div>
+								<span class="command-item-title">{item.title}</span>
+								{#if selectedIndex === globalIndex}
+									<CornerDownLeft class="command-item-enter" size={14} strokeWidth={2} />
+								{/if}
+							</button>
+						{/each}
+					</div>
+				</div>
+			{/each}
 		{/if}
 	</div>
 
-	<div
-		class="border-border/50 bg-surface/30 text-muted flex items-center justify-between border-t px-4 py-2.5 text-[10px]"
-	>
-		<div class="flex items-center gap-3">
-			<span class="flex items-center gap-1.5">
-				<kbd
-					class="border-border/60 bg-surface inline-flex h-5 min-w-5 items-center justify-center rounded border px-1 font-mono text-[9px] shadow-sm"
-					>↑↓</kbd
-				>
-				<span class="opacity-70">navegar</span>
+	<!-- Footer -->
+	<div class="command-footer">
+		<div class="command-hints">
+			<span class="command-hint">
+				<kbd>↑↓</kbd>
+				<span>navegar</span>
 			</span>
-			<span class="flex items-center gap-1.5">
-				<kbd
-					class="border-border/60 bg-surface inline-flex h-5 min-w-5 items-center justify-center rounded border px-1.5 font-mono text-[9px] shadow-sm"
-					>↵</kbd
-				>
-				<span class="opacity-70">selecionar</span>
+			<span class="command-hint">
+				<kbd>↵</kbd>
+				<span>selecionar</span>
 			</span>
 		</div>
-		<div>
-			<span class="flex items-center gap-1.5">
-				<kbd
-					class="border-border/60 bg-surface inline-flex h-5 items-center justify-center rounded border px-1.5 font-mono text-[9px] shadow-sm"
-					>esc</kbd
-				>
-				<span class="opacity-70">fechar</span>
-			</span>
-		</div>
+		<span class="command-hint">
+			<kbd>esc</kbd>
+			<span>fechar</span>
+		</span>
 	</div>
 </div>
 
-<div class="flex w-full items-center gap-3 px-3">
-	<div class="text-primary shrink-0">
-		<Sparkles size={18} class="animate-pulse" />
-	</div>
-	<input
-		bind:this={searchInputElement}
-		bind:value={query}
-		type="text"
-		placeholder="Buscar artigos, temas..."
-		class="text-text placeholder:text-muted/60 flex-1 bg-transparent text-sm tracking-tight focus:outline-none"
-		onkeydown={handleKeydown}
-	/>
-	<button
-		type="button"
-		class="text-muted hover:text-text bg-action-hover flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all duration-150 ease-out hover:bg-white/15 active:scale-95 dark:bg-white/5 dark:hover:bg-white/10"
-		onclick={closeSearch}
-		aria-label="Fechar busca (Esc)"
-	>
-		<X size={16} />
-	</button>
-</div>
+<style>
+	@layer components {
+		/* ============================================
+		 * COMMAND CONTAINER
+		 * ============================================ */
+
+		.command-container {
+			overflow: hidden;
+			border-radius: 1rem;
+			background: var(--color-surface-elevated);
+			border: 1px solid oklch(from var(--color-border) l c h / 0.5);
+			box-shadow:
+				0 0 0 1px oklch(0 0 0 / 0.03),
+				0 24px 80px oklch(0 0 0 / 0.25),
+				0 8px 24px oklch(0 0 0 / 0.1);
+		}
+
+		:global(.dark) .command-container {
+			background: oklch(from var(--color-surface-elevated) calc(l * 0.9) c h);
+			border-color: oklch(1 0 0 / 0.08);
+		}
+
+		/* ============================================
+		 * HEADER / SEARCH INPUT
+		 * ============================================ */
+
+		.command-header {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+			padding: 1rem 1rem;
+			border-bottom: 1px solid oklch(from var(--color-border) l c h / 0.3);
+		}
+
+		.command-search-icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--color-primary);
+		}
+
+		.command-input {
+			flex: 1;
+			background: transparent;
+			border: none;
+			font-size: 0.9375rem;
+			font-weight: 450;
+			letter-spacing: -0.01em;
+			color: var(--color-text);
+			outline: none;
+		}
+
+		.command-input::placeholder {
+			color: var(--color-muted);
+			opacity: 0.7;
+		}
+
+		.command-close {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 1.75rem;
+			height: 1.75rem;
+			border-radius: 0.5rem;
+			color: var(--color-muted);
+			background: oklch(from var(--color-text) l c h / 0.05);
+			border: none;
+			cursor: pointer;
+			transition: all 150ms var(--motion-ease);
+		}
+
+		.command-close:hover {
+			color: var(--color-text);
+			background: oklch(from var(--color-text) l c h / 0.1);
+		}
+
+		.command-close:active {
+			transform: scale(0.92);
+		}
+
+		/* ============================================
+		 * RESULTS
+		 * ============================================ */
+
+		.command-results {
+			max-height: 50vh;
+			overflow-y: auto;
+			padding: 0.5rem;
+			scrollbar-width: thin;
+			scrollbar-color: oklch(from var(--color-border) l c h / 0.3) transparent;
+		}
+
+		.command-results::-webkit-scrollbar {
+			width: 6px;
+		}
+
+		.command-results::-webkit-scrollbar-track {
+			background: transparent;
+		}
+
+		.command-results::-webkit-scrollbar-thumb {
+			background: oklch(from var(--color-border) l c h / 0.3);
+			border-radius: 3px;
+		}
+
+		/* ============================================
+		 * GROUP
+		 * ============================================ */
+
+		.command-group {
+			margin-bottom: 0.5rem;
+		}
+
+		.command-group:last-child {
+			margin-bottom: 0;
+		}
+
+		.command-group-header {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			padding: 0.5rem 0.75rem;
+			font-size: 0.6875rem;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.06em;
+			color: var(--color-muted);
+		}
+
+		.command-group-items {
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+		}
+
+		/* ============================================
+		 * ITEM
+		 * ============================================ */
+
+		.command-item {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+			width: 100%;
+			padding: 0.625rem 0.75rem;
+			border-radius: 0.625rem;
+			color: var(--color-text);
+			text-align: left;
+			background: transparent;
+			border: none;
+			cursor: pointer;
+			transition: all 120ms var(--motion-ease);
+		}
+
+		.command-item:hover {
+			background: oklch(from var(--color-text) l c h / 0.05);
+		}
+
+		.command-item.selected {
+			background: oklch(from var(--color-primary) l c h / 0.12);
+			color: var(--color-primary);
+		}
+
+		.command-item:active {
+			transform: scale(0.99);
+		}
+
+		.command-item-icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 1.5rem;
+			height: 1.5rem;
+			border-radius: 0.375rem;
+			background: oklch(from var(--color-text) l c h / 0.05);
+			color: inherit;
+			opacity: 0.8;
+		}
+
+		.command-item.selected .command-item-icon {
+			background: oklch(from var(--color-primary) l c h / 0.15);
+			opacity: 1;
+		}
+
+		.command-item-title {
+			flex: 1;
+			font-size: 0.875rem;
+			font-weight: 475;
+			letter-spacing: -0.01em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		.command-item-enter {
+			opacity: 0.4;
+		}
+
+		/* ============================================
+		 * EMPTY STATE
+		 * ============================================ */
+
+		.command-empty {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			padding: 2.5rem 1rem;
+			text-align: center;
+		}
+
+		.command-empty-icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 3.5rem;
+			height: 3.5rem;
+			margin-bottom: 0.75rem;
+			border-radius: 1rem;
+			background: oklch(from var(--color-primary) l c h / 0.1);
+			color: var(--color-primary);
+		}
+
+		.command-empty-icon.pulse {
+			animation: pulse 1.5s ease-in-out infinite;
+		}
+
+		@keyframes pulse {
+			0%, 100% {
+				opacity: 1;
+				transform: scale(1);
+			}
+			50% {
+				opacity: 0.7;
+				transform: scale(0.95);
+			}
+		}
+
+		.command-empty-text {
+			font-size: 0.8125rem;
+			color: var(--color-muted);
+		}
+
+		/* ============================================
+		 * FOOTER
+		 * ============================================ */
+
+		.command-footer {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0.625rem 1rem;
+			border-top: 1px solid oklch(from var(--color-border) l c h / 0.3);
+			background: oklch(from var(--color-surface) l c h / 0.5);
+		}
+
+		.command-hints {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+		}
+
+		.command-hint {
+			display: flex;
+			align-items: center;
+			gap: 0.375rem;
+			font-size: 0.625rem;
+			color: var(--color-muted);
+		}
+
+		.command-hint kbd {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			min-width: 1.25rem;
+			height: 1.25rem;
+			padding: 0 0.25rem;
+			font-family: var(--font-mono);
+			font-size: 0.5625rem;
+			font-weight: 500;
+			color: var(--color-text);
+			background: var(--color-surface);
+			border: 1px solid oklch(from var(--color-border) l c h / 0.5);
+			border-radius: 0.25rem;
+			box-shadow: 0 1px 2px oklch(0 0 0 / 0.05);
+		}
+	}
+</style>
