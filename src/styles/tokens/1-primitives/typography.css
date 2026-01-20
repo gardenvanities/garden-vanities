@@ -1,9 +1,9 @@
 :root {
-	--font-heading: "Fraunces", Georgia, "Times New Roman", serif;
-	--font-body: "Red Hat Display", system-ui, -apple-system, sans-serif;
-	--font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
-	--font-article-body: "Rowan", Georgia, "Times New Roman", serif;
-	--font-article-title: "Fraunces", Georgia, "Times New Roman", serif;
+	--font-heading: "Geist", system-ui, -apple-system, sans-serif;
+	--font-body: "Geist Mono", ui-monospace, monospace;
+	--font-mono: "Geist Mono", ui-monospace, monospace;
+	--font-article-body: "Geist Mono", ui-monospace, monospace;
+	--font-article-title: "Geist", system-ui, -apple-system, sans-serif;
 
 	--font-weight-100: 100;
 	--font-weight-200: 200;

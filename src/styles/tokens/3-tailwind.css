@@ -26,6 +26,7 @@
 	--color-material-thin: var(--material-thin);
 	--color-material-ultrathin: var(--material-ultrathin);
 
+	--font-sans: var(--font-heading);
 	--font-heading: var(--font-heading);
 	--font-body: var(--font-body);
 	--font-mono: var(--font-mono);

@@ -12,15 +12,17 @@ Este arquivo define a **ÚNICA VERDADE** técnica do projeto. Agentes devem igno
 
 ### Svelte 5 (Runes)
 
-| Recurso      | ❌ Antigo (Banido)       | ✅ Novo (Obrigatório)                 |
-| ------------ | ------------------------ | ------------------------------------- |
-| Estado Local | `let count = 0`          | `let count = $state(0)`               |
-| Props        | `export let data`        | `let { data } = $props()`             |
-| Reatividade  | `$: double = count * 2`  | `let double = $derived(count * 2)`    |
-| Efeitos      | `onMount`, `afterUpdate` | `$effect(() => { ... })`              |
-| Eventos      | `dispatch('save')`       | `let { onsave } = $props(); onsave()` |
-| Listeners    | `on:click={...}`         | `onclick={...}`                       |
-| Slots        | `<slot />`               | `{@render children()}` (Snippets)     |
+| Recurso      | ❌ Antigo (Banido)       | ✅ Novo (Obrigatório)                           |
+| ------------ | ------------------------ | ----------------------------------------------- |
+| Estado Local | `let count = 0`          | `let count = $state(0)`                         |
+| Props        | `export let data`        | `let { data } = $props()`                       |
+| Reatividade  | `$: double = count * 2`  | `let double = $derived(count * 2)`              |
+| Efeitos      | `onMount`, `afterUpdate` | `$effect(() => { ... })`                        |
+| Eventos      | `dispatch('save')`       | `let { onsave } = $props(); onsave()`           |
+| Listeners    | `on:click={...}`         | `onclick={...}`                                 |
+| Slots        | `<slot />`               | `{@render children()}` (Snippets)               |
+| Dinâmicos    | `<svelte:component />`   | `<component.icon />` (Render direto)            |
+| Referências  | `const list = [...]`     | `const list = $derived([...])` (Se usar $state) |
 
 ### Tailwind CSS 4.1
 
@@ -30,6 +32,10 @@ Este arquivo define a **ÚNICA VERDADE** técnica do projeto. Agentes devem igno
 | `@apply` em classes Svelte     | **Evitar**. Usar classes utilitárias diretamente no HTML. |
 | Sintaxe `shadow-[var(--bot)]`  | **Depreciado**. Use `shadow-(--bot)`                      |
 | Sintaxe `bg-gradient-to-*`     | **BANIDO**. Use `bg-linear-to-*` (t/r/b/l/tr/tl/br/bl)    |
+| Opacidade Simplificada         | `border-white/10` em vez de `border-white/[0.1]`          |
+| Aspect Ratio Nativo            | `aspect-3/4` em vez de `aspect-[3/4]`                     |
+| Flexbox Utilities              | `shrink-0` em vez de `flex-shrink-0`                      |
+| Importante (`!`)               | `flex!` em vez de `!flex` (Sufixo, não prefixo)           |
 | Cores Opacas (`rgb/hsl`)       | **Moderno**. Use `oklch(l c h / alpha)`                   |
 
 ## 3. Configuration Sources

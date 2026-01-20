@@ -20,6 +20,7 @@
 - **Testes Visuais**: Você tem permissão para usar o navegador (`browser_subagent`) para validar visualmente suas alterações sem pedir permissão a cada clique.
 - **Correção Proativa**: Se encontrar código legado (Svelte 4 ou Tailwind antigo) durante uma tarefa, atualize-o silenciosamente para o padrão definido em `STACK.md`.
 - **Leitura Antes de Escrita**: Antes de criar ou editar estilos, LEIA `src/app.css` e `src/styles/tokens/` para garantir que está usando as variáveis corretas.
+- **Verificação de Padrões**: Antes de marcar uma tarefa como concluída, valide se o código segue estritamente a tabela de padrões em `STACK.md` (especialmente Tailwind v4 e Svelte 5 runes).
 
 ## 4. Browser Agent Protocol
 

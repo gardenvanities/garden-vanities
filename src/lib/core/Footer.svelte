@@ -53,6 +53,11 @@
 							Coleções
 						</a>
 					</li>
+					<li>
+						<a href="/library" class="text-text/80 hover:text-text text-sm transition-colors">
+							Biblioteca
+						</a>
+					</li>
 				</ul>
 			</div>
 

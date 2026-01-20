@@ -9,5 +9,7 @@ export interface Author {
 		instagram?: string;
 		youtube?: string;
 		tiktok?: string;
+		github?: string;
+		email?: string;
 	};
 }

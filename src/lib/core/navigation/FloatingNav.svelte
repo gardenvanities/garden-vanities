@@ -3,7 +3,7 @@
 	import { commandPalette } from "$lib/core/navigation/command-palette.svelte";
 	import { cn } from "$lib/shared/merge-class";
 	import { ui } from "$lib/stores/ui.svelte";
-	import { Sparkles, Telescope, House, Layers, FolderOpen, PanelLeft, Search, Library } from "@lucide/svelte";
+	import { Sparkles, Telescope, House, Layers, FolderOpen, PanelLeft, Search, User } from "@lucide/svelte";
 	import { onMount } from "svelte";
 	import CommandPalette from "./CommandPalette.svelte";
 
@@ -64,7 +64,7 @@
 		{ path: "/explore", icon: Telescope, label: "Explorar" },
 		{ path: "/series", icon: Layers, label: "Séries" },
 		{ path: "/sets", icon: FolderOpen, label: "Sets" },
-		{ path: "/library", icon: Library, label: "Biblioteca" }
+		{ path: "/author", icon: User, label: "Autor" }
 	];
 
 	function getScale(index: number): number {
