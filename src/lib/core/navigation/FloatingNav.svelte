@@ -3,7 +3,7 @@
 	import { commandPalette } from "$lib/core/navigation/command-palette.svelte";
 	import { cn } from "$lib/shared/merge-class";
 	import { ui } from "$lib/stores/ui.svelte";
-	import { Sparkles, Telescope, House, Layers, FolderOpen, PanelLeft, Search } from "@lucide/svelte";
+	import { Sparkles, Telescope, House, Layers, FolderOpen, PanelLeft, Search, Library } from "@lucide/svelte";
 	import { onMount } from "svelte";
 	import CommandPalette from "./CommandPalette.svelte";
 
@@ -63,7 +63,8 @@
 		{ path: "/", icon: House, label: "Home" },
 		{ path: "/explore", icon: Telescope, label: "Explorar" },
 		{ path: "/series", icon: Layers, label: "Séries" },
-		{ path: "/sets", icon: FolderOpen, label: "Sets" }
+		{ path: "/sets", icon: FolderOpen, label: "Sets" },
+		{ path: "/library", icon: Library, label: "Biblioteca" }
 	];
 
 	function getScale(index: number): number {
@@ -72,6 +73,12 @@
 		if (distance === 0) return 1.25;
 		if (distance === 1) return 1.1;
 		return 1;
+	}
+
+	function handleHover(index: number) {
+		if (window.matchMedia("(hover: hover)").matches) {
+			hoveredIndex = index;
+		}
 	}
 
 	const isPostPage = $derived(
@@ -114,7 +121,7 @@
 						type="button"
 						class="dock-item active"
 						style="--scale: {scale}"
-						onmouseenter={() => (hoveredIndex = index)}
+						onmouseenter={() => handleHover(index)}
 						onmouseleave={() => (hoveredIndex = null)}
 						onclick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
 						aria-label={item.label}
@@ -128,7 +135,7 @@
 						href={item.path}
 						class={cn("dock-item", active && "active")}
 						style="--scale: {scale}"
-						onmouseenter={() => (hoveredIndex = index)}
+						onmouseenter={() => handleHover(index)}
 						onmouseleave={() => (hoveredIndex = null)}
 						aria-label={item.label}
 					>
@@ -309,8 +316,10 @@
 				background 150ms var(--motion-ease);
 		}
 
-		.dock-item:hover {
-			color: var(--color-text);
+		@media (hover: hover) {
+			.dock-item:hover {
+				color: var(--color-text);
+			}
 		}
 
 		.dock-item:active {
@@ -347,10 +356,12 @@
 				visibility 150ms var(--motion-ease);
 		}
 
-		.dock-item:hover .dock-tooltip {
-			opacity: 1;
-			visibility: visible;
-			transform: translateX(-50%) translateY(0);
+		@media (hover: hover) {
+			.dock-item:hover .dock-tooltip {
+				opacity: 1;
+				visibility: visible;
+				transform: translateX(-50%) translateY(0);
+			}
 		}
 
 		/* Active Indicator Dot */
@@ -411,21 +422,19 @@
 			}
 		}
 
-		:global(.dark) .dock-search {
-			/* Mobile: no background change needed */
-		}
-
 		@media (min-width: 640px) {
 			:global(.dark) .dock-search {
 				background: oklch(1 0 0 / 0.06);
 			}
 		}
 
-		.dock-search:hover {
-			color: var(--color-text);
+		@media (hover: hover) {
+			.dock-search:hover {
+				color: var(--color-text);
+			}
 		}
 
-		@media (min-width: 640px) {
+		@media (min-width: 640px) and (hover: hover) {
 			.dock-search:hover {
 				background: oklch(from var(--color-primary) l c h / 0.15);
 			}
@@ -443,8 +452,10 @@
 			transition: transform 200ms var(--motion-ease-out);
 		}
 
-		.dock-search:hover .search-icon-wrapper {
-			transform: scale(1.1) rotate(8deg);
+		@media (hover: hover) {
+			.dock-search:hover .search-icon-wrapper {
+				transform: scale(1.1) rotate(8deg);
+			}
 		}
 
 		.search-label {
