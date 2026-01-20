@@ -19,7 +19,7 @@
 </script>
 
 <aside class="text-sm">
-	<h4 class="text-muted mb-4 text-xs font-bold tracking-widest uppercase">Metadados</h4>
+	<h4 class="font-sans text-muted mb-4 text-xs font-bold tracking-widest uppercase">Metadados</h4>
 
 	<div class="space-y-3">
 		<!-- Ripeness -->

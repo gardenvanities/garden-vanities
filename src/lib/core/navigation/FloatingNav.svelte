@@ -3,7 +3,7 @@
 	import { commandPalette } from "$lib/core/navigation/command-palette.svelte";
 	import { cn } from "$lib/shared/merge-class";
 	import { ui } from "$lib/stores/ui.svelte";
-	import { Sparkles, Telescope, House, Library, FolderOpen, PanelLeft, Search } from "@lucide/svelte";
+	import { Sparkles, Telescope, House, Layers, FolderOpen, PanelLeft, Search } from "@lucide/svelte";
 	import { onMount } from "svelte";
 	import CommandPalette from "./CommandPalette.svelte";
 
@@ -62,7 +62,7 @@
 	const navItems = [
 		{ path: "/", icon: House, label: "Home" },
 		{ path: "/explore", icon: Telescope, label: "Explorar" },
-		{ path: "/series", icon: Library, label: "Séries" },
+		{ path: "/series", icon: Layers, label: "Séries" },
 		{ path: "/sets", icon: FolderOpen, label: "Sets" }
 	];
 
@@ -194,12 +194,20 @@
 
 		.command-modal {
 			position: fixed;
-			top: 20%;
+			top: 1rem;
 			left: 50%;
 			transform: translateX(-50%);
 			z-index: 100;
 			width: min(560px, calc(100vw - 2rem));
+			max-height: calc(100dvh - 2rem);
 			animation: modal-in 250ms var(--motion-ease-out-quint) forwards;
+		}
+
+		@media (min-width: 640px) {
+			.command-modal {
+				top: 20%;
+				max-height: 70dvh;
+			}
 		}
 
 		@keyframes modal-in {
@@ -376,26 +384,51 @@
 		.dock-search {
 			display: flex;
 			align-items: center;
+			justify-content: center;
 			gap: 0.5rem;
-			height: 2.5rem;
-			padding: 0 0.875rem;
-			border-radius: 0.75rem;
-			color: var(--color-text);
-			font-size: 0.8125rem;
-			font-weight: 500;
-			letter-spacing: -0.01em;
-			background: oklch(from var(--color-text) l c h / 0.06);
+			width: 2.75rem;
+			height: 2.75rem;
+			padding: 0;
+			border-radius: 0.875rem;
+			color: var(--color-muted);
+			background: transparent;
 			border: none;
 			cursor: pointer;
 			transition: all 180ms var(--motion-ease-out);
 		}
 
+		@media (min-width: 640px) {
+			.dock-search {
+				width: auto;
+				height: 2.5rem;
+				padding: 0 0.875rem;
+				border-radius: 0.75rem;
+				background: oklch(from var(--color-text) l c h / 0.06);
+				color: var(--color-text);
+				font-size: 0.8125rem;
+				font-weight: 500;
+				letter-spacing: -0.01em;
+			}
+		}
+
 		:global(.dark) .dock-search {
-			background: oklch(1 0 0 / 0.06);
+			/* Mobile: no background change needed */
+		}
+
+		@media (min-width: 640px) {
+			:global(.dark) .dock-search {
+				background: oklch(1 0 0 / 0.06);
+			}
 		}
 
 		.dock-search:hover {
-			background: oklch(from var(--color-primary) l c h / 0.15);
+			color: var(--color-text);
+		}
+
+		@media (min-width: 640px) {
+			.dock-search:hover {
+				background: oklch(from var(--color-primary) l c h / 0.15);
+			}
 		}
 
 		.dock-search:active {

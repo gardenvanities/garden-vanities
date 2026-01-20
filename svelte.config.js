@@ -7,7 +7,7 @@ import adapter from "@sveltejs/adapter-auto";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { createHighlighter } from "shiki";
 
-const theme = "dark-plus";
+const theme = "poimandres";
 const highlighter = await createHighlighter({
 	themes: [theme],
 	langs: ["javascript", "typescript", "css", "svelte", "markdown", "bash"]

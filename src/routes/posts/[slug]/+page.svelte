@@ -36,7 +36,7 @@
 
 <MobileSidebarDrawer {metadata} />
 
-<Section class="py-12! sm:py-20!">
+<Section class="py-8! sm:py-12!">
 	<Container size="xl">
 		<header class="mb-12" in:fly={{ y: 20, duration: 800, delay: 100 }}>
 			<PostHeader {metadata} />

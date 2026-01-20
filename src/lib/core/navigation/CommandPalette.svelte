@@ -294,6 +294,8 @@
 		 * ============================================ */
 
 		.command-container {
+			display: flex;
+			flex-direction: column;
 			overflow: hidden;
 			border-radius: 1rem;
 			background: var(--color-surface-elevated);
@@ -302,6 +304,7 @@
 				0 0 0 1px oklch(0 0 0 / 0.03),
 				0 24px 80px oklch(0 0 0 / 0.25),
 				0 8px 24px oklch(0 0 0 / 0.1);
+			max-height: calc(100dvh - 2rem);
 		}
 
 		:global(.dark) .command-container {
@@ -372,7 +375,8 @@
 		 * ============================================ */
 
 		.command-results {
-			max-height: 50vh;
+			flex: 1;
+			min-height: 0;
 			overflow-y: auto;
 			padding: 0.5rem;
 			scrollbar-width: thin;
@@ -535,12 +539,18 @@
 		 * ============================================ */
 
 		.command-footer {
-			display: flex;
+			display: none;
 			align-items: center;
 			justify-content: space-between;
 			padding: 0.625rem 1rem;
 			border-top: 1px solid oklch(from var(--color-border) l c h / 0.3);
 			background: oklch(from var(--color-surface) l c h / 0.5);
+		}
+
+		@media (min-width: 640px) {
+			.command-footer {
+				display: flex;
+			}
 		}
 
 		.command-hints {
