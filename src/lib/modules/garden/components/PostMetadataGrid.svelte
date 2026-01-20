@@ -1,5 +1,4 @@
 <script lang="ts">
-	import TagList from "./TagList.svelte";
 	import {
 		formatRelativeDate,
 		formatShortDate,
@@ -26,17 +25,7 @@
 	}
 </script>
 
-<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-	<div class="space-y-2">
-		<h4 class="text-muted text-[10px] font-bold tracking-widest uppercase">Tags</h4>
-		<div class="flex flex-wrap gap-1.5">
-			{#if post.tags && post.tags.length > 0}
-				<TagList tags={post.tags} limit={3} />
-			{:else}
-				<p class="text-muted/50 text-xs">Sem tags</p>
-			{/if}
-		</div>
-	</div>
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 
 	{#if post.series?.slug}
 		<div class="space-y-2">

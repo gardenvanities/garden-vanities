@@ -2,10 +2,9 @@
 	import SEO from "$lib/core/seo/SEO.svelte";
 	import Container from "$lib/layout/Container.svelte";
 	import Section from "$lib/layout/Section.svelte";
-	import PostCard from "$lib/modules/posts/components/PostCard.svelte";
-	import Grid from "$lib/layout/Grid.svelte";
-	import { FolderOpen, ArrowLeft } from "@lucide/svelte";
-	import { fly } from "svelte/transition";
+	import PostListItem from "$lib/modules/posts/components/PostListItem.svelte";
+	import { Folder, ArrowLeft } from "@lucide/svelte";
+	import { fly, fade } from "svelte/transition";
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
 	import type { SetMetadata } from "$lib/modules/posts/collections";
 
@@ -26,66 +25,182 @@
 	description={data.set.description || `Notas e ensaios sobre ${data.set.title}`}
 />
 
-<Section class="py-12">
+<Section class="py-16 md:py-24">
 	<Container size="lg">
-		<header class="mb-12" in:fly={{ y: 20, duration: 800, delay: 100 }}>
-			<a
-				href="/sets"
-				class="text-muted hover:text-primary mb-4 inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase transition-colors"
-			>
-				<ArrowLeft size={14} />
-				Voltar ao Atlas
-			</a>
+		<!-- Back Link -->
+		<a
+			href="/sets"
+			class="back-link"
+			in:fly={{ x: -10, duration: 400 }}
+		>
+			<ArrowLeft size={14} strokeWidth={2} />
+			<span>Coleções</span>
+		</a>
 
-			<div class="flex items-start gap-4">
-				<div
-					class="bg-primary/10 text-primary flex h-14 w-14 shrink-0 items-center justify-center rounded-xl"
-				>
-					<FolderOpen size={28} />
-				</div>
+		<div in:fly={{ y: 20, duration: 800 }}>
+			<!-- Premium Set Header -->
+			<header class="page-header">
+				<div class="header-content">
+					<div class="header-icon" in:fade={{ duration: 600, delay: 200 }}>
+						<Folder size={24} strokeWidth={1.5} />
+					</div>
 
-				<div>
-					<h1 class="text-text font-heading text-4xl font-bold">{data.set.title}</h1>
+					<div class="header-meta" in:fade={{ duration: 500, delay: 150 }}>
+						<span class="notes-count">
+							{count} {count === 1 ? "nota" : "notas"}
+						</span>
+					</div>
+
+					<h1 class="header-title" in:fly={{ y: 15, duration: 700, delay: 100 }}>
+						{data.set.title}
+					</h1>
+
+					<div class="header-line" in:fade={{ duration: 800, delay: 300 }}></div>
+
 					{#if data.set.description}
-						<p class="text-muted mt-2 max-w-2xl text-lg">
+						<p class="header-description" in:fly={{ y: 10, duration: 600, delay: 250 }}>
 							{data.set.description}
 						</p>
 					{/if}
-					<p class="text-muted mt-2 text-sm">
-						{count}
-						{count === 1 ? "nota" : "notas"} neste set.
-					</p>
 				</div>
-			</div>
+			</header>
 
-			<!-- Related Sets -->
-			{#if data.set.relatedSets && data.set.relatedSets.length > 0}
-				<div class="mt-6 flex flex-wrap items-center gap-2">
-					<span class="text-muted text-xs font-medium">Sets relacionados:</span>
-					{#each data.set.relatedSets as relatedSlug (relatedSlug)}
-						<a
-							href="/sets/{relatedSlug}"
-							class="bg-surface-elevated border-border hover:border-primary text-muted hover:text-primary rounded-full border px-3 py-1 text-xs font-medium transition-colors"
+			<!-- Posts List -->
+			{#if count > 0}
+				<div class="posts-list">
+					{#each data.posts as post, i (post.slug)}
+						<div 
+							class="post-item"
+							in:fly={{ y: 10, duration: 400, delay: i * 50 }}
 						>
-							{relatedSlug}
-						</a>
+							<PostListItem {post} />
+						</div>
 					{/each}
 				</div>
+			{:else}
+				<div class="empty-state">
+					<p>Nenhuma nota encontrada nesta coleção.</p>
+				</div>
 			{/if}
-		</header>
-
-		{#if count > 0}
-			<Grid cols={3} gap="lg">
-				{#each data.posts as post, i (post.slug)}
-					<div in:fly={{ y: 20, duration: 800, delay: 200 + i * 80 }}>
-						<PostCard {post} />
-					</div>
-				{/each}
-			</Grid>
-		{:else}
-			<div class="py-12 text-center">
-				<p class="text-muted italic">Nenhuma nota encontrada neste set.</p>
-			</div>
-		{/if}
+		</div>
 	</Container>
 </Section>
+
+<style>
+	/* Back Link */
+	.back-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-bottom: 2rem;
+		padding: 0.5rem 1rem;
+		border-radius: 9999px;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--color-muted);
+		background: oklch(from var(--color-surface) l c h / 0.5);
+		border: 1px solid oklch(from var(--color-border) l c h / 0.3);
+		transition: all 0.2s ease;
+	}
+
+	.back-link:hover {
+		color: var(--color-primary);
+		background: oklch(from var(--color-primary) l c h / 0.08);
+		border-color: oklch(from var(--color-primary) l c h / 0.2);
+	}
+
+	/* Page Header */
+	.page-header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.header-content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.header-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 4rem;
+		height: 4rem;
+		border-radius: 1rem;
+		background: oklch(from var(--color-primary) l c h / 0.08);
+		color: var(--color-primary);
+		margin-bottom: 0.5rem;
+	}
+
+	.header-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.notes-count {
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: var(--color-muted);
+	}
+
+	.header-title {
+		font-family: var(--font-heading);
+		font-size: clamp(2rem, 5vw, 3.5rem);
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		line-height: 1.1;
+		color: var(--color-text);
+		margin: 0.5rem 0;
+	}
+
+	.header-line {
+		width: 4rem;
+		height: 2px;
+		background: linear-gradient(
+			90deg,
+			transparent,
+			oklch(from var(--color-primary) l c h / 0.5),
+			transparent
+		);
+		margin: 0.5rem 0;
+	}
+
+	.header-description {
+		font-size: 1.125rem;
+		line-height: 1.6;
+		color: var(--color-muted);
+		font-weight: 400;
+		max-width: 48ch;
+		margin: 0;
+	}
+
+	/* Posts List */
+	.posts-list {
+		display: flex;
+		flex-direction: column;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.post-item {
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	/* Empty State */
+	.empty-state {
+		padding: 4rem 2rem;
+		text-align: center;
+	}
+
+	.empty-state p {
+		color: var(--color-muted);
+		font-style: italic;
+	}
+</style>

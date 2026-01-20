@@ -52,4 +52,48 @@
 	#__next {
 		isolation: isolate;
 	}
+
+	/* Custom Scrollbar - Minimalista */
+	* {
+		scrollbar-width: thin;
+		scrollbar-color: oklch(from var(--color-primary) l c h / 0.3) transparent;
+	}
+
+	/* Webkit browsers (Chrome, Safari, Edge) */
+	::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+	}
+
+	::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: oklch(from var(--color-primary) l c h / 0.25);
+		border-radius: 9999px;
+		border: 2px solid transparent;
+		background-clip: padding-box;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: oklch(from var(--color-primary) l c h / 0.4);
+		border: 2px solid transparent;
+		background-clip: padding-box;
+	}
+
+	::-webkit-scrollbar-thumb:active {
+		background: oklch(from var(--color-primary) l c h / 0.5);
+	}
+
+	::-webkit-scrollbar-corner {
+		background: transparent;
+	}
+
+	/* Hide scrollbar arrows/buttons */
+	::-webkit-scrollbar-button {
+		display: none;
+		width: 0;
+		height: 0;
+	}
 }

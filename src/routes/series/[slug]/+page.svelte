@@ -2,39 +2,20 @@
 	import SEO from "$lib/core/seo/SEO.svelte";
 	import Container from "$lib/layout/Container.svelte";
 	import Section from "$lib/layout/Section.svelte";
-	import PostCard from "$lib/modules/posts/components/PostCard.svelte";
-	import {
-		Library,
-		ArrowLeft,
-		ExternalLink,
-		Github,
-		Youtube,
-		FileText,
-		Link
-	} from "@lucide/svelte";
-	import { fly } from "svelte/transition";
-	import type { ResourceLink } from "$lib/modules/posts/collections";
+	import PostListItem from "$lib/modules/posts/components/PostListItem.svelte";
+	import { Layers, ArrowLeft } from "@lucide/svelte";
+	import { fly, fade } from "svelte/transition";
 
 	let { data } = $props();
 
 	function getStatusLabel(status: string) {
 		const labels: Record<string, { text: string; class: string }> = {
-			ongoing: { text: "Em andamento", class: "bg-primary/15 text-primary" },
-			completed: { text: "Completa", class: "bg-green-500/15 text-green-600" },
-			archived: { text: "Arquivada", class: "bg-muted/30 text-muted" },
-			draft: { text: "Rascunho", class: "bg-yellow-500/15 text-yellow-600" }
+			ongoing: { text: "Em andamento", class: "status-ongoing" },
+			completed: { text: "Completa", class: "status-completed" },
+			archived: { text: "Arquivada", class: "status-archived" },
+			draft: { text: "Rascunho", class: "status-draft" }
 		};
 		return labels[status] || labels.ongoing;
-	}
-
-	function getResourceIcon(type: ResourceLink["type"]) {
-		const icons = {
-			github: Github,
-			youtube: Youtube,
-			pdf: FileText,
-			link: Link
-		};
-		return icons[type] || Link;
 	}
 
 	const statusInfo = $derived(getStatusLabel(data.series.status));
@@ -46,84 +27,62 @@
 		`Uma coleção de notas ordenadas sobre ${data.series.title}.`}
 />
 
-<Section class="py-12">
+<Section class="py-16 md:py-24">
 	<Container size="md">
+		<!-- Back Link -->
 		<a
 			href="/series"
-			class="text-muted hover:text-primary mb-8 inline-flex items-center gap-2 text-sm font-medium transition-colors"
+			class="back-link"
+			in:fly={{ x: -10, duration: 400 }}
 		>
-			<ArrowLeft size={16} />
-			Voltar para Séries
+			<ArrowLeft size={14} strokeWidth={2} />
+			<span>Séries</span>
 		</a>
 
 		<div in:fly={{ y: 20, duration: 800 }}>
-			<!-- Series Header -->
-			<div class="mb-12 text-center">
-				<div class="mb-6 flex items-center justify-center gap-3">
-					<div
-						class="bg-primary/10 text-primary flex h-16 w-16 items-center justify-center rounded-2xl"
-					>
-						<Library size={32} />
+			<!-- Premium Series Header -->
+			<header class="page-header">
+				<div class="header-content">
+					<div class="header-icon" in:fade={{ duration: 600, delay: 200 }}>
+						<Layers size={24} strokeWidth={1.5} />
 					</div>
-				</div>
 
-				<span class="rounded-full px-3 py-1 text-xs font-medium {statusInfo.class}">
-					{statusInfo.text}
-				</span>
-
-				<h1 class="font-heading text-text mt-4 mb-4 text-4xl font-bold">{data.series.title}</h1>
-
-				{#if data.series.description}
-					<p class="text-muted mx-auto max-w-2xl text-xl">
-						{data.series.description}
-					</p>
-				{/if}
-
-				<p class="text-muted mt-4 text-sm">
-					{data.posts.length}
-					{data.posts.length === 1 ? "parte" : "partes"} nesta coleção.
-				</p>
-			</div>
-
-			<!-- Resources Section -->
-			{#if data.series.resources && data.series.resources.length > 0}
-				<div class="bg-surface-elevated border-border mb-10 rounded-xl border p-6">
-					<h2 class="text-text font-heading mb-4 text-lg font-bold">Recursos da Série</h2>
-					<div class="flex flex-wrap gap-3">
-						{#each data.series.resources as resource (resource.url)}
-							{@const IconComponent = getResourceIcon(resource.type)}
-							<a
-								href={resource.url}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="bg-surface border-border hover:border-primary text-muted hover:text-primary inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors"
-							>
-								<IconComponent size={16} />
-								{resource.title}
-								<ExternalLink size={12} class="opacity-50" />
-							</a>
-						{/each}
+					<div class="header-meta" in:fade={{ duration: 500, delay: 150 }}>
+						<span class="status-badge {statusInfo.class}">
+							{statusInfo.text}
+						</span>
+						<span class="meta-divider">•</span>
+						<span class="parts-count">
+							{data.posts.length} {data.posts.length === 1 ? "parte" : "partes"}
+						</span>
 					</div>
-				</div>
-			{/if}
 
-			<!-- Posts Timeline -->
-			<div
-				class="before:via-border relative space-y-8 before:absolute before:inset-0 before:ml-5 before:h-full before:w-0.5 before:-translate-x-px before:bg-linear-to-b before:from-transparent before:to-transparent md:before:ml-10"
-			>
+					<h1 class="header-title" in:fly={{ y: 15, duration: 700, delay: 100 }}>
+						{data.series.title}
+					</h1>
+
+					<div class="header-line" in:fade={{ duration: 800, delay: 300 }}></div>
+
+					{#if data.series.description}
+						<p class="header-description" in:fly={{ y: 10, duration: 600, delay: 250 }}>
+							{data.series.description}
+						</p>
+					{/if}
+				</div>
+			</header>
+
+			<!-- Posts List -->
+			<div class="posts-list">
 				{#each data.posts as post, i (post.slug)}
-					<div
-						class="relative flex items-start gap-4 md:gap-8"
-						in:fly={{ y: 20, duration: 500, delay: i * 100 }}
+					<div 
+						class="post-item"
+						in:fly={{ y: 10, duration: 400, delay: i * 50 }}
 					>
-						<div
-							class="bg-surface border-border text-muted relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-sm font-bold shadow-sm md:h-20 md:w-20 md:text-2xl"
-						>
-							{post.series?.order || i + 1}
-						</div>
-
-						<div class="flex-1">
-							<PostCard {post} />
+						<span class="post-order">
+							{String(post.series?.order || i + 1).padStart(2, "0")}
+						</span>
+						<div class="post-content">
+							<PostListItem {post} showSummary={true} />
 						</div>
 					</div>
 				{/each}
@@ -131,3 +90,160 @@
 		</div>
 	</Container>
 </Section>
+
+<style>
+	/* Back Link */
+	.back-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-bottom: 2rem;
+		padding: 0.5rem 1rem;
+		border-radius: 9999px;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--color-muted);
+		background: oklch(from var(--color-surface) l c h / 0.5);
+		border: 1px solid oklch(from var(--color-border) l c h / 0.3);
+		transition: all 0.2s ease;
+	}
+
+	.back-link:hover {
+		color: var(--color-primary);
+		background: oklch(from var(--color-primary) l c h / 0.08);
+		border-color: oklch(from var(--color-primary) l c h / 0.2);
+	}
+
+	/* Page Header */
+	.page-header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.header-content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.header-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 4rem;
+		height: 4rem;
+		border-radius: 1rem;
+		background: oklch(from var(--color-primary) l c h / 0.08);
+		color: var(--color-primary);
+		margin-bottom: 0.5rem;
+	}
+
+	.header-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		font-size: 0.875rem;
+	}
+
+	.status-badge {
+		padding: 0.25rem 0.75rem;
+		border-radius: 9999px;
+		font-size: 0.75rem;
+		font-weight: 600;
+	}
+
+	.status-ongoing {
+		background: oklch(from var(--color-primary) l c h / 0.12);
+		color: var(--color-primary);
+	}
+
+	.status-completed {
+		background: oklch(70% 0.15 145 / 0.15);
+		color: oklch(55% 0.2 145);
+	}
+
+	.status-archived {
+		background: oklch(from var(--color-muted) l c h / 0.2);
+		color: var(--color-muted);
+	}
+
+	.status-draft {
+		background: oklch(75% 0.15 85 / 0.15);
+		color: oklch(60% 0.2 85);
+	}
+
+	.meta-divider {
+		color: var(--color-muted);
+		opacity: 0.4;
+	}
+
+	.parts-count {
+		color: var(--color-muted);
+		font-weight: 500;
+	}
+
+	.header-title {
+		font-family: var(--font-heading);
+		font-size: clamp(2rem, 5vw, 3.5rem);
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		line-height: 1.1;
+		color: var(--color-text);
+		margin: 0.5rem 0;
+	}
+
+	.header-line {
+		width: 4rem;
+		height: 2px;
+		background: linear-gradient(
+			90deg,
+			transparent,
+			oklch(from var(--color-primary) l c h / 0.5),
+			transparent
+		);
+		margin: 0.5rem 0;
+	}
+
+	.header-description {
+		font-size: 1.125rem;
+		line-height: 1.6;
+		color: var(--color-muted);
+		font-weight: 400;
+		max-width: 48ch;
+		margin: 0;
+	}
+
+	/* Posts List */
+	.posts-list {
+		display: flex;
+		flex-direction: column;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.post-item {
+		display: flex;
+		align-items: center;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.post-order {
+		width: 3rem;
+		flex-shrink: 0;
+		text-align: center;
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		font-weight: 500;
+		color: var(--color-muted);
+		opacity: 0.4;
+	}
+
+	.post-content {
+		flex: 1;
+	}
+</style>

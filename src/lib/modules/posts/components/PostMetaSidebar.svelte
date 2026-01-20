@@ -4,7 +4,6 @@
 	import { formatShortDate } from "$lib/modules/posts/utils/date";
 	import RipenessBadge from "$lib/modules/garden/components/RipenessBadge.svelte";
 	import KindBadge from "$lib/modules/garden/components/KindBadge.svelte";
-	import TagList from "$lib/modules/garden/components/TagList.svelte";
 
 	let { metadata }: { metadata: PostFrontmatter } = $props();
 
@@ -85,10 +84,4 @@
 		</div>
 	{/if}
 
-	{#if metadata.tags && metadata.tags.length > 0}
-		<div class="border-border space-y-3 border-t pt-6">
-			<h4 class="text-muted mb-2 text-xs font-bold tracking-widest uppercase">Tags</h4>
-			<TagList tags={metadata.tags} />
-		</div>
-	{/if}
 </aside>

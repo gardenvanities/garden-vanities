@@ -29,7 +29,7 @@ Este arquivo define a **ÚNICA VERDADE** técnica do projeto. Agentes devem igno
 | Config no `tailwind.config.js` | Config CSS-first (veja `src/app.css` e `@theme`)          |
 | `@apply` em classes Svelte     | **Evitar**. Usar classes utilitárias diretamente no HTML. |
 | Sintaxe `shadow-[var(--bot)]`  | **Depreciado**. Use `shadow-(--bot)`                      |
-| Sintaxe `bg-gradient-to-r`     | **Modernizado**. Use `bg-linear-to-r`                     |
+| Sintaxe `bg-gradient-to-*`     | **BANIDO**. Use `bg-linear-to-*` (t/r/b/l/tr/tl/br/bl)    |
 | Cores Opacas (`rgb/hsl`)       | **Moderno**. Use `oklch(l c h / alpha)`                   |
 
 ## 3. Configuration Sources

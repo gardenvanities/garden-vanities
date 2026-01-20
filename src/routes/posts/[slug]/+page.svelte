@@ -67,17 +67,6 @@
 				class="prose order-1 max-w-none lg:order-2"
 				in:fly={{ y: 20, duration: 800, delay: 300 }}
 			>
-				{#if metadata.cover}
-					<div class="not-prose mb-12">
-						<Cover
-							publicId={metadata.cover.url}
-							alt={metadata.cover.alt}
-							caption={metadata.cover.caption}
-							priority={true}
-						/>
-					</div>
-				{/if}
-
 				<Content />
 			</article>
 		</div>

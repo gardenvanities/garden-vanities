@@ -3,9 +3,9 @@
 	import Container from "$lib/layout/Container.svelte";
 	import Section from "$lib/layout/Section.svelte";
 	import Grid from "$lib/layout/Grid.svelte";
-	import PostCard from "$lib/modules/posts/components/PostCard.svelte";
-	import { Search, X, Hash } from "@lucide/svelte";
-	import { fly, slide } from "svelte/transition";
+	import PostListItem from "$lib/modules/posts/components/PostListItem.svelte";
+	import { Search, X, Hash, Compass } from "@lucide/svelte";
+	import { fly, slide, fade } from "svelte/transition";
 
 	let { data } = $props();
 
@@ -181,15 +181,24 @@
 	description="Pesquise e filtre todas as notas do jardim."
 />
 
-<Section class="py-12">
+<Section class="py-16 md:py-24">
 	<Container size="lg">
 		<div in:fly={{ y: 20, duration: 800 }}>
-			<div class="mb-12 text-center">
-				<h1 class="font-header text-text mb-4 text-5xl font-bold">Biblioteca do Jardim</h1>
-				<p class="text-muted text-xl">
-					Explore {filteredPosts.length} notas cultivadas.
-				</p>
-			</div>
+			<!-- Premium Page Header -->
+			<header class="page-header mb-16 md:mb-20">
+				<div class="header-content">
+					<div class="header-icon" in:fade={{ duration: 600, delay: 200 }}>
+						<Compass size={20} strokeWidth={1.5} />
+					</div>
+					<h1 class="header-title" in:fly={{ y: 15, duration: 700, delay: 100 }}>
+						Explorar
+					</h1>
+					<div class="header-line" in:fade={{ duration: 800, delay: 300 }}></div>
+					<p class="header-subtitle" in:fly={{ y: 10, duration: 600, delay: 250 }}>
+						Descubra entre {data.posts.length} notas cultivadas
+					</p>
+				</div>
+			</header>
 
 			<div class="relative mx-auto mb-16 max-w-3xl">
 				<!-- Main Search Bar -->
@@ -319,13 +328,13 @@
 			<!-- Quick Filters (Optional: if we want to show most popular tags or similar later) -->
 
 			{#if filteredPosts.length > 0}
-				<Grid cols={3} gap="lg">
+				<div class="divide-border divide-y">
 					{#each filteredPosts as post (post.slug)}
-						<div in:fly={{ y: 20, duration: 400 }}>
-							<PostCard {post} />
+						<div in:fly={{ y: 10, duration: 300 }}>
+							<PostListItem {post} />
 						</div>
 					{/each}
-				</Grid>
+				</div>
 			{:else}
 				<div class="py-24 text-center">
 					<div
@@ -348,6 +357,64 @@
 </Section>
 
 <style>
+	/* Page Header */
+	.page-header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.header-content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.header-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 3rem;
+		height: 3rem;
+		border-radius: 50%;
+		background: oklch(from var(--color-primary) l c h / 0.08);
+		color: var(--color-primary);
+		margin-bottom: 0.5rem;
+	}
+
+	.header-title {
+		font-family: var(--font-heading);
+		font-size: clamp(2.5rem, 6vw, 4rem);
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		line-height: 1.1;
+		color: var(--color-text);
+		margin: 0;
+	}
+
+	.header-line {
+		width: 4rem;
+		height: 2px;
+		background: linear-gradient(
+			90deg,
+			transparent,
+			oklch(from var(--color-primary) l c h / 0.5),
+			transparent
+		);
+		margin: 0.5rem 0;
+	}
+
+	.header-subtitle {
+		font-size: 1.125rem;
+		color: var(--color-muted);
+		font-weight: 400;
+		letter-spacing: 0.01em;
+		max-width: 32ch;
+		margin: 0;
+	}
+
 	/* Search Bar Container */
 	.search-bar {
 		background: oklch(from var(--color-surface) l c h / 0.6);
