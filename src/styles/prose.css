@@ -161,6 +161,9 @@
 		border-collapse: collapse;
 		margin-bottom: var(--space-8);
 		font-size: var(--type-0);
+		display: block;
+		overflow-x: auto;
+		max-width: 100%;
 	}
 
 	/* Base striping: Color odd rows (starts with Header if present) */
