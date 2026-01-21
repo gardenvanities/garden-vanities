@@ -17,16 +17,17 @@
 		<div class="relative z-10 flex w-full flex-col items-center justify-center">
 			<!-- Quote Block -->
 			<blockquote
-				class="text-center"
+				class="text-left"
 				in:fly={{ y: 30, duration: 1000, delay: 0 }}
 			>
 					<!-- Main Quote Text -->
 				<p
-					class="hero-silver-gradient font-heading mx-auto max-w-5xl text-2xl font-medium leading-snug tracking-tight md:text-3xl lg:text-4xl xl:text-5xl"
+				<p
+					class="hero-silver-gradient font-mono max-w-5xl text-base font-medium leading-snug tracking-tight md:text-lg lg:text-xl"
 					in:fly={{ y: 20, duration: 800, delay: 200 }}
 				>
-					Há uma vaidade na dor e uma vaidade ainda maior na sabedoria.
-					Ambas nos fazem acreditar que somos especiais.
+				>
+					Falei eu com o meu coração, dizendo: Eis que eu me engrandeci, e sobrepujei em sabedoria a todos os que houve antes de mim em Jerusalém; e o meu coração contemplou abundantemente a sabedoria e o conhecimento. E apliquei o meu coração a conhecer a sabedoria e a conhecer os desvios e a loucura, e vim a saber que <strong class="text-primary font-bold">também isto era aflição de espírito.</strong> Porque <strong class="text-primary font-bold">na muita sabedoria há muito enfado; e o que aumenta em conhecimento, aumenta em dor.</strong>
 				</p>
 
 				<!-- Author Attribution -->
@@ -35,8 +36,7 @@
 					in:fade={{ duration: 600, delay: 600 }}
 				>
 					<cite class="text-muted not-italic">
-						<span class="text-sm tracking-widest uppercase md:text-base">— Aldous Huxley</span>
-						<span class="mt-1 block text-xs opacity-60 md:text-sm">Contraponto</span>
+						<span class="text-sm tracking-widest uppercase md:text-base">— Eclesiastes 1:16-18</span>
 					</cite>
 				</footer>
 			</blockquote>

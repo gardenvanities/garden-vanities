@@ -3,7 +3,7 @@
 	import Container from "$lib/layout/Container.svelte";
 	import Section from "$lib/layout/Section.svelte";
 	import PostListItem from "$lib/modules/posts/components/PostListItem.svelte";
-	import { Layers, ArrowLeft } from "@lucide/svelte";
+	import { ArrowLeft } from "@lucide/svelte";
 	import { fly, fade } from "svelte/transition";
 
 	let { data } = $props();
@@ -32,7 +32,7 @@
 		<!-- Back Link -->
 		<a
 			href="/series"
-			class="text-muted bg-surface/50 border-border/30 hover:text-primary hover:bg-primary/8 hover:border-primary/20 mb-8 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.05em] transition-all duration-200"
+			class="text-muted bg-surface/50 border-border/30 hover:text-primary hover:bg-primary/8 hover:border-primary/20 mb-8 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.05em] uppercase transition-all duration-200"
 			in:fly={{ x: -10, duration: 400 }}
 		>
 			<ArrowLeft size={14} strokeWidth={2} />
@@ -43,16 +43,10 @@
 			<!-- Premium Series Header -->
 			<header class="mb-16 flex flex-col items-center text-center">
 				<div class="flex flex-col items-center gap-4">
-					<div
-						class="bg-primary/8 text-primary mb-2 flex h-16 w-16 items-center justify-center rounded-2xl"
-						in:fade={{ duration: 600, delay: 200 }}
-					>
-						<Layers size={24} strokeWidth={1.5} />
-					</div>
-
 					<div class="flex items-center gap-3 text-sm" in:fade={{ duration: 500, delay: 150 }}>
 						<span
-							class="rounded-full px-3 py-1 text-xs font-semibold {statusInfo.class === 'status-ongoing'
+							class="rounded-full px-3 py-1 text-xs font-semibold {statusInfo.class ===
+							'status-ongoing'
 								? 'bg-primary/12 text-primary'
 								: statusInfo.class === 'status-completed'
 									? 'bg-[oklch(70%_0.15_145/0.15)] text-[oklch(55%_0.2_145)]'
@@ -70,20 +64,15 @@
 					</div>
 
 					<h1
-						class="font-heading text-text my-2 text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.1] tracking-[-0.02em]"
+						class="font-heading text-text my-2 text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] font-bold tracking-[-0.02em]"
 						in:fly={{ y: 15, duration: 700, delay: 100 }}
 					>
 						{data.series.title}
 					</h1>
 
-					<div
-						class="bg-linear-to-r from-transparent via-primary/50 to-transparent my-2 h-0.5 w-16"
-						in:fade={{ duration: 800, delay: 300 }}
-					></div>
-
 					{#if data.series.description}
 						<p
-							class="text-muted my-0 max-w-[48ch] text-lg font-normal leading-[1.6]"
+							class="text-muted my-0 max-w-[48ch] text-lg leading-[1.6] font-normal"
 							in:fly={{ y: 10, duration: 600, delay: 250 }}
 						>
 							{data.series.description}
@@ -100,7 +89,7 @@
 						in:fly={{ y: 10, duration: 400, delay: i * 50 }}
 					>
 						<span
-							class="font-mono text-muted w-12 shrink-0 text-center text-xs font-medium opacity-40"
+							class="text-muted w-12 shrink-0 text-center font-mono text-xs font-medium opacity-40"
 						>
 							{String(post.series?.order || i + 1).padStart(2, "0")}
 						</span>
@@ -113,5 +102,3 @@
 		</div>
 	</Container>
 </Section>
-
-

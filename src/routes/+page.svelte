@@ -10,7 +10,7 @@
 	import { fly } from "svelte/transition";
 	import { buildCloudinaryUrl } from "$lib/shared/cloudinary";
 
-	import { FolderOpen, Library, Layers } from "@lucide/svelte";
+	import { Layers } from "@lucide/svelte";
 
 	interface SeriesItem {
 		slug: string;
@@ -60,37 +60,47 @@
 			{#if data.sets.length > 0}
 				<div class="space-y-8">
 					<div class="flex items-center justify-between">
-						<SectionHeader title="Coleções" icon={FolderOpen} />
+						<SectionHeader title="Coleções" count={data.sets.length} />
 						<a
 							href="/sets"
-							class="text-muted hover:text-primary text-sm font-medium transition-colors"
+							class="text-muted hover:text-primary hidden text-sm font-medium transition-colors md:block"
 						>
 							Ver <strong>{data.sets.length}+</strong> Coleções →
 						</a>
 					</div>
 
 					<Grid cols={3} gap="md">
-						{#each data.sets as set (set.slug)}
+						{#each data.sets.slice(0, 3) as set (set.slug)}
 							<SetCard {set} class="h-96" />
 						{/each}
 					</Grid>
+
+					<div class="mt-6 flex justify-center md:hidden">
+						<a
+							href="/sets"
+							class="text-muted hover:text-primary flex items-center gap-2 text-sm font-medium transition-colors"
+						>
+							Ver <strong>{data.sets.length}+</strong> Coleções
+							<span aria-hidden="true">→</span>
+						</a>
+					</div>
 				</div>
 			{/if}
 
 			{#if data.series && data.series.length > 0}
 				<div class="mt-12 space-y-8" in:fly={{ y: 20, duration: 800, delay: 100 }}>
 					<div class="flex items-center justify-between">
-						<SectionHeader title="Séries" icon={Library} />
+						<SectionHeader title="Séries" count={data.series.length} />
 						<a
 							href="/series"
-							class="text-muted hover:text-primary text-sm font-medium transition-colors"
+							class="text-muted hover:text-primary hidden text-sm font-medium transition-colors md:block"
 						>
 							Ver todas as séries →
 						</a>
 					</div>
 
 					<Grid cols={3} gap="md">
-						{#each data.series as serie (serie.slug)}
+						{#each data.series.slice(0, 3) as serie (serie.slug)}
 							{@const statusInfo = getStatusLabel(serie.status)}
 							<a
 								href="/series/{serie.slug}"
@@ -159,6 +169,16 @@
 							</a>
 						{/each}
 					</Grid>
+
+					<div class="mt-6 flex justify-center md:hidden">
+						<a
+							href="/series"
+							class="text-muted hover:text-primary flex items-center gap-2 text-sm font-medium transition-colors"
+						>
+							Ver todas as séries
+							<span aria-hidden="true">→</span>
+						</a>
+					</div>
 				</div>
 			{/if}
 		</div>

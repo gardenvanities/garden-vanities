@@ -3,7 +3,7 @@
 	import Container from "$lib/layout/Container.svelte";
 	import Section from "$lib/layout/Section.svelte";
 	import PostListItem from "$lib/modules/posts/components/PostListItem.svelte";
-	import { Folder, ArrowLeft } from "@lucide/svelte";
+	import { ArrowLeft } from "@lucide/svelte";
 	import { fly, fade } from "svelte/transition";
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
 	import type { SetMetadata } from "$lib/modules/posts/collections";
@@ -28,11 +28,7 @@
 <Section class="py-16 md:py-24">
 	<Container size="lg">
 		<!-- Back Link -->
-		<a
-			href="/sets"
-			class="back-link"
-			in:fly={{ x: -10, duration: 400 }}
-		>
+		<a href="/sets" class="back-link" in:fly={{ x: -10, duration: 400 }}>
 			<ArrowLeft size={14} strokeWidth={2} />
 			<span>Coleções</span>
 		</a>
@@ -41,21 +37,16 @@
 			<!-- Premium Set Header -->
 			<header class="page-header">
 				<div class="header-content">
-					<div class="header-icon" in:fade={{ duration: 600, delay: 200 }}>
-						<Folder size={24} strokeWidth={1.5} />
-					</div>
-
 					<div class="header-meta" in:fade={{ duration: 500, delay: 150 }}>
 						<span class="notes-count">
-							{count} {count === 1 ? "nota" : "notas"}
+							{count}
+							{count === 1 ? "nota" : "notas"}
 						</span>
 					</div>
 
 					<h1 class="header-title" in:fly={{ y: 15, duration: 700, delay: 100 }}>
 						{data.set.title}
 					</h1>
-
-					<div class="header-line" in:fade={{ duration: 800, delay: 300 }}></div>
 
 					{#if data.set.description}
 						<p class="header-description" in:fly={{ y: 10, duration: 600, delay: 250 }}>
@@ -69,10 +60,7 @@
 			{#if count > 0}
 				<div class="posts-list">
 					{#each data.posts as post, i (post.slug)}
-						<div 
-							class="post-item"
-							in:fly={{ y: 10, duration: 400, delay: i * 50 }}
-						>
+						<div class="post-item" in:fly={{ y: 10, duration: 400, delay: i * 50 }}>
 							<PostListItem {post} />
 						</div>
 					{/each}
@@ -127,18 +115,6 @@
 		gap: 1rem;
 	}
 
-	.header-icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 4rem;
-		height: 4rem;
-		border-radius: 1rem;
-		background: oklch(from var(--color-primary) l c h / 0.08);
-		color: var(--color-primary);
-		margin-bottom: 0.5rem;
-	}
-
 	.header-meta {
 		display: flex;
 		align-items: center;
@@ -158,18 +134,6 @@
 		letter-spacing: -0.02em;
 		line-height: 1.1;
 		color: var(--color-text);
-		margin: 0.5rem 0;
-	}
-
-	.header-line {
-		width: 4rem;
-		height: 2px;
-		background: linear-gradient(
-			90deg,
-			transparent,
-			oklch(from var(--color-primary) l c h / 0.5),
-			transparent
-		);
 		margin: 0.5rem 0;
 	}
 

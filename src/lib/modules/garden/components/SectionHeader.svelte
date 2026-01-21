@@ -1,13 +1,15 @@
 <script lang="ts">
 	import type { Component } from "svelte";
+	import Badge from "$lib/ui/Badge.svelte";
 	interface Props {
 		title: string;
 		subtitle?: string;
 		emoji?: string;
 		icon?: Component;
+		count?: number;
 	}
 
-	let { title, subtitle, emoji, icon: Icon }: Props = $props();
+	let { title, subtitle, emoji, icon: Icon, count }: Props = $props();
 </script>
 
 <header class="group relative mb-8">
@@ -29,6 +31,13 @@
 		<h2 class="font-heading text-text m-0 text-3xl leading-tight font-semibold tracking-tight transition-colors duration-300">
 			{title}
 		</h2>
+
+		<!-- Optional Count Badge -->
+		{#if count !== undefined}
+			<Badge variant="secondary" class="px-2.5 font-mono text-xs opacity-60 transition-opacity group-hover:opacity-100">
+				{count}
+			</Badge>
+		{/if}
 	</div>
 
 	<!-- Subtitle -->
