@@ -15,18 +15,20 @@
 @import "./styles/utilities.css";
 
 @layer base {
-	::view-transition-old(root),
-	::view-transition-new(root) {
-		animation-duration: 0.4s;
-		animation-timing-function: var(--motion-ease);
+	/* Default View Transition: Subtle Slide Up */
+	::view-transition-group(root) {
+		animation-duration: 0.5s;
+		animation-timing-function: var(--motion-ease-out-quint);
 	}
 
 	::view-transition-old(root) {
-		animation-name: fade-out, scale-down;
+		animation-name: fade-out, slide-down-subtle;
+		mix-blend-mode: normal;
 	}
 
 	::view-transition-new(root) {
-		animation-name: fade-in, scale-up;
+		animation-name: fade-in, slide-up-subtle;
+		mix-blend-mode: normal;
 	}
 }
 
@@ -42,15 +44,15 @@
 	}
 }
 
-@keyframes scale-up {
+@keyframes slide-up-subtle {
 	from {
-		transform: scale(0.98) translateY(10px);
+		transform: translateY(20px);
 	}
 }
 
-@keyframes scale-down {
+@keyframes slide-down-subtle {
 	to {
-		transform: scale(1.02) translateY(-10px);
+		transform: translateY(-5px) scale(0.99);
 	}
 }
 

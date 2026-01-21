@@ -31,7 +31,11 @@
 					<span
 						class="text-muted group-hover:text-primary text-[10px] font-bold tracking-wider uppercase"
 					>
-						Anterior
+						{#if navigation.prev.order}
+							Parte {navigation.prev.order}
+						{:else}
+							Anterior
+						{/if}
 					</span>
 					<span class="text-text group-hover:text-primary/90 text-sm font-medium transition-colors">
 						{navigation.prev.title}
@@ -49,7 +53,11 @@
 					<span
 						class="text-muted group-hover:text-primary text-[10px] font-bold tracking-wider uppercase"
 					>
-						Próximo
+						{#if navigation.next.order}
+							Parte {navigation.next.order}
+						{:else}
+							Próximo
+						{/if}
 					</span>
 					<span class="text-text group-hover:text-primary/90 text-sm font-medium transition-colors">
 						{navigation.next.title}

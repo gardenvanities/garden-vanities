@@ -4,7 +4,7 @@
 	import KindBadge from "$lib/modules/garden/components/KindBadge.svelte";
 	import RipenessBadge from "$lib/modules/garden/components/RipenessBadge.svelte";
 	import Card from "$lib/ui/Card.svelte";
-	import { Library, FolderOpen } from "@lucide/svelte";
+	import { Layers, FolderOpen } from "@lucide/svelte";
 
 	interface Props {
 		post: PostFrontmatter;
@@ -38,18 +38,18 @@
 			{#if post.set}
 				<a
 					href="/sets/{encodeURIComponent(post.set)}"
-					class="bg-surface-elevated text-muted hover:text-primary hover:bg-surface-hover flex items-center gap-1 rounded-sm px-2 py-1 transition-colors"
+					class="group flex items-center gap-1.5 rounded-sm border border-border bg-surface-elevated/50 px-2.5 py-1 text-xs font-medium text-muted transition-all duration-300 hover:border-primary/40 hover:bg-surface-elevated hover:text-primary"
 				>
-					<FolderOpen size={12} />
+					<FolderOpen size={11} class="opacity-50 transition-opacity group-hover:opacity-100" />
 					{post.set}
 				</a>
 			{/if}
 			{#if post.series}
 				<a
 					href="/series/{seriesSlug}"
-					class="bg-primary/10 text-primary hover:bg-primary/20 flex items-center gap-1 rounded-sm px-2 py-1 transition-colors"
+					class="group flex items-center gap-1.5 rounded-sm border border-border bg-surface-elevated/50 px-2.5 py-1 text-xs font-medium text-muted transition-all duration-300 hover:border-primary/40 hover:bg-surface-elevated hover:text-primary"
 				>
-					<Library size={12} />
+					<Layers size={11} class="opacity-50 transition-opacity group-hover:opacity-100" />
 					{post.series.slug}
 					{#if post.series.order}
 						<span class="opacity-60">#{post.series.order}</span>

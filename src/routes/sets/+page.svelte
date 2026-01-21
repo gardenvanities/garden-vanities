@@ -22,22 +22,12 @@
 			<!-- Premium Page Header -->
 			<header class="mb-16 flex flex-col items-center text-center md:mb-20">
 				<div class="flex flex-col items-center gap-4">
-					<div
-						class="bg-primary/8 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-full"
-						in:fade={{ duration: 600, delay: 200 }}
-					>
-						<Folder size={20} strokeWidth={1.5} />
-					</div>
 					<h1
 						class="font-heading text-text my-0 text-[clamp(2.5rem,6vw,4rem)] font-bold leading-[1.1] tracking-[-0.02em]"
 						in:fly={{ y: 15, duration: 700, delay: 100 }}
 					>
 						Coleções
 					</h1>
-					<div
-						class="bg-linear-to-r from-transparent via-primary/50 to-transparent my-2 h-0.5 w-16"
-						in:fade={{ duration: 800, delay: 300 }}
-					></div>
 					<p
 						class="text-muted my-0 max-w-[32ch] text-lg font-normal tracking-[0.01em]"
 						in:fly={{ y: 10, duration: 600, delay: 250 }}

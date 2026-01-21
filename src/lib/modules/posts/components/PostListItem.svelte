@@ -12,16 +12,16 @@
 	// Ripeness indicator colors with glow
 	const ripenessStyles: Record<string, { dot: string; glow: string }> = {
 		seed: { 
+			dot: "bg-rose-400", 
+			glow: "shadow-[0_0_8px_rgba(251,113,133,0.5)]" 
+		},
+		root: { 
 			dot: "bg-amber-400", 
 			glow: "shadow-[0_0_8px_rgba(251,191,36,0.5)]" 
 		},
-		root: { 
+		fruit: { 
 			dot: "bg-emerald-400", 
 			glow: "shadow-[0_0_8px_rgba(52,211,153,0.5)]" 
-		},
-		fruit: { 
-			dot: "bg-rose-400", 
-			glow: "shadow-[0_0_8px_rgba(251,113,133,0.5)]" 
 		}
 	};
 
@@ -60,7 +60,7 @@
 			</h3>
 			
 			{#if post.kind}
-				<KindBadge kind={post.kind} showIcon={false} class="text-[10px] opacity-70 transition-opacity group-hover:opacity-100" />
+				<KindBadge kind={post.kind} showIcon={false} class="text-[10px]" />
 			{/if}
 		</div>
 

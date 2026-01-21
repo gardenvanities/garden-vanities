@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { buildCloudinaryUrl, buildLQIP, buildSrcSet } from "$lib/shared/cloudinary";
+	import { getGradientFromSeed } from "$lib/shared/gradients";
 	import { onMount } from "svelte";
 
 	interface Props {
@@ -11,6 +12,8 @@
 		aspectRatio?: string;
 		priority?: boolean;
 		class?: string;
+		imgClass?: string;
+		fill?: boolean; // New prop to indicate if it should fill parent
 	}
 
 	let {
@@ -21,7 +24,9 @@
 		height = undefined,
 		aspectRatio = "1.91/1",
 		priority = false,
-		class: className = ""
+		class: className = "",
+		imgClass = "",
+		fill = false
 	}: Props = $props();
 
 	let loaded = $state(false);
@@ -30,6 +35,7 @@
 	const src = $derived(buildCloudinaryUrl(publicId, { width, height }));
 	const srcset = $derived(buildSrcSet(publicId));
 	const lqip = $derived(buildLQIP(publicId));
+	const gradientBg = $derived(getGradientFromSeed(publicId));
 
 	function handleLoad() {
 		loaded = true;
@@ -41,41 +47,43 @@
 	}
 </script>
 
-<figure class="relative overflow-hidden {className}">
+<figure class="overflow-hidden {fill ? 'absolute inset-0 h-full w-full' : 'relative'} {className}">
 	<!-- LQIP Background -->
-	{#if !priority && lqip && !loaded}
+	{#if !priority && lqip && !loaded && !error}
 		<img
 			src={lqip}
 			alt=""
 			aria-hidden="true"
 			class="absolute inset-0 h-full w-full object-cover blur-sm"
-			style:aspect-ratio={aspectRatio}
+			style:aspect-ratio={fill ? undefined : aspectRatio}
 		/>
 	{/if}
 
 	<!-- Main Image -->
-	<img
-		{src}
-		{srcset}
-		sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-		{alt}
-		loading={priority ? "eager" : "lazy"}
-		decoding={priority ? "sync" : "async"}
-		onload={handleLoad}
-		onerror={handleError}
-		style:aspect-ratio={aspectRatio}
-		class="relative h-auto w-full rounded-md object-cover transition-opacity duration-300 {loaded
-			? 'opacity-100'
-			: 'opacity-0'}"
-	/>
+	{#if !error}
+		<img
+			{src}
+			{srcset}
+			sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+			{alt}
+			loading={priority ? "eager" : "lazy"}
+			decoding={priority ? "sync" : "async"}
+			onload={handleLoad}
+			onerror={handleError}
+			style:aspect-ratio={fill ? undefined : aspectRatio}
+			class="object-cover transition-opacity duration-300 {fill
+				? 'h-full w-full'
+				: 'relative h-auto w-full'} {loaded ? 'opacity-100' : 'opacity-0'} {imgClass}"
+		/>
+	{/if}
 
 	{#if error}
 		<div
-			class="flex items-center justify-center rounded-md bg-surface-200 text-muted"
-			style:aspect-ratio={aspectRatio}
-		>
-			<span class="text-sm">Image failed to load</span>
-		</div>
+			class="absolute inset-0 h-full w-full"
+			style:background={gradientBg}
+			style:aspect-ratio={fill ? undefined : aspectRatio}
+			aria-label="Image failed to load"
+		></div>
 	{/if}
 
 	{#if caption}
@@ -84,5 +92,3 @@
 		</figcaption>
 	{/if}
 </figure>
-
-

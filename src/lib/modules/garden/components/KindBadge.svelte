@@ -36,7 +36,7 @@
 {#if config}
 	<Badge
 		variant="secondary"
-		class="group hover:border-primary/50 hover:bg-surface-elevated cursor-default rounded-[4px] px-2 py-0.5 transition-all duration-300 hover:shadow-sm {className}"
+		class="group hover:border-primary/50 bg-surface-elevated/50 border border-border cursor-default rounded-sm px-2.5 py-1 transition-all duration-300 hover:shadow-sm hover:bg-surface-elevated hover:text-primary {className}"
 		as="span"
 	>
 		{#if showIcon}
@@ -44,6 +44,6 @@
 				<Shapes size={12} strokeWidth={2.5} />
 			</span>
 		{/if}
-		<span class="ml-1.5 pt-px text-[11px] font-medium">{config.label}</span>
+		<span class="ml-1.5 pt-px text-[11px] font-medium {config.color}">{config.label}</span>
 	</Badge>
 {/if}

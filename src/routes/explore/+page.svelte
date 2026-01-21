@@ -187,13 +187,9 @@
 			<!-- Premium Page Header -->
 			<header class="page-header mb-16 md:mb-20">
 				<div class="header-content">
-					<div class="header-icon" in:fade={{ duration: 600, delay: 200 }}>
-						<Compass size={20} strokeWidth={1.5} />
-					</div>
 					<h1 class="header-title" in:fly={{ y: 15, duration: 700, delay: 100 }}>
 						Explorar
 					</h1>
-					<div class="header-line" in:fade={{ duration: 800, delay: 300 }}></div>
 					<p class="header-subtitle" in:fly={{ y: 10, duration: 600, delay: 250 }}>
 						Descubra entre {data.posts.length} notas cultivadas
 					</p>
@@ -372,18 +368,6 @@
 		gap: 1rem;
 	}
 
-	.header-icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 3rem;
-		height: 3rem;
-		border-radius: 50%;
-		background: oklch(from var(--color-primary) l c h / 0.08);
-		color: var(--color-primary);
-		margin-bottom: 0.5rem;
-	}
-
 	.header-title {
 		font-family: var(--font-heading);
 		font-size: clamp(2.5rem, 6vw, 4rem);
@@ -392,18 +376,6 @@
 		line-height: 1.1;
 		color: var(--color-text);
 		margin: 0;
-	}
-
-	.header-line {
-		width: 4rem;
-		height: 2px;
-		background: linear-gradient(
-			90deg,
-			transparent,
-			oklch(from var(--color-primary) l c h / 0.5),
-			transparent
-		);
-		margin: 0.5rem 0;
 	}
 
 	.header-subtitle {

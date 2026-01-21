@@ -31,11 +31,23 @@
 	const fullTitle = $derived(title === siteName ? title : `${title} | ${siteName}`);
 	const canonicalUrl = $derived(`${baseUrl}${page.url.pathname}`);
 
-	const ogImage = $derived(
-		image
-			? buildCloudinaryUrl(image, { width: 1200, height: 630, crop: "fill" })
-			: `${baseUrl}/og-default.png`
-	);
+	const ogImage = $derived.by(() => {
+		if (image) {
+			return buildCloudinaryUrl(image, { width: 1200, height: 630, crop: "fill" });
+		}
+		
+		const params = new URLSearchParams();
+		params.set('title', title);
+		if (type === 'article') {
+			params.set('subtitle', description.slice(0, 100));
+			params.set('kind', 'Article');
+		} else {
+			params.set('subtitle', description.slice(0, 60));
+			params.set('kind', 'Garden');
+		}
+		
+		return `${baseUrl}/og?${params.toString()}`;
+	});
 
 	const jsonLd = $derived({
 		"@context": "https://schema.org",

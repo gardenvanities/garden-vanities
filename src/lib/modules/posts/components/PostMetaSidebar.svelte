@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
-	import { Calendar, Hash, Layers, Network, Sprout } from "@lucide/svelte";
+	import { Calendar, Hash, Layers, FolderOpen, Sprout } from "@lucide/svelte";
 	import { formatShortDate } from "$lib/modules/posts/utils/date";
 
 	let { metadata }: { metadata: PostFrontmatter } = $props();
@@ -11,8 +11,8 @@
 	function getRipenessLabel(ripeness: string) {
 		const labels: Record<string, string> = {
 			seed: "Semente",
-			root: "Raiz",
-			fruit: "Fruto"
+			root: "Rascunho",
+			fruit: "Maduro"
 		};
 		return labels[ripeness] || ripeness;
 	}
@@ -46,7 +46,7 @@
 					href="/series/{metadata.series.slug}"
 					class="text-primary decoration-primary/30 hover:underline underline-offset-4"
 				>
-					{metadata.series.slug}
+					{metadata.series.title || metadata.series.slug}
 				</a>
 				{#if metadata.series.order}
 					<span class="text-muted text-xs">#{metadata.series.order}</span>
@@ -57,12 +57,12 @@
 		<!-- Set -->
 		{#if metadata.set}
 			<div class="text-muted flex items-center gap-2">
-				<Network size={14} class="shrink-0 opacity-60" />
+				<FolderOpen size={14} class="shrink-0 opacity-60" />
 				<a
 					href="/sets/{encodeURIComponent(metadata.set)}"
 					class="text-primary decoration-primary/30 hover:underline underline-offset-4"
 				>
-					{metadata.set}
+					{metadata.setTitle || metadata.set}
 				</a>
 			</div>
 		{/if}
@@ -70,13 +70,13 @@
 
 	<!-- Tags -->
 	{#if metadata.tags && metadata.tags.length > 0}
-		<div class="border-border mt-4 flex flex-wrap gap-1.5 border-t pt-4">
+		<div class="border-border mt-6 flex flex-wrap gap-2 border-t pt-6">
 			{#each metadata.tags as tag}
 				<a
 					href="/explore?q=%23{encodeURIComponent(tag)}"
-					class="text-muted hover:text-primary inline-flex items-center gap-0.5 text-xs transition-colors"
+					class="group flex items-center gap-1.5 rounded-sm border border-border bg-surface-elevated/50 px-2.5 py-1 text-xs font-medium text-muted transition-all duration-300 hover:border-primary/40 hover:bg-surface-elevated hover:text-primary"
 				>
-					<Hash size={10} />
+					<Hash size={11} class="opacity-50 transition-opacity group-hover:opacity-100" />
 					{tag}
 				</a>
 			{/each}

@@ -39,5 +39,4 @@
 	{/if}
 
 	<!-- Decorative accent line -->
-	<div class="absolute -bottom-3 left-0 h-px w-16 bg-linear-to-r from-primary/60 to-transparent transition-all duration-500 group-hover:w-24"></div>
 </header>

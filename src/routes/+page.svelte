@@ -6,6 +6,7 @@
 	import SectionHeader from "$lib/modules/garden/components/SectionHeader.svelte";
 	import SetCard from "$lib/modules/garden/components/SetCard.svelte";
 	import Hero from "./_components/Hero.svelte";
+	import CloudinaryImage from "$lib/ui/CloudinaryImage.svelte";
 	import { fly } from "svelte/transition";
 	import { buildCloudinaryUrl } from "$lib/shared/cloudinary";
 
@@ -97,14 +98,19 @@
 							>
 								<!-- Background Image -->
 								{#if serie.cover?.url}
-									<img
-										src={buildCloudinaryUrl(serie.cover.url, { width: 800, height: 600, crop: "fill" })}
+									<CloudinaryImage
+										publicId={serie.cover.url}
 										alt={serie.cover.alt || serie.title}
-										class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+										fill={true}
+										imgClass="transition-transform duration-500 group-hover:scale-105"
+										width={800}
+										height={600}
 									/>
 								{:else}
 									<!-- Fallback gradient background -->
-									<div class="bg-primary/10 absolute inset-0 bg-linear-to-br from-primary/20 to-primary/5"></div>
+									<div
+										class="bg-primary/10 from-primary/20 to-primary/5 absolute inset-0 bg-linear-to-br"
+									></div>
 								{/if}
 
 								<!-- Layers Icon - Top Left (Series Identifier) -->
@@ -136,10 +142,10 @@
 
 								<!-- Gradient Overlay -->
 								<div
-									class="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col justify-end gap-2 bg-linear-to-t from-black/90 via-black/60 to-transparent p-5 pb-5 pt-16 transition-all duration-300"
+									class="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col justify-end gap-2 bg-linear-to-t from-black/90 via-black/60 to-transparent p-5 pt-16 pb-5 transition-all duration-300"
 								>
 									<!-- Title -->
-									<h3 class="font-heading text-xl font-bold leading-tight text-white">
+									<h3 class="font-heading text-xl leading-tight font-bold text-white">
 										{serie.title}
 									</h3>
 

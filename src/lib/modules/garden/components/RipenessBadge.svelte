@@ -19,12 +19,12 @@
 			color: "text-ripeness-seed"
 		},
 		root: {
-			label: "Raiz",
+			label: "Rascunho",
 			emoji: "🌿",
 			color: "text-ripeness-root"
 		},
 		fruit: {
-			label: "Fruto",
+			label: "Maduro",
 			emoji: "🍎",
 			color: "text-ripeness-fruit"
 		}

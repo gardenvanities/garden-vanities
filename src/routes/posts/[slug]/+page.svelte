@@ -57,24 +57,26 @@
 				</div>
 			</aside>
 
-			<!-- Article Content -->
-			<article
-				id="article-content"
-				class="article-content prose mx-auto max-w-3xl"
-				in:fly={{ y: 20, duration: 800, delay: 300 }}
-			>
-				<Content />
-			</article>
-		</div>
+			<!-- Article Content & Footer -->
+			<div class="article-content">
+				<article
+					id="article-content"
+					class="prose mx-auto max-w-3xl"
+					in:fly={{ y: 20, duration: 800, delay: 300 }}
+				>
+					<Content />
+				</article>
 
-		<div class="mt-16 space-y-12">
-			{#if navigation}
-				<div in:fly={{ y: 20, duration: 800, delay: 500 }}>
-					<PostNavigation {navigation} seriesSlug={metadata.series?.slug} />
+				<div class="mx-auto mt-16 max-w-3xl space-y-12">
+					{#if navigation}
+						<div in:fly={{ y: 20, duration: 800, delay: 500 }}>
+							<PostNavigation {navigation} seriesSlug={metadata.series?.slug} />
+						</div>
+					{/if}
+
+					<Backlinks {backlinks} references={data.references} />
 				</div>
-			{/if}
-
-			<Backlinks {backlinks} references={data.references} />
+			</div>
 		</div>
 	</Container>
 </Section>

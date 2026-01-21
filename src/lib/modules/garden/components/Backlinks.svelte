@@ -1,9 +1,8 @@
 <script lang="ts">
 	import type { Backlink, LinkReference } from "$lib/modules/posts/types";
-	import KindBadge from "./KindBadge.svelte";
 	import { base } from "$app/paths";
-	import { Link as LinkIcon, MoveRight, ArrowUpRight, MessageSquareQuote } from "@lucide/svelte";
 	import { fly } from "svelte/transition";
+	import PostListItem from "$lib/modules/posts/components/PostListItem.svelte";
 
 	interface Props {
 		backlinks?: Backlink[];
@@ -17,88 +16,41 @@
 
 {#if backlinks.length > 0 || references.length > 0}
 	<div
-		class="bg-surface-elevated/30 border-border mt-20 space-y-16 rounded-2xl border p-8 backdrop-blur-sm"
+		class="mt-24 space-y-16"
 		in:fly={{ y: 20, duration: 800, delay: 600 }}
 	>
+		<!-- Separator -->
+		<hr class="border-border/40" />
+
 		{#if backlinks.length > 0}
-			<section>
-				<div class="mb-8 flex items-center gap-2">
-					<MessageSquareQuote size={18} class="text-primary" />
-					<h3 class="text-text m-0 font-heading text-xl font-bold tracking-tight">
-						Mencionado em...
-					</h3>
-				</div>
+			<section class="space-y-8">
+				<h3 class="font-heading text-lg font-semibold tracking-tight text-text">
+					Mencionado em
+				</h3>
 
-				<div class="grid grid-cols-1 gap-6">
+				<div class="flex flex-col border-t border-border">
 					{#each backlinks as post (post.slug)}
-						<a
-							href="{base}/posts/{post.slug}"
-							class="group bg-surface/50 border-border hover:border-primary/30 hover:shadow-primary/5 hover:bg-action-hover relative flex flex-col gap-4 rounded-xl border p-5 transition-all duration-300 hover:shadow-lg"
-						>
-							<div class="flex items-start justify-between gap-4">
-								<div class="space-y-1.5">
-									{#if post.kind}
-										<KindBadge kind={post.kind} />
-									{/if}
-									<h4
-										class="text-text group-hover:text-primary text-lg font-semibold transition-colors"
-									>
-										{post.title}
-									</h4>
-								</div>
-								<MoveRight
-									size={18}
-									class="text-muted group-hover:text-primary -translate-x-2 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
-								/>
-							</div>
-
-							{#if post.context}
-								<div class="relative pl-4">
-									<div
-										class="bg-primary/30 group-hover:bg-primary/60 absolute top-0 bottom-0 left-0 w-0.5 rounded-full transition-colors"
-									></div>
-									<p class="text-muted text-sm leading-relaxed italic">
-										"{post.context}"
-									</p>
-								</div>
-							{:else if post.summary}
-								<p class="text-muted line-clamp-2 text-sm leading-relaxed">
-									{post.summary}
-								</p>
-							{/if}
-						</a>
+						<div class="border-b border-border">
+							<PostListItem {post} showSummary={true} />
+						</div>
 					{/each}
 				</div>
 			</section>
 		{/if}
 
 		{#if sortedReferences.length > 0}
-			<section>
-				<div class="mb-6 flex items-center gap-2">
-					<LinkIcon size={18} class="text-primary" />
-					<h3 class="text-text m-0 font-heading text-xl font-bold tracking-tight">Referências</h3>
-				</div>
+			<section class="space-y-8">
+				<h3 class="font-heading text-lg font-semibold tracking-tight text-text">
+					Artigos mencionados
+				</h3>
 
-				<ul class="grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2">
+				<div class="flex flex-col border-t border-border">
 					{#each sortedReferences as ref (ref.slug)}
-						<li>
-							<a
-								href="{base}/posts/{ref.slug}"
-								class="text-text hover:text-primary group flex items-start gap-2 py-1 transition-colors"
-							>
-								<ArrowUpRight
-									size={14}
-									class="mt-1 shrink-0 opacity-30 transition-opacity group-hover:opacity-100"
-								/>
-								<span
-									class="border-b border-transparent leading-snug decoration-1 underline-offset-4 group-hover:border-current"
-								>
-									{ref.title}
-								</span>
-							</a>
-						</li>
+						<div class="border-b border-border">
+							<PostListItem post={ref} showSummary={true} />
+						</div>
 					{/each}
-				</ul>
+				</div>
 			</section>
 		{/if}
 	</div>

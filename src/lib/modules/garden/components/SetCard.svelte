@@ -2,6 +2,7 @@
 	import { cn } from "$lib/shared/merge-class";
 	import { buildCloudinaryUrl } from "$lib/shared/cloudinary";
 	import { FolderOpen } from "@lucide/svelte";
+	import CloudinaryImage from "$lib/ui/CloudinaryImage.svelte";
 
 	interface Props {
 		set: {
@@ -21,20 +22,23 @@
 <a
 	href={set.href}
 	class={cn(
-		"group relative block h-72 w-full select-none overflow-hidden rounded-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl",
+		"group relative block h-72 w-full overflow-hidden rounded-sm transition-all duration-500 select-none hover:-translate-y-1 hover:shadow-xl",
 		className
 	)}
 >
 	<!-- Background Image -->
 	{#if set.cover}
-		<img
-			src={buildCloudinaryUrl(set.cover.url, { width: 800, height: 600, crop: "fill" })}
+		<CloudinaryImage
+			publicId={set.cover.url}
 			alt={set.cover.alt || set.title}
-			class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+			fill={true}
+			imgClass="transition-transform duration-500 group-hover:scale-105"
+			width={800}
+			height={600}
 		/>
 	{:else}
 		<!-- Fallback gradient background -->
-		<div class="bg-primary/10 absolute inset-0 bg-linear-to-br from-primary/20 to-primary/5">
+		<div class="bg-primary/10 from-primary/20 to-primary/5 absolute inset-0 bg-linear-to-br">
 			<!-- Fallback Texture -->
 			<div
 				class="absolute inset-0 bg-[radial-gradient(circle_at_2px_2px,var(--color-text)_1px,transparent_0)] bg-size-[24px_24px] opacity-5"
@@ -63,10 +67,10 @@
 
 	<!-- Gradient Overlay -->
 	<div
-		class="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col justify-end gap-2 bg-linear-to-t from-black/90 via-black/60 to-transparent p-5 pb-5 pt-20 transition-all duration-300"
+		class="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col justify-end gap-2 bg-linear-to-t from-black/90 via-black/60 to-transparent p-5 pt-20 pb-5 transition-all duration-300"
 	>
 		<!-- Title -->
-		<h3 class="font-heading text-xl font-bold leading-tight text-white">
+		<h3 class="font-heading text-xl leading-tight font-bold text-white">
 			{set.title}
 		</h3>
 
@@ -76,9 +80,7 @@
 				{set.description}
 			</p>
 		{:else}
-			<p class="line-clamp-2 text-sm text-white/80">
-				Uma coleção curada no jardim.
-			</p>
+			<p class="line-clamp-2 text-sm text-white/80">Uma coleção curada no jardim.</p>
 		{/if}
 	</div>
 </a>

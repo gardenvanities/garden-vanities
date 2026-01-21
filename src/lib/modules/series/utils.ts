@@ -20,8 +20,8 @@ export function computeSerieNavigation(
 	return {
 		total: seriePosts.length,
 		current: currentIndex + 1,
-		prev: prev ? { slug: prev.slug, title: prev.title } : undefined,
-		next: next ? { slug: next.slug, title: next.title } : undefined
+		prev: prev ? { slug: prev.slug, title: prev.title, order: prev.series?.order } : undefined,
+		next: next ? { slug: next.slug, title: next.title, order: next.series?.order } : undefined
 	};
 }
 

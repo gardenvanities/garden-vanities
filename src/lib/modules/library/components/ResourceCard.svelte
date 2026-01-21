@@ -4,7 +4,7 @@
 	import StatusBadge from "./StatusBadge.svelte";
 	import RatingStars from "./RatingStars.svelte";
 	import TypeIcon from "./TypeIcon.svelte";
-	import { buildCloudinaryUrl } from "$lib/shared/cloudinary";
+	import CloudinaryImage from "$lib/ui/CloudinaryImage.svelte";
 
 	interface Props {
 		resource: Resource;
@@ -64,7 +64,7 @@
 	<!-- Horizontal Card (for "Currently Consuming" section) -->
 	<a
 		href={href()}
-		class="group relative flex gap-4 overflow-hidden rounded-2xl border border-white/6 bg-linear-to-br from-white/3 to-transparent p-4 backdrop-blur-sm transition-all duration-300 hover:border-brand-500/30 hover:from-white/6 hover:shadow-lg hover:shadow-brand-500/5"
+		class="group hover:border-brand-500/30 hover:shadow-brand-500/5 relative flex gap-4 overflow-hidden rounded-2xl border border-white/6 bg-linear-to-br from-white/3 to-transparent p-4 backdrop-blur-sm transition-all duration-300 hover:from-white/6 hover:shadow-lg"
 	>
 		<!-- Subtle gradient accent based on type -->
 		<div
@@ -78,11 +78,12 @@
 			class="relative h-24 w-16 shrink-0 overflow-hidden rounded-lg bg-neutral-800 shadow-lg ring-1 ring-white/10"
 		>
 			{#if resource.cover?.url}
-				<img
-					src={buildCloudinaryUrl(resource.cover.url, { width: 200 })}
+				<CloudinaryImage
+					publicId={resource.cover.url}
 					alt=""
-					class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-					loading="lazy"
+					width={200}
+					imgClass="transition-transform duration-500 group-hover:scale-105"
+					fill={true}
 				/>
 			{:else}
 				<div
@@ -108,7 +109,7 @@
 			</div>
 
 			<h3
-				class="mt-2 truncate font-heading text-base font-medium text-white transition-colors group-hover:text-brand-400"
+				class="font-heading group-hover:text-brand-400 mt-2 truncate text-base font-medium text-white transition-colors"
 			>
 				{resource.title}
 			</h3>
@@ -126,7 +127,7 @@
 
 		<!-- Progress indicator line -->
 		<div
-			class="absolute bottom-0 left-0 h-0.5 w-1/3 bg-linear-to-r from-brand-500 to-brand-400 opacity-60"
+			class="from-brand-500 to-brand-400 absolute bottom-0 left-0 h-0.5 w-1/3 bg-linear-to-r opacity-60"
 		></div>
 	</a>
 {:else if variant === "compact"}
@@ -137,11 +138,12 @@
 	>
 		<div class="relative aspect-square w-full overflow-hidden bg-neutral-800">
 			{#if resource.cover?.url}
-				<img
-					src={buildCloudinaryUrl(resource.cover.url, { width: 300 })}
+				<CloudinaryImage
+					publicId={resource.cover.url}
 					alt=""
-					class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-					loading="lazy"
+					width={300}
+					imgClass="transition-transform duration-500 group-hover:scale-105"
+					fill={true}
 				/>
 			{:else}
 				<div
@@ -154,14 +156,12 @@
 			{/if}
 
 			<!-- Overlay gradient -->
-			<div
-				class="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent"
-			></div>
+			<div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent"></div>
 
 			<!-- Bottom content -->
 			<div class="absolute inset-x-0 bottom-0 p-3">
 				<h3
-					class="line-clamp-2 text-sm font-medium text-white transition-colors group-hover:text-brand-400"
+					class="group-hover:text-brand-400 line-clamp-2 text-sm font-medium text-white transition-colors"
 				>
 					{resource.title}
 				</h3>
@@ -177,11 +177,12 @@
 		<!-- Cover Image -->
 		<div class="relative aspect-3/4 w-full overflow-hidden bg-neutral-800/50">
 			{#if resource.cover?.url}
-				<img
-					src={buildCloudinaryUrl(resource.cover.url, { width: 400 })}
+				<CloudinaryImage
+					publicId={resource.cover.url}
 					alt=""
-					class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-					loading="lazy"
+					width={400}
+					imgClass="transition-transform duration-500 group-hover:scale-105"
+					fill={true}
 				/>
 			{:else}
 				<div
@@ -199,14 +200,14 @@
 			></div>
 
 			<!-- Status Badge -->
-			<div class="absolute left-3 top-3">
+			<div class="absolute top-3 left-3">
 				<StatusBadge status={resource.status} size="sm" />
 			</div>
 
 			<!-- Type Badge (optional) -->
 			{#if showType}
 				<div
-					class="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-black/50 px-2.5 py-1 text-xs text-white/70 backdrop-blur-md ring-1 ring-white/10"
+					class="absolute top-3 right-3 flex items-center gap-1.5 rounded-full bg-black/50 px-2.5 py-1 text-xs text-white/70 ring-1 ring-white/10 backdrop-blur-md"
 				>
 					<TypeIcon type={resource.type} class="h-3 w-3" />
 					<span>{TYPE_LABELS[resource.type]}</span>
@@ -228,7 +229,7 @@
 		<div class="flex flex-1 flex-col gap-1 p-4">
 			<!-- Title -->
 			<h3
-				class="line-clamp-2 font-heading text-base font-medium leading-snug text-white transition-colors group-hover:text-brand-400"
+				class="font-heading group-hover:text-brand-400 line-clamp-2 text-base leading-snug font-medium text-white transition-colors"
 			>
 				{resource.title}
 			</h3>
@@ -241,7 +242,7 @@
 
 		<!-- Hover glow effect -->
 		<div
-			class="pointer-events-none absolute inset-0 rounded-2xl opacity-0 ring-1 ring-inset ring-brand-500/20 transition-opacity duration-300 group-hover:opacity-100"
+			class="ring-brand-500/20 pointer-events-none absolute inset-0 rounded-2xl opacity-0 ring-1 transition-opacity duration-300 ring-inset group-hover:opacity-100"
 		></div>
 	</a>
 {/if}

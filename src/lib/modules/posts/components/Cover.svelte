@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { buildCloudinaryUrl, buildSrcSet } from "$lib/shared/cloudinary";
+	import CloudinaryImage from "$lib/ui/CloudinaryImage.svelte";
 
 	interface Props {
 		publicId: string;
@@ -20,21 +20,13 @@
 	}: Props = $props();
 </script>
 
-<figure class="cloudinary-image">
-	<img
-		src={buildCloudinaryUrl(publicId, { width })}
-		srcset={buildSrcSet(publicId)}
-		sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-		{alt}
-		loading={priority ? "eager" : "lazy"}
-		decoding={priority ? "sync" : "async"}
-		style:aspect-ratio={aspectRatio}
-		class="h-auto w-full rounded-md object-cover"
-	/>
-	{#if caption}
-		<figcaption class="text-muted mt-2 text-center text-sm">
-			{caption}
-		</figcaption>
-	{/if}
-</figure>
-
+<CloudinaryImage
+	{publicId}
+	{alt}
+	{caption}
+	{width}
+	{aspectRatio}
+	{priority}
+	class="cloudinary-image"
+	imgClass="rounded-md"
+/>

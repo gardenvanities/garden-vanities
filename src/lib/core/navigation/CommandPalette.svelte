@@ -35,6 +35,7 @@
 		icon: Component;
 		type: "post" | "action" | "navigation";
 		category?: string;
+		kind?: string;
 		action: () => void;
 	}
 
@@ -85,6 +86,7 @@
 			icon: FileText,
 			type: "post" as const,
 			category: "Artigos",
+			kind: p.kind,
 			action: () => navigate(`/posts/${p.slug}`),
 			tags: p.tags,
 			content: p.content
@@ -257,6 +259,9 @@
 									<item.icon size={16} strokeWidth={2} />
 								</div>
 								<span class="command-item-title">{item.title}</span>
+								{#if item.kind}
+									<span class="command-item-badge">{item.kind}</span>
+								{/if}
 								{#if selectedIndex === globalIndex}
 									<CornerDownLeft class="command-item-enter" size={14} strokeWidth={2} />
 								{/if}
@@ -298,18 +303,25 @@
 			flex-direction: column;
 			overflow: hidden;
 			border-radius: 1rem;
-			background: var(--color-surface-elevated);
-			border: 1px solid oklch(from var(--color-border) l c h / 0.5);
+			background: oklch(from var(--color-surface-elevated) l c h / 0.8);
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			border: 1px solid oklch(from var(--color-border) l c h / 0.4);
 			box-shadow:
-				0 0 0 1px oklch(0 0 0 / 0.03),
-				0 24px 80px oklch(0 0 0 / 0.25),
-				0 8px 24px oklch(0 0 0 / 0.1);
+				0 0 0 1px oklch(255 255 255 / 0.05),
+				0 24px 48px -12px oklch(0 0 0 / 0.2),
+				0 48px 100px -24px oklch(0 0 0 / 0.2);
 			max-height: calc(100dvh - 2rem);
+			transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 		}
 
 		:global(.dark) .command-container {
-			background: oklch(from var(--color-surface-elevated) calc(l * 0.9) c h);
-			border-color: oklch(1 0 0 / 0.08);
+			background: oklch(from var(--color-surface-elevated) l c h / 0.7);
+			border-color: oklch(255 255 255 / 0.1);
+			box-shadow:
+				0 0 0 1px oklch(255 255 255 / 0.05),
+				0 0 0 1px oklch(0 0 0 / 1),
+				0 24px 48px -12px oklch(0 0 0 / 0.5);
 		}
 
 		/* ============================================
@@ -320,22 +332,22 @@
 			display: flex;
 			align-items: center;
 			gap: 0.75rem;
-			padding: 1rem 1rem;
-			border-bottom: 1px solid oklch(from var(--color-border) l c h / 0.3);
+			padding: 1rem 1.25rem;
+			border-bottom: 1px solid oklch(from var(--color-border) l c h / 0.2);
 		}
 
 		.command-search-icon {
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			color: var(--color-primary);
+			color: var(--color-muted);
 		}
 
 		.command-input {
 			flex: 1;
 			background: transparent;
 			border: none;
-			font-size: 0.9375rem;
+			font-size: 1rem;
 			font-weight: 450;
 			letter-spacing: -0.01em;
 			color: var(--color-text);
@@ -351,11 +363,11 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			width: 1.75rem;
-			height: 1.75rem;
-			border-radius: 0.5rem;
+			width: 1.5rem;
+			height: 1.5rem;
+			border-radius: 0.375rem;
 			color: var(--color-muted);
-			background: oklch(from var(--color-text) l c h / 0.05);
+			background: transparent;
 			border: none;
 			cursor: pointer;
 			transition: all 150ms var(--motion-ease);
@@ -363,11 +375,7 @@
 
 		.command-close:hover {
 			color: var(--color-text);
-			background: oklch(from var(--color-text) l c h / 0.1);
-		}
-
-		.command-close:active {
-			transform: scale(0.92);
+			background: oklch(from var(--color-text) l c h / 0.05);
 		}
 
 		/* ============================================
@@ -383,6 +391,122 @@
 			scrollbar-color: oklch(from var(--color-border) l c h / 0.3) transparent;
 		}
 
+		/* ============================================
+		 * GROUP
+		 * ============================================ */
+
+		.command-group {
+			margin-bottom: 0.5rem;
+		}
+
+		.command-group-header {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			padding: 0.5rem 0.75rem;
+			font-size: 0.6875rem;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.06em;
+			color: var(--color-muted);
+			opacity: 0.8;
+		}
+
+		/* ============================================
+		 * ITEM
+		 * ============================================ */
+
+		.command-item {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+			width: 100%;
+			padding: 0.75rem 0.75rem;
+			border-radius: 0.5rem;
+			color: var(--color-text);
+			text-align: left;
+			background: transparent;
+			border: none;
+			cursor: pointer;
+			transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.command-item.selected {
+			background: oklch(from var(--color-primary) l c h / 0.1);
+			color: var(--color-text);
+		}
+
+		.command-item.selected .command-item-icon {
+			background: var(--color-primary);
+			color: oklch(0 0 0 / 0.8); /* Dark icon on primary */
+			opacity: 1;
+		}
+
+		.command-item:active {
+			transform: scale(0.995);
+		}
+
+		.command-item-icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 1.5rem;
+			height: 1.5rem;
+			border-radius: 0.375rem;
+			background: oklch(from var(--color-text) l c h / 0.05);
+			color: var(--color-text);
+			opacity: 0.7;
+			transition: all 150ms ease;
+		}
+
+		.command-item-title {
+			flex: 1;
+			font-size: 0.9375rem;
+			font-weight: 500;
+			letter-spacing: -0.01em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		.command-item-badge {
+			display: inline-flex;
+			align-items: center;
+			padding: 0 0.5em;
+			height: 1.25em;
+			border-radius: 99px;
+			font-size: 0.625rem;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			background: oklch(from var(--color-border) l c h / 0.5);
+			color: var(--color-muted);
+			margin-left: 0.5rem;
+			border: 1px solid oklch(from var(--color-border) l c h / 0.5);
+		}
+
+		.command-item.selected .command-item-badge {
+			background: oklch(from var(--color-primary) l c h / 0.2);
+			color: var(--color-text);
+			border-color: oklch(from var(--color-primary) l c h / 0.3);
+		}
+
+		.command-item-enter {
+			opacity: 0;
+			transform: translateX(-5px);
+			transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.command-item.selected .command-item-enter {
+			opacity: 0.5;
+			transform: translateX(0);
+		}
+
+		/* ============================================
+		 * EMPTY STATE & SCROLLBAR
+		 * ============================================ */
+		/* ... (Keeping existing scrollbar and empty styles, omitted for brevity if unchanged, but included here for full replace) */
+		
 		.command-results::-webkit-scrollbar {
 			width: 6px;
 		}
@@ -396,109 +520,12 @@
 			border-radius: 3px;
 		}
 
-		/* ============================================
-		 * GROUP
-		 * ============================================ */
-
-		.command-group {
-			margin-bottom: 0.5rem;
-		}
-
-		.command-group:last-child {
-			margin-bottom: 0;
-		}
-
-		.command-group-header {
-			display: flex;
-			align-items: center;
-			gap: 0.5rem;
-			padding: 0.5rem 0.75rem;
-			font-size: 0.6875rem;
-			font-weight: 600;
-			text-transform: uppercase;
-			letter-spacing: 0.06em;
-			color: var(--color-muted);
-		}
-
-		.command-group-items {
-			display: flex;
-			flex-direction: column;
-			gap: 2px;
-		}
-
-		/* ============================================
-		 * ITEM
-		 * ============================================ */
-
-		.command-item {
-			display: flex;
-			align-items: center;
-			gap: 0.75rem;
-			width: 100%;
-			padding: 0.625rem 0.75rem;
-			border-radius: 0.625rem;
-			color: var(--color-text);
-			text-align: left;
-			background: transparent;
-			border: none;
-			cursor: pointer;
-			transition: all 120ms var(--motion-ease);
-		}
-
-		.command-item:hover {
-			background: oklch(from var(--color-text) l c h / 0.05);
-		}
-
-		.command-item.selected {
-			background: oklch(from var(--color-primary) l c h / 0.12);
-			color: var(--color-primary);
-		}
-
-		.command-item:active {
-			transform: scale(0.99);
-		}
-
-		.command-item-icon {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 1.5rem;
-			height: 1.5rem;
-			border-radius: 0.375rem;
-			background: oklch(from var(--color-text) l c h / 0.05);
-			color: inherit;
-			opacity: 0.8;
-		}
-
-		.command-item.selected .command-item-icon {
-			background: oklch(from var(--color-primary) l c h / 0.15);
-			opacity: 1;
-		}
-
-		.command-item-title {
-			flex: 1;
-			font-size: 0.875rem;
-			font-weight: 475;
-			letter-spacing: -0.01em;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
-
-		.command-item-enter {
-			opacity: 0.4;
-		}
-
-		/* ============================================
-		 * EMPTY STATE
-		 * ============================================ */
-
 		.command-empty {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
-			padding: 2.5rem 1rem;
+			padding: 3rem 1rem;
 			text-align: center;
 		}
 
@@ -506,34 +533,20 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			width: 3.5rem;
-			height: 3.5rem;
-			margin-bottom: 0.75rem;
+			width: 3rem;
+			height: 3rem;
+			margin-bottom: 1rem;
 			border-radius: 1rem;
-			background: oklch(from var(--color-primary) l c h / 0.1);
-			color: var(--color-primary);
-		}
-
-		.command-empty-icon.pulse {
-			animation: pulse 1.5s ease-in-out infinite;
-		}
-
-		@keyframes pulse {
-			0%, 100% {
-				opacity: 1;
-				transform: scale(1);
-			}
-			50% {
-				opacity: 0.7;
-				transform: scale(0.95);
-			}
+			background: oklch(from var(--color-surface) l c h / 0.5);
+			color: var(--color-muted);
+			border: 1px solid oklch(from var(--color-border) l c h / 0.3);
 		}
 
 		.command-empty-text {
-			font-size: 0.8125rem;
+			font-size: 0.875rem;
 			color: var(--color-muted);
 		}
-
+		
 		/* ============================================
 		 * FOOTER
 		 * ============================================ */
@@ -542,9 +555,10 @@
 			display: none;
 			align-items: center;
 			justify-content: space-between;
-			padding: 0.625rem 1rem;
-			border-top: 1px solid oklch(from var(--color-border) l c h / 0.3);
-			background: oklch(from var(--color-surface) l c h / 0.5);
+			padding: 0.75rem 1.25rem;
+			border-top: 1px solid oklch(from var(--color-border) l c h / 0.2);
+			background: oklch(from var(--color-surface) l c h / 0.3);
+			backdrop-filter: blur(10px);
 		}
 
 		@media (min-width: 640px) {
@@ -563,7 +577,7 @@
 			display: flex;
 			align-items: center;
 			gap: 0.375rem;
-			font-size: 0.625rem;
+			font-size: 0.6875rem;
 			color: var(--color-muted);
 		}
 
@@ -575,13 +589,13 @@
 			height: 1.25rem;
 			padding: 0 0.25rem;
 			font-family: var(--font-mono);
-			font-size: 0.5625rem;
+			font-size: 0.625rem;
 			font-weight: 500;
 			color: var(--color-text);
-			background: var(--color-surface);
+			background: oklch(from var(--color-surface) l c h / 0.5);
 			border: 1px solid oklch(from var(--color-border) l c h / 0.5);
 			border-radius: 0.25rem;
-			box-shadow: 0 1px 2px oklch(0 0 0 / 0.05);
+			box-shadow: 0 1px 1px oklch(0 0 0 / 0.05);
 		}
 	}
 </style>

@@ -14,6 +14,7 @@ export interface CoverImage {
 export interface Serie {
 	slug: string;
 	order: number;
+	title?: string;
 }
 
 export interface SEO {
@@ -29,6 +30,7 @@ export interface PostFrontmatter {
 	ripeness: Ripeness;
 	kind?: Kind;
 	set?: string;
+	setTitle?: string;
 	tags?: string[];
 	cover?: CoverImage;
 	series?: Serie;
@@ -52,8 +54,8 @@ export interface PostComputed {
 export interface SerieNavigation {
 	total: number;
 	current: number;
-	prev?: { slug: string; title: string };
-	next?: { slug: string; title: string };
+	prev?: { slug: string; title: string; order?: number };
+	next?: { slug: string; title: string; order?: number };
 }
 
 export interface Backlink extends PostFrontmatter {
