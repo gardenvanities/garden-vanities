@@ -26,7 +26,7 @@
 	<Container size="sm">
 		<header class="mb-12 text-center">
 			<h1
-				class="text-text mb-4 font-serif text-4xl font-bold tracking-tight sm:text-5xl"
+				class="text-text mb-4 font-heading text-4xl font-bold tracking-tight sm:text-5xl"
 			>
 				{data.metadata.title}
 			</h1>

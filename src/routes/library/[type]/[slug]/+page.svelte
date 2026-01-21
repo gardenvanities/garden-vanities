@@ -296,7 +296,7 @@
 						{/if}
 					</div>
 
-					<h1 class="font-serif text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl">
+					<h1 class="font-heading text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl">
 						{resource.title}
 					</h1>
 
@@ -325,7 +325,7 @@
 						class="relative overflow-hidden rounded-2xl border border-brand-500/20 bg-linear-to-br from-brand-500/5 to-transparent p-6"
 					>
 						<Quote class="absolute -right-4 -top-4 h-24 w-24 text-brand-500/10" />
-						<h2 class="relative mb-4 font-serif text-xl font-medium text-white">Minhas Notas</h2>
+						<h2 class="relative mb-4 font-heading text-xl font-medium text-white">Minhas Notas</h2>
 						<p class="relative leading-relaxed text-white/60">{resource.personalNotes}</p>
 					</section>
 				{/if}

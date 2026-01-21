@@ -102,7 +102,7 @@
 			<Library class="h-4 w-4" />
 			<span>Biblioteca</span>
 		</div>
-		<h1 class="mx-auto max-w-3xl font-serif text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
+		<h1 class="mx-auto max-w-3xl font-heading text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
 			Consumo <span class="text-brand-400">Consciente</span> de Conteúdo
 		</h1>
 		<p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/50">
@@ -124,7 +124,7 @@
 					<Sparkles class="h-5 w-5 text-blue-400" />
 				</div>
 				<div>
-					<h2 class="font-serif text-2xl font-medium text-white">Consumindo Agora</h2>
+					<h2 class="font-heading text-2xl font-medium text-white">Consumindo Agora</h2>
 					<p class="text-sm text-white/40">O que estou lendo, assistindo e ouvindo no momento</p>
 				</div>
 			</div>
@@ -195,7 +195,7 @@
 								<TypeIcon type={type as ResourceType} class="h-4 w-4 text-white/50" />
 							</div>
 							<div>
-								<h2 class="font-serif text-xl font-medium text-white">
+								<h2 class="font-heading text-xl font-medium text-white">
 									{TYPE_LABELS_PLURAL[type as ResourceType]}
 								</h2>
 							</div>

@@ -1,9 +1,9 @@
 :root {
-	--font-heading: "Geist", system-ui, -apple-system, sans-serif;
+	--font-heading: "Vend Sans", system-ui, -apple-system, sans-serif;
 	--font-body: "Geist Mono", ui-monospace, monospace;
 	--font-mono: "Geist Mono", ui-monospace, monospace;
 	--font-article-body: "Geist Mono", ui-monospace, monospace;
-	--font-article-title: "Geist", system-ui, -apple-system, sans-serif;
+	--font-article-title: "Vend Sans", system-ui, -apple-system, sans-serif;
 
 	--font-weight-100: 100;
 	--font-weight-200: 200;

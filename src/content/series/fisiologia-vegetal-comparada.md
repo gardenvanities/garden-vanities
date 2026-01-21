@@ -4,7 +4,7 @@ title: "Fisiologia Vegetal Comparada"
 description: "Análise profunda dos mecanismos fisiológicos das plantas, da parede celular à sinalização."
 status: ongoing
 cover:
-  url: "series/b"
+  url: "cover/b"
   alt: "Estrutura celular vegetal"
 resources:
   - title: "Taiz & Zeiger - Plant Physiology"

@@ -17,7 +17,7 @@
 		>
 			<Telescope size={32} />
 		</div>
-		<h1 class="text-text mb-4 font-serif text-4xl font-bold tracking-tight sm:text-5xl">
+		<h1 class="text-text mb-4 font-heading text-4xl font-bold tracking-tight sm:text-5xl">
 			Sobre o Jardim
 		</h1>
 		<p class="text-muted text-lg">Explorando as vaidades e verdades do mundo digital.</p>
@@ -29,17 +29,17 @@
 			ceticismo e uma busca constante por significado em meio ao ruído.
 		</p>
 
-		<h2 class="text-text mt-12 mb-6 font-serif text-2xl font-bold">A Filosofia</h2>
+		<h2 class="text-text mt-12 mb-6 font-heading text-2xl font-bold">A Filosofia</h2>
 		<p>
 			Inspirado pela sabedoria clássica e pelos dilemas contemporâneos, este espaço busca
 			desconstruir as "vaidades" — aquilo que é passageiro, vazio e puramente performático — para
 			revelar o que realmente permanece.
 		</p>
-		<blockquote class="border-primary/30 text-muted my-8 border-l-4 pl-6 font-serif text-xl italic">
+		<blockquote class="border-primary/30 text-muted my-8 border-l-4 pl-6 font-heading text-xl italic">
 			"Vaidade de vaidades, tudo é vaidade."
 		</blockquote>
 
-		<h2 class="text-text mt-12 mb-6 font-serif text-2xl font-bold">O Que Encontrar Aqui</h2>
+		<h2 class="text-text mt-12 mb-6 font-heading text-2xl font-bold">O Que Encontrar Aqui</h2>
 		<ul>
 			<li>
 				<strong>Artigos:</strong> Reflexões profundas sobre tecnologia, sociedade e existência.
@@ -54,7 +54,7 @@
 	<div
 		class="border-border bg-surface/50 mt-24 rounded-3xl border p-8 text-center backdrop-blur-sm"
 	>
-		<h3 class="text-text mb-2 font-serif text-xl font-bold">Quer conversar?</h3>
+		<h3 class="text-text mb-2 font-heading text-xl font-bold">Quer conversar?</h3>
 		<p class="text-muted mb-6">Sinta-se à vontade para entrar em contato ou me seguir nas redes.</p>
 		<div class="flex justify-center gap-4">
 			<a

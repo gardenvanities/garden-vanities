@@ -78,7 +78,7 @@
 />
 
 <Section class="py-16 md:py-24">
-	<Container size="sm">
+	<Container size="lg">
 		<!-- Hero Section -->
 		<div class="mb-16 flex flex-col items-center text-center">
 			<!-- Avatar with glow effect -->

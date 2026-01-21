@@ -19,7 +19,9 @@
 		const updateBox = () => {
 			if (svgText) {
 				const { x, y, width, height } = svgText.getBBox();
-				viewBox = `${x} ${y} ${width} ${height}`;
+				// Add padding to prevent letter clipping
+				const padding = 10;
+				viewBox = `${x - padding} ${y - padding} ${width + padding * 2} ${height + padding * 2}`;
 			}
 		};
 
@@ -121,31 +123,33 @@
 				</ul>
 			</div>
 		</div>
+	</div>
 
-		<!-- Brand Text - Fluid Width -->
-		<div class="w-full py-8 sm:py-10">
-			<svg
-				{viewBox}
-				class="text-text block h-auto w-full select-none"
-				aria-hidden="true"
-				xmlns="http://www.w3.org/2000/svg"
+	<!-- Brand Text - Fluid Width (fora do container) -->
+	<div class="w-full px-4 py-8 sm:px-6 sm:py-10">
+		<svg
+			{viewBox}
+			class="text-text block h-auto w-full select-none"
+			aria-hidden="true"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<text
+				bind:this={svgText}
+				x="50%"
+				y="50%"
+				font-size="100"
+				dominant-baseline="central"
+				text-anchor="middle"
+				class="font-heading fill-current font-bold tracking-tighter"
 			>
-				<text
-					bind:this={svgText}
-					x="50%"
-					y="50%"
-					font-size="100"
-					dominant-baseline="central"
-					text-anchor="middle"
-					class="font-serif fill-current font-bold tracking-tighter"
-				>
-					Garden of Vanities.
-				</text>
-			</svg>
-			<span class="sr-only">Garden of Vanities.</span>
-		</div>
+				Garden of Vanities.
+			</text>
+		</svg>
+		<span class="sr-only">Garden of Vanities.</span>
+	</div>
 
-		<!-- Bottom Meta Row -->
+	<!-- Bottom Meta Row -->
+	<div class="mx-auto max-w-6xl px-4 sm:px-6">
 		<div class="border-border/30 flex flex-wrap items-center justify-between gap-4 border-t py-5">
 			<div class="flex items-center gap-3 sm:gap-4">
 				<span class="text-muted/40 text-[10px] sm:text-xs">© {currentYear}</span>

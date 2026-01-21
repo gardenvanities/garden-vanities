@@ -3,7 +3,7 @@ slug: design
 title: "Design"
 description: "Exploração de princípios visuais, UX e a arte de criar interfaces significativas."
 cover:
-  url: "cover/c"
+  url: "cover/e"
   alt: "Interface minimalista"
 relatedSets:
   - engenharia-software

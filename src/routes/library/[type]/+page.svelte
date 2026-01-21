@@ -59,7 +59,7 @@
 	<header class="mb-12">
 		<div class="flex items-center gap-3">
 			<TypeIcon type={data.resourceType} class="h-8 w-8 text-brand-400" />
-			<h1 class="font-serif text-4xl font-bold text-white md:text-5xl">
+			<h1 class="font-heading text-4xl font-bold text-white md:text-5xl">
 				{data.typeLabel}
 			</h1>
 			<span class="rounded-full bg-white/10 px-3 py-1 text-lg text-white/50">

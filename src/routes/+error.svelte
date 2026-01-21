@@ -29,7 +29,7 @@
 			</div>
 		</div>
 
-		<h1 class="text-heading/5 font-serif text-9xl leading-none font-black select-none">
+		<h1 class="text-heading/5 font-heading text-9xl leading-none font-black select-none">
 			{status}
 		</h1>
 

@@ -1,96 +1,90 @@
 <script lang="ts">
-	import { Leaf, Sparkles, Star, Flower2, Route, Eye } from "@lucide/svelte";
 	import Container from "$lib/layout/Container.svelte";
-	import { fly } from "svelte/transition";
+	import { fly, fade } from "svelte/transition";
 </script>
 
 <section
-	class="relative flex min-h-[85vh] w-full items-center justify-center overflow-hidden py-16 md:py-24"
+	class="relative flex min-h-[50vh] w-full items-center justify-center overflow-hidden py-16 md:py-20"
 >
+	<!-- Subtle Background Effects -->
+	<div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+		<div
+			class="absolute top-1/2 left-1/2 h-[600px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-[150px]"
+		></div>
+	</div>
+
 	<Container size="xl">
-		<div class="w-full">
-			<!-- Main Typographic Statement - Full Width -->
-			<div class="space-y-3 md:space-y-4 lg:space-y-5">
-				<!-- Line 1 -->
+		<div class="relative z-10 flex w-full flex-col items-center justify-center">
+			<!-- Quote Block -->
+			<blockquote
+				class="text-center"
+				in:fly={{ y: 30, duration: 1000, delay: 0 }}
+			>
+					<!-- Main Quote Text -->
 				<p
-					class="font-heading flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-lg leading-[1.2] font-bold tracking-tight sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"
-					in:fly={{ y: 40, duration: 700, delay: 0 }}
+					class="hero-silver-gradient font-heading mx-auto max-w-5xl text-2xl font-medium leading-snug tracking-tight md:text-3xl lg:text-4xl xl:text-5xl"
+					in:fly={{ y: 20, duration: 800, delay: 200 }}
 				>
-					<span class="text-text">Alguns</span>
-					<span
-						class="inline-flex items-center gap-1 rounded-full border border-green-500/30 bg-green-500/10 px-2.5 py-0.5 text-xs font-semibold text-green-600 md:px-3 md:py-1 md:text-base dark:text-green-400"
-					>
-						<Leaf size={14} class="md:h-4 md:w-4" />
-						<span>jardins</span>
-					</span>
-					<span class="text-text">você</span>
-					<span class="text-muted font-serif italic">apenas</span>
-					<span class="text-text">visita</span>
-					<span class="text-primary">—</span>
-					<span class="text-muted font-normal">passeia entre as flores,</span>
-					<span
-						class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-pink-500/10 text-pink-500 md:h-8 md:w-8"
-					>
-						<Flower2 size={16} />
-					</span>
-					<span class="text-muted font-normal">tira fotos</span>
-					<span class="text-muted font-serif italic">e vai embora.</span>
+					Há uma vaidade na dor e uma vaidade ainda maior na sabedoria.
+					Ambas nos fazem acreditar que somos especiais.
 				</p>
 
-				<!-- Line 2 -->
-				<p
-					class="font-heading flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-lg leading-[1.2] font-bold tracking-tight sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"
-					in:fly={{ y: 40, duration: 700, delay: 150 }}
+				<!-- Author Attribution -->
+				<footer
+					class="mt-6 md:mt-8"
+					in:fade={{ duration: 600, delay: 600 }}
 				>
-					<span class="text-text">Outros</span>
-					<span
-						class="bg-primary text-primary-contrast inline-flex h-8 w-8 items-center justify-center rounded-xl shadow-lg md:h-10 md:w-10"
-					>
-						<Sparkles size={18} strokeWidth={2.5} />
-					</span>
-					<span class="text-text">você</span>
-					<span class="text-primary font-sans font-black">cultiva</span>
-					<span class="text-primary">—</span>
-					<span class="text-muted font-normal">planta sementes,</span>
-					<span class="text-muted font-normal">rega</span>
-					<span class="text-text font-serif italic">com paciência,</span>
-					<span class="text-muted font-normal">e espera</span>
-					<span
-						class="border-border bg-surface-elevated text-muted inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-semibold md:px-3 md:py-1 md:text-base"
-					>
-						<span>florescer</span>
-					</span>
-				</p>
-
-				<!-- Line 3 -->
-				<p
-					class="font-heading flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-lg leading-[1.2] font-bold tracking-tight sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"
-					in:fly={{ y: 40, duration: 700, delay: 300 }}
-				>
-					<span class="text-text">Este aqui</span>
-					<span
-						class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-sm font-semibold text-amber-600 md:px-4 md:py-1.5 md:text-xl dark:text-amber-400"
-					>
-						<Star size={14} class="fill-current md:h-4 md:w-4" />
-						<span>você explora</span>
-					</span>
-					<span class="text-primary">—</span>
-					<span class="text-muted font-normal">sem mapa,</span>
-					<span
-						class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10 text-blue-500 md:h-10 md:w-10"
-					>
-						<Route size={18} />
-					</span>
-					<span class="text-muted font-normal">sem pressa,</span>
-					<span class="text-text font-serif italic">seguindo sua</span>
-					<span class="text-primary font-sans font-black">intuição</span>
-					<span
-						class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-purple-500/10 text-purple-500 md:h-10 md:w-10"
-					>
-						<Eye size={18} />
-					</span>
-				</p>
-			</div>
+					<cite class="text-muted not-italic">
+						<span class="text-sm tracking-widest uppercase md:text-base">— Aldous Huxley</span>
+						<span class="mt-1 block text-xs opacity-60 md:text-sm">Contraponto</span>
+					</cite>
+				</footer>
+			</blockquote>
 		</div>
 	</Container>
 </section>
+
+<style>
+	.hero-silver-gradient {
+		background: linear-gradient(
+			135deg,
+			var(--hero-gradient-1, oklch(0.85 0 0)) 0%,
+			var(--hero-gradient-2, oklch(0.6 0 0)) 25%,
+			var(--hero-gradient-3, oklch(0.9 0 0)) 50%,
+			var(--hero-gradient-4, oklch(0.55 0 0)) 75%,
+			var(--hero-gradient-5, oklch(0.8 0 0)) 100%
+		);
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 200% 200%;
+		animation: shimmer 8s ease-in-out infinite;
+	}
+
+	/* Light mode colors */
+	:global(:root) {
+		--hero-gradient-1: oklch(0.35 0 0);
+		--hero-gradient-2: oklch(0.2 0 0);
+		--hero-gradient-3: oklch(0.4 0 0);
+		--hero-gradient-4: oklch(0.15 0 0);
+		--hero-gradient-5: oklch(0.3 0 0);
+	}
+
+	/* Dark mode colors */
+	:global(.dark) {
+		--hero-gradient-1: oklch(0.85 0 0);
+		--hero-gradient-2: oklch(0.6 0 0);
+		--hero-gradient-3: oklch(0.9 0 0);
+		--hero-gradient-4: oklch(0.55 0 0);
+		--hero-gradient-5: oklch(0.8 0 0);
+	}
+
+	@keyframes shimmer {
+		0%, 100% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+	}
+</style>

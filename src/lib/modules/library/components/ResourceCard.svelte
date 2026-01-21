@@ -108,7 +108,7 @@
 			</div>
 
 			<h3
-				class="mt-2 truncate font-serif text-base font-medium text-white transition-colors group-hover:text-brand-400"
+				class="mt-2 truncate font-heading text-base font-medium text-white transition-colors group-hover:text-brand-400"
 			>
 				{resource.title}
 			</h3>
@@ -228,7 +228,7 @@
 		<div class="flex flex-1 flex-col gap-1 p-4">
 			<!-- Title -->
 			<h3
-				class="line-clamp-2 font-serif text-base font-medium leading-snug text-white transition-colors group-hover:text-brand-400"
+				class="line-clamp-2 font-heading text-base font-medium leading-snug text-white transition-colors group-hover:text-brand-400"
 			>
 				{resource.title}
 			</h3>

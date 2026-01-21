@@ -24,7 +24,7 @@
 			<section>
 				<div class="mb-8 flex items-center gap-2">
 					<MessageSquareQuote size={18} class="text-primary" />
-					<h3 class="text-text m-0 font-serif text-xl font-bold tracking-tight">
+					<h3 class="text-text m-0 font-heading text-xl font-bold tracking-tight">
 						Mencionado em...
 					</h3>
 				</div>
@@ -76,7 +76,7 @@
 			<section>
 				<div class="mb-6 flex items-center gap-2">
 					<LinkIcon size={18} class="text-primary" />
-					<h3 class="text-text m-0 font-serif text-xl font-bold tracking-tight">Referências</h3>
+					<h3 class="text-text m-0 font-heading text-xl font-bold tracking-tight">Referências</h3>
 				</div>
 
 				<ul class="grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2">
