@@ -20,7 +20,7 @@
 		type = "website",
 		publishedAt = undefined,
 		updatedAt = undefined,
-		author = "@themageking",
+		author = "The Mage King",
 		noindex = false
 	}: Props = $props();
 

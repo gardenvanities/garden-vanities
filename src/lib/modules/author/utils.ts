@@ -1,4 +1,4 @@
-import authorsData from "$lib/data/authors.json";
+import { AUTHORS_DATA as authorsData } from "./data";
 import type { Author } from "./types";
 
 export function getAuthorByNick(nick: string): Author | undefined {
