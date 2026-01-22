@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Component } from "svelte";
-	import Badge from "$lib/ui/Badge.svelte";
+
 	interface Props {
 		title: string;
 		subtitle?: string;
@@ -34,9 +34,9 @@
 
 		<!-- Optional Count Badge -->
 		{#if count !== undefined}
-			<Badge variant="secondary" class="px-2.5 font-mono text-xs opacity-60 transition-opacity group-hover:opacity-100">
+			<span class="flex items-center gap-1.5 rounded-sm border border-white/10 bg-black/40 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md transition-all duration-300 group-hover:border-white/20 group-hover:bg-black/50">
 				{count}
-			</Badge>
+			</span>
 		{/if}
 	</div>
 

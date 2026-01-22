@@ -4,7 +4,7 @@ title: "Filosofia do Código"
 description: "Reflexões sobre a arte de programar, minimalismo, e a busca pela elegância no software."
 status: ongoing
 cover:
-  url: "cover/a"
+  url: "card/a"
   alt: "Código minimalista"
 resources:
   - title: "Clean Code - Robert Martin"

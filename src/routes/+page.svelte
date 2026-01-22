@@ -65,7 +65,7 @@
 							href="/sets"
 							class="text-muted hover:text-primary hidden text-sm font-medium transition-colors md:block"
 						>
-							Ver <strong>{data.sets.length}+</strong> Coleções →
+							Ver todas as coleções →
 						</a>
 					</div>
 
@@ -80,7 +80,7 @@
 							href="/sets"
 							class="text-muted hover:text-primary flex items-center gap-2 text-sm font-medium transition-colors"
 						>
-							Ver <strong>{data.sets.length}+</strong> Coleções
+							Ver todas as coleções
 							<span aria-hidden="true">→</span>
 						</a>
 					</div>
@@ -152,7 +152,8 @@
 
 								<!-- Gradient Overlay -->
 								<div
-									class="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col justify-end gap-2 bg-linear-to-t from-black/90 via-black/60 to-transparent p-5 pt-16 pb-5 transition-all duration-300"
+									class="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col justify-end gap-2 bg-black/60 p-5 pt-24 backdrop-blur-xl transition-all duration-300"
+									style="mask-image: linear-gradient(to bottom, transparent 0%, black 50%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 50%);"
 								>
 									<!-- Title -->
 									<h3 class="font-heading text-xl leading-tight font-bold text-white">
@@ -161,7 +162,7 @@
 
 									<!-- Description -->
 									{#if serie.description}
-										<p class="line-clamp-2 text-sm text-white/80">
+										<p class="line-clamp-2 font-mono text-sm text-white/80">
 											{serie.description}
 										</p>
 									{/if}

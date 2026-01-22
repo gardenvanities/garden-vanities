@@ -67,7 +67,8 @@
 
 	<!-- Gradient Overlay -->
 	<div
-		class="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col justify-end gap-2 bg-linear-to-t from-black/90 via-black/60 to-transparent p-5 pt-20 pb-5 transition-all duration-300"
+		class="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col justify-end gap-2 bg-black/60 p-5 pt-24 backdrop-blur-xl transition-all duration-300"
+		style="mask-image: linear-gradient(to bottom, transparent 0%, black 50%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 50%);"
 	>
 		<!-- Title -->
 		<h3 class="font-heading text-xl leading-tight font-bold text-white">
@@ -76,11 +77,11 @@
 
 		<!-- Description -->
 		{#if set.description}
-			<p class="line-clamp-2 text-sm text-white/80">
+			<p class="line-clamp-2 font-mono text-sm text-white/80">
 				{set.description}
 			</p>
 		{:else}
-			<p class="line-clamp-2 text-sm text-white/80">Uma coleção curada no jardim.</p>
+			<p class="line-clamp-2 font-mono text-sm text-white/80">Uma coleção curada no jardim.</p>
 		{/if}
 	</div>
 </a>
