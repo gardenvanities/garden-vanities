@@ -2,7 +2,7 @@
 	import type { Backlink, LinkReference } from "$lib/modules/posts/types";
 	import { base } from "$app/paths";
 	import { fly } from "svelte/transition";
-	import PostListItem from "$lib/modules/posts/components/PostListItem.svelte";
+	import PostList from "$lib/modules/posts/components/PostList.svelte";
 
 	interface Props {
 		backlinks?: Backlink[];
@@ -28,13 +28,7 @@
 					Mencionado em
 				</h3>
 
-				<div class="flex flex-col border-t border-border">
-					{#each backlinks as post (post.slug)}
-						<div class="border-b border-border">
-							<PostListItem {post} showSummary={true} />
-						</div>
-					{/each}
-				</div>
+				<PostList posts={backlinks} class="border-t border-b border-border" />
 			</section>
 		{/if}
 
@@ -44,13 +38,7 @@
 					Artigos mencionados
 				</h3>
 
-				<div class="flex flex-col border-t border-border">
-					{#each sortedReferences as ref (ref.slug)}
-						<div class="border-b border-border">
-							<PostListItem post={ref} showSummary={true} />
-						</div>
-					{/each}
-				</div>
+				<PostList posts={sortedReferences} class="border-t border-b border-border" />
 			</section>
 		{/if}
 	</div>

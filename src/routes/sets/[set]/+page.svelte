@@ -2,7 +2,7 @@
 	import SEO from "$lib/core/seo/SEO.svelte";
 	import Container from "$lib/layout/Container.svelte";
 	import Section from "$lib/layout/Section.svelte";
-	import PostListItem from "$lib/modules/posts/components/PostListItem.svelte";
+	import PostList from "$lib/modules/posts/components/PostList.svelte";
 	import { ArrowLeft } from "@lucide/svelte";
 	import { fly, fade } from "svelte/transition";
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
@@ -58,13 +58,7 @@
 
 			<!-- Posts List -->
 			{#if count > 0}
-				<div class="posts-list">
-					{#each data.posts as post, i (post.slug)}
-						<div class="post-item" in:fly={{ y: 10, duration: 400, delay: i * 50 }}>
-							<PostListItem {post} />
-						</div>
-					{/each}
-				</div>
+				<PostList posts={data.posts} class="border-t border-b border-border" />
 			{:else}
 				<div class="empty-state">
 					<p>Nenhuma nota encontrada nesta coleção.</p>
@@ -146,16 +140,7 @@
 		margin: 0;
 	}
 
-	/* Posts List */
-	.posts-list {
-		display: flex;
-		flex-direction: column;
-		border-top: 1px solid var(--color-border);
-	}
 
-	.post-item {
-		border-bottom: 1px solid var(--color-border);
-	}
 
 	/* Empty State */
 	.empty-state {

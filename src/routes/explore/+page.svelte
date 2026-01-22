@@ -3,7 +3,7 @@
 	import Container from "$lib/layout/Container.svelte";
 	import Section from "$lib/layout/Section.svelte";
 	import Grid from "$lib/layout/Grid.svelte";
-	import PostListItem from "$lib/modules/posts/components/PostListItem.svelte";
+	import PostList from "$lib/modules/posts/components/PostList.svelte";
 	import { Search, X, Hash, Compass } from "@lucide/svelte";
 	import { fly, slide, fade } from "svelte/transition";
 
@@ -324,13 +324,7 @@
 			<!-- Quick Filters (Optional: if we want to show most popular tags or similar later) -->
 
 			{#if filteredPosts.length > 0}
-				<div class="divide-border divide-y">
-					{#each filteredPosts as post (post.slug)}
-						<div in:fly={{ y: 10, duration: 300 }}>
-							<PostListItem {post} />
-						</div>
-					{/each}
-				</div>
+				<PostList posts={filteredPosts} />
 			{:else}
 				<div class="py-24 text-center">
 					<div

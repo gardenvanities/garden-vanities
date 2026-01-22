@@ -31,7 +31,7 @@
 
 {#if config}
 	<span
-		class="flex items-center gap-1.5 rounded-sm border px-3 py-1.5 text-xs font-medium backdrop-blur-md transition-all duration-300 {config.classes} {className}"
+		class="flex items-center gap-1.5 rounded-sm border px-2 py-1.5 text-xs font-medium backdrop-blur-md transition-all duration-300 {config.classes} {className}"
 	>
 		{#if showIcon}
 			<Sprout size={14} class="opacity-80" />
