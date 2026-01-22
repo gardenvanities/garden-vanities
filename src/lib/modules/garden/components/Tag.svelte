@@ -1,6 +1,4 @@
 <script lang="ts">
-	import Badge from "$lib/ui/Badge.svelte";
-
 	interface Props {
 		tag: string;
 		onclick?: (tag: string) => void;
@@ -15,14 +13,12 @@
 	}
 </script>
 
-<Badge
-	as="button"
+<button
 	type="button"
 	{disabled}
 	onclick={handleClick}
-	variant="secondary"
-	class="group hover:border-primary/50 hover:bg-surface-elevated cursor-pointer rounded-[4px] px-2 py-0.5 transition-all duration-300 hover:shadow-sm"
+	class="flex items-center gap-1.5 rounded-sm border border-white/10 bg-black/40 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:bg-black/50 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
 >
-	<span class="group-hover:text-primary opacity-40 transition-colors">#</span>
-	<span class="ml-0.5">{tag}</span>
-</Badge>
+	<span class="opacity-60">#</span>
+	<span>{tag}</span>
+</button>

@@ -135,11 +135,9 @@
 		>
 			<text
 				bind:this={svgText}
-				x="50%"
-				y="50%"
-				font-size="100"
-				dominant-baseline="central"
-				text-anchor="middle"
+				x="0"
+				y="100"
+				font-size="140"
 				class="font-heading fill-current font-bold tracking-tighter"
 			>
 				Garden of Vanities.

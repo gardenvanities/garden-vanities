@@ -22,16 +22,16 @@
 	}: Props = $props();
 
 	const baseStyles =
-		"inline-flex items-center rounded-sm px-2 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2";
+		"inline-flex items-center justify-center rounded-sm bg-surface-elevated/50 px-2.5 py-1 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2";
 
 	const variants = {
-		default: "border-transparent bg-primary text-primary-contrast shadow hover:bg-primary/80",
-		secondary: "border-transparent bg-surface border border-border text-muted hover:text-text",
-		outline: "text-text border border-border",
-		primary: "border-transparent bg-primary text-primary-contrast shadow hover:bg-primary/80",
-		danger: "border-transparent bg-danger text-primary-contrast shadow hover:bg-danger/80",
-		warning: "border-transparent bg-warning text-gray-950 shadow hover:bg-warning/80",
-		success: "border-transparent bg-success text-primary-contrast shadow hover:bg-success/80"
+		default: "border border-border text-muted hover:border-primary/50 hover:text-primary hover:bg-surface-elevated",
+		secondary: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+		outline: "text-foreground border border-border bg-transparent",
+		primary: "border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/90",
+		danger: "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/90",
+		warning: "border-transparent bg-warning text-warning-foreground shadow hover:bg-warning/90",
+		success: "border-transparent bg-success text-success-foreground shadow hover:bg-success/90"
 	};
 </script>
 

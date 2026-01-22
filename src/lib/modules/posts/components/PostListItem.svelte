@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
 	import KindBadge from "$lib/modules/garden/components/KindBadge.svelte";
+	import RipenessBadge from "$lib/modules/garden/components/RipenessBadge.svelte";
+
 
 	interface Props {
 		post: PostFrontmatter;
@@ -8,24 +10,6 @@
 	}
 
 	let { post, showSummary = true }: Props = $props();
-
-	// Ripeness indicator colors with glow
-	const ripenessStyles: Record<string, { dot: string; glow: string }> = {
-		seed: { 
-			dot: "bg-rose-400", 
-			glow: "shadow-[0_0_8px_rgba(251,113,133,0.5)]" 
-		},
-		root: { 
-			dot: "bg-amber-400", 
-			glow: "shadow-[0_0_8px_rgba(251,191,36,0.5)]" 
-		},
-		fruit: { 
-			dot: "bg-emerald-400", 
-			glow: "shadow-[0_0_8px_rgba(52,211,153,0.5)]" 
-		}
-	};
-
-	const style = $derived(ripenessStyles[post.ripeness] || { dot: "bg-muted", glow: "" });
 </script>
 
 <a
@@ -42,34 +26,27 @@
 		class="absolute left-0 top-1/2 h-8 w-0.5 -translate-y-1/2 rounded-full bg-primary opacity-0 transition-all duration-300 group-hover:opacity-100"
 	></div>
 
-	<!-- Ripeness Indicator Dot -->
-	<div class="relative z-10 mt-1.5 flex shrink-0 items-center justify-center">
-		<div 
-			class="h-2.5 w-2.5 rounded-full {style.dot} transition-all duration-300 group-hover:scale-110 group-hover:{style.glow}"
-		></div>
-	</div>
-
 	<!-- Content -->
 	<div class="relative z-10 min-w-0 flex-1">
-		<!-- Title Row -->
-		<div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-			<h3 
-				class="font-heading text-text text-base font-semibold leading-snug tracking-tight transition-colors duration-300 group-hover:text-primary md:text-lg"
-			>
-				{post.title}
-			</h3>
-			
-			{#if post.kind}
-				<KindBadge kind={post.kind} showIcon={false} class="text-[10px]" />
-			{/if}
+		<!-- Badges Row -->
+		<div class="mb-1 flex flex-wrap items-center gap-2">
+            {#if post.kind}
+                <KindBadge kind={post.kind} />
+            {/if}
+            <RipenessBadge ripeness={post.ripeness} />
 		</div>
 
+        <!-- Title -->
+        <h3 
+            class="w-full font-heading text-text text-base font-semibold leading-snug tracking-tight transition-colors duration-300 group-hover:text-primary md:text-lg"
+        >
+            {post.title}
+        </h3>
+
 		<!-- Summary -->
-		{#if showSummary && post.summary}
-			<p class="text-muted/70 mt-1.5 line-clamp-1 text-sm font-light tracking-wide transition-colors duration-300 group-hover:text-muted">
-				{post.summary}
+			<p class="text-muted/70 font-mono mt-1.5 line-clamp-1 text-sm tracking-normal transition-colors duration-300 group-hover:text-muted">
+				{post.subtitle}
 			</p>
-		{/if}
 	</div>
 
 	<!-- Subtle Arrow (appears on hover) -->

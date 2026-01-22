@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Ripeness } from "$lib/modules/posts/types";
-	import { Signal } from "@lucide/svelte";
-	import Badge from "$lib/ui/Badge.svelte";
+	import { Sprout } from "@lucide/svelte";
 
 	interface Props {
 		ripeness: Ripeness;
@@ -15,18 +14,15 @@
 	const ripenessConfig = {
 		seed: {
 			label: "Semente",
-			emoji: "🌱",
-			color: "text-ripeness-seed"
+			classes: "border-rose-500/20 bg-rose-500/10 text-rose-100 group-hover:border-rose-500/30 group-hover:bg-rose-500/20 group-hover:text-rose-50"
 		},
 		root: {
 			label: "Rascunho",
-			emoji: "🌿",
-			color: "text-ripeness-root"
+			classes: "border-amber-500/20 bg-amber-500/10 text-amber-100 group-hover:border-amber-500/30 group-hover:bg-amber-500/20 group-hover:text-amber-50"
 		},
 		fruit: {
 			label: "Maduro",
-			emoji: "🍎",
-			color: "text-ripeness-fruit"
+			classes: "border-emerald-500/20 bg-emerald-500/10 text-emerald-100 group-hover:border-emerald-500/30 group-hover:bg-emerald-500/20 group-hover:text-emerald-50"
 		}
 	} as const;
 
@@ -34,18 +30,14 @@
 </script>
 
 {#if config}
-	<Badge
-		variant="secondary"
-		class="group hover:border-primary/50 hover:bg-surface-elevated cursor-default rounded-[4px] px-2 py-0.5 transition-all duration-300 hover:shadow-sm {className}"
-		as="span"
+	<span
+		class="flex items-center gap-1.5 rounded-sm border px-3 py-1.5 text-xs font-medium backdrop-blur-md transition-all duration-300 {config.classes} {className}"
 	>
 		{#if showIcon}
-			<span class="-ml-0.5 flex items-center {config.color}">
-				<Signal size={12} strokeWidth={2.5} />
-			</span>
+			<Sprout size={14} class="opacity-80" />
 		{/if}
 		{#if showLabel}
-			<span class="ml-1.5 pt-px text-[11px] font-medium">{config.label}</span>
+			<span class="pt-px">{config.label}</span>
 		{/if}
-	</Badge>
+	</span>
 {/if}

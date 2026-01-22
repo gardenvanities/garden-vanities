@@ -38,18 +38,19 @@
 			{#if post.set}
 				<a
 					href="/sets/{encodeURIComponent(post.set)}"
-					class="group flex items-center gap-1.5 rounded-sm border border-border bg-surface-elevated/50 px-2.5 py-1 text-xs font-medium text-muted transition-all duration-300 hover:border-primary/40 hover:bg-surface-elevated hover:text-primary"
+					class="group flex items-center gap-1.5 rounded-sm border border-white/10 bg-black/40 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:bg-black/50"
 				>
-					<FolderOpen size={11} class="opacity-50 transition-opacity group-hover:opacity-100" />
+					<FolderOpen size={13} class="text-white/80 transition-opacity group-hover:opacity-100" />
 					{post.set}
 				</a>
 			{/if}
+
 			{#if post.series}
 				<a
 					href="/series/{seriesSlug}"
-					class="group flex items-center gap-1.5 rounded-sm border border-border bg-surface-elevated/50 px-2.5 py-1 text-xs font-medium text-muted transition-all duration-300 hover:border-primary/40 hover:bg-surface-elevated hover:text-primary"
+					class="group flex items-center gap-1.5 rounded-sm border border-white/10 bg-black/40 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:bg-black/50"
 				>
-					<Layers size={11} class="opacity-50 transition-opacity group-hover:opacity-100" />
+					<Layers size={13} class="text-white/80 transition-opacity group-hover:opacity-100" />
 					{post.series.slug}
 					{#if post.series.order}
 						<span class="opacity-60">#{post.series.order}</span>

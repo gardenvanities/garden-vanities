@@ -1,4 +1,7 @@
-import { getAuthorByNick, getAllAuthors } from "$lib/modules/author";
+import { getAllPosts } from "$lib/server/posts";
+import { getAllSets } from "$lib/server/collections";
+import { getResourcesByType } from "$lib/server/library";
+import { getAllAuthors } from "$lib/modules/author";
 import type { PageServerLoad } from "./$types";
 import { error } from "@sveltejs/kit";
 
@@ -10,7 +13,19 @@ export const load: PageServerLoad = async () => {
 		throw error(404, "Author not found");
 	}
 
+	// Fetch content stats
+	const posts = await getAllPosts();
+	const sets = getAllSets();
+    
+    // Fetch library stats for "books read"
+    const books = getResourcesByType("book", { status: ["completed"] });
+
 	return {
-		author
+		author,
+		stats: {
+			articles: posts.length,
+			projects: sets.length,
+            booksRead: books.length
+		}
 	};
 };

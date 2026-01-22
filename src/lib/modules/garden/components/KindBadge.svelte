@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Kind } from "$lib/modules/posts/types";
 	import { Shapes } from "@lucide/svelte";
-	import Badge from "$lib/ui/Badge.svelte";
 
 	interface Props {
 		kind: Kind;
@@ -34,16 +33,12 @@
 </script>
 
 {#if config}
-	<Badge
-		variant="secondary"
-		class="group hover:border-primary/50 bg-surface-elevated/50 border border-border cursor-default rounded-sm px-2.5 py-1 transition-all duration-300 hover:shadow-sm hover:bg-surface-elevated hover:text-primary {className}"
-		as="span"
+	<span
+		class="flex items-center gap-1.5 rounded-sm border border-blue-400/20 bg-blue-500/10 px-3 py-1.5 text-xs font-medium text-blue-100 backdrop-blur-md transition-all duration-300 group-hover:border-blue-400/30 group-hover:bg-blue-500/20 group-hover:text-blue-50 {className}"
 	>
 		{#if showIcon}
-			<span class="-ml-0.5 flex items-center {config.color}">
-				<Shapes size={12} strokeWidth={2.5} />
-			</span>
+			<Shapes size={14} class="text-blue-200/80 group-hover:text-blue-200" />
 		{/if}
-		<span class="ml-1.5 pt-px text-[11px] font-medium {config.color}">{config.label}</span>
-	</Badge>
+		<span class="pt-px">{config.label}</span>
+	</span>
 {/if}
