@@ -12,7 +12,7 @@
 	let { metadata }: Props = $props();
 </script>
 
-<header class="relative flex min-h-[350px] w-full items-end overflow-hidden border-b border-border/10 bg-gradient-to-b from-surface/50 to-transparent pt-24">
+<header class="relative flex min-h-[350px] w-full items-end overflow-hidden border-b border-border/10 bg-linear-to-b from-surface/50 to-transparent pt-24">
 	<!-- Content Container (Aligned with Site Layout) -->
 	<div class="container relative z-10 mx-auto max-w-7xl px-4 pb-12 lg:px-8">
 		<!-- Text Content -->
