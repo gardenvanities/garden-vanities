@@ -3,7 +3,7 @@
 	import type { SerieNavigation } from "$lib/modules/posts/types";
 
 	interface Props {
-		navigation: SerieNavigation;
+		navigation?: SerieNavigation | undefined;
 		seriesSlug?: string;
 	}
 

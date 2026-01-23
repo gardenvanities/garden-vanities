@@ -111,7 +111,7 @@
 	<div
 		class={variant === "floating"
 			? "pointer-events-auto fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 flex-col items-center gap-2"
-			: "mb-6 flex w-full flex-col items-start gap-2"}
+			: "flex w-full flex-col items-start gap-2"}
 		transition:fade={{ duration: 200 }}
 	>
 		<button

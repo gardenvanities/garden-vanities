@@ -30,7 +30,7 @@
 	});
 </script>
 
-<footer class="bg-surface/30 border-border/30 mt-32 border-t">
+<footer class="bg-bg border-border/30 mt-32 border-t">
 	<!-- Links Grid -->
 	<div class="mx-auto max-w-6xl px-4 sm:px-6">
 		<div class="border-border/30 grid grid-cols-2 gap-8 border-b py-10 sm:gap-10 sm:py-12 lg:grid-cols-4">

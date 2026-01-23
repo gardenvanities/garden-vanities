@@ -11,7 +11,7 @@ set: botanica
 tags: ["botânica", "citologia", "biopolímeros", "biotecnologia"]
 
 cover:
-  url: "cover/b"
+  url: "cover/a"
   alt: "Estrutura fibrosa de microfibrilas de celulose"
   caption: "Representação tridimensional da rede de polímeros da parede celular."
 

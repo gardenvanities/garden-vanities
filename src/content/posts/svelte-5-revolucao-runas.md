@@ -11,9 +11,9 @@ set: engenharia-software
 tags: ["svelte", "javascript", "webdev", "frontend"]
 
 cover:
-  url:
-  alt:
-  caption:
+  url: "cover/b"
+  alt: "Estrutura fibrosa de microfibrilas de celulose"
+  caption: "Representação tridimensional da rede de polímeros da parede celular."
 
 series:
   slug: modern-web-frameworks

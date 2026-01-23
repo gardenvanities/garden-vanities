@@ -22,7 +22,7 @@
 			>
 					<!-- Main Quote Text -->
 				<p
-				<p
+
 					class="hero-silver-gradient font-mono max-w-5xl text-base font-medium leading-snug tracking-tight md:text-lg lg:text-xl"
 					in:fly={{ y: 20, duration: 800, delay: 200 }}
 				>

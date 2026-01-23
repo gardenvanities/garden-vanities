@@ -8,7 +8,7 @@
 	let { metadata }: { metadata: PostFrontmatter } = $props();
 </script>
 
-<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-2">
 	<div in:fly|global={{ x: -20, duration: 800, delay: 200 }}>
 		<ReadingProgress variant="sidebar" />
 	</div>
