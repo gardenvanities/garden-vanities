@@ -94,15 +94,15 @@
 </script>
 
 {#snippet tree(nodes: HeadingNode[])}
-	<ul class="pl-2 space-y-0">
+	<ul class="relative ml-1 space-y-1 py-1 pl-0 list-none toc-tree">
 		{#each nodes as node (node.id)}
 			{@const isActive = activeId === node.id}
-			<li class="relative pl-6">
+			<li class="relative pl-2.5">
 				<!-- Content -->
 				<a
 					href="#{node.id}"
-					class="block text-sm py-1 transition-all duration-300 {isActive
-						? 'text-primary font-medium'
+					class="block text-sm leading-tight transition-colors duration-200 py-0.5 {isActive
+						? 'font-medium text-primary'
 						: 'text-muted hover:text-text'}"
 					onclick={(e) => handleAnchorClick(e, node.id)}
 				>
@@ -119,19 +119,19 @@
 
 {#if headings.length > 0}
 	<nav class="block h-fit w-full lg:sticky lg:top-24" aria-label={title}>
-		<h4 class="text-muted font-body mb-4 text-xs font-bold tracking-widest uppercase">
+		<h4 class="mb-5 text-xs font-bold uppercase tracking-widest text-muted">
 			{title}
 		</h4>
 
-		<ul class="space-y-4">
+		<ul class="space-y-3 list-none pl-0 ml-0">
 			{#each headings as node, i (node.id)}
 				{@const isActive = activeId === node.id}
 				<li class="relative" in:fly={{ x: 10, duration: 600, delay: 400 + i * 50 }}>
 					<a
 						href="#{node.id}"
-						class="block text-sm font-semibold mb-2 transition-all duration-300 {isActive
+						class="block mb-1.5 text-sm font-medium leading-tight transition-colors duration-200 {isActive
 							? 'text-primary'
-							: 'text-text hover:text-primary'}"
+							: 'text-muted hover:text-text'}"
 						onclick={(e) => handleAnchorClick(e, node.id)}
 					>
 						{node.text}
@@ -147,29 +147,30 @@
 {/if}
 
 <style>
-	/* Tree View Lines */
-	ul ul li::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		width: 1px;
-		background-color: rgba(255, 255, 255, 0.1);
-	}
+    /* Tree Lines Logic */
+    .toc-tree li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background-color: var(--color-border);
+    }
 
-	ul ul li::after {
-		content: "";
-		position: absolute;
-		top: 0.9em; /* Vertically align with text center */
-		left: 0;
-		width: 1rem; /* Width of the connector L */
-		height: 1px;
-		background-color: rgba(255, 255, 255, 0.1);
-	}
+    .toc-tree li:last-child::before {
+        height: 0.6em; /* Stop at the connector height */
+        bottom: auto;
+    }
 
-	/* Fix for last child: vertical line should stop at the horizontal connector */
-	ul ul li:last-child::before {
-		height: 0.9em; /* Stop exactly where the horizontal line is */
-	}
+    .toc-tree li::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.6em; /* Align with text vertical center approx */
+        width: 6px; /* Connector length */
+        height: 2px;
+        background-color: var(--color-border);
+    }
 </style>
+

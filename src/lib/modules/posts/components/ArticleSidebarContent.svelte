@@ -14,7 +14,7 @@
 	</div>
 
 	<div in:fly|global={{ x: -20, duration: 800, delay: 300 }}>
-		<TableOfContents key={metadata.slug} title={metadata.title} />
+		<TableOfContents key={metadata.slug} />
 	</div>
 
 	<div in:fly|global={{ x: -20, duration: 800, delay: 400 }}>
