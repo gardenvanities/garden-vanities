@@ -1,14 +1,23 @@
 <script lang="ts">
 	import PostHeader from "$lib/modules/posts/components/PostHeader.svelte";
 	import PostNavigation from "$lib/modules/posts/components/PostNavigation.svelte";
+	import MobileSidebarDrawer from "$lib/modules/posts/components/MobileSidebarDrawer.svelte";
 	import ArticleSidebarContent from "$lib/modules/posts/components/ArticleSidebarContent.svelte";
 	import ArticleFooterMessage from "$lib/modules/posts/components/ArticleFooterMessage.svelte";
 	import Backlinks from "$lib/modules/garden/components/Backlinks.svelte";
 	import CloudinaryImage from "$lib/ui/CloudinaryImage.svelte";
 	import { ui } from "$lib/stores/ui.svelte";
+	import { onMount } from "svelte";
 	import type { PageData } from "./$types";
 
 	let { data }: { data: PageData } = $props();
+
+	onMount(() => {
+		// Close sidebar by default on mobile (lg breakpoint is 1024px)
+		if (window.innerWidth < 1024) {
+			ui.closeSidebar();
+		}
+	});
 </script>
 
 <svelte:head>
@@ -18,8 +27,11 @@
 <!-- Full Width Header -->
 <PostHeader metadata={data.metadata} />
 
+<!-- Mobile Sidebar Drawer -->
+<MobileSidebarDrawer metadata={data.metadata} />
+
 <!-- Main Content Container containing Article and Sidebar -->
-<div class="container mx-auto mt-6 max-w-7xl px-4 lg:px-8">
+<div class="container mx-auto mt-6 max-w-7xl px-5 lg:px-8">
 	<div class="flex flex-col gap-12 lg:flex-row lg:gap-16 {!ui.sidebarVisible ? 'lg:justify-center' : ''}">
 		<!-- Main Content -->
 		<main class="min-w-0 flex-1 max-w-3xl">
@@ -37,7 +49,7 @@
 			{/if}
 
 			<!-- Article Card Wrapper -->
-			<div class="bg-surface/30 border-border/40 backdrop-blur-md rounded-xl border p-3 lg:p-5">
+			<div class="lg:bg-surface/30 lg:border-border/40 lg:backdrop-blur-md lg:rounded-xl lg:border lg:p-5">
 				<div id="article-content" class="prose prose-lg dark:prose-invert prose-headings:font-bold prose-a:text-primary prose-img:rounded-lg max-w-none">
 					<data.content />
 				</div>
