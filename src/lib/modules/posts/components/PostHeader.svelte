@@ -1,8 +1,6 @@
 <script lang="ts">
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
 	import { fade, fly } from "svelte/transition";
-	import KindBadge from "$lib/modules/garden/components/KindBadge.svelte";
-	import RipenessBadge from "$lib/modules/garden/components/RipenessBadge.svelte";
 	import CloudinaryImage from "$lib/ui/CloudinaryImage.svelte";
 
 	interface Props {
@@ -14,22 +12,10 @@
 
 <header class="relative flex min-h-[350px] w-full items-end overflow-hidden border-b border-border/10 bg-linear-to-b from-surface/50 to-transparent pt-24">
 	<!-- Content Container (Aligned with Site Layout) -->
-	<div class="container relative z-10 mx-auto max-w-7xl px-4 pb-12 lg:px-8">
+	<div class="container relative z-10 mx-auto max-w-7xl px-4 lg:px-8 lg:pb-12">
 		<!-- Text Content -->
-		<div class="flex w-full flex-col items-center gap-6 text-center">
-			<!-- Top Meta Row -->
-			<div
-				class="flex flex-wrap items-center justify-center gap-3 text-sm"
-				in:fade={{ duration: 400, delay: 100 }}
-			>
-				{#if metadata.kind}
-					<KindBadge kind={metadata.kind} />
-				{/if}
+		<div class="flex w-full flex-col items-start gap-6 text-left lg:items-center lg:text-center">
 
-				{#if metadata.ripeness}
-					<RipenessBadge ripeness={metadata.ripeness} />
-				{/if}
-			</div>
 
 			<!-- Title -->
 			<h1

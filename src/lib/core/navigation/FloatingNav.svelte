@@ -166,19 +166,7 @@
 			<kbd class="search-kbd">⌘K</kbd>
 		</button>
 
-		<!-- Post Page Sidebar Toggle -->
-		{#if isPostPage}
-			<div class="dock-divider"></div>
-			<button
-				type="button"
-				class={cn("dock-item", ui.sidebarVisible && "active")}
-				onclick={() => ui.toggleSidebar()}
-				aria-label={ui.sidebarVisible ? "Ocultar sidebar" : "Mostrar sidebar"}
-			>
-				<PanelLeft size={20} strokeWidth={2} />
-				<span class="dock-tooltip">Sidebar</span>
-			</button>
-		{/if}
+
 	</div>
 </nav>
 

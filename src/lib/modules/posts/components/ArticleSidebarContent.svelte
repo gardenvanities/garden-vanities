@@ -1,11 +1,11 @@
 <script lang="ts">
 	import ReadingProgress from "$lib/modules/posts/components/ReadingProgress.svelte";
 	import TableOfContents from "$lib/modules/garden/components/TableOfContents.svelte";
-	import PostMetaSidebar from "$lib/modules/posts/components/PostMetaSidebar.svelte";
-	import { fly } from "svelte/transition";
-	import type { PostFrontmatter } from "$lib/modules/posts/types";
 
-	let { metadata }: { metadata: PostFrontmatter } = $props();
+	import { fly } from "svelte/transition";
+	import type { PostFrontmatter, SerieNavigation } from "$lib/modules/posts/types";
+
+	let { metadata, navigation }: { metadata: PostFrontmatter; navigation?: SerieNavigation } = $props();
 </script>
 
 <div class="flex flex-col gap-2">
@@ -15,9 +15,5 @@
 
 	<div in:fly|global={{ x: -20, duration: 800, delay: 300 }}>
 		<TableOfContents key={metadata.slug} />
-	</div>
-
-	<div in:fly|global={{ x: -20, duration: 800, delay: 400 }}>
-		<PostMetaSidebar {metadata} />
 	</div>
 </div>

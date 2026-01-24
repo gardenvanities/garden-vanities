@@ -34,24 +34,36 @@
 	<!-- eslint-disable-next-line svelte/no-unused-svelte-ignore -->
 	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 	<div
-		class="border-border bg-bg/95 fixed inset-y-0 left-0 z-50 w-[280px] max-w-[85vw] border-r p-6 shadow-2xl backdrop-blur-xl lg:hidden"
-		transition:fly={{ x: -280, duration: 300, opacity: 1 }}
+		class="border-t border-border/40 bg-surface/90 fixed inset-x-0 bottom-0 z-50 w-full rounded-t-3xl shadow-2xl backdrop-blur-2xl lg:hidden"
+		transition:fly={{ y: 500, duration: 400, opacity: 1 }}
 		role="dialog"
 		aria-modal="true"
 	>
-		<div class="mb-6 flex items-center justify-between">
-			<span class="text-muted text-sm font-bold tracking-widest uppercase">Navegação</span>
+		<!-- Handle Bar -->
+		<div class="pointer-events-none absolute left-0 right-0 top-3 flex justify-center">
+			<div class="h-1.5 w-12 rounded-full bg-border/60"></div>
+		</div>
+
+		<!-- Drawer Header -->
+		<div class="flex items-center justify-between px-6 pt-8 pb-4">
+			<div>
+				<span class="text-xs font-bold tracking-widest text-primary uppercase">Neste Artigo</span>
+				<p class="mt-1 line-clamp-1 text-sm font-medium text-muted-foreground">
+					{metadata.title}
+				</p>
+			</div>
 			<button
 				onclick={close}
-				class="text-muted hover:bg-surface hover:text-text rounded-md p-2 transition-colors"
+				class="text-muted-foreground hover:bg-primary/10 hover:text-primary active:scale-95 flex h-9 w-9 items-center justify-center rounded-full transition-all"
 				aria-label="Close sidebar"
 			>
-				<X size={20} />
+				<X size={18} strokeWidth={2.5} />
 			</button>
 		</div>
 
+		<!-- Drawer Content -->
 		<div
-			class="scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent h-[calc(100vh-5rem)] overflow-y-auto pr-2"
+			class="scrollbar-thin scrollbar-thumb-border/40 scrollbar-track-transparent max-h-[70vh] overflow-y-auto px-6 pb-12"
 		>
 			<ArticleSidebarContent {metadata} />
 		</div>

@@ -4,6 +4,8 @@
 	import { spring } from "svelte/motion";
 	import { page } from "$app/stores";
 
+	import { ui } from "$lib/stores/ui.svelte";
+
 	let { variant = "sidebar" }: { variant?: "floating" | "sidebar" } = $props();
 
 	let progressSpring = spring(0, {
@@ -74,8 +76,12 @@
 		}
 	}
 
-	function toggleMode() {
-		showTime = !showTime;
+	function handleClick() {
+		if (variant === "floating") {
+			ui.toggleSidebar();
+		} else {
+			showTime = !showTime;
+		}
 	}
 
 	onMount(() => {
@@ -110,17 +116,17 @@
 {#if isVisible}
 	<div
 		class={variant === "floating"
-			? "pointer-events-auto fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 flex-col items-center gap-2"
+			? "pointer-events-auto fixed bottom-24 right-5 z-50 flex flex-col items-end gap-2"
 			: "flex w-full flex-col items-start gap-2"}
 		transition:fade={{ duration: 200 }}
 	>
 		<button
-			onclick={toggleMode}
+			onclick={handleClick}
 			class="
 				group bg-surface/60 ease-out-quint
 				relative flex h-10 cursor-pointer
 				items-center gap-3 overflow-hidden
-				rounded-full border
+				rounded-xl border
 				border-white/10 pr-4
 				pl-1
 				shadow-[0_8px_32px_-8px_rgba(0,0,0,0.2)] backdrop-blur-xl
@@ -166,9 +172,9 @@
 			<div class="flex min-w-[60px] flex-col items-start justify-center">
 				<span class="text-foreground text-xs leading-none font-medium tabular-nums">
 					{#if showTime}
-						{minutesLeft} min left
+						{minutesLeft} min restantes
 					{:else}
-						{percent}% read
+						{percent}% lido
 					{/if}
 				</span>
 				<span class="text-muted mt-0.5 text-[10px] leading-none">

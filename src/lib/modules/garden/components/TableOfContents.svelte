@@ -94,16 +94,16 @@
 </script>
 
 {#snippet tree(nodes: HeadingNode[])}
-	<ul class="relative ml-1 space-y-1 py-1 pl-0 list-none toc-tree">
+	<ul class="pl-3 list-none m-0">
 		{#each nodes as node (node.id)}
 			{@const isActive = activeId === node.id}
-			<li class="relative pl-2.5">
+			<li class="m-0 p-0">
 				<!-- Content -->
 				<a
 					href="#{node.id}"
-					class="block text-sm leading-tight transition-colors duration-200 py-0.5 {isActive
+					class="block text-sm leading-tight transition-colors duration-200 mb-2 {isActive
 						? 'font-medium text-primary'
-						: 'text-muted hover:text-text'}"
+						: 'text-muted hover:text-white'}"
 					onclick={(e) => handleAnchorClick(e, node.id)}
 				>
 					{node.text}
@@ -123,15 +123,15 @@
 			{title}
 		</h4>
 
-		<ul class="space-y-3 list-none pl-0 ml-0">
+		<ul class="list-none pl-0 ml-0 m-0">
 			{#each headings as node, i (node.id)}
 				{@const isActive = activeId === node.id}
-				<li class="relative" in:fly={{ x: 10, duration: 600, delay: 400 + i * 50 }}>
+				<li class="m-0 p-0" in:fly={{ x: 10, duration: 600, delay: 400 + i * 50 }}>
 					<a
 						href="#{node.id}"
-						class="block mb-1.5 text-sm font-medium leading-tight transition-colors duration-200 {isActive
+						class="block text-sm font-medium leading-tight transition-colors duration-200 mb-2 {isActive
 							? 'text-primary'
-							: 'text-muted hover:text-text'}"
+							: 'text-muted hover:text-white'}"
 						onclick={(e) => handleAnchorClick(e, node.id)}
 					>
 						{node.text}
@@ -145,32 +145,4 @@
 		</ul>
 	</nav>
 {/if}
-
-<style>
-    /* Tree Lines Logic */
-    .toc-tree li::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background-color: var(--color-border);
-    }
-
-    .toc-tree li:last-child::before {
-        height: 0.6em; /* Stop at the connector height */
-        bottom: auto;
-    }
-
-    .toc-tree li::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0.6em; /* Align with text vertical center approx */
-        width: 6px; /* Connector length */
-        height: 2px;
-        background-color: var(--color-border);
-    }
-</style>
 

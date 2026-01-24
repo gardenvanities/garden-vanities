@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { PostFrontmatter } from "$lib/modules/posts/types";
-	import { Calendar, Hash, Layers, FolderOpen, Sprout } from "@lucide/svelte";
+	import type { PostFrontmatter, SerieNavigation } from "$lib/modules/posts/types";
+	import { Calendar, Layers, FolderOpen, Sprout, Shapes } from "@lucide/svelte";
 	import { formatShortDate } from "$lib/modules/posts/utils/date";
 
-	let { metadata }: { metadata: PostFrontmatter } = $props();
+	let { metadata, navigation }: { metadata: PostFrontmatter; navigation?: SerieNavigation } = $props();
 
 	const displayDate = $derived(metadata.updatedAt || metadata.publishedAt);
 	const dateLabel = $derived(metadata.updatedAt ? "Atualizado" : "Criado");
@@ -16,21 +16,37 @@
 		};
 		return labels[ripeness] || ripeness;
 	}
+
+	function getKindLabel(kind: string) {
+		const labels: Record<string, string> = {
+			note: "Nota",
+			essay: "Ensaio",
+			tutorial: "Tutorial",
+			thought: "Reflexão"
+		};
+		return labels[kind] || kind;
+	}
 </script>
 
 <aside class="text-sm">
 	<h4 class="font-sans text-muted mb-4 text-xs font-bold tracking-widest uppercase">Metadados</h4>
 
 	<div class="space-y-3">
+		<!-- Kind -->
+		{#if metadata.kind}
+			<div class="text-muted flex items-center gap-2">
+				<Shapes size={14} class="shrink-0 opacity-60" />
+				<span class="text-text">{getKindLabel(metadata.kind)}</span>
+			</div>
+		{/if}
+
 		<!-- Ripeness -->
 		{#if metadata.ripeness}
 			<div class="text-muted flex items-center gap-2">
 				<Sprout size={14} class="shrink-0 opacity-60" />
 				<span class="text-text">{getRipenessLabel(metadata.ripeness)}</span>
 			</div>
-		{/if}
-
-		<!-- Date -->
+		{/if}		<!-- Date -->
 		{#if displayDate}
 			<div class="text-muted flex items-center gap-2">
 				<Calendar size={14} class="shrink-0 opacity-60" />
@@ -40,17 +56,21 @@
 
 		<!-- Series -->
 		{#if metadata.series?.slug}
-			<div class="text-muted flex items-center gap-2">
-				<Layers size={14} class="shrink-0 opacity-60" />
-				<a
-					href="/series/{metadata.series.slug}"
-					class="text-primary decoration-primary/30 hover:underline underline-offset-4"
-				>
-					{metadata.series.title || metadata.series.slug}
-				</a>
-				{#if metadata.series.order}
-					<span class="text-muted text-xs">#{metadata.series.order}</span>
-				{/if}
+			<div class="text-muted flex items-start gap-2">
+				<Layers size={14} class="shrink-0 opacity-60 mt-[4px]" />
+				<div>
+					<a
+						href="/series/{metadata.series.slug}"
+						class="text-primary decoration-primary/30 hover:underline underline-offset-4"
+					>
+						{metadata.series.title || metadata.series.slug}
+					</a>
+					{#if navigation?.total && metadata.series.order}
+						<span class="text-text"> — {metadata.series.order}/{navigation.total}</span>
+					{:else if metadata.series.order}
+						<span class="text-text"> — #{metadata.series.order}</span>
+					{/if}
+				</div>
 			</div>
 		{/if}
 
@@ -68,18 +88,5 @@
 		{/if}
 	</div>
 
-	<!-- Tags -->
-	{#if metadata.tags && metadata.tags.length > 0}
-		<div class="border-border mt-6 flex flex-wrap gap-2 border-t pt-6">
-			{#each metadata.tags as tag}
-				<a
-					href="/explore?q=%23{encodeURIComponent(tag)}"
-					class="group flex items-center gap-1.5 rounded-sm border border-border bg-surface-elevated/50 px-2.5 py-1 text-xs font-medium text-muted transition-all duration-300 hover:border-primary/40 hover:bg-surface-elevated hover:text-primary"
-				>
-					<Hash size={11} class="opacity-50 transition-opacity group-hover:opacity-100" />
-					{tag}
-				</a>
-			{/each}
-		</div>
-	{/if}
+
 </aside>
