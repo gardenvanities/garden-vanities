@@ -11,11 +11,11 @@
 </script>
 
 {#if navigation && (navigation.prev || navigation.next)}
-	<footer class="mt-20 border-t border-border/40 pt-16">
+	<footer class="mt-20 pt-16">
 		{#if seriesSlug}
 			<div class="mb-10 flex justify-center">
 				<div
-					class="inline-flex items-center gap-2.5 rounded-full border border-border/50 bg-surface/40 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground backdrop-blur-md transition-colors hover:border-primary/30 hover:bg-surface/60"
+					class="border-border/50 bg-surface/40 text-muted-foreground hover:border-primary/30 hover:bg-surface/60 inline-flex items-center gap-2.5 rounded-full border px-4 py-1.5 text-xs font-semibold tracking-widest uppercase backdrop-blur-md transition-colors"
 				>
 					<Layers size={14} class="text-primary/70" />
 					<span>
@@ -33,16 +33,16 @@
 			{#if navigation.prev}
 				<a
 					href="/posts/{navigation.prev.slug}"
-					class="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/40 bg-surface/20 p-6 backdrop-blur-md transition-all hover:border-primary/30 hover:bg-surface/40 hover:shadow-xl hover:shadow-primary/5"
+					class="group border-border/40 bg-surface/20 hover:border-primary/30 hover:bg-surface/40 hover:shadow-primary/5 relative flex flex-col justify-between overflow-hidden rounded-2xl border p-6 backdrop-blur-md transition-all hover:shadow-xl"
 				>
 					<!-- Hover Glow Effect -->
 					<div
-						class="absolute -left-16 -top-16 h-40 w-40 rounded-full bg-primary/10 blur-[60px] transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+						class="bg-primary/10 absolute -top-16 -left-16 h-40 w-40 rounded-full opacity-0 blur-[60px] transition-opacity duration-500 group-hover:opacity-100"
 					></div>
 
 					<div class="relative z-10">
 						<div
-							class="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-muted-foreground/80 transition-colors group-hover:text-primary"
+							class="text-muted-foreground/80 group-hover:text-primary mb-3 flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase transition-colors"
 						>
 							<ArrowLeft
 								size={16}
@@ -56,14 +56,14 @@
 						</div>
 
 						<h3
-							class="text-lg font-bold leading-snug text-text transition-colors group-hover:text-primary"
+							class="text-text group-hover:text-primary text-lg leading-snug font-bold transition-colors"
 						>
 							{navigation.prev.title}
 						</h3>
 					</div>
 
 					<div
-						class="relative z-10 mt-6 flex items-center text-xs font-medium text-muted-foreground transition-colors group-hover:text-text/80"
+						class="text-muted-foreground group-hover:text-text/80 relative z-10 mt-6 flex items-center text-xs font-medium transition-colors"
 					>
 						Ler artigo anterior
 					</div>
@@ -76,16 +76,16 @@
 			{#if navigation.next}
 				<a
 					href="/posts/{navigation.next.slug}"
-					class="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/40 bg-surface/20 p-6 text-right backdrop-blur-md transition-all hover:border-primary/30 hover:bg-surface/40 hover:shadow-xl hover:shadow-primary/5"
+					class="group border-border/40 bg-surface/20 hover:border-primary/30 hover:bg-surface/40 hover:shadow-primary/5 relative flex flex-col justify-between overflow-hidden rounded-2xl border p-6 text-right backdrop-blur-md transition-all hover:shadow-xl"
 				>
 					<!-- Hover Glow Effect -->
 					<div
-						class="absolute -bottom-16 -right-16 h-40 w-40 rounded-full bg-primary/10 blur-[60px] transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+						class="bg-primary/10 absolute -right-16 -bottom-16 h-40 w-40 rounded-full opacity-0 blur-[60px] transition-opacity duration-500 group-hover:opacity-100"
 					></div>
 
 					<div class="relative z-10 flex flex-col items-end">
 						<div
-							class="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-muted-foreground/80 transition-colors group-hover:text-primary"
+							class="text-muted-foreground/80 group-hover:text-primary mb-3 flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase transition-colors"
 						>
 							{#if navigation.next.order}
 								<span>Parte {navigation.next.order}</span>
@@ -99,14 +99,14 @@
 						</div>
 
 						<h3
-							class="text-lg font-bold leading-snug text-text transition-colors group-hover:text-primary"
+							class="text-text group-hover:text-primary text-lg leading-snug font-bold transition-colors"
 						>
 							{navigation.next.title}
 						</h3>
 					</div>
 
 					<div
-						class="relative z-10 mt-6 flex justify-end items-center text-xs font-medium text-muted-foreground transition-colors group-hover:text-text/80"
+						class="text-muted-foreground group-hover:text-text/80 relative z-10 mt-6 flex items-center justify-end text-xs font-medium transition-colors"
 					>
 						Ler próximo artigo
 					</div>

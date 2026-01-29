@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
-	import { fade, fly } from "svelte/transition";
-	import CloudinaryImage from "$lib/ui/CloudinaryImage.svelte";
+	import { fly } from "svelte/transition";
 
 	interface Props {
 		metadata: PostFrontmatter;
@@ -10,16 +9,17 @@
 	let { metadata }: Props = $props();
 </script>
 
-<header class="relative flex min-h-[350px] w-full items-end overflow-hidden border-b border-border/10 bg-linear-to-b from-surface/50 to-transparent pt-24">
+<header
+	id="article-header"
+	class="from-surface/50 relative flex min-h-[350px] w-full items-end overflow-hidden bg-linear-to-b to-transparent pt-24"
+>
 	<!-- Content Container (Aligned with Site Layout) -->
-	<div class="container relative z-10 mx-auto max-w-7xl px-4 lg:px-8 lg:pb-12">
+	<div class="relative z-10 container mx-auto max-w-7xl px-5 lg:px-8 lg:pb-12">
 		<!-- Text Content -->
 		<div class="flex w-full flex-col items-start gap-6 text-left lg:items-center lg:text-center">
-
-
 			<!-- Title -->
 			<h1
-				class="font-article-title my-0 text-balance text-[clamp(2.5rem,5vw,3.5rem)] font-bold leading-[1.1] tracking-[-0.02em] text-text"
+				class="font-article-title text-text my-0 text-[clamp(2.5rem,5vw,3.5rem)] leading-[1.1] font-bold tracking-[-0.02em] text-balance"
 				in:fly={{ y: 20, duration: 600, delay: 150 }}
 			>
 				{metadata.title}
@@ -28,7 +28,7 @@
 			<!-- Subtitle -->
 			{#if metadata.subtitle}
 				<p
-					class="font-article-body my-0 max-w-4xl text-balance text-lg leading-snug text-muted"
+					class="font-article-body text-muted my-0 max-w-4xl text-lg leading-snug text-balance"
 					in:fly={{ y: 15, duration: 500, delay: 250 }}
 				>
 					{metadata.subtitle}

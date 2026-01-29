@@ -2,7 +2,6 @@
 	.prose {
 		max-width: var(--prose-width);
 		margin-inline: auto;
-		padding-inline: var(--space-4);
 		font-family: var(--font-article-body);
 		line-height: var(--line-height-relaxed);
 		color: var(--color-text);
@@ -72,7 +71,13 @@
 	.prose ul,
 	.prose ol {
 		margin-bottom: var(--space-6);
-		padding-left: var(--space-6);
+		padding-left: 0; /* Clear default to rely on LI padding and nested structure */
+	}
+
+	.prose li > ul,
+	.prose li > ol {
+		margin-top: var(--space-2);
+		margin-bottom: 0;
 	}
 
 	.prose ol {
@@ -83,7 +88,6 @@
 
 	.prose ul {
 		list-style-type: none;
-		padding-left: 0;
 	}
 
 	.prose ul li,
@@ -156,6 +160,12 @@
 		margin-bottom: 0;
 	}
 
+	.prose blockquote ul,
+	.prose blockquote ol {
+		font-size: var(--type-1);
+		margin-top: var(--space-4);
+	}
+
 	.prose :not(pre) > code {
 		font-family: var(--font-mono);
 		font-feature-settings: var(--font-feature-code);
@@ -164,6 +174,13 @@
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-1);
 		padding: 0.2em 0.4em;
+	}
+
+	.prose mark {
+		background-color: color-mix(in srgb, var(--color-primary), transparent 80%);
+		color: inherit;
+		padding: 0.1em 0.3em;
+		border-radius: var(--radius-1);
 	}
 
 	.prose img {
@@ -213,5 +230,59 @@
 
 	.prose pre {
 		margin: var(--space-6) 0;
+	}
+
+	/* Task Lists */
+	.prose li.task-list-item {
+		padding-left: 0;
+		list-style-type: none;
+		display: flex;
+		align-items: flex-start;
+		gap: 0.75em;
+	}
+
+	.prose li.task-list-item::before {
+		content: none;
+	}
+
+	.prose .task-list-item input[type="checkbox"] {
+		appearance: none;
+		-webkit-appearance: none;
+		background-color: var(--color-surface);
+		margin: 0;
+		margin-top: 0.25em; /* Align slightly down to match line-height */
+		width: 1.1em;
+		height: 1.1em;
+		border: 1px solid var(--color-border);
+		border-radius: 4px; /* Hardcoded or var(--radius-1) if verified small enough */
+		display: grid;
+		place-content: center;
+		transition: all 120ms ease-in-out;
+		cursor: pointer;
+		flex-shrink: 0;
+	}
+
+	.prose .task-list-item input[type="checkbox"]:hover {
+		border-color: var(--color-primary);
+	}
+
+	.prose .task-list-item input[type="checkbox"]:checked {
+		background-color: var(--color-primary);
+		border-color: var(--color-primary);
+	}
+
+	.prose .task-list-item input[type="checkbox"]::before {
+		content: "";
+		width: 0.65em;
+		height: 0.65em;
+		transform: scale(0);
+		transition: 120ms transform ease-in-out;
+		background-color: var(--color-surface); /* Checkmark color (inverse of primary) */
+		transform-origin: center;
+		clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+	}
+
+	.prose .task-list-item input[type="checkbox"]:checked::before {
+		transform: scale(1);
 	}
 }

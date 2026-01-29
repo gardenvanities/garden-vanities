@@ -27,6 +27,8 @@ seo:
   description: "Artigo técnico sobre a homeostase hídrica em plantas e sinalização por ABA."
 ---
 
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
+
 ## A Homeostase Hídrica e o Potencial de Água (\(\psi_w\))
 
 A sobrevivência vegetal em ambientes xéricos ou durante períodos de estiagem prolongada depende da manutenção do **potencial hídrico**. O fluxo de água no sistema solo-planta-atmosfera é regido pela equação fundamental:

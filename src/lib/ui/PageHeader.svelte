@@ -12,7 +12,7 @@
 <header class="mb-16 flex flex-col items-center text-center md:mb-20">
 	<div class="flex flex-col items-center gap-4">
 		<h1
-			class="font-heading text-text my-0 text-[clamp(2.5rem,6vw,4rem)] font-bold leading-[1.1] tracking-[-0.02em]"
+			class="font-heading text-text my-0 text-[clamp(2.5rem,6vw,4rem)] leading-[1.1] font-bold tracking-[-0.02em]"
 			in:fly={{ y: 15, duration: 700, delay: 100 }}
 		>
 			{title}

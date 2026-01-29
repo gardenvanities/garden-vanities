@@ -2,7 +2,7 @@
 slug: geometria-sagrada-arquitetura-natural
 title: "A Geometria Sagrada na Arquitetura Natural"
 subtitle: "De fractais a espirais: a ordem oculta que sustenta a vida e a estética."
-summary:
+summary: "Análise dos padrões geométricos e fractais na natureza, explorando como a auto-similaridade e a geometria de Mandelbrot influenciam a estética e o design orgânico."
 
 ripeness: "fruit"
 
@@ -26,8 +26,6 @@ seo:
   title: "Geometria Sagrada e Padrões da Natureza"
   description: "Uma exploração sobre como a geometria governa o crescimento orgânico e a beleza natural."
 ---
-
-A natureza não é apenas funcional; ela é inerentemente geométrica. Se analisarmos o crescimento de uma samambaia ou a estrutura de um cristal, encontramos padrões matemáticos que se repetem em diferentes escalas — o que chamamos de **auto-similaridade**.
 
 ## Fractais e a Geometria de Benoît Mandelbrot
 

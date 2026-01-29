@@ -1,5 +1,5 @@
 import { getSeriesList } from "$lib/modules/garden/services";
-import type { PageServerLoad} from "./$types";
+import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ setHeaders }) => {
 	setHeaders({
@@ -13,4 +13,3 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 		series: sortedSeries
 	};
 };
-

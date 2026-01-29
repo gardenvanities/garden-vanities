@@ -26,7 +26,6 @@
 </script>
 
 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-
 	{#if post.series?.slug}
 		<div class="space-y-2">
 			<h4 class="text-muted text-[10px] font-bold tracking-widest uppercase">Série</h4>

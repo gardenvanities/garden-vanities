@@ -12,7 +12,7 @@
 	let { posts, showSummary = true, class: className = "" }: Props = $props();
 </script>
 
-<div class="flex flex-col divide-y divide-border {className}">
+<div class="divide-border flex flex-col divide-y {className}">
 	{#each posts as post, i (post.slug)}
 		<div in:fly={{ y: 10, duration: 400, delay: Math.min(i * 50, 500) }}>
 			<PostListItem {post} {showSummary} />

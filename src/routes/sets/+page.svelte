@@ -5,8 +5,7 @@
 	import Grid from "$lib/layout/Grid.svelte";
 	import SetCard from "$lib/modules/garden/components/SetCard.svelte";
 	import PageHeader from "$lib/ui/PageHeader.svelte";
-	import { Folder } from "@lucide/svelte";
-	import { fly, fade } from "svelte/transition";
+	import { fly } from "svelte/transition";
 
 	let { data } = $props();
 </script>
@@ -22,10 +21,7 @@
 			<!-- Premium Page Header -->
 			<!-- Premium Page Header -->
 			<!-- Premium Page Header -->
-			<PageHeader 
-				title="Coleções" 
-				description="Áreas de interesse agrupadas por tema" 
-			/>
+			<PageHeader title="Coleções" description="Áreas de interesse agrupadas por tema" />
 
 			<Grid cols={3} gap="lg">
 				{#each data.sets as set, i (set.slug)}
@@ -37,5 +33,3 @@
 		</div>
 	</Container>
 </Section>
-
-

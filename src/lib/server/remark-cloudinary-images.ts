@@ -14,12 +14,12 @@ const PRESETS = {
 
 /**
  * Remark plugin to transform cloudinary:// image URLs into full Cloudinary URLs
- * 
+ *
  * Syntax examples:
  * ![Alt](cloudinary://public-id)
  * ![Alt](cloudinary://public-id?preset=hero)
  * ![Alt](cloudinary://folder/image?w=800&h=600)
- * 
+ *
  * @param cloudName - Your Cloudinary cloud name
  */
 export function remarkCloudinaryImages(cloudName: string): Plugin {

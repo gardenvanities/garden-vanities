@@ -14,7 +14,7 @@
 	// Get types with counts > 0, sorted by count
 	const activeTypes = $derived(
 		(Object.entries(stats.byType) as [ResourceType, number][])
-			.filter(([_, count]) => count > 0)
+			.filter(([, count]) => count > 0)
 			.sort((a, b) => b[1] - a[1])
 	);
 
@@ -53,7 +53,7 @@
 {#if compact}
 	<!-- Compact stats for smaller spaces -->
 	<div class="flex flex-wrap items-center gap-4">
-		{#each statCards as stat}
+		{#each statCards as stat (stat.label)}
 			<div class="flex items-center gap-2">
 				<stat.icon class="h-4 w-4 {stat.iconColor}" />
 				<span class="text-lg font-bold text-white">{stat.value}</span>
@@ -66,18 +66,18 @@
 	<div class="space-y-6">
 		<!-- Main Stats Grid -->
 		<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-			{#each statCards as stat}
+			{#each statCards as stat (stat.label)}
 				<div
 					class="group relative overflow-hidden rounded-2xl border border-white/6 bg-linear-to-br {stat.gradient} p-5 transition-all duration-300 hover:border-white/10"
 				>
 					<!-- Background pattern -->
 					<div
-						class="pointer-events-none absolute -right-4 -top-4 h-24 w-24 rounded-full bg-linear-to-br {stat.gradient} opacity-50 blur-2xl transition-opacity duration-300 group-hover:opacity-80"
+						class="pointer-events-none absolute -top-4 -right-4 h-24 w-24 rounded-full bg-linear-to-br {stat.gradient} opacity-50 blur-2xl transition-opacity duration-300 group-hover:opacity-80"
 					></div>
 
 					<div class="relative flex items-start justify-between">
 						<div>
-							<p class="text-3xl font-bold tabular-nums text-white">{stat.value}</p>
+							<p class="text-3xl font-bold text-white tabular-nums">{stat.value}</p>
 							<p class="mt-1 text-sm font-medium text-white/50">{stat.label}</p>
 						</div>
 						<div
@@ -93,18 +93,25 @@
 		<!-- Type breakdown -->
 		{#if activeTypes.length > 0}
 			<div class="flex flex-wrap gap-2">
-				{#each activeTypes as [type, count]}
+				{#each activeTypes as [type, count] (type)}
 					<a
 						href="/library/{type === 'tv-series'
 							? 'series-tv'
 							: type === 'album' || type === 'track' || type === 'playlist'
 								? 'music'
 								: type + 's'}"
-						class="group flex items-center gap-2 rounded-full border border-white/6 bg-white/2 px-3.5 py-2 transition-all duration-200 hover:border-brand-500/30 hover:bg-brand-500/5"
+						class="group hover:border-brand-500/30 hover:bg-brand-500/5 flex items-center gap-2 rounded-full border border-white/6 bg-white/2 px-3.5 py-2 transition-all duration-200"
 					>
-						<TypeIcon {type} class="h-4 w-4 text-white/40 transition-colors group-hover:text-brand-400" />
-						<span class="text-sm font-medium tabular-nums text-white/70 group-hover:text-white">{count}</span>
-						<span class="text-xs text-white/40 group-hover:text-white/60">{TYPE_LABELS_PLURAL[type]}</span>
+						<TypeIcon
+							{type}
+							class="group-hover:text-brand-400 h-4 w-4 text-white/40 transition-colors"
+						/>
+						<span class="text-sm font-medium text-white/70 tabular-nums group-hover:text-white"
+							>{count}</span
+						>
+						<span class="text-xs text-white/40 group-hover:text-white/60"
+							>{TYPE_LABELS_PLURAL[type]}</span
+						>
 					</a>
 				{/each}
 			</div>

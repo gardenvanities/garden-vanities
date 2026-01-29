@@ -77,15 +77,15 @@
 	<!-- Breadcrumb -->
 	<nav class="mb-10">
 		<div class="flex items-center gap-2 text-sm">
-			<a href="/library" class="text-white/40 transition-colors hover:text-brand-400">
+			<a href="/library" class="hover:text-brand-400 text-white/40 transition-colors">
 				Biblioteca
 			</a>
 			<span class="text-white/20">/</span>
-			<a href="/library/{data.folder}" class="text-white/40 transition-colors hover:text-brand-400">
+			<a href="/library/{data.folder}" class="hover:text-brand-400 text-white/40 transition-colors">
 				{TYPE_LABELS_PLURAL[data.resourceType]}
 			</a>
 			<span class="text-white/20">/</span>
-			<span class="text-white/60 line-clamp-1">{resource.title}</span>
+			<span class="line-clamp-1 text-white/60">{resource.title}</span>
 		</div>
 	</nav>
 
@@ -134,7 +134,7 @@
 							rel="noopener noreferrer"
 							class="group flex items-center justify-center gap-2.5 rounded-xl bg-linear-to-r {typeColors[
 								resource.type
-							]} px-5 py-3.5 font-medium text-white shadow-lg transition-all hover:shadow-xl hover:shadow-brand-500/20"
+							]} hover:shadow-brand-500/20 px-5 py-3.5 font-medium text-white shadow-lg transition-all hover:shadow-xl"
 						>
 							<ShoppingCart class="h-5 w-5" />
 							<span>Adquirir</span>
@@ -157,7 +157,7 @@
 
 				<!-- Metadata Card -->
 				<div class="space-y-4 rounded-2xl border border-white/6 bg-white/2 p-5">
-					<h3 class="font-sans text-xs font-semibold uppercase tracking-widest text-white/30">
+					<h3 class="font-sans text-xs font-semibold tracking-widest text-white/30 uppercase">
 						Informações
 					</h3>
 
@@ -260,10 +260,8 @@
 					{#if "genres" in resource && resource.genres && resource.genres.length > 0}
 						<div class="border-t border-white/6 pt-4">
 							<div class="flex flex-wrap gap-1.5">
-								{#each resource.genres as genre}
-									<span
-										class="rounded-md bg-white/4 px-2 py-1 text-xs text-white/50"
-									>
+								{#each resource.genres as genre (genre)}
+									<span class="rounded-md bg-white/4 px-2 py-1 text-xs text-white/50">
 										{genre}
 									</span>
 								{/each}
@@ -296,7 +294,9 @@
 						{/if}
 					</div>
 
-					<h1 class="font-heading text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl">
+					<h1
+						class="font-heading text-3xl leading-tight font-bold text-white md:text-4xl lg:text-5xl"
+					>
 						{resource.title}
 					</h1>
 
@@ -322,10 +322,10 @@
 				<!-- Personal Notes -->
 				{#if resource.personalNotes}
 					<section
-						class="relative overflow-hidden rounded-2xl border border-brand-500/20 bg-linear-to-br from-brand-500/5 to-transparent p-6"
+						class="border-brand-500/20 from-brand-500/5 relative overflow-hidden rounded-2xl border bg-linear-to-br to-transparent p-6"
 					>
-						<Quote class="absolute -right-4 -top-4 h-24 w-24 text-brand-500/10" />
-						<h2 class="relative mb-4 font-heading text-xl font-medium text-white">Minhas Notas</h2>
+						<Quote class="text-brand-500/10 absolute -top-4 -right-4 h-24 w-24" />
+						<h2 class="font-heading relative mb-4 text-xl font-medium text-white">Minhas Notas</h2>
 						<p class="relative leading-relaxed text-white/60">{resource.personalNotes}</p>
 					</section>
 				{/if}
@@ -333,14 +333,16 @@
 				<!-- Tags -->
 				{#if resource.tags && resource.tags.length > 0}
 					<section>
-						<h2 class="mb-4 flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-white/30">
+						<h2
+							class="mb-4 flex items-center gap-2 text-sm font-medium tracking-wider text-white/30 uppercase"
+						>
 							<Tag class="h-4 w-4" />
 							Tags
 						</h2>
 						<div class="flex flex-wrap gap-2">
-							{#each resource.tags as tag}
+							{#each resource.tags as tag (tag)}
 								<span
-									class="rounded-lg border border-white/8 bg-white/3 px-3 py-1.5 text-sm text-white/50 transition-colors hover:border-brand-500/30 hover:text-brand-400"
+									class="hover:border-brand-500/30 hover:text-brand-400 rounded-lg border border-white/8 bg-white/3 px-3 py-1.5 text-sm text-white/50 transition-colors"
 								>
 									#{tag}
 								</span>
@@ -356,7 +358,7 @@
 	<div class="mx-auto mt-16 max-w-5xl border-t border-white/6 pt-8">
 		<a
 			href="/library/{data.folder}"
-			class="group inline-flex items-center gap-2 text-sm text-white/40 transition-colors hover:text-brand-400"
+			class="group hover:text-brand-400 inline-flex items-center gap-2 text-sm text-white/40 transition-colors"
 		>
 			<ChevronLeft class="h-4 w-4 transition-transform group-hover:-translate-x-1" />
 			Voltar para {TYPE_LABELS_PLURAL[data.resourceType]}

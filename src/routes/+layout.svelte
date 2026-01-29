@@ -5,6 +5,7 @@
 	import Lenis from "lenis";
 	import FloatingNav from "$lib/core/navigation/FloatingNav.svelte";
 	import Footer from "$lib/core/Footer.svelte";
+	import { scrollState } from "$lib/stores/scroll.svelte";
 
 	const { children } = $props();
 
@@ -18,6 +19,8 @@
 			wheelMultiplier: 1,
 			touchMultiplier: 2
 		});
+
+		scrollState.instance = lenis;
 
 		function raf(time: number) {
 			lenis.raf(time);

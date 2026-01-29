@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from "$lib/shared/merge-class";
-	import { buildCloudinaryUrl } from "$lib/shared/cloudinary";
+
 	import { FolderOpen } from "@lucide/svelte";
 	import CloudinaryImage from "$lib/ui/CloudinaryImage.svelte";
 

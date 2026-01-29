@@ -3,7 +3,8 @@
 	import { Calendar, Layers, FolderOpen, Sprout, Shapes } from "@lucide/svelte";
 	import { formatShortDate } from "$lib/modules/posts/utils/date";
 
-	let { metadata, navigation }: { metadata: PostFrontmatter; navigation?: SerieNavigation } = $props();
+	let { metadata, navigation }: { metadata: PostFrontmatter; navigation?: SerieNavigation } =
+		$props();
 
 	const displayDate = $derived(metadata.updatedAt || metadata.publishedAt);
 	const dateLabel = $derived(metadata.updatedAt ? "Atualizado" : "Criado");
@@ -29,7 +30,7 @@
 </script>
 
 <aside class="text-sm">
-	<h4 class="font-sans text-muted mb-4 text-xs font-bold tracking-widest uppercase">Metadados</h4>
+	<h4 class="text-muted mb-4 font-sans text-xs font-bold tracking-widest uppercase">Metadados</h4>
 
 	<div class="space-y-3">
 		<!-- Kind -->
@@ -46,7 +47,8 @@
 				<Sprout size={14} class="shrink-0 opacity-60" />
 				<span class="text-text">{getRipenessLabel(metadata.ripeness)}</span>
 			</div>
-		{/if}		<!-- Date -->
+		{/if}
+		<!-- Date -->
 		{#if displayDate}
 			<div class="text-muted flex items-center gap-2">
 				<Calendar size={14} class="shrink-0 opacity-60" />
@@ -57,11 +59,11 @@
 		<!-- Series -->
 		{#if metadata.series?.slug}
 			<div class="text-muted flex items-start gap-2">
-				<Layers size={14} class="shrink-0 opacity-60 mt-[4px]" />
+				<Layers size={14} class="mt-[4px] shrink-0 opacity-60" />
 				<div>
 					<a
 						href="/series/{metadata.series.slug}"
-						class="text-primary decoration-primary/30 hover:underline underline-offset-4"
+						class="text-primary decoration-primary/30 underline-offset-4 hover:underline"
 					>
 						{metadata.series.title || metadata.series.slug}
 					</a>
@@ -80,13 +82,11 @@
 				<FolderOpen size={14} class="shrink-0 opacity-60" />
 				<a
 					href="/sets/{encodeURIComponent(metadata.set)}"
-					class="text-primary decoration-primary/30 hover:underline underline-offset-4"
+					class="text-primary decoration-primary/30 underline-offset-4 hover:underline"
 				>
 					{metadata.setTitle || metadata.set}
 				</a>
 			</div>
 		{/if}
 	</div>
-
-
 </aside>

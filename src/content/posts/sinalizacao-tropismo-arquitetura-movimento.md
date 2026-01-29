@@ -27,6 +27,8 @@ seo:
   description: "Artigo detalhado sobre fototropismo, gravitropismo e o papel das proteínas PIN no desenvolvimento vegetal."
 ---
 
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
+
 ## A Dinâmica do Movimento Sétil: Tropismos
 
 Diferente dos animais, as plantas utilizam o crescimento diferencial como principal mecanismo de movimento. Estes movimentos orientados, denominados **tropismos**, são desencadeados por estímulos externos vectoriais, como a luz (**fototropismo**) e a gravidade (**gravitropismo**).

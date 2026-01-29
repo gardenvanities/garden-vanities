@@ -77,20 +77,20 @@
 	<div class="flex gap-3">
 		<div class="relative flex-1">
 			<Search
-				class="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white/30 transition-colors"
+				class="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-white/30 transition-colors"
 			/>
 			<input
 				type="text"
 				placeholder="Buscar por título, autor, resumo..."
 				value={searchQuery}
 				oninput={(e) => onSearchChange(e.currentTarget.value)}
-				class="w-full rounded-xl border border-white/6 bg-white/2 py-3 pl-11 pr-4 text-sm text-white placeholder-white/30 outline-none transition-all duration-200 focus:border-brand-500/50 focus:bg-white/4 focus:ring-2 focus:ring-brand-500/20"
+				class="focus:border-brand-500/50 focus:ring-brand-500/20 w-full rounded-xl border border-white/6 bg-white/2 py-3 pr-4 pl-11 text-sm text-white placeholder-white/30 transition-all duration-200 outline-none focus:bg-white/4 focus:ring-2"
 			/>
 			{#if searchQuery}
 				<button
 					type="button"
 					onclick={() => onSearchChange("")}
-					class="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-white/40 transition-colors hover:bg-white/10 hover:text-white"
+					class="absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-1 text-white/40 transition-colors hover:bg-white/10 hover:text-white"
 				>
 					<X class="h-4 w-4" />
 				</button>
@@ -107,7 +107,9 @@
 		>
 			<SlidersHorizontal class="h-4 w-4" />
 			{#if activeFilterCount > 0}
-				<span class="flex h-5 w-5 items-center justify-center rounded-full bg-brand-500 text-xs font-medium text-white">
+				<span
+					class="bg-brand-500 flex h-5 w-5 items-center justify-center rounded-full text-xs font-medium text-white"
+				>
 					{activeFilterCount}
 				</span>
 			{/if}
@@ -119,15 +121,15 @@
 		<!-- Type Filters -->
 		{#if availableTypes.length > 0}
 			<div class="flex flex-wrap items-center gap-2">
-				<span class="text-xs font-medium uppercase tracking-wider text-white/30">Tipo</span>
+				<span class="text-xs font-medium tracking-wider text-white/30 uppercase">Tipo</span>
 				<div class="mx-1 h-4 w-px bg-white/10"></div>
-				{#each availableTypes as type}
+				{#each availableTypes as type (type)}
 					<button
 						onclick={() => toggleType(type)}
 						class="flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-medium transition-all duration-200 {selectedTypes.includes(
 							type
 						)
-							? 'border-brand-500 bg-brand-500/20 text-brand-300 shadow-sm shadow-brand-500/20'
+							? 'border-brand-500 bg-brand-500/20 text-brand-300 shadow-brand-500/20 shadow-sm'
 							: 'border-white/6 bg-white/2 text-white/60 hover:border-white/10 hover:bg-white/4 hover:text-white/80'}"
 					>
 						<TypeIcon {type} class="h-3.5 w-3.5" />
@@ -139,9 +141,9 @@
 
 		<!-- Status Filters -->
 		<div class="flex flex-wrap items-center gap-2">
-			<span class="text-xs font-medium uppercase tracking-wider text-white/30">Status</span>
+			<span class="text-xs font-medium tracking-wider text-white/30 uppercase">Status</span>
 			<div class="mx-1 h-4 w-px bg-white/10"></div>
-			{#each allStatuses as status}
+			{#each allStatuses as status (status)}
 				<button
 					onclick={() => toggleStatus(status)}
 					class="rounded-lg border px-3 py-1.5 text-xs font-medium transition-all duration-200 {selectedStatus.includes(
@@ -163,8 +165,13 @@
 						Buscando "{searchQuery}"
 					{/if}
 					{#if activeFilterCount > 0}
-						{#if searchQuery} · {/if}
-						{activeFilterCount} filtro{activeFilterCount !== 1 ? "s" : ""} ativo{activeFilterCount !== 1 ? "s" : ""}
+						{#if searchQuery}
+							·
+						{/if}
+						{activeFilterCount} filtro{activeFilterCount !== 1 ? "s" : ""} ativo{activeFilterCount !==
+						1
+							? "s"
+							: ""}
 					{/if}
 				</span>
 				<button

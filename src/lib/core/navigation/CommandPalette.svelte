@@ -65,15 +65,57 @@
 	});
 
 	const navigationActions: CommandItem[] = [
-		{ id: "home", title: "Ir para Home", icon: Home, type: "navigation", category: "Navegação", action: () => navigate("/") },
-		{ id: "explore", title: "Explorar Jardim", icon: Telescope, type: "navigation", category: "Navegação", action: () => navigate("/explore") },
-		{ id: "posts", title: "Ver Artigos", icon: BookOpen, type: "navigation", category: "Navegação", action: () => navigate("/posts") }
+		{
+			id: "home",
+			title: "Ir para Home",
+			icon: Home,
+			type: "navigation",
+			category: "Navegação",
+			action: () => navigate("/")
+		},
+		{
+			id: "explore",
+			title: "Explorar Jardim",
+			icon: Telescope,
+			type: "navigation",
+			category: "Navegação",
+			action: () => navigate("/explore")
+		},
+		{
+			id: "posts",
+			title: "Ver Artigos",
+			icon: BookOpen,
+			type: "navigation",
+			category: "Navegação",
+			action: () => navigate("/posts")
+		}
 	];
 
 	const themeActions: CommandItem[] = [
-		{ id: "theme-light", title: "Tema Claro", icon: Sun, type: "action", category: "Aparência", action: () => updateTheme("light") },
-		{ id: "theme-dark", title: "Tema Escuro", icon: Moon, type: "action", category: "Aparência", action: () => updateTheme("dark") },
-		{ id: "theme-system", title: "Tema do Sistema", icon: Monitor, type: "action", category: "Aparência", action: () => updateTheme("system") }
+		{
+			id: "theme-light",
+			title: "Tema Claro",
+			icon: Sun,
+			type: "action",
+			category: "Aparência",
+			action: () => updateTheme("light")
+		},
+		{
+			id: "theme-dark",
+			title: "Tema Escuro",
+			icon: Moon,
+			type: "action",
+			category: "Aparência",
+			action: () => updateTheme("dark")
+		},
+		{
+			id: "theme-system",
+			title: "Tema do Sistema",
+			icon: Monitor,
+			type: "action",
+			category: "Aparência",
+			action: () => updateTheme("system")
+		}
 	];
 
 	const staticActions: CommandItem[] = [...navigationActions, ...themeActions];
@@ -196,7 +238,7 @@
 	}
 </script>
 
-<div class="command-container">
+<div class="command-container" data-lenis-prevent>
 	<!-- Search Input -->
 	<div class="command-header">
 		<div class="command-search-icon">
@@ -206,8 +248,8 @@
 			bind:this={searchInputElement}
 			bind:value={query}
 			type="text"
-			placeholder="Buscar artigos, ações..."
-			class="command-input"
+			placeholder={window.innerWidth < 640 ? "Buscar..." : "Buscar artigos, ações..."}
+			class="command-input touch-manipulation"
 			onkeydown={handleKeydown}
 		/>
 		<button
@@ -237,7 +279,7 @@
 				<p class="command-empty-text">Nenhum resultado encontrado</p>
 			</div>
 		{:else}
-			{#each Object.entries(groupedResults) as [category, items]}
+			{#each Object.entries(groupedResults) as [category, items] (category)}
 				{@const CategoryIcon = getCategoryIcon(category)}
 				<div class="command-group">
 					<div class="command-group-header">
@@ -245,13 +287,10 @@
 						<span>{category}</span>
 					</div>
 					<div class="command-group-items">
-						{#each items as item}
+						{#each items as item (item.id)}
 							{@const globalIndex = flatResults.indexOf(item)}
 							<button
-								class={cn(
-									"command-item",
-									selectedIndex === globalIndex && "selected"
-								)}
+								class={cn("command-item", selectedIndex === globalIndex && "selected")}
 								onclick={item.action}
 								data-command-index={globalIndex}
 							>
@@ -263,7 +302,9 @@
 									<span class="command-item-badge">{item.kind}</span>
 								{/if}
 								{#if selectedIndex === globalIndex}
-									<CornerDownLeft class="command-item-enter" size={14} strokeWidth={2} />
+									<div class="command-item-enter hidden sm:block">
+										<CornerDownLeft size={14} strokeWidth={2} />
+									</div>
 								{/if}
 							</button>
 						{/each}
@@ -302,26 +343,25 @@
 			display: flex;
 			flex-direction: column;
 			overflow: hidden;
-			border-radius: 1rem;
-			background: oklch(from var(--color-surface-elevated) l c h / 0.8);
-			backdrop-filter: blur(20px);
-			-webkit-backdrop-filter: blur(20px);
-			border: 1px solid oklch(from var(--color-border) l c h / 0.4);
+			border-radius: 1.25rem;
+			background: oklch(from var(--color-surface) calc(l * 1.05) c h / 0.85);
+			backdrop-filter: blur(24px) saturate(1.8);
+			-webkit-backdrop-filter: blur(24px) saturate(1.8);
+			border: 1px solid oklch(1 0 0 / 0.12);
 			box-shadow:
-				0 0 0 1px oklch(255 255 255 / 0.05),
-				0 24px 48px -12px oklch(0 0 0 / 0.2),
-				0 48px 100px -24px oklch(0 0 0 / 0.2);
-			max-height: calc(100dvh - 2rem);
-			transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+				0 0 0 1px oklch(0 0 0 / 0.03),
+				0 8px 40px oklch(0 0 0 / 0.15),
+				0 2px 12px oklch(0 0 0 / 0.08);
+			max-height: 100%;
+			flex: 1;
+			transition:
+				transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+				opacity 0.2s ease;
 		}
 
 		:global(.dark) .command-container {
-			background: oklch(from var(--color-surface-elevated) l c h / 0.7);
-			border-color: oklch(255 255 255 / 0.1);
-			box-shadow:
-				0 0 0 1px oklch(255 255 255 / 0.05),
-				0 0 0 1px oklch(0 0 0 / 1),
-				0 24px 48px -12px oklch(0 0 0 / 0.5);
+			background: oklch(from var(--color-surface) calc(l * 0.8) c h / 0.75);
+			border-color: oklch(1 0 0 / 0.08);
 		}
 
 		/* ============================================
@@ -389,6 +429,7 @@
 			padding: 0.5rem;
 			scrollbar-width: thin;
 			scrollbar-color: oklch(from var(--color-border) l c h / 0.3) transparent;
+			touch-action: manipulation;
 		}
 
 		/* ============================================
@@ -421,7 +462,7 @@
 			align-items: center;
 			gap: 0.75rem;
 			width: 100%;
-			padding: 0.75rem 0.75rem;
+			padding: 0.875rem 0.75rem;
 			border-radius: 0.5rem;
 			color: var(--color-text);
 			text-align: left;
@@ -429,6 +470,12 @@
 			border: none;
 			cursor: pointer;
 			transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		@media (min-width: 640px) {
+			.command-item {
+				padding: 0.75rem 0.75rem;
+			}
 		}
 
 		.command-item.selected {
@@ -506,7 +553,7 @@
 		 * EMPTY STATE & SCROLLBAR
 		 * ============================================ */
 		/* ... (Keeping existing scrollbar and empty styles, omitted for brevity if unchanged, but included here for full replace) */
-		
+
 		.command-results::-webkit-scrollbar {
 			width: 6px;
 		}
@@ -546,7 +593,7 @@
 			font-size: 0.875rem;
 			color: var(--color-muted);
 		}
-		
+
 		/* ============================================
 		 * FOOTER
 		 * ============================================ */

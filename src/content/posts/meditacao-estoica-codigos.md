@@ -2,7 +2,7 @@
 slug: meditacao-estoica-arte-codar
 title: "Meditação Estoica e a Arte de Codar"
 subtitle: "Como o controle do ego e a dicotomia do controle podem melhorar seu código e sua carreira."
-summary:
+summary: "Aplicação dos princípios estoicos no desenvolvimento de software, focando na dicotomia do controle como ferramenta para lidar com frustração e code reviews."
 
 ripeness: "fruit"
 
@@ -11,9 +11,9 @@ set: filosofia
 tags: ["estoicismo", "mindset", "carreira", "desenvolvimento"]
 
 cover:
-  url:
-  alt:
-  caption:
+  url: "cover/b"
+  alt: "Estrutura fibrosa de microfibrilas de celulose"
+  caption: "Representação tridimensional da rede de polímeros da parede celular."
 
 series:
   name:
@@ -26,8 +26,6 @@ seo:
   title: "Estoicismo na Engenharia de Software"
   description: "Aplique os princípios de Marco Aurélio e Epicteto para lidar com bugs, prazos e a síndrome do impostor."
 ---
-
-O desenvolvimento de software é 20% escrever código e 80% lidar com frustração. O Estoicismo nos ensina a separar o que podemos controlar do que não podemos.
 
 ## A Dicotomia do Controle em Code Reviews
 

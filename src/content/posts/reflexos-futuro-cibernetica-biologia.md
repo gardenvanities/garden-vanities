@@ -2,7 +2,7 @@
 slug: reflexos-futuro-cibernetica-biologia
 title: "Reflexos do Futuro: Cibernética e Biologia"
 subtitle: "Onde termina o código e começa a célula?"
-summary:
+summary: "Reflexão sobre a convergência entre cibernética e biologia, comparando sistemas de controle biológicos em plantas com algoritmos de feedback computacional."
 
 ripeness: "root"
 
@@ -27,7 +27,7 @@ seo:
   description: "Uma reflexão sobre a fusão tecnológica e biológica na escala molecular."
 ---
 
-A distinção entre hardware e wetware está se tornando cada vez mais tênue. Se olharmos para a [Arquitetura Molecular da Parede Celular](/posts/arquitetura-molecular-parede-celular-vegetal), vemos algoritmos de construção mais complexos que qualquer linha de código humano.
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
 
 ## Sistemas de Feedback
 

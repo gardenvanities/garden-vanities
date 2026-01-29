@@ -2,7 +2,7 @@
 slug: psicologia-cores-design-minimalista
 title: "A Psicologia das Cores no Design Minimalista"
 subtitle: "Como a ausência de cor e o uso estratégico de tons neutros influenciam a percepção do usuário."
-summary:
+summary: "Análise da psicologia das cores no design minimalista, abordando o uso estratégico de whitespace, paletas acromáticas e como a cor deve funcionar como instrução visual."
 
 ripeness: "fruit"
 
@@ -27,7 +27,7 @@ seo:
   description: "Entenda como cores neutras e espaços em branco criam interfaces mais eficientes e menos cansativas."
 ---
 
-O minimalismo no design não se resume a "remover coisas". É sobre a gestão intencional da carga cognitiva. Quando removemos cores vibrantes e ruído visual, estamos direcionando o olhar do usuário para o que realmente importa.
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
 
 ## O Poder do Vazio (Whitespace)
 

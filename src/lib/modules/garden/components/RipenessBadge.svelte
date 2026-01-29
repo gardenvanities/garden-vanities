@@ -14,15 +14,18 @@
 	const ripenessConfig = {
 		seed: {
 			label: "Semente",
-			classes: "border-rose-500/20 bg-rose-500/10 text-rose-100 group-hover:border-rose-500/30 group-hover:bg-rose-500/20 group-hover:text-rose-50"
+			classes:
+				"border-rose-500/20 bg-rose-500/10 text-rose-100 group-hover:border-rose-500/30 group-hover:bg-rose-500/20 group-hover:text-rose-50"
 		},
 		root: {
 			label: "Rascunho",
-			classes: "border-amber-500/20 bg-amber-500/10 text-amber-100 group-hover:border-amber-500/30 group-hover:bg-amber-500/20 group-hover:text-amber-50"
+			classes:
+				"border-amber-500/20 bg-amber-500/10 text-amber-100 group-hover:border-amber-500/30 group-hover:bg-amber-500/20 group-hover:text-amber-50"
 		},
 		fruit: {
 			label: "Maduro",
-			classes: "border-emerald-500/20 bg-emerald-500/10 text-emerald-100 group-hover:border-emerald-500/30 group-hover:bg-emerald-500/20 group-hover:text-emerald-50"
+			classes:
+				"border-emerald-500/20 bg-emerald-500/10 text-emerald-100 group-hover:border-emerald-500/30 group-hover:bg-emerald-500/20 group-hover:text-emerald-50"
 		}
 	} as const;
 

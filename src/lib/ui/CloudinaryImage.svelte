@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { buildCloudinaryUrl, buildLQIP, buildSrcSet } from "$lib/shared/cloudinary";
 	import { getGradientFromSeed } from "$lib/shared/gradients";
-	import { onMount } from "svelte";
 
 	interface Props {
 		publicId: string;
@@ -26,8 +25,9 @@
 		priority = false,
 		class: className = "",
 		imgClass = "",
-		fill = false
-	}: Props = $props();
+		fill = false,
+		onError
+	}: Props & { onError?: () => void } = $props();
 
 	let loaded = $state(false);
 	let error = $state(false);
@@ -43,6 +43,7 @@
 
 	function handleError() {
 		error = true;
+		if (onError) onError();
 		console.warn(`Cloudinary image failed to load: ${publicId}`);
 	}
 </script>

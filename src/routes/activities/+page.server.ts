@@ -17,4 +17,3 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 		metadata: page.metadata
 	};
 };
-

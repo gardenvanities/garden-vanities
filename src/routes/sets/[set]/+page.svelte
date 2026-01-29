@@ -58,7 +58,7 @@
 
 			<!-- Posts List -->
 			{#if count > 0}
-				<PostList posts={data.posts} class="border-t border-b border-border" />
+				<PostList posts={data.posts} class="border-border border-t border-b" />
 			{:else}
 				<div class="empty-state">
 					<p>Nenhuma nota encontrada nesta coleção.</p>
@@ -139,8 +139,6 @@
 		max-width: 48ch;
 		margin: 0;
 	}
-
-
 
 	/* Empty State */
 	.empty-state {

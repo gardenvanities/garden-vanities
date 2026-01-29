@@ -2,7 +2,7 @@
 slug: computacao-quantica-meros-mortais
 title: "Computação Quântica para Meros Mortais"
 subtitle: "De bits a qubits: o que você realmente precisa saber sobre a próxima fronteira da computação."
-summary:
+summary: Imagine uma moeda. No mundo clássico, ela é cara ou coroa. No mundo quântico, enquanto está girando, ela é **ambas**. Isso é superposição.
 
 ripeness: "fruit"
 
@@ -11,9 +11,9 @@ set: ciencia
 tags: ["physics", "computing", "future", "science"]
 
 cover:
-  url:
-  alt:
-  caption:
+  url: "cover/b"
+  alt: "Estrutura fibrosa de microfibrilas de celulose"
+  caption: "Representação tridimensional da rede de polímeros da parede celular."
 
 series:
   name:
@@ -27,7 +27,7 @@ seo:
   description: "Uma introdução acessível sobre superposição, entrelaçamento e o futuro dos algoritmos quânticos."
 ---
 
-Imagine uma moeda. No mundo clássico, ela é cara ou coroa. No mundo quântico, enquanto está girando, ela é **ambas**. Isso é superposição.
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
 
 ## Superposição e Entrelaçamento
 

@@ -5,7 +5,7 @@
 
 	import { STATUS_LABELS } from "$lib/modules/garden/constants";
 	import type { CollectionStatus } from "$lib/modules/posts/collections";
-	
+
 	interface SeriesItem {
 		slug: string;
 		title: string;
@@ -44,9 +44,7 @@
 		/>
 	{:else}
 		<!-- Fallback gradient background -->
-		<div
-			class="bg-primary/10 from-primary/20 to-primary/5 absolute inset-0 bg-linear-to-br"
-		></div>
+		<div class="bg-primary/10 from-primary/20 to-primary/5 absolute inset-0 bg-linear-to-br"></div>
 	{/if}
 
 	<!-- Layers Icon - Top Left (Series Identifier) -->

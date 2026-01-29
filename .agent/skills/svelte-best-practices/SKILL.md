@@ -14,7 +14,6 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 ### Árvore de Decisão de Lógica
 
-
 ```
 
 Onde o código deve rodar?
@@ -32,11 +31,11 @@ Onde o código deve rodar?
 
 ### Por Padrão
 
-| Tipo | Uso |
-|------|-----|
-| **Server (`.server.ts`)** | Acesso seguro a DB, segredos, Actions |
-| **Universal (`.ts`)** | Fetch de APIs públicas, cache agressivo |
-| **Component (`.svelte`)** | UI, Runes (`$state`), Hydration |
+| Tipo                      | Uso                                     |
+| ------------------------- | --------------------------------------- |
+| **Server (`.server.ts`)** | Acesso seguro a DB, segredos, Actions   |
+| **Universal (`.ts`)**     | Fetch de APIs públicas, cache agressivo |
+| **Component (`.svelte`)** | UI, Runes (`$state`), Hydration         |
 
 ---
 
@@ -44,19 +43,19 @@ Onde o código deve rodar?
 
 ### Estratégia de Load
 
-| Padrão | Uso |
-|--------|-----|
-| **Server Load** | Preferencial. Roda apenas no servidor. |
+| Padrão             | Uso                                         |
+| ------------------ | ------------------------------------------- |
+| **Server Load**    | Preferencial. Roda apenas no servidor.      |
 | **Universal Load** | Roda no servidor E no cliente (hidratação). |
-| **Await Blocks** | Streaming de dados (Promises) na UI. |
+| **Await Blocks**   | Streaming de dados (Promises) na UI.        |
 
 ### Fluxo de Dados
 
-| Fonte | Padrão |
-|-------|---------|
-| Banco de Dados | `+page.server.ts` (função load) |
-| API Externa | `fetch` nativo dentro do `load` |
-| Input do Usuário | Form Actions + `use:enhance` |
+| Fonte            | Padrão                          |
+| ---------------- | ------------------------------- |
+| Banco de Dados   | `+page.server.ts` (função load) |
+| API Externa      | `fetch` nativo dentro do `load` |
+| Input do Usuário | Form Actions + `use:enhance`    |
 
 ---
 
@@ -64,21 +63,21 @@ Onde o código deve rodar?
 
 ### Convenções de Arquivo
 
-| Arquivo | Propósito |
-|---------|-----------|
-| `+page.svelte` | UI da Rota |
-| `+layout.svelte` | Layout Compartilhado |
+| Arquivo           | Propósito                   |
+| ----------------- | --------------------------- |
+| `+page.svelte`    | UI da Rota                  |
+| `+layout.svelte`  | Layout Compartilhado        |
 | `+page.server.ts` | Data Loading & Form Actions |
-| `+error.svelte` | Boundary de Erro |
-| `+server.ts` | API Route (Endpoint) |
+| `+error.svelte`   | Boundary de Erro            |
+| `+server.ts`      | API Route (Endpoint)        |
 
 ### Organização de Rotas
 
-| Padrão | Uso |
-|--------|-----|
-| Grupos `(app)` | Organizar sem afetar a URL |
-| Params `[slug]` | Rotas dinâmicas |
-| Optional `[[lang]]` | Parâmetros opcionais |
+| Padrão              | Uso                         |
+| ------------------- | --------------------------- |
+| Grupos `(app)`      | Organizar sem afetar a URL  |
+| Params `[slug]`     | Rotas dinâmicas             |
+| Optional `[[lang]]` | Parâmetros opcionais        |
 | Matchers `[id=int]` | Validação de rota via RegEx |
 
 ---
@@ -87,12 +86,12 @@ Onde o código deve rodar?
 
 ### Request Handlers
 
-| Método | Uso |
-|--------|-----|
-| GET | Ler dados (ex: JSON API, imagens) |
-| POST | Webhooks ou chamadas externas |
-| PATCH/PUT | Atualizações via fetch manual |
-| DELETE | Remoção via fetch manual |
+| Método    | Uso                               |
+| --------- | --------------------------------- |
+| GET       | Ler dados (ex: JSON API, imagens) |
+| POST      | Webhooks ou chamadas externas     |
+| PATCH/PUT | Atualizações via fetch manual     |
+| DELETE    | Remoção via fetch manual          |
 
 ### Melhores Práticas
 
@@ -123,10 +122,10 @@ Onde o código deve rodar?
 
 ### Head Management
 
-| Método | Uso |
-|--------|-----|
-| `<svelte:head>` | Injetar tags no head por componente |
-| `$page.data` | Usar dados carregados para título dinâmico |
+| Método          | Uso                                        |
+| --------------- | ------------------------------------------ |
+| `<svelte:head>` | Injetar tags no head por componente        |
+| `$page.data`    | Usar dados carregados para título dinâmico |
 
 ### Tags Essenciais
 
@@ -141,19 +140,19 @@ Onde o código deve rodar?
 
 ### Controle HTTP
 
-| Camada | Controle |
-|--------|----------|
-| `setHeaders` | Cache-Control no `load` ou `+server.ts` |
-| Adapter config | ISR ou Prerender (ex: Vercel ISR) |
+| Camada             | Controle                                     |
+| ------------------ | -------------------------------------------- |
+| `setHeaders`       | Cache-Control no `load` ou `+server.ts`      |
+| Adapter config     | ISR ou Prerender (ex: Vercel ISR)            |
 | `export const csr` | Desativar JS client-side (páginas estáticas) |
 
 ### Revalidação
 
-| Método | Uso |
-|--------|-----|
-| `invalidate()` | Recarrega dados no cliente |
+| Método            | Uso                                        |
+| ----------------- | ------------------------------------------ |
+| `invalidate()`    | Recarrega dados no cliente                 |
 | `invalidateAll()` | Recarrega todos os `load` functions ativos |
-| `depends('tag')` | Invalidação granular baseada em chaves |
+| `depends('tag')`  | Invalidação granular baseada em chaves     |
 
 ---
 
@@ -178,29 +177,28 @@ Onde o código deve rodar?
 
 ### Gerenciamento de Estado
 
-| Legado (Svelte 4) | Runes (Svelte 5) |
-|-------------------|------------------|
-| `let count = 0` | `let count = $state(0)` |
-| `$: double = x * 2` | `let double = $derived(x * 2)` |
-| `export let data` | `let { data } = $props()` |
-| `onMount(() => ...)` | `$effect(() => ...)` |
+| Legado (Svelte 4)    | Runes (Svelte 5)               |
+| -------------------- | ------------------------------ |
+| `let count = 0`      | `let count = $state(0)`        |
+| `$: double = x * 2`  | `let double = $derived(x * 2)` |
+| `export let data`    | `let { data } = $props()`      |
+| `onMount(() => ...)` | `$effect(() => ...)`           |
 
 ---
 
 ## 10. Anti-Patterns
 
-| ❌ Não faça | ✅ Faça |
-|-------------|---------|
-| Query DB em `.svelte` | Use `+page.server.ts` |
-| `fetch` em `load` p/ DB | Use conexão direta em Server Load |
-| Stores globais p/ tudo | Use Context ou URL State |
-| Efeitos colaterais no `load` | Use Actions para mutações |
-| Ignorar Types | Use `PageData`, `ActionData` gerados |
+| ❌ Não faça                  | ✅ Faça                              |
+| ---------------------------- | ------------------------------------ |
+| Query DB em `.svelte`        | Use `+page.server.ts`                |
+| `fetch` em `load` p/ DB      | Use conexão direta em Server Load    |
+| Stores globais p/ tudo       | Use Context ou URL State             |
+| Efeitos colaterais no `load` | Use Actions para mutações            |
+| Ignorar Types                | Use `PageData`, `ActionData` gerados |
 
 ---
 
 ## 11. Estrutura de Projeto
-
 
 ```
 

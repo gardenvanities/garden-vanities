@@ -2,7 +2,7 @@
 slug: minimalismo-engenharia-software
 title: "Minimalismo na Engenharia de Software"
 subtitle: "Menos código, menos problemas. Como a simplicidade radical pode salvar projetos complexos do colapso."
-summary:
+summary: "Discussão sobre o minimalismo ativo na engenharia de software, defendendo a eliminação de complexidade acidental e a redução de código como a melhor estratégia de manutenção."
 
 ripeness: "fruit"
 
@@ -11,9 +11,9 @@ set: engenharia-software
 tags: ["engenharia", "minimalismo", "arquitetura", "clean-code"]
 
 cover:
-  url:
-  alt:
-  caption:
+  url: "cover/b"
+  alt: "Estrutura fibrosa de microfibrilas de celulose"
+  caption: "Representação tridimensional da rede de polímeros da parede celular."
 
 series:
   slug: filosofia-do-codigo
@@ -26,10 +26,6 @@ seo:
   title: "Minimalismo e Simplicidade no Código"
   description: "Por que remover código é mais importante que adicionar, e como o minimalismo impacta a manutenção de software."
 ---
-
-Seguindo a ideia do nosso [último texto](/posts/jardim-digital-extensao-mente), vamos falar sobre como aplicamos essa filosofia no código em si.
-
-Existe uma tendência natural à entropia em qualquer base de código. Funcionalidades são adicionadas, prazos apertam, e "gambiarras" provisórias se tornam permanentes. O antídoto é o **Minimalismo Ativo**.
 
 ## A Arte de Não Escrever Código
 

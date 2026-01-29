@@ -2,7 +2,7 @@
 slug: rust-para-desenvolvedores-typescript
 title: "Rust para Desenvolvedores TypeScript"
 subtitle: "O guia de sobrevivência para quem quer trocar o GC pelo Ownership e Borrow Checker."
-summary:
+summary: "Guia introdutório de Rust para desenvolvedores TypeScript, comparando conceitos de gerenciamento de memória, ownership e segurança de tipos entre as linguagens."
 
 ripeness: "fruit"
 
@@ -11,9 +11,9 @@ set: engenharia-software
 tags: ["rust", "typescript", "performance", "backend", "systems-programming"]
 
 cover:
-  url:
-  alt:
-  caption:
+  url: "cover/b"
+  alt: "Estrutura fibrosa de microfibrilas de celulose"
+  caption: "Representação tridimensional da rede de polímeros da parede celular."
 
 series:
   name:
@@ -27,7 +27,7 @@ seo:
   description: "Comparativo técnico entre TS e Rust, focando em segurança de tipos e performance."
 ---
 
-Você está acostumado com interfaces, tipos genéricos e o `npm`. Rust oferece segurança similar (ou superior), mas com uma performance que TypeScript nunca poderá alcançar no Node.js ou Bun.
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
 
 ## A Grande Barreira: O Borrow Checker
 

@@ -1,88 +1,158 @@
 <script lang="ts">
 	import SEO from "$lib/core/seo/SEO.svelte";
-	import Container from "$lib/layout/Container.svelte";
 	import Section from "$lib/layout/Section.svelte";
-	import Grid from "$lib/layout/Grid.svelte";
-	import SectionHeader from "$lib/modules/garden/components/SectionHeader.svelte";
-	import SetCard from "$lib/modules/garden/components/SetCard.svelte";
-	import Hero from "./_components/Hero.svelte";
-	import CloudinaryImage from "$lib/ui/CloudinaryImage.svelte";
-	import { fly } from "svelte/transition";
+	import Container from "$lib/layout/Container.svelte";
 	import { buildCloudinaryUrl } from "$lib/shared/cloudinary";
+	import { Twitter, Instagram, Youtube, Github, Mail } from "@lucide/svelte";
+	import type { Author } from "$lib/modules/author/types";
 
-	import SeriesCard from "$lib/modules/garden/components/SeriesCard.svelte";
+	interface Props {
+		data: {
+			author: Author;
+			stats: {
+				articles: number;
+				projects: number;
+				booksRead: number;
+			};
+		};
+	}
 
-	import type { PageData } from "./$types";
+	let { data }: Props = $props();
+	const author = $derived(data.author);
+	const stats = $derived(data.stats);
 
-	let { data }: { data: PageData } = $props();
+	// Social link configuration with icons and colors
+	const socialLinks = $derived(
+		[
+			{ key: "twitter", icon: Twitter, label: "Twitter", color: "#1DA1F2" },
+			{ key: "instagram", icon: Instagram, label: "Instagram", color: "#E4405F" },
+			{ key: "youtube", icon: Youtube, label: "YouTube", color: "#FF0000" },
+			{ key: "github", icon: Github, label: "GitHub", color: "#ffffff" },
+			{ key: "tiktok", icon: null, label: "TikTok", color: "#000000" }
+		].filter((link) => author.social?.[link.key as keyof typeof author.social])
+	);
 </script>
 
-<SEO title="Garden of Vanities" type="website" />
+<SEO
+	title="Garden of Vanities | {author.name}"
+	description={author.bio || `Perfil de ${author.name}`}
+	type="website"
+/>
 
-<Hero />
-
-<Section id="content" class="py-12">
+<Section class="py-12 md:py-24">
 	<Container size="lg">
-		<div in:fly={{ y: 30, duration: 800, delay: 400 }}>
-			{#if data.sets.length > 0}
-				<div class="space-y-8">
-					<div class="flex items-center justify-between">
-						<SectionHeader title="Coleções" count={data.sets.length} />
-						<a
-							href="/sets"
-							class="text-muted hover:text-primary hidden text-sm font-medium transition-colors md:block"
+		<!-- Profile Identity -->
+		<div class="flex flex-col items-center text-center">
+			<!-- Avatar -->
+			<div class="relative mb-8">
+				<div
+					class="border-border bg-surface relative h-40 w-40 overflow-hidden rounded-xl border shadow-2xl transition-transform duration-500 hover:scale-[1.02]"
+				>
+					{#if author.avatar}
+						<img
+							src={buildCloudinaryUrl(author.avatar, { width: 400, height: 400, crop: "fill" })}
+							alt={author.name}
+							class="h-full w-full object-cover"
+						/>
+						<div
+							class="pointer-events-none absolute inset-0 bg-linear-to-tr from-black/0 via-white/5 to-white/10"
+						></div>
+					{:else}
+						<div
+							class="bg-surface text-primary flex h-full w-full items-center justify-center text-5xl font-bold"
 						>
-							Ver todas as coleções →
-						</a>
-					</div>
-
-					<Grid cols={3} gap="md">
-						{#each data.sets.slice(0, 3) as set (set.slug)}
-							<SetCard {set} class="h-96" />
-						{/each}
-					</Grid>
-
-					<div class="mt-6 flex justify-center md:hidden">
-						<a
-							href="/sets"
-							class="text-muted hover:text-primary flex items-center gap-2 text-sm font-medium transition-colors"
-						>
-							Ver todas as coleções
-							<span aria-hidden="true">→</span>
-						</a>
-					</div>
+							{author.name.charAt(0)}
+						</div>
+					{/if}
 				</div>
+			</div>
+
+			<!-- Name & Vulgo -->
+			<div class="mb-6">
+				<h1 class="font-heading text-text text-4xl font-bold tracking-tight md:text-5xl">
+					{author.name}
+				</h1>
+				{#if author.nick}
+					<p class="text-muted mt-2 flex items-center justify-center gap-2 text-lg font-medium">
+						<span class="text-primary text-sm">✦</span>
+						<span class="text-primary">The Mage King</span>
+						<span class="text-primary text-sm">✦</span>
+					</p>
+				{/if}
+			</div>
+
+			{#if author.bio}
+				<p class="text-muted/90 mb-8 max-w-3xl font-mono text-lg leading-relaxed">
+					{author.bio}
+				</p>
 			{/if}
 
-			{#if data.series && data.series.length > 0}
-				<div class="mt-12 space-y-8" in:fly={{ y: 20, duration: 800, delay: 100 }}>
-					<div class="flex items-center justify-between">
-						<SectionHeader title="Séries" count={data.series.length} />
+			<!-- Social Links -->
+			{#if socialLinks.length > 0}
+				<div class="mb-12 flex flex-wrap justify-center gap-3">
+					{#each socialLinks as link (link.key)}
+						{@const url = author.social?.[link.key as keyof typeof author.social]}
+						{#if url && link.icon}
+							<a
+								href={url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="group border-border bg-surface text-muted hover:border-primary/30 hover:bg-primary/5 hover:text-primary flex h-10 w-10 items-center justify-center rounded-xl border transition-all hover:scale-110"
+								aria-label={link.label}
+							>
+								<link.icon size={20} strokeWidth={1.5} />
+							</a>
+						{/if}
+					{/each}
+					<!-- Email link -->
+					{#if author.social?.email}
 						<a
-							href="/series"
-							class="text-muted hover:text-primary hidden text-sm font-medium transition-colors md:block"
+							href="mailto:{author.social.email}"
+							class="group border-border bg-surface text-muted hover:border-primary/30 hover:bg-primary/5 hover:text-primary flex h-10 w-10 items-center justify-center rounded-xl border transition-all hover:scale-110"
+							aria-label="Email"
 						>
-							Ver todas as séries →
+							<Mail size={20} strokeWidth={1.5} />
 						</a>
-					</div>
-
-					<Grid cols={3} gap="md">
-						{#each data.series.slice(0, 3) as serie (serie.slug)}
-							<SeriesCard {serie} />
-						{/each}
-					</Grid>
-
-					<div class="mt-6 flex justify-center md:hidden">
-						<a
-							href="/series"
-							class="text-muted hover:text-primary flex items-center gap-2 text-sm font-medium transition-colors"
-						>
-							Ver todas as séries
-							<span aria-hidden="true">→</span>
-						</a>
-					</div>
+					{/if}
 				</div>
 			{/if}
+		</div>
+
+		<!-- Divider -->
+		<div class="bg-border/50 my-12 h-px w-full"></div>
+
+		<!-- Stats Section -->
+		<div>
+			<h2
+				class="font-heading text-muted mb-8 text-center text-lg font-semibold tracking-wider uppercase"
+			>
+				Thinking & Building
+			</h2>
+			<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+				<!-- Artigos -->
+				<div
+					class="group border-border bg-surface hover:border-primary/20 hover:bg-surface-elevated/50 relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border p-6 transition-all"
+				>
+					<span class="text-text mb-2 text-4xl font-bold tabular-nums">{stats.articles}</span>
+					<span class="text-muted text-sm font-medium">Artigos Escritos</span>
+				</div>
+
+				<!-- Livros -->
+				<div
+					class="group border-border bg-surface hover:border-primary/20 hover:bg-surface-elevated/50 relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border p-6 transition-all"
+				>
+					<span class="text-text mb-2 text-4xl font-bold tabular-nums">{stats.booksRead}</span>
+					<span class="text-muted text-sm font-medium">Livros Lidos</span>
+				</div>
+
+				<!-- Projetos -->
+				<div
+					class="group border-border bg-surface hover:border-primary/20 hover:bg-surface-elevated/50 relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border p-6 transition-all"
+				>
+					<span class="text-text mb-2 text-4xl font-bold tabular-nums">{stats.projects}</span>
+					<span class="text-muted text-sm font-medium">Projetos</span>
+				</div>
+			</div>
 		</div>
 	</Container>
 </Section>

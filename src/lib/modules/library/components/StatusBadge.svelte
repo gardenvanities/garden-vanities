@@ -31,7 +31,9 @@
 </script>
 
 <span
-	class="inline-flex items-center gap-1 rounded-full border backdrop-blur-sm {statusColors[status]} {sizeClasses[size]}"
+	class="inline-flex items-center gap-1 rounded-full border backdrop-blur-sm {statusColors[
+		status
+	]} {sizeClasses[size]}"
 >
 	<span class="text-[0.75em]">{statusIcons[status]}</span>
 	<span>{STATUS_LABELS[status]}</span>

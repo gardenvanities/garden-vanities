@@ -2,7 +2,7 @@
 slug: jardim-digital-extensao-mente
 title: "O Jardim Digital como Extensão da Mente"
 subtitle: "Por que cultivar um espaço pessoal na web é o antídoto para o caos das redes sociais e um ferramenta poderosa de aprendizado contínuo."
-summary:
+summary: "Reflexão sobre o conceito de Jardim Digital como alternativa ao fluxo efêmero das redes sociais, focando na construção de conhecimento acumulativo e interconectado."
 
 ripeness: "fruit"
 
@@ -11,9 +11,9 @@ set: filosofia
 tags: ["filosofia", "indieweb", "aprendizado", "pkm"]
 
 cover:
-  url:
-  alt:
-  caption:
+  url: "cover/b"
+  alt: "Estrutura fibrosa de microfibrilas de celulose"
+  caption: "Representação tridimensional da rede de polímeros da parede celular."
 
 series:
   slug: filosofia-do-codigo
@@ -26,8 +26,6 @@ seo:
   title: "Jardim Digital e Gestão de Conhecimento Pessoal"
   description: "Uma reflexão sobre como Digital Gardens transformam nossa relação com o conhecimento e a internet."
 ---
-
-A metáfora do **Jardim Digital** muda fundamentalmente como interagimos com a informação. Ao contrário de um _blog_, onde as postagens são cronológicas e estáticas (feitas para serem consumidas e esquecidas), um jardim é um espaço vivo.
 
 ## A Diferença entre Fluxo e Estoque
 

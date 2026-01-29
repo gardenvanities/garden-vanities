@@ -4,12 +4,14 @@ import type { PostFrontmatter } from "$lib/modules/posts/types";
 
 export async function getSetsList(posts?: PostFrontmatter[]) {
 	// If posts are not provided, fetch them (consistent with Sets page logic)
-	const allPosts = posts || await getAllPosts({
-		ripeness: ["fruit", "root"]
-	});
+	const allPosts =
+		posts ||
+		(await getAllPosts({
+			ripeness: ["fruit", "root"]
+		}));
 
 	const allSetsData = getAllSets();
-	
+
 	return allSetsData
 		.map((set) => {
 			const postCount = allPosts.filter((p) => p.set === set.slug).length;
@@ -28,9 +30,11 @@ export async function getSetsList(posts?: PostFrontmatter[]) {
 
 export async function getSeriesList(posts?: PostFrontmatter[]) {
 	// If posts are not provided, fetch them (consistent with Series page logic which includes seeds)
-	const allPosts = posts || await getAllPosts({
-		ripeness: ["fruit", "root", "seed"]
-	});
+	const allPosts =
+		posts ||
+		(await getAllPosts({
+			ripeness: ["fruit", "root", "seed"]
+		}));
 
 	const allSeriesData = getAllSeries({ status: ["ongoing", "completed"] });
 
@@ -38,7 +42,7 @@ export async function getSeriesList(posts?: PostFrontmatter[]) {
 		.map((s) => {
 			const seriesPosts = allPosts.filter((p) => p.series?.slug === s.slug);
 			const postCount = seriesPosts.length;
-			
+
 			// Calculate last updated based on posts
 			const lastUpdated = seriesPosts.reduce((latest, post) => {
 				const postDate = post.updatedAt || post.publishedAt || "";
@@ -69,22 +73,19 @@ export async function getDashboardData() {
 	// The Sets page (Step 316) uses `ripeness: ["root", "fruit"]`.
 	// If we want exact parity, we should fetch separately or filter.
 	// Let's fetch separately to be safe and correct by default, or better:
-	// We can fetch inclusive and let the helpers filter if they wanted? 
+	// We can fetch inclusive and let the helpers filter if they wanted?
 	// The helpers uses the passed 'posts' as is.
 	// So to be 100% correct without over-engineering:
 	// Let's just let them fetch their own for now, or fetch inclusive and filter.
-	
+
 	// Optimization: Fetch inclusive, filter for sets.
 	const allPosts = await getAllPosts({
 		ripeness: ["fruit", "root", "seed"]
 	});
 
-	const setsPosts = allPosts.filter(p => p.ripeness !== 'seed');
+	const setsPosts = allPosts.filter((p) => p.ripeness !== "seed");
 
-	const [sets, series] = await Promise.all([
-		getSetsList(setsPosts),
-		getSeriesList(allPosts)
-	]);
+	const [sets, series] = await Promise.all([getSetsList(setsPosts), getSeriesList(allPosts)]);
 
 	return {
 		sets: sets.slice(0, 6),

@@ -1,0 +1,96 @@
+import { spring } from "svelte/motion";
+
+function createReadingProgress() {
+	let readingTimeMinutes = $state(1);
+	let rawProgress = $state(0);
+
+	// Create spring for smooth animation
+	const progress = spring(0, {
+		stiffness: 0.1,
+		damping: 0.4
+	});
+
+	function calculateReadingTime() {
+		const article =
+			document.querySelector("article") || document.querySelector(".prose") || document.body;
+		if (article) {
+			const text = article.innerText;
+			const wpm = 200;
+			const words = text.trim().split(/\s+/).length;
+			readingTimeMinutes = Math.max(1, Math.ceil(words / wpm));
+		}
+	}
+
+	function handleScroll() {
+		const articleEl =
+			document.getElementById("article-content") || document.querySelector("article.prose");
+
+		if (!articleEl) {
+			rawProgress = 0;
+			progress.set(0);
+			return;
+		}
+
+		const headerEl = document.getElementById("article-header");
+		const currentScrollTop = window.scrollY;
+		const rect = articleEl.getBoundingClientRect();
+		const winHeight = window.innerHeight;
+
+		// Start: Top of header (or article if no header)
+		const startEl = headerEl || articleEl;
+		const startRect = startEl.getBoundingClientRect();
+		const startTop = startRect.top + currentScrollTop;
+
+		// End: Bottom of article content
+		const endBottom = rect.bottom + currentScrollTop;
+
+		const startOffset = startTop;
+		// Adjust end offset so 100% is reached slightly before the absolute bottom
+		const endOffset = endBottom - winHeight * 0.8;
+
+		let percent = 0;
+		if (currentScrollTop <= startOffset) {
+			percent = 0;
+		} else if (currentScrollTop >= endOffset) {
+			percent = 100;
+		} else {
+			percent = ((currentScrollTop - startOffset) / (endOffset - startOffset)) * 100;
+		}
+
+		rawProgress = Math.min(100, Math.max(0, percent));
+		progress.set(rawProgress);
+	}
+
+	return {
+		get percent() {
+			return rawProgress;
+		},
+		get spring() {
+			return progress;
+		},
+		get readingTime() {
+			return readingTimeMinutes;
+		},
+		get minutesLeft() {
+			return Math.max(1, Math.ceil(readingTimeMinutes * (1 - rawProgress / 100)));
+		},
+		init() {
+			calculateReadingTime();
+			handleScroll();
+			window.addEventListener("scroll", handleScroll, { passive: true });
+			window.addEventListener("resize", handleScroll, { passive: true });
+
+			return () => {
+				window.removeEventListener("scroll", handleScroll);
+				window.removeEventListener("resize", handleScroll);
+			};
+		},
+		reset() {
+			rawProgress = 0;
+			progress.set(0, { hard: true });
+			calculateReadingTime();
+		}
+	};
+}
+
+export const readingProgress = createReadingProgress();

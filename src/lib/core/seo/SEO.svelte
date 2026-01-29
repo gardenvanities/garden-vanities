@@ -20,13 +20,13 @@
 		type = "website",
 		publishedAt = undefined,
 		updatedAt = undefined,
-		author = "The Mage King",
+		author = "Stephan Carvalho",
 		noindex = false
 	}: Props = $props();
 
 	const siteName = "Garden of Vanities";
-	const baseUrl = "https://gardenofvanities.vercel.app";
-	const twitterHandle = "@themageking";
+	const baseUrl = "https://gardenvanities.vercel.app";
+	const twitterHandle = "@gardenvanities";
 
 	const fullTitle = $derived(title === siteName ? title : `${title} | ${siteName}`);
 	const canonicalUrl = $derived(`${baseUrl}${page.url.pathname}`);
@@ -35,18 +35,17 @@
 		if (image) {
 			return buildCloudinaryUrl(image, { width: 1200, height: 630, crop: "fill" });
 		}
-		
-		const params = new URLSearchParams();
-		params.set('title', title);
-		if (type === 'article') {
-			params.set('subtitle', description.slice(0, 100));
-			params.set('kind', 'Article');
+
+		const params: Record<string, string> = { title };
+		if (type === "article") {
+			params.subtitle = description.slice(0, 100);
+			params.kind = "Article";
 		} else {
-			params.set('subtitle', description.slice(0, 60));
-			params.set('kind', 'Garden');
+			params.subtitle = description.slice(0, 60);
+			params.kind = "Garden";
 		}
-		
-		return `${baseUrl}/og?${params.toString()}`;
+
+		return `${baseUrl}/og?${new URLSearchParams(params).toString()}`;
 	});
 
 	const jsonLd = $derived({

@@ -2,7 +2,7 @@
 slug: protocolo-hidratacao-alta-performance
 title: "O Protocolo de Hidratação para Alta Performance"
 subtitle: "Por que beber água não é o suficiente: eletrólitos, timing e absorção celular."
-summary:
+summary: "Guia sobre hidratação para alta performance, explicando a importância dos eletrólitos e do timing para otimizar o foco mental e função física."
 
 ripeness: "fruit"
 
@@ -11,9 +11,9 @@ set: saude
 tags: ["biohacking", "health", "performance", "physiology"]
 
 cover:
-  url:
-  alt:
-  caption:
+  url: "cover/b"
+  alt: "Estrutura fibrosa de microfibrilas de celulose"
+  caption: "Representação tridimensional da rede de polímeros da parede celular."
 
 series:
   name:
@@ -26,8 +26,6 @@ seo:
   title: "Protocolo de Hidratação e Biohacking"
   description: "Guia técnico sobre como otimizar sua hidratação para foco mental e performance física."
 ---
-
-Beber 2 litros de água pura pode, paradoxalmente, te desidratar. Sem os eletrólitos corretos, a água apenas "limpa" seus minerais e é expelida rapidamente.
 
 ## A Regra dos Eletrólitos
 

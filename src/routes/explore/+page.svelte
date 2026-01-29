@@ -2,10 +2,11 @@
 	import SEO from "$lib/core/seo/SEO.svelte";
 	import Container from "$lib/layout/Container.svelte";
 	import Section from "$lib/layout/Section.svelte";
-	import Grid from "$lib/layout/Grid.svelte";
+
 	import PostList from "$lib/modules/posts/components/PostList.svelte";
-	import { Search, X, Hash, Compass } from "@lucide/svelte";
-	import { fly, slide, fade } from "svelte/transition";
+	import PageHeader from "$lib/ui/PageHeader.svelte";
+	import { Search, X, Hash } from "@lucide/svelte";
+	import { fly, slide } from "svelte/transition";
 
 	let { data } = $props();
 
@@ -185,16 +186,11 @@
 	<Container size="lg">
 		<div in:fly={{ y: 20, duration: 800 }}>
 			<!-- Premium Page Header -->
-			<header class="page-header mb-16 md:mb-20">
-				<div class="header-content">
-					<h1 class="header-title" in:fly={{ y: 15, duration: 700, delay: 100 }}>
-						Explorar
-					</h1>
-					<p class="header-subtitle" in:fly={{ y: 10, duration: 600, delay: 250 }}>
-						Descubra entre {data.posts.length} notas cultivadas
-					</p>
-				</div>
-			</header>
+			<!-- Premium Page Header -->
+			<PageHeader
+				title="Explorar"
+				description="Descubra entre {data.posts.length} notas cultivadas"
+			/>
 
 			<div class="relative mx-auto mb-16 max-w-3xl">
 				<!-- Main Search Bar -->
@@ -348,38 +344,7 @@
 
 <style>
 	/* Page Header */
-	.page-header {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-	}
-
-	.header-content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 1rem;
-	}
-
-	.header-title {
-		font-family: var(--font-heading);
-		font-size: clamp(2.5rem, 6vw, 4rem);
-		font-weight: 700;
-		letter-spacing: -0.02em;
-		line-height: 1.1;
-		color: var(--color-text);
-		margin: 0;
-	}
-
-	.header-subtitle {
-		font-size: 1.125rem;
-		color: var(--color-muted);
-		font-weight: 400;
-		letter-spacing: 0.01em;
-		max-width: 32ch;
-		margin: 0;
-	}
+	/* Styles removed - using PageHeader component */
 
 	/* Search Bar Container */
 	.search-bar {

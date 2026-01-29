@@ -28,7 +28,7 @@
 />
 
 <Section class="py-16 md:py-24">
-	<Container size="md">
+	<Container size="lg">
 		<!-- Back Link -->
 		<a
 			href="/series"
@@ -84,18 +84,12 @@
 			<!-- Posts List -->
 			<div class="border-border flex flex-col border-t">
 				{#each data.posts as post, i (post.slug)}
-					<div
-						class="border-border flex items-center border-b"
-						in:fly={{ y: 10, duration: 400, delay: i * 50 }}
-					>
-						<span
-							class="text-muted w-12 shrink-0 text-center font-mono text-xs font-medium opacity-40"
-						>
-							{String(post.series?.order || i + 1).padStart(2, "0")}
-						</span>
-						<div class="flex-1">
-							<PostListItem {post} showSummary={true} />
-						</div>
+					<div class="border-border border-b" in:fly={{ y: 10, duration: 400, delay: i * 50 }}>
+						<PostListItem
+							{post}
+							showSummary={true}
+							seriesBadge="Parte {post.series?.order || i + 1}/{data.posts.length}"
+						/>
 					</div>
 				{/each}
 			</div>

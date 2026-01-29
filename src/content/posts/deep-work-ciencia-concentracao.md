@@ -2,7 +2,7 @@
 slug: deep-work-ciencia-concentracao
 title: "Deep Work: A Ciência da Concentração"
 subtitle: "Estratégias para atingir o estado de fluxo em um mundo de distrações infinitas."
-summary:
+summary: "Análise do conceito de Trabalho Profundo (Deep Work) de Cal Newport, explorando estratégias para atingir alta concentração e performance intelectual em um mundo distraído."
 
 ripeness: "fruit"
 
@@ -11,9 +11,9 @@ set: produtividade
 tags: ["productivity", "neuroscience", "focus", "psychology"]
 
 cover:
-  url:
-  alt:
-  caption:
+  url: "cover/b"
+  alt: "Estrutura fibrosa de microfibrilas de celulose"
+  caption: "Representação tridimensional da rede de polímeros da parede celular."
 
 series:
   name:
@@ -27,7 +27,7 @@ seo:
   description: "Aprenda as técnicas de Cal Newport para trabalho focado e alta performance intelectual."
 ---
 
-Em uma era de notificações constantes, a capacidade de realizar trabalho profundo (_Deep Work_) está se tornando uma vantagem competitiva rara.
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
 
 ## O que é Trabalho Profundo?
 

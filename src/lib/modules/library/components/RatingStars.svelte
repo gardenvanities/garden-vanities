@@ -23,6 +23,8 @@
 		lg: "gap-1.5"
 	};
 
+	const stars = $derived(Array.from({ length: max }, (_, i) => i));
+
 	function handleClick(index: number) {
 		if (interactive && onRate) {
 			onRate(index + 1);
@@ -30,8 +32,12 @@
 	}
 </script>
 
-<div class="flex items-center {gapClasses[size]}" role="img" aria-label="{rating} de {max} estrelas">
-	{#each Array(max) as _, i}
+<div
+	class="flex items-center {gapClasses[size]}"
+	role="img"
+	aria-label="{rating} de {max} estrelas"
+>
+	{#each stars as i (i)}
 		<button
 			type="button"
 			onclick={() => handleClick(i)}

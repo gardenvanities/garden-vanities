@@ -2,7 +2,7 @@
 slug: svelte-5-revolucao-runas
 title: "Svelte 5: A Revolução das Runas"
 subtitle: "Adeus à reatividade baseada em let e hello para $state, $derived e $effect."
-summary:
+summary: "Visão geral das Runas no Svelte 5, detalhando como $state, $derived e $effect modernizam a reatividade do framework."
 
 ripeness: "fruit"
 
@@ -27,7 +27,7 @@ seo:
   description: "Entenda como a nova reatividade do Svelte 5 funciona e por que as Runas mudam tudo para melhor."
 ---
 
-O Svelte 5 introduz o conceito de **Runas**, uma mudança fundamental na forma como lidamos com a reatividade no framework. Inspirado por Signals, as Runas tornam a reatividade explícita e poderosa fora dos componentes `.svelte`.
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
 
 ## As Principais Runas
 

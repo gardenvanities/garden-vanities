@@ -6,8 +6,8 @@
 	const currentYear = new Date().getFullYear();
 
 	const socialLinks = [
-		{ href: "https://github.com/themageking", label: "GitHub", icon: Github },
-		{ href: "https://twitter.com/themageking", label: "Twitter", icon: Twitter },
+		{ href: "https://github.com/GardenVanities", label: "GitHub", icon: Github },
+		{ href: "https://twitter.com/GardenVanities", label: "Twitter", icon: Twitter },
 		{ href: "mailto:contato@exemplo.com", label: "Email", icon: Mail },
 		{ href: "/rss.xml", label: "RSS Feed", icon: Rss }
 	];
@@ -33,13 +33,17 @@
 <footer class="bg-bg border-border/30 mt-32 border-t">
 	<!-- Links Grid -->
 	<div class="mx-auto max-w-6xl px-4 sm:px-6">
-		<div class="border-border/30 grid grid-cols-2 gap-8 border-b py-10 sm:gap-10 sm:py-12 lg:grid-cols-4">
+		<div
+			class="border-border/30 grid grid-cols-2 gap-8 border-b py-10 sm:gap-10 sm:py-12 lg:grid-cols-4"
+		>
 			<!-- Navegação -->
 			<div>
-				<h4 class="font-sans text-muted mb-3 text-[10px] font-bold uppercase tracking-widest sm:mb-4">
+				<h4
+					class="text-muted mb-3 font-sans text-[10px] font-bold tracking-widest uppercase sm:mb-4"
+				>
 					Navegação
 				</h4>
-				<ul class="list-none p-0 space-y-2 sm:space-y-2.5">
+				<ul class="list-none space-y-2 p-0 sm:space-y-2.5">
 					<li>
 						<a href="/explore" class="text-text/80 hover:text-text text-sm transition-colors">
 							Explorar
@@ -65,10 +69,12 @@
 
 			<!-- Conteúdo -->
 			<div>
-				<h4 class="font-sans text-muted mb-3 text-[10px] font-bold uppercase tracking-widest sm:mb-4">
+				<h4
+					class="text-muted mb-3 font-sans text-[10px] font-bold tracking-widest uppercase sm:mb-4"
+				>
 					Conteúdo
 				</h4>
-				<ul class="list-none p-0 space-y-2 sm:space-y-2.5">
+				<ul class="list-none space-y-2 p-0 sm:space-y-2.5">
 					<li>
 						<a href="/changelog" class="text-text/80 hover:text-text text-sm transition-colors">
 							Changelog
@@ -84,10 +90,12 @@
 
 			<!-- Sobre -->
 			<div>
-				<h4 class="font-sans text-muted mb-3 text-[10px] font-bold uppercase tracking-widest sm:mb-4">
+				<h4
+					class="text-muted mb-3 font-sans text-[10px] font-bold tracking-widest uppercase sm:mb-4"
+				>
 					Sobre
 				</h4>
-				<ul class="list-none p-0 space-y-2 sm:space-y-2.5">
+				<ul class="list-none space-y-2 p-0 sm:space-y-2.5">
 					<li>
 						<a href="/about" class="text-text/80 hover:text-text text-sm transition-colors">
 							O Jardim
@@ -103,11 +111,13 @@
 
 			<!-- Conectar -->
 			<div>
-				<h4 class="font-sans text-muted mb-3 text-[10px] font-bold uppercase tracking-widest sm:mb-4">
+				<h4
+					class="text-muted mb-3 font-sans text-[10px] font-bold tracking-widest uppercase sm:mb-4"
+				>
 					Conectar
 				</h4>
-				<ul class="list-none p-0 space-y-2 sm:space-y-2.5">
-					{#each socialLinks as { href, label, icon }}
+				<ul class="list-none space-y-2 p-0 sm:space-y-2.5">
+					{#each socialLinks as { href, label, icon } (label)}
 						<li>
 							<a
 								{href}
@@ -140,10 +150,10 @@
 				font-size="140"
 				class="font-heading fill-current font-bold tracking-tighter"
 			>
-				Garden of Vanities.
+				Garden Of Vanities.
 			</text>
 		</svg>
-		<span class="sr-only">Garden of Vanities.</span>
+		<span class="sr-only">Garden Of Vanities.</span>
 	</div>
 
 	<!-- Bottom Meta Row -->

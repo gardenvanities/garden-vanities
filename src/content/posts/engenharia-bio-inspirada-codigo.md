@@ -11,9 +11,9 @@ set: engenharia-software
 tags: ["Software", "Bio-Design", "Svelte"]
 
 cover:
-  url:
-  alt:
-  caption:
+  url: "cover/b"
+  alt: "Estrutura fibrosa de microfibrilas de celulose"
+  caption: "Representação tridimensional da rede de polímeros da parede celular."
 
 series:
   name:
@@ -27,7 +27,7 @@ seo:
   description:
 ---
 
-A engenharia moderna frequentemente busca na biologia a solução para problemas de escalabilidade. Se uma planta consegue gerenciar milhares de folhas sem conflito, como podemos aplicar isso em nossos componentes?
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
 
 ### Implementando a Espiral de Vogel em Svelte
 

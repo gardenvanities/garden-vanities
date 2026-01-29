@@ -4,7 +4,6 @@
 		ResourceCard,
 		ResourceFilter,
 		TypeIcon,
-		type ResourceType,
 		type ConsumptionStatus
 	} from "$lib/modules/library";
 	import { ChevronLeft, Library } from "@lucide/svelte";
@@ -48,7 +47,7 @@
 	<nav class="mb-8">
 		<a
 			href="/library"
-			class="inline-flex items-center gap-1 text-sm text-white/50 transition-colors hover:text-brand-400"
+			class="hover:text-brand-400 inline-flex items-center gap-1 text-sm text-white/50 transition-colors"
 		>
 			<ChevronLeft class="h-4 w-4" />
 			Biblioteca
@@ -58,7 +57,7 @@
 	<!-- Header -->
 	<header class="mb-12">
 		<div class="flex items-center gap-3">
-			<TypeIcon type={data.resourceType} class="h-8 w-8 text-brand-400" />
+			<TypeIcon type={data.resourceType} class="text-brand-400 h-8 w-8" />
 			<h1 class="font-heading text-4xl font-bold text-white md:text-5xl">
 				{data.typeLabel}
 			</h1>
@@ -93,7 +92,7 @@
 			</div>
 		{:else}
 			<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-				{#each filteredResources() as resource}
+				{#each filteredResources() as resource (resource.slug)}
 					<ResourceCard {resource} showType={false} />
 				{/each}
 			</div>

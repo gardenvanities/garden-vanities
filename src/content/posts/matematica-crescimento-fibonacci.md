@@ -11,9 +11,9 @@ set: botanica
 tags: ["Botânica", "Matemática", "Filotaxia"]
 
 cover:
-  url:
-  alt:
-  caption:
+  url: "cover/b"
+  alt: "Estrutura fibrosa de microfibrilas de celulose"
+  caption: "Representação tridimensional da rede de polímeros da parede celular."
 
 series:
   name:
@@ -27,21 +27,11 @@ seo:
   description:
 ---
 
-A natureza não joga dados, ela calcula. A disposição das folhas em um caule, conhecida como **Filotaxia**, não é aleatória; ela segue uma lógica geométrica rigorosa para garantir que cada folha receba o máximo de radiação solar sem sombrear as demais.
-
 ### A Sequência de Ouro
 
 A maioria das plantas organiza suas estruturas seguindo a sequência de Fibonacci ($F_n = F_{n-1} + F_{n-2}$). Isso resulta no **Ângulo de Ouro** ($\approx 137.5^\circ$), definido pela fórmula:
 
-$$
-\psi = 360\left(1 - \frac{1}{\phi}\right) \approx 137.508^{\circ}
-$$
-
-Onde $\phi$ é a razão áurea:
-
-$$
-\phi = \frac{1 + \sqrt{5}}{2}
-$$
+[MATH BLOCK REMOVED FOR DEBUGGING]
 
 ### Distribuição de Sementes
 

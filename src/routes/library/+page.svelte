@@ -21,7 +21,7 @@
 	// Get available types from stats
 	const availableTypes = $derived(
 		(Object.entries(data.stats.byType) as [ResourceType, number][])
-			.filter(([_, count]) => count > 0)
+			.filter(([, count]) => count > 0)
 			.map(([type]) => type)
 	);
 
@@ -98,16 +98,20 @@
 <Container class="py-12 md:py-20">
 	<!-- Header -->
 	<header class="mb-16 text-center">
-		<div class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/6 bg-white/2 px-4 py-2 text-sm text-white/50">
+		<div
+			class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/6 bg-white/2 px-4 py-2 text-sm text-white/50"
+		>
 			<Library class="h-4 w-4" />
 			<span>Biblioteca</span>
 		</div>
-		<h1 class="mx-auto max-w-3xl font-heading text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
+		<h1
+			class="font-heading mx-auto max-w-3xl text-4xl leading-tight font-bold text-white md:text-5xl lg:text-6xl"
+		>
 			Consumo <span class="text-brand-400">Consciente</span> de Conteúdo
 		</h1>
 		<p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/50">
-			Livros, filmes, músicas, artigos e pesquisas que inspiram e fundamentam meu trabalho. 
-			Cada item aqui é uma peça do mosaico que forma minhas ideias.
+			Livros, filmes, músicas, artigos e pesquisas que inspiram e fundamentam meu trabalho. Cada
+			item aqui é uma peça do mosaico que forma minhas ideias.
 		</p>
 	</header>
 
@@ -120,7 +124,9 @@
 	{#if data.currentlyConsuming.length > 0 && !hasFilters}
 		<section class="mb-16">
 			<div class="mb-8 flex items-center gap-3">
-				<div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 ring-1 ring-blue-500/20">
+				<div
+					class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 ring-1 ring-blue-500/20"
+				>
 					<Sparkles class="h-5 w-5 text-blue-400" />
 				</div>
 				<div>
@@ -130,7 +136,7 @@
 			</div>
 
 			<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-				{#each data.currentlyConsuming.slice(0, 3) as resource}
+				{#each data.currentlyConsuming.slice(0, 3) as resource (resource.slug)}
 					<ResourceCard {resource} variant="horizontal" showType={true} />
 				{/each}
 			</div>
@@ -178,7 +184,7 @@
 				</div>
 			{:else}
 				<div class="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-					{#each filteredResources() as resource}
+					{#each filteredResources() as resource (resource.slug)}
 						<ResourceCard {resource} />
 					{/each}
 				</div>
@@ -187,11 +193,13 @@
 	{:else}
 		<!-- Default view: grouped by type -->
 		<div class="space-y-16">
-			{#each Object.entries(filteredByType()) as [type, resources]}
+			{#each Object.entries(filteredByType()) as [type, resources] (type)}
 				<section>
 					<div class="mb-6 flex items-center justify-between">
 						<div class="flex items-center gap-3">
-							<div class="flex h-9 w-9 items-center justify-center rounded-lg bg-white/4 ring-1 ring-white/10">
+							<div
+								class="flex h-9 w-9 items-center justify-center rounded-lg bg-white/4 ring-1 ring-white/10"
+							>
 								<TypeIcon type={type as ResourceType} class="h-4 w-4 text-white/50" />
 							</div>
 							<div>
@@ -199,14 +207,16 @@
 									{TYPE_LABELS_PLURAL[type as ResourceType]}
 								</h2>
 							</div>
-							<span class="rounded-full bg-white/6 px-2.5 py-0.5 text-sm tabular-nums text-white/40">
+							<span
+								class="rounded-full bg-white/6 px-2.5 py-0.5 text-sm text-white/40 tabular-nums"
+							>
 								{resources.length}
 							</span>
 						</div>
 						{#if resources.length > 4}
 							<a
 								href={getTypeHref(type as ResourceType)}
-								class="group flex items-center gap-1.5 rounded-lg border border-white/6 bg-white/2 px-3 py-1.5 text-sm text-white/50 transition-all hover:border-brand-500/30 hover:bg-brand-500/5 hover:text-brand-400"
+								class="group hover:border-brand-500/30 hover:bg-brand-500/5 hover:text-brand-400 flex items-center gap-1.5 rounded-lg border border-white/6 bg-white/2 px-3 py-1.5 text-sm text-white/50 transition-all"
 							>
 								Ver todos
 								<ChevronRight class="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -215,7 +225,7 @@
 					</div>
 
 					<div class="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-						{#each resources.slice(0, 5) as resource}
+						{#each resources.slice(0, 5) as resource (resource.slug)}
 							<ResourceCard {resource} showType={false} />
 						{/each}
 					</div>

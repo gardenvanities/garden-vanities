@@ -1,4 +1,3 @@
-export { default as PostCard } from "./components/PostCard.svelte";
 export { default as PostAccordion } from "./components/PostAccordion.svelte";
 export { default as Cover } from "./components/Cover.svelte";
 export { default as PostHeader } from "./components/PostHeader.svelte";

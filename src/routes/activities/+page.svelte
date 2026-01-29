@@ -6,7 +6,7 @@
 
 	let { data } = $props();
 
-	const PageContent = data.content;
+	const PageContent = $derived(data.content);
 
 	const formatDate = (dateStr?: string) => {
 		if (!dateStr) return null;
@@ -25,16 +25,12 @@
 <Section class="py-16 md:py-24">
 	<Container size="sm">
 		<header class="mb-12 text-center">
-			<h1
-				class="text-text mb-4 font-heading text-4xl font-bold tracking-tight sm:text-5xl"
-			>
+			<h1 class="text-text font-heading mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
 				{data.metadata.title}
 			</h1>
 
 			{#if data.metadata.updatedAt}
-				<div
-					class="text-muted inline-flex items-center gap-2 text-sm"
-				>
+				<div class="text-muted inline-flex items-center gap-2 text-sm">
 					<Clock size={14} />
 					<span>Atualizado em {formatDate(data.metadata.updatedAt)}</span>
 				</div>

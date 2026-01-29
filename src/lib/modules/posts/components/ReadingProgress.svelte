@@ -1,186 +1,23 @@
 <script lang="ts">
-	import { onMount } from "svelte";
-	import { fade, scale } from "svelte/transition";
-	import { spring } from "svelte/motion";
-	import { page } from "$app/stores";
-
-	import { ui } from "$lib/stores/ui.svelte";
-
-	let { variant = "sidebar" }: { variant?: "floating" | "sidebar" } = $props();
-
-	let progressSpring = spring(0, {
-		stiffness: 0.1,
-		damping: 0.4
-	});
-
-	let isVisible = $state(false);
-	let readingTimeMinutes = $state(1);
-	let showTime = $state(true);
-
-	const isPostPage = $derived(
-		$page.url.pathname.startsWith("/posts/") && $page.url.pathname !== "/posts"
-	);
-
-	function calculateReadingTime() {
-		const article =
-			document.querySelector("article") || document.querySelector(".prose") || document.body;
-		if (article) {
-			const text = article.innerText;
-			const wpm = 200;
-			const words = text.trim().split(/\s+/).length;
-			readingTimeMinutes = Math.max(1, Math.ceil(words / wpm));
-		}
+	interface Props {
+		progress: number; // 0 to 100
+		class?: string;
 	}
 
-	function updateProgress() {
-		if (!isPostPage) {
-			isVisible = false;
-			return;
-		}
-
-		const articleEl =
-			document.getElementById("article-content") || document.querySelector("article.prose");
-
-		if (!articleEl) {
-			isVisible = variant === "sidebar";
-			return;
-		}
-
-		const rect = articleEl.getBoundingClientRect();
-		const articleTop = rect.top + window.scrollY;
-		const articleHeight = rect.height;
-		const scrollTop = window.scrollY;
-		const winHeight = window.innerHeight;
-
-		const startOffset = articleTop - winHeight * 0.2;
-		const endOffset = articleTop + articleHeight - winHeight * 0.8;
-
-		let rawPercent = 0;
-		if (scrollTop <= startOffset) {
-			rawPercent = 0;
-		} else if (scrollTop >= endOffset) {
-			rawPercent = 100;
-		} else {
-			rawPercent = ((scrollTop - startOffset) / (endOffset - startOffset)) * 100;
-		}
-
-		const clamped = Math.min(100, Math.max(0, rawPercent));
-
-		progressSpring.set(clamped);
-
-		if (variant === "floating") {
-			const articleInView = rect.top < winHeight && rect.bottom > 0;
-			isVisible = articleInView && rawPercent < 100;
-		} else {
-			isVisible = true;
-		}
-	}
-
-	function handleClick() {
-		if (variant === "floating") {
-			ui.toggleSidebar();
-		} else {
-			showTime = !showTime;
-		}
-	}
-
-	onMount(() => {
-		calculateReadingTime();
-		window.addEventListener("scroll", updateProgress, { passive: true });
-		window.addEventListener("resize", updateProgress, { passive: true });
-
-		updateProgress();
-
-		const unsubscribe = page.subscribe(() => {
-			progressSpring.set(0, { hard: true });
-
-			setTimeout(() => {
-				calculateReadingTime();
-				updateProgress();
-			}, 200);
-		});
-
-		return () => {
-			window.removeEventListener("scroll", updateProgress);
-			window.removeEventListener("resize", updateProgress);
-			unsubscribe();
-		};
-	});
-
-	const percent = $derived(Math.round($progressSpring));
-	const minutesLeft = $derived(
-		Math.max(1, Math.ceil(readingTimeMinutes * (1 - $progressSpring / 100)))
-	);
+	let { progress = 0, class: className = "" }: Props = $props();
 </script>
 
-{#if isVisible}
+<div
+	class="relative flex h-full w-full items-center justify-center overflow-hidden rounded-[0.875rem] {className}"
+>
+	<!-- Background Fill -->
 	<div
-		class={variant === "floating"
-			? "pointer-events-auto fixed bottom-24 right-5 z-50 flex flex-col items-end gap-2"
-			: "flex w-full flex-col items-start gap-2"}
-		transition:fade={{ duration: 200 }}
-	>
-		<button
-			onclick={handleClick}
-			class="
-				group bg-surface/60 ease-out-quint
-				relative flex h-10 cursor-pointer
-				items-center gap-3 overflow-hidden
-				rounded-xl border
-				border-white/10 pr-4
-				pl-1
-				shadow-[0_8px_32px_-8px_rgba(0,0,0,0.2)] backdrop-blur-xl
-				transition-all duration-300 hover:scale-105
-				active:scale-95
-				{variant === 'sidebar' ? 'w-full' : ''}
-			"
-			aria-label="Toggle reading progress view"
-		>
-			<div
-				class="bg-primary/10 absolute top-0 left-0 h-full transition-all duration-75"
-				style="width: {$progressSpring}%;"
-			></div>
+		class="bg-primary/10 absolute bottom-0 left-0 w-full transition-all duration-75 ease-linear"
+		style="height: {progress}%;"
+	></div>
 
-			<div class="relative flex h-8 w-8 items-center justify-center">
-				<svg class="h-full w-full -rotate-90 transform" viewBox="0 0 36 36">
-					<circle cx="18" cy="18" r="14" fill="none" class="stroke-white/10" stroke-width="3" />
-
-					<circle
-						cx="18"
-						cy="18"
-						r="14"
-						fill="none"
-						class="stroke-primary transition-all duration-75"
-						stroke-width="3"
-						stroke-dasharray="88"
-						stroke-dashoffset={88 - (88 * $progressSpring) / 100}
-						stroke-linecap="round"
-					/>
-				</svg>
-
-				{#if showTime}
-					<div class="absolute inset-0 flex items-center justify-center text-[10px]" in:scale>
-						⏳
-					</div>
-				{:else}
-					<div class="absolute inset-0 flex items-center justify-center text-[10px]" in:scale>
-						%
-					</div>
-				{/if}
-			</div>
-
-			<div class="flex min-w-[60px] flex-col items-start justify-center">
-				<span class="text-foreground text-xs leading-none font-medium tabular-nums">
-					{#if showTime}
-						{minutesLeft} min restantes
-					{:else}
-						{percent}% lido
-					{/if}
-				</span>
-				<span class="text-muted mt-0.5 text-[10px] leading-none">
-					{readingTimeMinutes} min total
-				</span>
-			</div>
-		</button>
-	</div>
-{/if}
+	<!-- Percentage Text -->
+	<span class="text-primary relative z-10 text-[10px] leading-none font-bold tabular-nums">
+		{Math.round(progress)}<span class="text-[9px] opacity-80">%</span>
+	</span>
+</div>
