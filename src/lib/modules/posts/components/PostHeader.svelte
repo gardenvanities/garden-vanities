@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
-	import { fly } from "svelte/transition";
 
 	interface Props {
 		metadata: PostFrontmatter;
@@ -20,17 +19,13 @@
 			<!-- Title -->
 			<h1
 				class="font-article-title text-text my-0 text-[clamp(2.5rem,5vw,3.5rem)] leading-[1.1] font-bold tracking-[-0.02em] text-balance"
-				in:fly={{ y: 20, duration: 600, delay: 150 }}
 			>
 				{metadata.title}
 			</h1>
 
 			<!-- Subtitle -->
 			{#if metadata.subtitle}
-				<p
-					class="font-article-body text-muted my-0 max-w-4xl text-lg leading-snug text-balance"
-					in:fly={{ y: 15, duration: 500, delay: 250 }}
-				>
+				<p class="font-article-body text-muted my-0 max-w-4xl text-lg leading-snug text-balance">
 					{metadata.subtitle}
 				</p>
 			{/if}

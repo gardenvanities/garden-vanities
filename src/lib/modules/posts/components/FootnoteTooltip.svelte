@@ -8,7 +8,8 @@
 	let tooltipY = $state(0);
 	let footnoteContent = new SvelteMap<string, string>();
 	let activeRef: HTMLElement | null = null;
-	let tooltipEl = $state<HTMLElement>();
+	// Click state management
+	// Removed hover timeouts as requested
 
 	onMount(() => {
 		const article = document.getElementById("article-content");
@@ -57,7 +58,9 @@
 			if (definitionsToRemove.includes(parent)) continue;
 			if (["A", "SCRIPT", "STYLE", "CODE", "PRE"].includes(parent.tagName)) continue;
 
-			const refRegex = /\[\^(\d+)\]/g;
+			// Regex to match (optional text)[^id]
+			const refRegex = /(?:\((.*?)\))?\[\^(\d+)\]/g;
+
 			if (refRegex.test(text)) {
 				const fragment = document.createDocumentFragment();
 				let lastIndex = 0;
@@ -66,7 +69,11 @@
 
 				let hasMatch = false;
 				while ((match = refRegex.exec(text)) !== null) {
-					const id = match[1];
+					// match[0] = full match
+					// match[1] = optional text inside ()
+					// match[2] = id inside [^...]
+					const highlightedText = match[1];
+					const id = match[2];
 					const idx = match.index;
 					const len = match[0].length;
 					const followChar = text[idx + len];
@@ -76,20 +83,39 @@
 					const preText = text.slice(lastIndex, idx);
 					if (preText) fragment.appendChild(document.createTextNode(preText));
 
+					// Container
+					const container = document.createElement("span");
+					container.className = "footnote-wrapper";
+
+					// Highlighted text (optional)
+					if (highlightedText) {
+						const textSpan = document.createElement("span");
+						textSpan.textContent = highlightedText;
+						textSpan.className = "footnote-highlight";
+						textSpan.onclick = (e) => handleClick(e as MouseEvent, id, container); // Cleaner event binding
+						container.appendChild(textSpan);
+					}
+
 					const sup = document.createElement("sup");
-					sup.className = "footnote-ref";
+					sup.className =
+						"footnote-ref inline align-super leading-none";
 
 					const a = document.createElement("a");
 					a.href = `#fn-${id}`;
-					a.textContent = id;
-					a.className =
-						"text-primary hover:text-primary/80 ml-0.5 cursor-pointer font-medium no-underline transition-colors bookmark-link";
-
+					a.className = "footnote-icon-link";
+					a.setAttribute("aria-label", "Footnote");
 					a.setAttribute("aria-describedby", `tooltip-${id}`);
-					// Events are handled by global delegation
+
+
+
+					a.addEventListener("click", (e) => {
+						e.preventDefault(); 
+						handleClick(e, id, a);
+					});
 
 					sup.appendChild(a);
-					fragment.appendChild(sup);
+					container.appendChild(sup);
+					fragment.appendChild(container);
 
 					lastIndex = idx + len;
 				}
@@ -108,50 +134,31 @@
 
 		console.log(`FootnoteTooltip: Replaced ${textReplacements.length} text nodes`);
 
-		// Add global listeners
-		document.body.addEventListener("click", handleClick);
-
 		return () => {
-			document.body.removeEventListener("click", handleClick);
+			// Cleanup logic
 		};
 	});
 
-	function handleClick(e: Event) {
-		const target = e.target as HTMLElement;
-		const link = target.closest('a[href^="#fn-"]');
+	function handleClick(e: MouseEvent, id: string, target: HTMLElement) {
+		e.stopPropagation(); // Prevent closing immediately due to document click if we add one later
 
-		if (link) {
-			e.preventDefault();
-			e.stopPropagation();
-
-			const id = link.getAttribute("href")?.replace("#fn-", "");
-
-			if (activeRef === link && tooltipVisible) {
-				hideTooltip();
-			} else {
-				if (id) showTooltip(e, id, link as HTMLElement);
-			}
-		} else {
-			// Close if clicking outside
-			if (tooltipVisible && !target.closest(".tooltip-container")) {
-				hideTooltip();
-			}
-		}
-	}
-
-	function showTooltip(e: Event, contentId: string, target: HTMLElement) {
-		const content = footnoteContent.get(contentId);
-
-		if (!content) {
-			console.warn(`FootnoteTooltip: Content not found for ${contentId}`);
+		// If clicking the same one again, toggle off
+		if (activeRef === target && tooltipVisible) {
+			hideTooltip();
 			return;
 		}
 
-		tooltipContent = content;
-		tooltipVisible = true;
-		activeRef = target;
+		const content = footnoteContent.get(id);
+		if (!content) return;
 
+		tooltipContent = content;
+		activeRef = target;
 		updatePosition(target);
+
+		// Wait a tick to ensure position is calculated before showing
+		requestAnimationFrame(() => {
+			tooltipVisible = true;
+		});
 	}
 
 	function hideTooltip() {
@@ -161,24 +168,95 @@
 
 	function updatePosition(target: HTMLElement) {
 		const rect = target.getBoundingClientRect();
+		// Center tooltip horizontally relative to the target
 		tooltipX = rect.left + window.scrollX + rect.width / 2;
-		tooltipY = rect.top + window.scrollY - 8;
+		// Position above the target
+		tooltipY = rect.top + window.scrollY - 10;
 	}
 </script>
 
 {#if tooltipVisible}
+
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<div
-		bind:this={tooltipEl}
-		class="tooltip-container text-popover-foreground border-border bg-popover animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 fixed z-50 max-w-xs -translate-x-1/2 -translate-y-full rounded-md border px-3 py-2 text-sm shadow-md"
+		class="bg-background/60 animate-in fade-in fixed inset-0 z-40 backdrop-blur-[2px] duration-300"
+		role="button"
+		tabindex="-1"
+		aria-label="Close tooltip"
+		onclick={hideTooltip}
+	></div>
+
+	<div
+		class="tooltip-container group text-foreground bg-popover/90 animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 fixed z-50 max-w-sm -translate-x-1/2 -translate-y-full rounded-xl border border-white/10 px-5 py-4 text-sm shadow-2xl ring-1 ring-black/5 backdrop-blur-xl"
 		style="left: {tooltipX - window.scrollX}px; top: {tooltipY - window.scrollY}px;"
 		role="tooltip"
 	>
-		<div class="prose prose-sm dark:prose-invert leading-snug">
-			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+		<!-- Header/Indicator -->
+		<div class="border-border/50 mb-2 flex items-center justify-between border-b pb-2">
+			<span class="text-muted-foreground text-xs font-medium tracking-wider uppercase">NOTA</span>
+		</div>
+
+		<div class="prose prose-sm dark:prose-invert leading-relaxed text-pretty">
 			{@html tooltipContent}
 		</div>
-		<div
-			class="bg-popover border-border absolute -bottom-1.5 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 border-r border-b"
-		></div>
+
+
+
 	</div>
 {/if}
+
+<style>
+	:global(.prose .footnote-wrapper) {
+		display: inline;
+		white-space: nowrap;
+		position: relative;
+	}
+
+	:global(.prose .footnote-highlight) {
+		color: var(--color-primary);
+		cursor: pointer;
+		transition: all var(--motion-base);
+	}
+
+	:global(.prose .footnote-highlight:hover) {
+		text-decoration: underline;
+		text-decoration-thickness: var(--text-decoration-thickness-thin);
+		text-underline-offset: var(--text-underline-offset-normal);
+	}
+
+	:global(.prose .footnote-icon-link) {
+		color: var(--color-primary);
+		text-decoration: none;
+		margin-left: var(--space-1);
+		display: inline-block;
+		cursor: pointer;
+		vertical-align: middle; /* Align vertical center with text */
+	}
+
+	/* Force reset sup alignment for footnote ref to prevent double lift */
+	:global(.prose .footnote-ref) {
+		vertical-align: middle;
+		top: 0;
+		position: relative;
+	}
+
+	:global(.prose .footnote-icon-link::after) {
+		content: "";
+		display: inline-block;
+		width: 17px; /* Match standard link icon size */
+		height: 17px; 
+		background-color: currentColor;
+		vertical-align: middle;
+		
+		/* Lucide Sticky Note Icon */
+		-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z'/%3E%3Cpath d='M15 3v5a2 2 0 0 0 2 2h5'/%3E%3C/svg%3E");
+		mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z'/%3E%3Cpath d='M15 3v5a2 2 0 0 0 2 2h5'/%3E%3C/svg%3E");
+		
+		-webkit-mask-size: contain;
+		mask-size: contain;
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		-webkit-mask-position: center;
+		mask-position: center;
+	}
+</style>

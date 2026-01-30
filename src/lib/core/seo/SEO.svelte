@@ -62,7 +62,7 @@
 					dateModified: updatedAt || publishedAt,
 					author: {
 						"@type": "Person",
-						name: "The Mage King",
+						name: "Stephan Carvalho",
 						url: baseUrl
 					}
 				}

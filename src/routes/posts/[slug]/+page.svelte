@@ -11,6 +11,7 @@
 	import SEO from "$lib/core/seo/SEO.svelte";
 	import { ui } from "$lib/stores/ui.svelte";
 	import { onMount } from "svelte";
+	import { page } from "$app/stores";
 	import type { PageData } from "./$types";
 
 	let { data }: { data: PageData } = $props();
@@ -120,10 +121,12 @@
 <div class="container mx-auto max-w-7xl px-5 pb-8 lg:px-8 lg:pb-16">
 	<!-- Footer Content (Bloco centralizado, texto à esquerda) -->
 	<div class="mx-auto mt-12 max-w-3xl">
-		<PostNavigation navigation={data.navigation} />
+<PostNavigation navigation={data.navigation} />
 
 		<Backlinks backlinks={data.backlinks} references={data.references} />
 	</div>
 </div>
 
-<FootnoteTooltip />
+{#key $page.url.pathname}
+	<FootnoteTooltip />
+{/key}

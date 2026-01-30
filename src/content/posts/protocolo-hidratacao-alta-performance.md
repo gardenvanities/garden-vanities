@@ -27,6 +27,8 @@ seo:
   description: "Guia técnico sobre como otimizar sua hidratação para foco mental e performance física."
 ---
 
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
+
 ## A Regra dos Eletrólitos
 
 A hidratação real ocorre dentro da célula. Para isso, precisamos de:

@@ -153,10 +153,12 @@ _Legenda: Uma imagem aleatória do Unsplash para teste de `figure` e `figcaption
 
 ## Notas de Rodapé
 
-Aqui está uma afirmação que precisa de uma fonte[^1]. E aqui está outra observação técnica[^2].
-
----
+Aqui está uma afirmação que (precisa de uma fonte)[^1].
+E aqui está outra (observação técnica)[^2].
+E aqui está (uma frase inteira associada a uma nota)[^3] usando a nova sintaxe.
 
 [^1]: Esta é a nota de rodapé número 1. Links para referência bibliográfica.
 
 [^2]: Notas de rodapé são ótimas para explicações laterais sem quebrar o fluxo.
+
+[^3]: Esta nota está associada a uma frase específica, destacando o contexto visualmente.

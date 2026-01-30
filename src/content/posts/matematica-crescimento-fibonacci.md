@@ -27,6 +27,8 @@ seo:
   description:
 ---
 
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
+
 ### A Sequência de Ouro
 
 A maioria das plantas organiza suas estruturas seguindo a sequência de Fibonacci ($F_n = F_{n-1} + F_{n-2}$). Isso resulta no **Ângulo de Ouro** ($\approx 137.5^\circ$), definido pela fórmula:

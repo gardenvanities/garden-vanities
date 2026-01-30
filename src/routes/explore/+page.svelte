@@ -184,7 +184,7 @@
 
 <Section class="py-16 md:py-24">
 	<Container size="lg">
-		<div in:fly={{ y: 20, duration: 800 }}>
+		<div>
 			<!-- Premium Page Header -->
 			<!-- Premium Page Header -->
 			<PageHeader

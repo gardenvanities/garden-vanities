@@ -27,6 +27,8 @@ seo:
   description: "Artigo técnico sobre a estrutura, função e regulação dos plasmodesmos nas plantas superiores."
 ---
 
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
+
 ## A Integração Sistêmica: O Conceito de Simplasto
 
 Diferente das células animais, que utilizam junções comunicantes (gap junctions), as plantas desenvolveram pontes citoplasmáticas complexas que atravessam a parede celular: os **plasmodesmos**. Essas estruturas transformam o organismo vegetal de um aglomerado de células isoladas em um **simplasto** funcionalmente integrado.

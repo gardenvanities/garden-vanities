@@ -27,6 +27,8 @@ seo:
   description: "Por que remover código é mais importante que adicionar, e como o minimalismo impacta a manutenção de software."
 ---
 
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
+
 ## A Arte de Não Escrever Código
 
 O melhor código é aquele que não precisou ser escrito. Código inexistente:

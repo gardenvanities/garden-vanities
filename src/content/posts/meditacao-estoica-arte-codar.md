@@ -27,6 +27,8 @@ seo:
   description: "Aplique os princípios de Marco Aurélio e Epicteto para lidar com bugs, prazos e a síndrome do impostor."
 ---
 
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
+
 ## A Dicotomia do Controle em Code Reviews
 
 - **Não pode controlar**: A opinião ácida do revisor ou mudanças de requisitos de última hora.

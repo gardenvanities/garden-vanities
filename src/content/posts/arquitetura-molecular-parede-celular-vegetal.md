@@ -27,6 +27,8 @@ seo:
   description: "Estudo detalhado sobre a composição química e a biomecânica das paredes celulares nas plantas superiores."
 ---
 
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
+
 ## A Natureza da Parede Celular: Além de um Invólucro Rígido
 
 A parede celular vegetal não deve ser interpretada meramente como uma barreira física estática, mas como uma matriz extracelular dinamicamente ativa que regula o crescimento, a diferenciação e a defesa contra patógenos. Ela é o determinante fundamental da morfologia vegetal, suportando pressões de turgor que frequentemente excedem.

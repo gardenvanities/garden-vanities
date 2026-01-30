@@ -72,3 +72,5 @@ Adicionalmente, a expressão de genes que codificam proteínas **LEA (Late Embry
 ## Metabolismo CAM e C4: Alternativas Evolutivas
 
 A evolução de vias fotossintéticas alternativas representa o ápice da eficiência no uso da água (**WUE - Water Use Efficiency**). Enquanto as plantas C3 sofrem com a fotorrespiração sob estresse, as plantas **CAM (Crassulacean Acid Metabolism)** dissociam temporalmente a fixação de \(CO_2\) da fase fotoquímica, abrindo os estômatos estritamente durante o período noturno para reduzir a pressão de vapor.
+
+Para um aprofundamento específico em [fotossintese-c4-mecanismos-concentracao](/posts/fotossintese-c4-mecanismos-concentracao), veja nosso artigo dedicado.

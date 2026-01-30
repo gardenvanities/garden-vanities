@@ -4,10 +4,10 @@ export function computeSerieNavigation(
 	currentPost: PostFrontmatter,
 	allPosts: PostFrontmatter[]
 ): SerieNavigation | undefined {
-	if (!currentPost.series) return undefined;
+	if (!currentPost.series?.slug) return undefined;
 
 	const seriePosts = allPosts
-		.filter((p) => p.series?.slug === currentPost.series?.slug && p.ripeness === "fruit")
+		.filter((p) => p.series?.slug === currentPost.series?.slug)
 		.sort((a, b) => (a.series?.order ?? 0) - (b.series?.order ?? 0));
 
 	const currentIndex = seriePosts.findIndex((p) => p.slug === currentPost.slug);
@@ -21,7 +21,8 @@ export function computeSerieNavigation(
 		total: seriePosts.length,
 		current: currentIndex + 1,
 		prev: prev ? { slug: prev.slug, title: prev.title, order: prev.series?.order } : undefined,
-		next: next ? { slug: next.slug, title: next.title, order: next.series?.order } : undefined
+		next: next ? { slug: next.slug, title: next.title, order: next.series?.order } : undefined,
+		list: seriePosts
 	};
 }
 

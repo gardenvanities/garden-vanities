@@ -1,13 +1,17 @@
 <script lang="ts">
 	import "../app.css";
 	import { onMount } from "svelte";
-	import { onNavigate } from "$app/navigation";
+	import { afterNavigate } from "$app/navigation";
 	import Lenis from "lenis";
 	import FloatingNav from "$lib/core/navigation/FloatingNav.svelte";
 	import Footer from "$lib/core/Footer.svelte";
 	import { scrollState } from "$lib/stores/scroll.svelte";
 
 	const { children } = $props();
+
+	afterNavigate(() => {
+		scrollState.instance?.scrollTo(0, { immediate: true });
+	});
 
 	onMount(() => {
 		const lenis = new Lenis({
@@ -31,18 +35,8 @@
 
 		return () => {
 			lenis.destroy();
+			scrollState.instance = null;
 		};
-	});
-
-	onNavigate((navigation) => {
-		if (!document.startViewTransition) return;
-
-		return new Promise((resolve) => {
-			document.startViewTransition(async () => {
-				resolve();
-				await navigation.complete;
-			});
-		});
 	});
 </script>
 

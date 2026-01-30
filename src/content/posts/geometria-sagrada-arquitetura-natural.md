@@ -27,6 +27,8 @@ seo:
   description: "Uma exploração sobre como a geometria governa o crescimento orgânico e a beleza natural."
 ---
 
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
+
 ## Fractais e a Geometria de Benoît Mandelbrot
 
 Diferente da geometria euclidiana (círculos, triângulos), a geometria fractal descreve formas irregulares mas estatisticamente as mesmas em qualquer escala de ampliação.

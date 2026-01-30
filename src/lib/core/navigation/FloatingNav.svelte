@@ -256,6 +256,9 @@
 			<button
 				type="button"
 				class="dock-item"
+				style="--scale: {getScale(10)}"
+				onmouseenter={() => handleHover(10)}
+				onmouseleave={() => (hoveredIndex = null)}
 				onclick={() => ui.toggleSidebar()}
 				aria-label="Abrir Índice"
 			>

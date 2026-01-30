@@ -9,9 +9,9 @@ import adapter from "@sveltejs/adapter-auto";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { createHighlighter } from "shiki";
 
-const theme = "poimandres";
+const themes = { light: "github-light-default", dark: "github-dark-default" };
 const highlighter = await createHighlighter({
-	themes: [theme],
+	themes: Object.values(themes),
 	langs: ["javascript", "typescript", "css", "svelte", "markdown", "bash"]
 });
 
@@ -31,7 +31,21 @@ const config = {
 			highlight: {
 				highlighter: async (code, lang) => {
 					await highlighter.loadLanguage(lang);
-					const html = escapeSvelte(highlighter.codeToHtml(code, { lang, theme }));
+					const html = escapeSvelte(
+						highlighter.codeToHtml(code, {
+							lang,
+							themes,
+							defaultColor: false,
+							transformers: [
+								{
+									pre(node) {
+										const originalStyle = node.properties.style || "";
+										node.properties.style = `${originalStyle}; background-color: var(--color-surface); border: 1px solid oklch(from var(--color-border) l c h / 0.4); border-radius: var(--radius-2);`;
+									}
+								}
+							]
+						})
+					);
 					return `{@html \`${html}\` }`;
 				}
 			}

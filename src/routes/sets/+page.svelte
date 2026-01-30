@@ -5,7 +5,6 @@
 	import Grid from "$lib/layout/Grid.svelte";
 	import SetCard from "$lib/modules/garden/components/SetCard.svelte";
 	import PageHeader from "$lib/ui/PageHeader.svelte";
-	import { fly } from "svelte/transition";
 
 	let { data } = $props();
 </script>
@@ -17,7 +16,7 @@
 
 <Section class="py-16 md:py-24">
 	<Container size="lg">
-		<div in:fly={{ y: 20, duration: 800 }}>
+		<div>
 			<!-- Premium Page Header -->
 			<!-- Premium Page Header -->
 			<!-- Premium Page Header -->
@@ -25,7 +24,7 @@
 
 			<Grid cols={3} gap="lg">
 				{#each data.sets as set, i (set.slug)}
-					<div in:fly={{ y: 20, duration: 800, delay: i * 50 }}>
+					<div>
 						<SetCard {set} class="h-96" />
 					</div>
 				{/each}

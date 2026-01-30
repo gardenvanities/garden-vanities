@@ -4,7 +4,6 @@
 	import Section from "$lib/layout/Section.svelte";
 	import PostList from "$lib/modules/posts/components/PostList.svelte";
 	import { ArrowLeft } from "@lucide/svelte";
-	import { fly, fade } from "svelte/transition";
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
 	import type { SetMetadata } from "$lib/modules/posts/collections";
 
@@ -28,28 +27,28 @@
 <Section class="py-16 md:py-24">
 	<Container size="lg">
 		<!-- Back Link -->
-		<a href="/sets" class="back-link" in:fly={{ x: -10, duration: 400 }}>
+		<a href="/sets" class="back-link">
 			<ArrowLeft size={14} strokeWidth={2} />
 			<span>Coleções</span>
 		</a>
 
-		<div in:fly={{ y: 20, duration: 800 }}>
+		<div>
 			<!-- Premium Set Header -->
 			<header class="page-header">
 				<div class="header-content">
-					<div class="header-meta" in:fade={{ duration: 500, delay: 150 }}>
+					<div class="header-meta">
 						<span class="notes-count">
 							{count}
 							{count === 1 ? "nota" : "notas"}
 						</span>
 					</div>
 
-					<h1 class="header-title" in:fly={{ y: 15, duration: 700, delay: 100 }}>
+					<h1 class="header-title">
 						{data.set.title}
 					</h1>
 
 					{#if data.set.description}
-						<p class="header-description" in:fly={{ y: 10, duration: 600, delay: 250 }}>
+						<p class="header-description">
 							{data.set.description}
 						</p>
 					{/if}

@@ -27,6 +27,8 @@ seo:
   description: "Uma reflexão sobre como Digital Gardens transformam nossa relação com o conhecimento e a internet."
 ---
 
+Este é um artigo de teste criado para validar o CSS e a renderização de componentes Markdown, incluindo tabelas, matemática, códigos e citações.
+
 ## A Diferença entre Fluxo e Estoque
 
 Em economia e sistemas, falamos sobre _fluxo_ (flow) e _estoque_ (stock). As redes sociais são puro fluxo:

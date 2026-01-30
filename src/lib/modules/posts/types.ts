@@ -56,6 +56,7 @@ export interface SerieNavigation {
 	current: number;
 	prev?: { slug: string; title: string; order?: number };
 	next?: { slug: string; title: string; order?: number };
+	list: PostFrontmatter[];
 }
 
 export interface Backlink extends PostFrontmatter {
