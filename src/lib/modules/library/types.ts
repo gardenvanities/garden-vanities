@@ -8,6 +8,13 @@
 // Enums and Base Types
 // ─────────────────────────────────────────────────────────────────────────────
 
+import type { BaseContent, ImageMetadata } from "$lib/shared/types";
+import type { Component } from "svelte";
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Enums and Base Types
+// ─────────────────────────────────────────────────────────────────────────────
+
 export type ConsumptionStatus = "queued" | "consuming" | "completed" | "abandoned";
 
 export type ResourceType =
@@ -26,32 +33,23 @@ export type BookFormat = "physical" | "ebook" | "audiobook";
 // Cover Image
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface ResourceCover {
-	url: string;
-	alt: string;
-}
+export type ResourceCover = ImageMetadata;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Base Resource Interface
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface ResourceBase {
-	slug: string;
+export interface ResourceBase extends BaseContent {
 	type: ResourceType;
-	title: string;
-	subtitle?: string;
-	summary?: string;
 	status: ConsumptionStatus;
 	rating?: number;
-	cover?: ResourceCover;
-	tags?: string[];
 	startedAt?: string;
 	completedAt?: string;
 	affiliateLink?: string;
 	externalLink?: string;
 	personalNotes?: string;
 	createdAt: string;
-	updatedAt?: string;
+	content?: Component;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -218,6 +216,15 @@ export const FOLDER_TO_TYPE: Record<string, ResourceType> = {
 	music: "album",
 	articles: "article",
 	research: "paper"
+};
+
+export const FOLDER_TO_TYPES: Record<string, ResourceType[]> = {
+	books: ["book"],
+	films: ["film"],
+	"series-tv": ["tv-series"],
+	music: ["album", "track", "playlist"],
+	articles: ["article"],
+	research: ["paper"]
 };
 
 export const TYPE_TO_FOLDER: Record<ResourceType, string> = {

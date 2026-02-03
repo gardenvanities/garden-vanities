@@ -23,7 +23,7 @@
 			<PageHeader title="Séries" description="Trilhas de conhecimento para ler em ordem" />
 
 			<Grid cols={3} gap="lg">
-				{#each data.series as serie, i (serie.slug)}
+				{#each data.series as serie (serie.slug)}
 					<div>
 						<SeriesCard {serie} />
 					</div>

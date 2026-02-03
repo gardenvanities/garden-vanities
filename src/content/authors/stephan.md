@@ -9,6 +9,7 @@ social:
   youtube: https://youtube.com/
   github: https://github.com/themageking
   tiktok: https://tiktok.com/
+slug: stephan
 ---
 
 Cultivando pensamentos digitais e explorando as interseções entre tecnologia, filosofia e design. Escrevo sobre produtividade, bem-estar digital e as ferramentas que moldam nosso pensamento.

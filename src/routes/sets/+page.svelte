@@ -23,9 +23,9 @@
 			<PageHeader title="Coleções" description="Áreas de interesse agrupadas por tema" />
 
 			<Grid cols={3} gap="lg">
-				{#each data.sets as set, i (set.slug)}
+				{#each data.sets as set (set.slug)}
 					<div>
-						<SetCard {set} class="h-96" />
+						<SetCard {set} />
 					</div>
 				{/each}
 			</Grid>

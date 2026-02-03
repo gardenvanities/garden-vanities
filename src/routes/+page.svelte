@@ -48,7 +48,7 @@
 		<div class="flex flex-col items-start text-left">
 			<!-- Single Text Block with Inline Image -->
 			<h1
-				class="font-heading text-text mb-6 max-w-4xl text-xl font-bold leading-relaxed tracking-tight text-balance md:text-2xl md:leading-relaxed lg:text-3xl lg:leading-relaxed"
+				class="font-heading text-text mb-6 max-w-4xl text-xl leading-relaxed font-bold tracking-tight text-balance md:text-2xl md:leading-relaxed lg:text-3xl lg:leading-relaxed"
 			>
 				Hey! 👋<br />Eu sou {author.name}
 				<span class="inline-flex align-middle">
@@ -69,10 +69,10 @@
 							</div>
 						{/if}
 					</div>
-				</span> intelectual e autor deste jardim onde cultivo todo o meu saber.
+				</span>
+				intelectual e autor deste jardim onde cultivo todo o meu saber.
 				<br /> Fique a vontade para explorar! 🔭
 			</h1>
-
 		</div>
 
 		<!-- Navigation Section -->
@@ -169,7 +169,5 @@
 				</div>
 			{/if}
 		</div>
-
-
 	</Container>
 </Section>

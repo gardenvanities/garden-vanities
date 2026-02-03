@@ -18,6 +18,7 @@
 	import ReadingProgress from "$lib/modules/posts/components/ReadingProgress.svelte";
 	import { readingProgress } from "$lib/stores/reading-progress.svelte";
 	import { ui } from "$lib/stores/ui.svelte";
+	import Kbd from "$lib/ui/Kbd.svelte";
 
 	let isSearchOpen = $derived(commandPalette.isOpen);
 	let isMenuOpen = $state(false);
@@ -246,7 +247,7 @@
 				<Sparkles size={16} strokeWidth={2} />
 			</div>
 			<span class="search-label">Buscar</span>
-			<kbd class="search-kbd">⌘K</kbd>
+			<Kbd class="hidden sm:inline-flex">Ctrl+K</Kbd>
 		</button>
 		<!-- Reading Progress (Visible on Post Pages) -->
 		<!-- Reading Progress Ring (Only on Post Pages) -->
@@ -358,7 +359,7 @@
 			justify-content: flex-start;
 			gap: 0.75rem;
 			padding: 0.5rem 0.75rem;
-			border-radius: 0.75rem;
+			border-radius: 0.25rem;
 			text-decoration: none;
 			color: var(--color-text);
 			background: transparent;
@@ -479,7 +480,7 @@
 			align-items: center;
 			gap: 0.25rem;
 			padding: 0.5rem;
-			border-radius: 1.25rem;
+			border-radius: 0.375rem;
 			background: oklch(from var(--color-surface) calc(l * 1.05) c h / 0.85);
 			backdrop-filter: blur(24px) saturate(1.8);
 			border: 1px solid oklch(1 0 0 / 0.12);
@@ -522,7 +523,7 @@
 			justify-content: center;
 			width: 2.75rem;
 			height: 2.75rem;
-			border-radius: 0.875rem;
+			border-radius: 0.25rem;
 			color: var(--color-muted);
 			text-decoration: none;
 			border: none;
@@ -624,7 +625,7 @@
 			width: auto;
 			height: 2.5rem;
 			padding: 0 0.875rem;
-			border-radius: 0.75rem;
+			border-radius: 0.25rem;
 			background: oklch(from var(--color-text) l c h / 0.06);
 			color: var(--color-text);
 			font-size: 0.8125rem;
@@ -680,24 +681,6 @@
 
 		/* No media query for label either */
 
-		.search-kbd {
-			display: none;
-			padding: 0.125rem 0.375rem;
-			font-family: var(--font-mono);
-			font-size: 0.625rem;
-			font-weight: 500;
-			color: var(--color-muted);
-			background: oklch(from var(--color-surface) l c h / 0.6);
-			border: 1px solid oklch(from var(--color-border) l c h / 0.4);
-			border-radius: 0.25rem;
-		}
-
-		@media (min-width: 640px) {
-			.search-kbd {
-				display: inline;
-			}
-		}
-
 		/* ============================================
 		 * PAGES DROPDOWN (MOBILE)
 		 * ============================================ */
@@ -718,7 +701,7 @@
 			background: oklch(from var(--color-surface) calc(l * 1.05) c h / 0.95);
 			backdrop-filter: blur(24px) saturate(1.8);
 			border: 1px solid oklch(1 0 0 / 0.12);
-			border-radius: 1.25rem;
+			border-radius: 0.375rem;
 			padding: 0.5rem;
 			display: flex;
 			flex-direction: column;
@@ -738,7 +721,7 @@
 			align-items: center;
 			gap: 0.75rem;
 			padding: 0.75rem 1rem;
-			border-radius: 0.75rem;
+			border-radius: 0.25rem;
 			font-size: 0.875rem;
 			font-weight: 500;
 			color: var(--color-muted);

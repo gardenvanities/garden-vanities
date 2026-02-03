@@ -5,18 +5,16 @@ import type {
 	ResourceFilter,
 	ResourceStats
 } from "$lib/modules/library/types";
+import { loadContent, type ContentModule } from "$lib/server/content";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Library Content Loading
 // ─────────────────────────────────────────────────────────────────────────────
 
-type LibraryMdModule = {
-	metadata: Resource;
-	default: unknown;
-};
+type LibraryModule = ContentModule<Resource>;
 
 // Load all library content eagerly
-const libraryModules = import.meta.glob<LibraryMdModule>("/src/content/library/**/*.md", {
+const libraryModules = import.meta.glob<LibraryModule>("/src/content/library/**/*.md", {
 	eager: true
 });
 
@@ -51,68 +49,50 @@ function getSlugFromPath(path: string): string {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function getAllResources(filter: ResourceFilter = {}): Resource[] {
-	const resources: Resource[] = [];
-
-	for (const path in libraryModules) {
-		// Skip tracking files
-		if (path.includes("/_")) continue;
-
-		const module = libraryModules[path];
-		const metadata = module.metadata;
-
-		if (!metadata) continue;
-
-		// Derive type and slug from path if not in metadata
-		const type = metadata.type || getTypeFromPath(path);
-		const slug = metadata.slug || getSlugFromPath(path);
-
-		if (!type) continue;
-
-		const resource: Resource = {
-			...metadata,
-			type,
-			slug
-		} as Resource;
-
-		// Apply filters
-		if (filter.type && filter.type.length > 0 && !filter.type.includes(type)) {
-			continue;
-		}
-
-		if (filter.status && filter.status.length > 0 && !filter.status.includes(resource.status)) {
-			continue;
-		}
-
-		if (filter.rating !== undefined && resource.rating !== filter.rating) {
-			continue;
-		}
-
-		if (filter.tags && filter.tags.length > 0) {
-			const resourceTags = resource.tags || [];
-			if (!filter.tags.some((tag) => resourceTags.includes(tag))) {
-				continue;
+	return loadContent(libraryModules, {
+		slugFromPath: getSlugFromPath,
+		typeFromPath: (path) => getTypeFromPath(path) || "",
+		filter: (resource) => {
+			if (filter.type && filter.type.length > 0 && !filter.type.includes(resource.type)) {
+				return false;
 			}
-		}
 
-		if (filter.search) {
-			const searchLower = filter.search.toLowerCase();
-			const titleMatch = resource.title.toLowerCase().includes(searchLower);
-			const summaryMatch = resource.summary?.toLowerCase().includes(searchLower);
-
-			if (!titleMatch && !summaryMatch) {
-				continue;
+			if (filter.status && filter.status.length > 0 && !filter.status.includes(resource.status)) {
+				return false;
 			}
-		}
 
-		resources.push(resource);
-	}
+			if (filter.rating !== undefined && resource.rating !== filter.rating) {
+				return false;
+			}
 
-	// Sort by createdAt descending (newest first)
-	return resources.sort((a, b) => {
-		if (a.createdAt && b.createdAt) {
-			return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+			if (filter.tags && filter.tags.length > 0) {
+				const resourceTags = resource.tags || [];
+				if (!filter.tags.some((tag) => resourceTags.includes(tag))) {
+					return false;
+				}
+			}
+
+			if (filter.search) {
+				const searchLower = filter.search.toLowerCase();
+				const titleMatch = resource.title.toLowerCase().includes(searchLower);
+				const summaryMatch = resource.summary?.toLowerCase().includes(searchLower);
+
+				if (!titleMatch && !summaryMatch) {
+					return false;
+				}
+			}
+
+			return true;
+		},
+		sort: (a, b) => {
+			const dateA = new Date(a.updatedAt || a.createdAt || 0).getTime();
+			const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
+
+			if (dateA !== dateB) {
+				return dateB - dateA;
+			}
+			return a.title.localeCompare(b.title);
 		}
-		return a.title.localeCompare(b.title);
 	});
 }
 

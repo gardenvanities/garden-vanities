@@ -37,7 +37,10 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
 
 	const allPosts = await getAllPosts({ ripeness: ["fruit", "root", "seed"] });
 	const navigation = computeSerieNavigation(post.metadata, allPosts);
-	console.log(`[Server] Navigation computed for ${params.slug}:`, navigation ? `Found ${navigation.list?.length} items` : "Undefined");
+	console.log(
+		`[Server] Navigation computed for ${params.slug}:`,
+		navigation ? `Found ${navigation.list?.length} items` : "Undefined"
+	);
 
 	const backlinks = await getBacklinks(params.slug);
 

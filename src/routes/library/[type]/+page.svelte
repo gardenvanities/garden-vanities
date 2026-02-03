@@ -1,40 +1,9 @@
 <script lang="ts">
-	import { Container } from "$lib/layout";
-	import {
-		ResourceCard,
-		ResourceFilter,
-		TypeIcon,
-		type ConsumptionStatus
-	} from "$lib/modules/library";
+	import { Container, Grid } from "$lib/layout";
+	import { ResourceCard, TypeIcon } from "$lib/modules/library";
 	import { ChevronLeft, Library } from "@lucide/svelte";
 
 	let { data } = $props();
-
-	// Filter state
-	let selectedStatus = $state<ConsumptionStatus[]>([]);
-	let searchQuery = $state("");
-
-	// Filter resources
-	const filteredResources = $derived(() => {
-		return data.resources.filter((resource) => {
-			// Status filter
-			if (selectedStatus.length > 0 && !selectedStatus.includes(resource.status)) {
-				return false;
-			}
-
-			// Search filter
-			if (searchQuery) {
-				const query = searchQuery.toLowerCase();
-				const titleMatch = resource.title.toLowerCase().includes(query);
-				const summaryMatch = resource.summary?.toLowerCase().includes(query);
-				if (!titleMatch && !summaryMatch) {
-					return false;
-				}
-			}
-
-			return true;
-		});
-	});
 </script>
 
 <svelte:head>
@@ -67,35 +36,30 @@
 		</div>
 	</header>
 
-	<!-- Filters (simplified - single type) -->
-	<section class="mb-8">
-		<ResourceFilter
-			selectedTypes={[]}
-			{selectedStatus}
-			{searchQuery}
-			availableTypes={[]}
-			onTypeChange={() => {}}
-			onStatusChange={(status) => (selectedStatus = status)}
-			onSearchChange={(query) => (searchQuery = query)}
-		/>
-	</section>
+	<!-- Search & Filters -->
+	<!-- Search section removed -->
 
 	<!-- Resources Grid -->
 	<section>
-		{#if filteredResources().length === 0}
-			<div class="flex flex-col items-center justify-center py-16 text-center">
-				<div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-neutral-800/50">
-					<Library class="h-8 w-8 text-neutral-500" />
+		<section>
+			{#if data.resources.length === 0}
+				<div class="flex flex-col items-center justify-center py-16 text-center">
+					<div
+						class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-neutral-800/50"
+					>
+						<Library class="h-8 w-8 text-neutral-500" />
+					</div>
+					<p class="text-lg text-white/60">Nenhum recurso encontrado</p>
 				</div>
-				<p class="text-lg text-white/60">Nenhum recurso encontrado</p>
-				<p class="mt-2 text-sm text-white/40">Tente ajustar os filtros</p>
-			</div>
-		{:else}
-			<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-				{#each filteredResources() as resource (resource.slug)}
-					<ResourceCard {resource} showType={false} />
-				{/each}
-			</div>
-		{/if}
+			{:else}
+				<Grid cols={3} gap="lg">
+					{#each data.resources as resource (resource.slug)}
+						<div>
+							<ResourceCard {resource} showType={false} />
+						</div>
+					{/each}
+				</Grid>
+			{/if}
+		</section>
 	</section>
 </Container>

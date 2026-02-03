@@ -1,15 +1,10 @@
 import type { Author } from "$lib/modules/author/types";
+import type { BaseContent, ImageMetadata } from "$lib/shared/types";
 
 export type Ripeness = "seed" | "root" | "fruit";
 export type Kind = "note" | "essay" | "tutorial" | "thought";
 
-export interface CoverImage {
-	url: string;
-	alt: string;
-	caption?: string;
-	aspectRatio?: string;
-	focalPoint?: { x: number; y: number };
-}
+export type CoverImage = ImageMetadata;
 
 export interface Serie {
 	slug: string;
@@ -22,20 +17,13 @@ export interface SEO {
 	description?: string;
 }
 
-export interface PostFrontmatter {
-	slug: string;
-	title: string;
-	subtitle?: string;
-	summary?: string;
+export interface PostFrontmatter extends BaseContent {
 	ripeness: Ripeness;
 	kind?: Kind;
 	set?: string;
 	setTitle?: string;
-	tags?: string[];
-	cover?: CoverImage;
 	series?: Serie;
 	publishedAt?: string;
-	updatedAt?: string;
 	seo?: SEO;
 }
 export interface TOCItem {

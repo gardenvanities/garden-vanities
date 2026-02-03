@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PostHeader from "$lib/modules/posts/components/PostHeader.svelte";
-	import PostNavigation from "$lib/modules/posts/components/PostNavigation.svelte";
+	import SeriesNavigation from "$lib/modules/posts/components/SeriesNavigation.svelte";
 	import MobileSidebarDrawer from "$lib/modules/posts/components/MobileSidebarDrawer.svelte";
 	import ArticleSidebarContent from "$lib/modules/posts/components/ArticleSidebarContent.svelte";
 	import PostMetaSidebar from "$lib/modules/posts/components/PostMetaSidebar.svelte";
@@ -83,7 +83,7 @@
 
 			<!-- Article Card Wrapper -->
 			<div
-				class="lg:border-border/40 lg:bg-surface/30 lg:border lg:rounded-xl lg:px-5 lg:py-5 lg:backdrop-blur-md"
+				class="lg:border-border/40 lg:bg-surface/30 lg:rounded-xl lg:border lg:px-5 lg:py-5 lg:backdrop-blur-md"
 			>
 				<div
 					id="article-content"
@@ -121,7 +121,7 @@
 <div class="container mx-auto max-w-7xl px-5 pb-8 lg:px-8 lg:pb-16">
 	<!-- Footer Content (Bloco centralizado, texto à esquerda) -->
 	<div class="mx-auto mt-12 max-w-3xl">
-<PostNavigation navigation={data.navigation} />
+		<SeriesNavigation navigation={data.navigation} />
 
 		<Backlinks backlinks={data.backlinks} references={data.references} />
 	</div>

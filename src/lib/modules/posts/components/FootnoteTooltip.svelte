@@ -97,8 +97,7 @@
 					}
 
 					const sup = document.createElement("sup");
-					sup.className =
-						"footnote-ref inline align-super leading-none";
+					sup.className = "footnote-ref inline leading-none";
 
 					const a = document.createElement("a");
 					a.href = `#fn-${id}`;
@@ -106,10 +105,8 @@
 					a.setAttribute("aria-label", "Footnote");
 					a.setAttribute("aria-describedby", `tooltip-${id}`);
 
-
-
 					a.addEventListener("click", (e) => {
-						e.preventDefault(); 
+						e.preventDefault();
 						handleClick(e, id, a);
 					});
 
@@ -176,7 +173,6 @@
 </script>
 
 {#if tooltipVisible}
-
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<div
 		class="bg-background/60 animate-in fade-in fixed inset-0 z-40 backdrop-blur-[2px] duration-300"
@@ -187,28 +183,22 @@
 	></div>
 
 	<div
-		class="tooltip-container group text-foreground bg-popover/90 animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 fixed z-50 max-w-sm -translate-x-1/2 -translate-y-full rounded-xl border border-white/10 px-5 py-4 text-sm shadow-2xl ring-1 ring-black/5 backdrop-blur-xl"
+		class="tooltip-container group text-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 fixed z-50 w-max max-w-[calc(100vw-24px)] -translate-x-1/2 -translate-y-full rounded-xl border border-white/10 bg-neutral-950/95 px-5 py-4 text-sm shadow-2xl ring-1 ring-black/5 backdrop-blur-xl sm:max-w-lg"
 		style="left: {tooltipX - window.scrollX}px; top: {tooltipY - window.scrollY}px;"
 		role="tooltip"
 	>
 		<!-- Header/Indicator -->
-		<div class="border-border/50 mb-2 flex items-center justify-between border-b pb-2">
-			<span class="text-muted-foreground text-xs font-medium tracking-wider uppercase">NOTA</span>
-		</div>
 
 		<div class="prose prose-sm dark:prose-invert leading-relaxed text-pretty">
+			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html tooltipContent}
 		</div>
-
-
-
 	</div>
 {/if}
 
 <style>
 	:global(.prose .footnote-wrapper) {
 		display: inline;
-		white-space: nowrap;
 		position: relative;
 	}
 
@@ -235,7 +225,7 @@
 
 	/* Force reset sup alignment for footnote ref to prevent double lift */
 	:global(.prose .footnote-ref) {
-		vertical-align: middle;
+		vertical-align: 0.15em;
 		top: 0;
 		position: relative;
 	}
@@ -243,15 +233,15 @@
 	:global(.prose .footnote-icon-link::after) {
 		content: "";
 		display: inline-block;
-		width: 17px; /* Match standard link icon size */
-		height: 17px; 
+		width: 1em; /* Match standard link icon size */
+		height: 1em;
 		background-color: currentColor;
 		vertical-align: middle;
-		
+
 		/* Lucide Sticky Note Icon */
 		-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z'/%3E%3Cpath d='M15 3v5a2 2 0 0 0 2 2h5'/%3E%3C/svg%3E");
 		mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z'/%3E%3Cpath d='M15 3v5a2 2 0 0 0 2 2h5'/%3E%3C/svg%3E");
-		
+
 		-webkit-mask-size: contain;
 		mask-size: contain;
 		-webkit-mask-repeat: no-repeat;

@@ -1,38 +1,41 @@
-# sv
+# Garden of Vanities
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A Personal Digital Garden built with SvelteKit, designed for curation and contemplation.
 
-## Creating a project
+## Architecture
 
-If you're seeing this, you've probably already done this step. Congrats!
+This project follows a **Domain-Driven Modular Architecture**:
 
-```sh
-# create a new project in the current directory
-npx sv create
+- **`src/lib/modules`**: Encapsulates business logic by domain (e.g., `posts`, `library`, `garden`, `series`). Each module contains its own components, types, and utilities.
+- **`src/lib/ui`**: Contains generic, reusable "atomic" components (Design System) that are domain-agnostic.
+- **`src/lib/server`**: Centralized data fetching and processing logic, acting as an internal API layer.
+- **`src/routes`**: Minimal SvelteKit routing layer, primarily orchestrating data from `lib/server` to components in `lib/modules`.
 
-# create a new project in my-app
-npx sv create my-app
+## Development
+
+```bash
+# Install dependencies
+bun install
+
+# Start development server
+bun run dev
+
+# Run tests
+bun test
+
+# Checking code quality
+bun check
 ```
 
-## Developing
+## Structure
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
+src/
+├── content/        # Markdown source files (database)
+├── lib/
+│   ├── modules/    # Domain logic (Business Layer)
+│   ├── ui/         # Generic UI components (Presentation Layer)
+│   ├── server/     # Data loaders (Service Layer)
+│   └── core/       # Core configurations (Theme, SEO)
+└── routes/         # Application Routes (Controller Layer)
 ```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.

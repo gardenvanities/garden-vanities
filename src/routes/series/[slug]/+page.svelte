@@ -3,6 +3,7 @@
 	import Container from "$lib/layout/Container.svelte";
 	import Section from "$lib/layout/Section.svelte";
 	import PostListItem from "$lib/modules/posts/components/PostListItem.svelte";
+	import PageHeader from "$lib/ui/PageHeader.svelte";
 	import { ArrowLeft } from "@lucide/svelte";
 
 	let { data } = $props();
@@ -39,8 +40,8 @@
 
 		<div>
 			<!-- Premium Series Header -->
-			<header class="mb-16 flex flex-col items-center text-center">
-				<div class="flex flex-col items-center gap-4">
+			<PageHeader title={data.series.title} description={data.series.description || ""}>
+				{#snippet meta()}
 					<div class="flex items-center gap-3 text-sm">
 						<span
 							class="rounded-full px-3 py-1 text-xs font-semibold {statusInfo.class ===
@@ -49,31 +50,19 @@
 								: statusInfo.class === 'status-completed'
 									? 'bg-[oklch(70%_0.15_145/0.15)] text-[oklch(55%_0.2_145)]'
 									: statusInfo.class === 'status-archived'
-										? 'bg-muted/20 text-muted'
+										? 'bg-white/20 text-white/50'
 										: 'bg-[oklch(75%_0.15_85/0.15)] text-[oklch(60%_0.2_85)]'}"
 						>
 							{statusInfo.text}
 						</span>
-						<span class="text-muted opacity-40">•</span>
-						<span class="text-muted font-medium">
+						<span class="opacity-40 text-white/50">•</span>
+						<span class="font-medium text-white/50">
 							{data.posts.length}
 							{data.posts.length === 1 ? "parte" : "partes"}
 						</span>
 					</div>
-
-					<h1
-						class="font-heading text-text my-2 text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] font-bold tracking-[-0.02em]"
-					>
-						{data.series.title}
-					</h1>
-
-					{#if data.series.description}
-						<p class="text-muted my-0 max-w-[48ch] text-lg leading-[1.6] font-normal">
-							{data.series.description}
-						</p>
-					{/if}
-				</div>
-			</header>
+				{/snippet}
+			</PageHeader>
 
 			<!-- Posts List -->
 			<div class="border-border flex flex-col border-t">

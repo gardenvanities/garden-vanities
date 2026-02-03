@@ -8,7 +8,7 @@ kind: "essay"
 set: "meta"
 tags: ["design-system", "markdown", "testes"]
 cover:
-  url: "cover/a"
+  url: "test/video"
   alt: "Imagem de teste abstrata"
   caption: "Uma legenda para a imagem de capa."
 publishedAt: 2026-01-27

@@ -3,7 +3,7 @@
 	import { ChevronDown, ArrowUpRight } from "@lucide/svelte";
 	import { slide } from "svelte/transition";
 	import KindBadge from "$lib/modules/garden/components/KindBadge.svelte";
-	import PostMetadataGrid from "$lib/modules/garden/components/PostMetadataGrid.svelte";
+	import PostMetaSidebar from "$lib/modules/posts/components/PostMetaSidebar.svelte";
 
 	import type { Post, PostFrontmatter } from "$lib/modules/posts/types";
 
@@ -81,7 +81,7 @@
 				<p class="text-text/80 mb-6 max-w-2xl text-sm leading-relaxed">{subtitle}</p>
 			{/if}
 
-			<PostMetadataGrid {post} />
+			<PostMetaSidebar metadata={post} />
 		</div>
 	{/if}
 </article>

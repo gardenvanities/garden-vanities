@@ -1,14 +1,8 @@
-import { getAllResources, getResourceStats, getCurrentlyConsuming } from "$lib/server/library";
+import { getAllResources } from "$lib/server/library";
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async ({ setHeaders }) => {
-	setHeaders({
-		"cache-control": "max-age=3600, s-maxage=86400"
-	});
-
+export const load: PageServerLoad = async () => {
 	const resources = getAllResources();
-	const stats = getResourceStats();
-	const currentlyConsuming = getCurrentlyConsuming();
 
 	// Group resources by type for display
 	const resourcesByType = resources.reduce(
@@ -24,8 +18,6 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 
 	return {
 		resources,
-		stats,
-		currentlyConsuming,
 		resourcesByType
 	};
 };

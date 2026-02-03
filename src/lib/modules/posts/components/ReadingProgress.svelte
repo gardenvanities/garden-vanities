@@ -8,7 +8,7 @@
 </script>
 
 <div
-	class="relative flex h-full w-full items-center justify-center overflow-hidden rounded-[0.875rem] {className}"
+	class="relative flex h-full w-full items-center justify-center overflow-hidden rounded-sm {className}"
 >
 	<!-- Background Fill -->
 	<div

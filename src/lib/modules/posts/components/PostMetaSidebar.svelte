@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PostFrontmatter, SerieNavigation } from "$lib/modules/posts/types";
 	import { Calendar, Layers, FolderOpen, Sprout, Shapes } from "@lucide/svelte";
-	import { formatShortDate } from "$lib/modules/posts/utils/date";
+	import { formatShortDate } from "$lib/shared/date";
 
 	let { metadata, navigation }: { metadata: PostFrontmatter; navigation?: SerieNavigation } =
 		$props();

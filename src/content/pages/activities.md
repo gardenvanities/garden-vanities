@@ -1,6 +1,7 @@
 ---
 title: Agora
 updatedAt: 2026-01-20
+slug: activities
 ---
 
 Esta página é inspirada pelo movimento [/now](https://nownownow.com/about). É um retrato do que estou fazendo neste momento da minha vida — diferente de um "sobre", que é mais estático, e de um "blog", que é cronológico.

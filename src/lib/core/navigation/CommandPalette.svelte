@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { commandPalette } from "$lib/core/navigation/command-palette.svelte.js";
+	import Kbd from "$lib/ui/Kbd.svelte";
 	import { goto } from "$app/navigation";
 	import { base } from "$app/paths";
 	import { setTheme } from "$lib/core/theme/theme.svelte";
@@ -22,10 +23,13 @@
 	import type { Component } from "svelte";
 
 	interface SearchItem {
+		source: "post" | "resource";
 		title: string;
 		slug: string;
 		kind?: string;
+		libraryType?: string;
 		tags?: string[];
+		description?: string;
 		content?: string;
 	}
 
@@ -122,24 +126,27 @@
 
 	const searchableData = $derived([
 		...staticActions,
-		...searchIndex.map((p) => ({
-			id: p.slug,
-			title: p.title,
-			icon: FileText,
-			type: "post" as const,
-			category: "Artigos",
-			kind: p.kind,
-			action: () => navigate(`/posts/${p.slug}`),
-			tags: p.tags,
-			content: p.content
-		}))
+		...searchIndex
+			.filter((p) => p.source === "post")
+			.map((p): CommandItem => {
+				return {
+					id: `post-${p.slug}`,
+					title: p.title,
+					icon: FileText,
+					type: "post",
+					category: "Artigos",
+					kind: p.kind,
+					action: () => navigate(`/posts/${p.slug}`)
+				};
+			})
 	]);
 
 	const fuse = $derived(
-		new Fuse(searchableData, {
+		new Fuse(searchIndex, {
 			keys: [
 				{ name: "title", weight: 1.0 },
 				{ name: "tags", weight: 0.8 },
+				{ name: "description", weight: 0.5 },
 				{ name: "content", weight: 0.3 }
 			],
 			threshold: 0.4,
@@ -152,9 +159,22 @@
 
 	const filteredResults = $derived.by(() => {
 		const q = query.trim();
-		if (!q) return searchableData.slice(0, 8); // Show top 8 when empty
+		if (!q) return searchableData.slice(0, 8); // Show top static actions
 		const results = fuse.search(q);
-		return results.map((r) => r.item);
+		// Map fuse results (which are SearchItems) back to CommandItems using the slug/id
+		// Wait, Fuse is indexing 'searchIndex' (SearchItem[]), returning SearchItems.
+		// searchableData is CommandItem[].
+		// I need to map SearchItem matches -> CommandItem.
+
+		return results
+			.map((r) => {
+				const found = searchableData.find(
+					(item) =>
+						item.id === (r.item.source === "post" ? `post-${r.item.slug}` : `lib-${r.item.slug}`)
+				);
+				return found;
+			})
+			.filter(Boolean) as CommandItem[];
 	});
 
 	// Group results by category
@@ -298,9 +318,7 @@
 									<item.icon size={16} strokeWidth={2} />
 								</div>
 								<span class="command-item-title">{item.title}</span>
-								{#if item.kind}
-									<span class="command-item-badge">{item.kind}</span>
-								{/if}
+								<!-- Badge Removed -->
 								{#if selectedIndex === globalIndex}
 									<div class="command-item-enter hidden sm:block">
 										<CornerDownLeft size={14} strokeWidth={2} />
@@ -318,16 +336,16 @@
 	<div class="command-footer">
 		<div class="command-hints">
 			<span class="command-hint">
-				<kbd>↑↓</kbd>
+				<Kbd>↑↓</Kbd>
 				<span>navegar</span>
 			</span>
 			<span class="command-hint">
-				<kbd>↵</kbd>
+				<Kbd>↵</Kbd>
 				<span>selecionar</span>
 			</span>
 		</div>
 		<span class="command-hint">
-			<kbd>esc</kbd>
+			<Kbd>esc</Kbd>
 			<span>fechar</span>
 		</span>
 	</div>
@@ -343,7 +361,7 @@
 			display: flex;
 			flex-direction: column;
 			overflow: hidden;
-			border-radius: 1.25rem;
+			border-radius: 0.375rem;
 			background: oklch(from var(--color-surface) calc(l * 1.05) c h / 0.85);
 			backdrop-filter: blur(24px) saturate(1.8);
 			-webkit-backdrop-filter: blur(24px) saturate(1.8);
@@ -405,7 +423,7 @@
 			justify-content: center;
 			width: 1.5rem;
 			height: 1.5rem;
-			border-radius: 0.375rem;
+			border-radius: 0.25rem;
 			color: var(--color-muted);
 			background: transparent;
 			border: none;
@@ -463,7 +481,7 @@
 			gap: 0.75rem;
 			width: 100%;
 			padding: 0.875rem 0.75rem;
-			border-radius: 0.5rem;
+			border-radius: 0.25rem;
 			color: var(--color-text);
 			text-align: left;
 			background: transparent;
@@ -499,7 +517,7 @@
 			justify-content: center;
 			width: 1.5rem;
 			height: 1.5rem;
-			border-radius: 0.375rem;
+			border-radius: 0.25rem;
 			background: oklch(from var(--color-text) l c h / 0.05);
 			color: var(--color-text);
 			opacity: 0.7;
@@ -516,27 +534,7 @@
 			white-space: nowrap;
 		}
 
-		.command-item-badge {
-			display: inline-flex;
-			align-items: center;
-			padding: 0 0.5em;
-			height: 1.25em;
-			border-radius: 99px;
-			font-size: 0.625rem;
-			font-weight: 600;
-			text-transform: uppercase;
-			letter-spacing: 0.05em;
-			background: oklch(from var(--color-border) l c h / 0.5);
-			color: var(--color-muted);
-			margin-left: 0.5rem;
-			border: 1px solid oklch(from var(--color-border) l c h / 0.5);
-		}
-
-		.command-item.selected .command-item-badge {
-			background: oklch(from var(--color-primary) l c h / 0.2);
-			color: var(--color-text);
-			border-color: oklch(from var(--color-primary) l c h / 0.3);
-		}
+		/* Badge styles removed */
 
 		.command-item-enter {
 			opacity: 0;
@@ -583,7 +581,7 @@
 			width: 3rem;
 			height: 3rem;
 			margin-bottom: 1rem;
-			border-radius: 1rem;
+			border-radius: 0.375rem;
 			background: oklch(from var(--color-surface) l c h / 0.5);
 			color: var(--color-muted);
 			border: 1px solid oklch(from var(--color-border) l c h / 0.3);
@@ -626,23 +624,6 @@
 			gap: 0.375rem;
 			font-size: 0.6875rem;
 			color: var(--color-muted);
-		}
-
-		.command-hint kbd {
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-			min-width: 1.25rem;
-			height: 1.25rem;
-			padding: 0 0.25rem;
-			font-family: var(--font-mono);
-			font-size: 0.625rem;
-			font-weight: 500;
-			color: var(--color-text);
-			background: oklch(from var(--color-surface) l c h / 0.5);
-			border: 1px solid oklch(from var(--color-border) l c h / 0.5);
-			border-radius: 0.25rem;
-			box-shadow: 0 1px 1px oklch(0 0 0 / 0.05);
 		}
 	}
 </style>

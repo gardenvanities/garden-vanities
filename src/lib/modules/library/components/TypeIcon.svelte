@@ -14,11 +14,12 @@
 	interface Props {
 		type: ResourceType;
 		class?: string;
+		[key: string]: unknown;
 	}
 
-	let { type, class: className = "" }: Props = $props();
+	let { type, class: className, ...rest }: Props = $props();
 
-	const iconMap = {
+	const iconMap: Record<string, typeof BookOpen> = {
 		book: BookOpen,
 		film: Film,
 		"tv-series": Tv,
@@ -32,4 +33,4 @@
 	const IconComponent = $derived(iconMap[type] || BookOpen);
 </script>
 
-<IconComponent class={className} />
+<IconComponent class={className} {...rest} />

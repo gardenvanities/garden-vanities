@@ -1,12 +1,12 @@
 import type { PostFrontmatter, Ripeness, Backlink, LinkReference } from "$lib/modules/posts/types";
 import type { Component } from "svelte";
+import { loadContent, type ContentModule } from "$lib/server/content";
 
-type MdsvexModule = {
-	metadata: PostFrontmatter;
+type PostModule = ContentModule<PostFrontmatter> & {
 	default: Component;
 };
 
-const mdModules = import.meta.glob<MdsvexModule>("/src/content/posts/**/*.md", {
+const mdModules = import.meta.glob<PostModule>("/src/content/posts/**/*.md", {
 	eager: true
 });
 
@@ -19,30 +19,28 @@ const rawModules = import.meta.glob("/src/content/posts/**/*.md", {
 export async function getAllPosts(
 	filter: { ripeness?: Ripeness[] } = {}
 ): Promise<PostFrontmatter[]> {
-	const posts: PostFrontmatter[] = [];
+	return loadContent(mdModules, {
+		slugFromPath: (path) => path.match(/\/posts\/(.+)\.md$/)?.[1] || "",
+		filter: (post) => {
+			const allowedRipeness = filter.ripeness ?? ["fruit"];
+			return allowedRipeness.includes(post.ripeness);
+		},
+		sort: (a, b) => {
+			const getTimestamp = (dateStr: string | undefined) => {
+				if (!dateStr) return 0;
+				const date = new Date(dateStr);
+				return isNaN(date.getTime()) ? 0 : date.getTime();
+			};
 
-	for (const path in mdModules) {
-		const module = mdModules[path];
-		const metadata = module.metadata;
+			const dateA = getTimestamp(a.updatedAt || a.publishedAt);
+			const dateB = getTimestamp(b.updatedAt || b.publishedAt);
 
-		if (!metadata) continue;
+			if (dateA !== dateB) {
+				return dateB - dateA;
+			}
 
-		if (!metadata.slug) {
-			const match = path.match(/\/posts\/(.+)\.md$/);
-			if (match) metadata.slug = match[1];
+			return (a.title || "").localeCompare(b.title || "");
 		}
-
-		const allowedRipeness = filter.ripeness ?? ["fruit"];
-		if (!allowedRipeness.includes(metadata.ripeness)) continue;
-
-		posts.push(metadata);
-	}
-
-	return posts.sort((a, b) => {
-		if (a.publishedAt && b.publishedAt) {
-			return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
-		}
-		return a.title.localeCompare(b.title);
 	});
 }
 

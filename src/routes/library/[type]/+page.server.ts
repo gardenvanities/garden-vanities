@@ -1,38 +1,26 @@
-import { getResourcesByType, getResourceStats } from "$lib/server/library";
+import { getAllResources, getResourceStats } from "$lib/server/library";
+import { setCacheHeaders } from "$lib/server/utils";
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-import type { ResourceType } from "$lib/modules/library/types";
-import { TYPE_LABELS_PLURAL } from "$lib/modules/library/types";
+import { FOLDER_TO_TYPES, TYPE_LABELS_PLURAL } from "$lib/modules/library/types";
 
 export const load: PageServerLoad = async ({ params, setHeaders }) => {
-	setHeaders({
-		"cache-control": "max-age=3600, s-maxage=86400"
-	});
+	setCacheHeaders(setHeaders);
 
 	const { type: folder } = params;
+	const types = FOLDER_TO_TYPES[folder];
 
-	// Map folder name to resource type
-	const typeMap: Record<string, ResourceType> = {
-		books: "book",
-		films: "film",
-		"series-tv": "tv-series",
-		music: "album",
-		articles: "article",
-		research: "paper"
-	};
-
-	const resourceType = typeMap[folder];
-
-	if (!resourceType) {
+	if (!types || types.length === 0) {
 		throw error(404, {
 			message: "Tipo de recurso não encontrado"
 		});
 	}
 
-	const resources = getResourcesByType(resourceType);
+	const resources = getAllResources({ type: types });
 	const stats = getResourceStats();
 
-	// Get display label
+	// Use primary type for label, or fallback
+	const resourceType = types[0];
 	const typeLabel = TYPE_LABELS_PLURAL[resourceType];
 
 	return {

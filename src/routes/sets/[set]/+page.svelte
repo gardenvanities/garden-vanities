@@ -4,6 +4,7 @@
 	import Section from "$lib/layout/Section.svelte";
 	import PostList from "$lib/modules/posts/components/PostList.svelte";
 	import { ArrowLeft } from "@lucide/svelte";
+	import PageHeader from "$lib/ui/PageHeader.svelte";
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
 	import type { SetMetadata } from "$lib/modules/posts/collections";
 
@@ -34,26 +35,16 @@
 
 		<div>
 			<!-- Premium Set Header -->
-			<header class="page-header">
-				<div class="header-content">
-					<div class="header-meta">
-						<span class="notes-count">
+			<PageHeader title={data.set.title} description={data.set.description || ""}>
+				{#snippet meta()}
+					<div class="flex items-center gap-2 text-sm text-white/50">
+						<span>
 							{count}
 							{count === 1 ? "nota" : "notas"}
 						</span>
 					</div>
-
-					<h1 class="header-title">
-						{data.set.title}
-					</h1>
-
-					{#if data.set.description}
-						<p class="header-description">
-							{data.set.description}
-						</p>
-					{/if}
-				</div>
-			</header>
+				{/snippet}
+			</PageHeader>
 
 			<!-- Posts List -->
 			{#if count > 0}
@@ -90,53 +81,6 @@
 		color: var(--color-primary);
 		background: oklch(from var(--color-primary) l c h / 0.08);
 		border-color: oklch(from var(--color-primary) l c h / 0.2);
-	}
-
-	/* Page Header */
-	.page-header {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-		margin-bottom: 4rem;
-	}
-
-	.header-content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 1rem;
-	}
-
-	.header-meta {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-	}
-
-	.notes-count {
-		font-size: 0.875rem;
-		font-weight: 500;
-		color: var(--color-muted);
-	}
-
-	.header-title {
-		font-family: var(--font-heading);
-		font-size: clamp(2rem, 5vw, 3.5rem);
-		font-weight: 700;
-		letter-spacing: -0.02em;
-		line-height: 1.1;
-		color: var(--color-text);
-		margin: 0.5rem 0;
-	}
-
-	.header-description {
-		font-size: 1.125rem;
-		line-height: 1.6;
-		color: var(--color-muted);
-		font-weight: 400;
-		max-width: 48ch;
-		margin: 0;
 	}
 
 	/* Empty State */

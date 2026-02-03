@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 	});
 
 	const posts = await getAllPosts({
-		ripeness: ["root", "fruit"]
+		ripeness: ["fruit"]
 	});
 
 	return {
