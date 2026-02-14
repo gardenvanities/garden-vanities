@@ -29,7 +29,7 @@
 
 <Section class="py-16 md:py-24">
 	<Container size="lg">
-		<!-- Back Link -->
+		
 		<a
 			href="/series"
 			class="text-muted bg-surface/50 border-border/30 hover:text-primary hover:bg-primary/8 hover:border-primary/20 mb-8 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.05em] uppercase transition-all duration-200"
@@ -39,7 +39,7 @@
 		</a>
 
 		<div>
-			<!-- Premium Series Header -->
+			
 			<PageHeader title={data.series.title} description={data.series.description || ""}>
 				{#snippet meta()}
 					<div class="flex items-center gap-3 text-sm">
@@ -64,7 +64,7 @@
 				{/snippet}
 			</PageHeader>
 
-			<!-- Posts List -->
+			
 			<div class="border-border flex flex-col border-t">
 				{#each data.posts as post, i (post.slug)}
 					<div class="border-border border-b">

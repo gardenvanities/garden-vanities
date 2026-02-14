@@ -1,11 +1,10 @@
 import { getPageBySlug } from "$lib/server/pages";
+import { setCacheHeaders } from "$lib/server/utils";
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ setHeaders }) => {
-	setHeaders({
-		"cache-control": "max-age=3600, s-maxage=86400"
-	});
+	setCacheHeaders(setHeaders);
 
 	const page = getPageBySlug("activities");
 

@@ -28,11 +28,11 @@ export const GET: RequestHandler = async ({ setHeaders }) => {
 		libraryType: resource.type,
 		tags: resource.tags,
 		description: resource.summary || "",
-		// Resources don't have full text content loaded simply yet, but title/summary is usually enough
+		
 		content: [
 			resource.title,
 			resource.summary,
-			// Add author/creator to content for searchability
+			
 			"author" in resource ? resource.author : "",
 			"director" in resource ? resource.director : "",
 			"creator" in resource ? resource.creator : "",

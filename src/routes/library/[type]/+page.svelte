@@ -12,7 +12,7 @@
 </svelte:head>
 
 <Container class="py-12 md:py-16">
-	<!-- Breadcrumb -->
+	
 	<nav class="mb-8">
 		<a
 			href="/library"
@@ -23,7 +23,7 @@
 		</a>
 	</nav>
 
-	<!-- Header -->
+	
 	<header class="mb-12">
 		<div class="flex items-center gap-3">
 			<TypeIcon type={data.resourceType} class="text-brand-400 h-8 w-8" />
@@ -36,10 +36,10 @@
 		</div>
 	</header>
 
-	<!-- Search & Filters -->
-	<!-- Search section removed -->
+	
+	
 
-	<!-- Resources Grid -->
+	
 	<section>
 		<section>
 			{#if data.resources.length === 0}

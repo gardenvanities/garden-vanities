@@ -2,7 +2,7 @@ import { mdsvex, escapeSvelte } from "mdsvex";
 import rehypeSlug from "rehype-slug";
 import remarkMath from "remark-math";
 import remarkGfm from "remark-gfm";
-// import remarkFootnotes from "remark-footnotes";
+
 
 import { remarkCloudinaryImages } from "./src/lib/server/remark-cloudinary-images.ts";
 import adapter from "@sveltejs/adapter-auto";
@@ -23,11 +23,11 @@ const config = {
 			extensions: [".md", ".svx"],
 			remarkPlugins: [
 				remarkGfm,
-				// remarkFootnotes,
+				
 				remarkMath,
 				remarkCloudinaryImages(process.env.PUBLIC_CLOUDINARY_CLOUD_NAME || "")
 			],
-			rehypePlugins: [rehypeSlug /*, rehypeKatexSvelte */],
+			rehypePlugins: [rehypeSlug  ],
 			highlight: {
 				highlighter: async (code, lang) => {
 					await highlighter.loadLanguage(lang);

@@ -2,7 +2,14 @@ import type { Author } from "$lib/modules/author/types";
 import type { BaseContent, ImageMetadata } from "$lib/shared/types";
 
 export type Ripeness = "seed" | "root" | "fruit";
-export type Kind = "note" | "essay" | "tutorial" | "thought";
+export type Kind = string;
+
+export interface KindFrontmatter {
+	slug: string;
+	title: string;
+	color: string;
+	description?: string;
+}
 
 export type CoverImage = ImageMetadata;
 

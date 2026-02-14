@@ -169,7 +169,7 @@ export async function getReferences(originalContent: string): Promise<LinkRefere
 		let potentialSlug = url;
 
 		if (url.startsWith("/")) {
-			potentialSlug = url.replace(/^\/posts\//, "").replace(/^\//, "");
+			potentialSlug = url.replace(/^\/posts\//, "");
 		} else if (url.startsWith("posts/")) {
 			potentialSlug = url.replace(/^posts\//, "");
 		}

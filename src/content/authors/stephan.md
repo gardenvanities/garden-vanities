@@ -1,14 +1,14 @@
 ---
 name: Stephan Carvalho
-nick: stephan
+nick: gardenvanities
 avatar: avatar/kira
 role: Intelectual
 social:
-  twitter: https://twitter.com/
-  instagram: https://instagram.com/
-  youtube: https://youtube.com/
-  github: https://github.com/themageking
-  tiktok: https://tiktok.com/
+  twitter: https://twitter.com/gardenvanities
+  instagram: https://instagram.com/gardenvanities
+  youtube: https://youtube.com/gardenvanities
+  github: https://github.com/gardenvanities
+  tiktok: https://tiktok.com/gardenvanities
 slug: stephan
 ---
 

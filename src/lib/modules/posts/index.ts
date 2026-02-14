@@ -16,4 +16,3 @@ export type {
 	SetMetadata
 } from "./collections";
 export { calculateReadingTime, getReadingTimeLabel } from "./utils/reading-time";
-export { formatDate, formatShortDate, formatRelativeDate } from "$lib/shared/date";

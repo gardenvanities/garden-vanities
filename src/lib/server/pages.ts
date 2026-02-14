@@ -1,8 +1,8 @@
 import type { Component } from "svelte";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Pages Loading (for /now, /uses, etc.)
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export type PageFrontmatter = {
 	title: string;

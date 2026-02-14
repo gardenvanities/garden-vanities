@@ -1,5 +1,10 @@
 :root {
-	/* Z-Index Semantics */
+	--width-narrow: 55ch;
+	--width-prose: 65ch;
+	--width-content: 75ch;
+	--width-code: 80ch;
+	--width-container: 1200px;
+
 	--z-negative: var(--z-min);
 	--z-base: var(--z-0);
 	--z-elevated: var(--z-10);
@@ -8,9 +13,9 @@
 	--z-dropdown: var(--z-100);
 	--z-sticky: var(--z-100);
 
-	--z-overlay: 200; /* Custom primitive for now if needed, or map appropriately */
-	--z-modal: 300;
-	--z-toast: 400;
+	--z-overlay: var(--z-50);
+	--z-modal: var(--z-60);
+	--z-toast: var(--z-70);
 
 	--z-critical: var(--z-max);
 }

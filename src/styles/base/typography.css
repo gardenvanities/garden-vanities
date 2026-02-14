@@ -3,8 +3,8 @@
 		background-color: var(--color-bg);
 		color: var(--color-text);
 		font-family: var(--font-body);
-		font-size: var(--type-1);
-		line-height: var(--line-height-normal);
+		font-size: var(--text-body);
+		line-height: var(--leading-body);
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		text-rendering: optimizeLegibility;
@@ -18,8 +18,8 @@
 	h6 {
 		font-family: var(--font-heading);
 		font-weight: var(--font-weight-heading);
-		line-height: var(--line-height-tight);
-		letter-spacing: var(--letter-spacing-normal);
+		line-height: var(--leading-heading);
+		letter-spacing: var(--tracking-heading);
 		color: var(--color-text);
 		margin: 0;
 		text-wrap: balance;
@@ -28,9 +28,9 @@
 	h1,
 	.article-title {
 		font-family: var(--font-article-title);
-		font-size: var(--type-5);
-		line-height: var(--line-height-tight);
-		letter-spacing: var(--letter-spacing-tight);
+		font-size: var(--text-h1);
+		line-height: var(--leading-heading);
+		letter-spacing: var(--tracking-heading);
 		font-weight: var(--font-weight-heading);
 		margin-bottom: var(--space-5);
 	}
@@ -40,36 +40,36 @@
 	}
 
 	h2 {
-		font-size: var(--type-4);
-		line-height: var(--line-height-snug);
-		letter-spacing: var(--letter-spacing-tight);
+		font-size: var(--text-h2);
+		line-height: var(--leading-ui);
+		letter-spacing: var(--tracking-heading);
 		margin-top: var(--space-10);
 		margin-bottom: var(--space-4);
 	}
 
 	h3 {
-		font-size: var(--type-3);
-		line-height: var(--line-height-snug);
+		font-size: var(--text-h3);
+		line-height: var(--leading-ui);
 		margin-top: var(--space-8);
 		margin-bottom: var(--space-3);
 	}
 
 	h4 {
-		font-size: var(--type-2);
-		line-height: var(--line-height-snug);
+		font-size: var(--text-h4);
+		line-height: var(--leading-ui);
 		margin-top: var(--space-6);
 		margin-bottom: var(--space-2);
 	}
 
 	h5 {
-		font-size: var(--type-2);
+		font-size: var(--text-h5);
 		font-weight: var(--font-weight-heading);
 		margin-top: var(--space-4);
 		margin-bottom: var(--space-2);
 	}
 
 	h6 {
-		font-size: var(--type-1);
+		font-size: var(--text-h6);
 		font-weight: var(--font-weight-heading);
 		margin-top: var(--space-4);
 		margin-bottom: var(--space-2);
@@ -77,7 +77,7 @@
 	}
 
 	p {
-		font-size: var(--type-1);
+		font-size: var(--text-body);
 		margin-bottom: var(--space-4);
 		text-wrap: pretty;
 	}
@@ -87,7 +87,7 @@
 	}
 
 	small {
-		font-size: var(--type-0);
+		font-size: var(--text-body-sm);
 		color: var(--color-muted);
 	}
 
@@ -112,6 +112,10 @@
 	a:hover {
 		color: var(--color-accent);
 		text-decoration-thickness: var(--text-decoration-thickness-normal);
+	}
+
+	a:visited {
+		color: var(--color-link-visited);
 	}
 
 	ul,
@@ -139,10 +143,10 @@
 
 	pre {
 		font-family: var(--font-mono);
-		font-size: var(--type-0);
+		font-size: var(--text-body-sm);
 		font-feature-settings: var(--font-feature-code);
-		max-width: var(--measure-code);
-		line-height: var(--line-height-normal);
+		max-width: var(--width-code);
+		line-height: var(--leading-body);
 		background-color: var(--color-surface);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-2);

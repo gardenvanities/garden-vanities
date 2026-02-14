@@ -24,7 +24,7 @@
 	let { data }: Props = $props();
 	const author = $derived(data.author);
 
-	// Social link configuration with icons and colors
+	
 	const socialLinks = $derived(
 		[
 			{ key: "twitter", icon: Twitter, label: "Twitter", color: "#1DA1F2" },
@@ -44,9 +44,9 @@
 
 <Section class="py-6 md:py-12">
 	<Container size="lg">
-		<!-- Profile Identity -->
+		
 		<div class="flex flex-col items-start text-left">
-			<!-- Single Text Block with Inline Image -->
+			
 			<h1
 				class="font-heading text-text mb-6 max-w-4xl text-xl leading-relaxed font-bold tracking-tight text-balance md:text-2xl md:leading-relaxed lg:text-3xl lg:leading-relaxed"
 			>
@@ -75,7 +75,7 @@
 			</h1>
 		</div>
 
-		<!-- Navigation Section -->
+		
 		<div class="mb-12">
 			<h2
 				class="font-heading text-muted mb-6 text-center text-lg font-semibold tracking-wider uppercase"
@@ -83,7 +83,7 @@
 				Explore o Jardim
 			</h2>
 			<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-				<!-- Explore -->
+				
 				<a
 					href="/explore"
 					class="group border-border bg-surface hover:border-primary/20 hover:bg-surface-elevated/50 relative flex flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl border p-6 text-center transition-all hover:-translate-y-1"
@@ -99,7 +99,7 @@
 					</div>
 				</a>
 
-				<!-- Collections (Sets) -->
+				
 				<a
 					href="/sets"
 					class="group border-border bg-surface hover:border-primary/20 hover:bg-surface-elevated/50 relative flex flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl border p-6 text-center transition-all hover:-translate-y-1"
@@ -115,7 +115,7 @@
 					</div>
 				</a>
 
-				<!-- Series -->
+				
 				<a
 					href="/series"
 					class="group border-border bg-surface hover:border-primary/20 hover:bg-surface-elevated/50 relative flex flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl border p-6 text-center transition-all hover:-translate-y-1"
@@ -133,7 +133,7 @@
 			</div>
 		</div>
 
-		<!-- Social Connect Section -->
+		
 		<div>
 			<h2
 				class="font-heading text-muted mb-6 text-center text-lg font-semibold tracking-wider uppercase"
@@ -156,7 +156,7 @@
 							</a>
 						{/if}
 					{/each}
-					<!-- Email link -->
+					
 					{#if author.social?.email}
 						<a
 							href="mailto:{author.social.email}"

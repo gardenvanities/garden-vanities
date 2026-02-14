@@ -1,3 +1,4 @@
+export { default as Sidebar } from "./navigation/Sidebar.svelte";
 export { default as FloatingNav } from "./navigation/FloatingNav.svelte";
 export { default as CommandPalette } from "./navigation/CommandPalette.svelte";
 export { commandPalette } from "./navigation/command-palette.svelte";

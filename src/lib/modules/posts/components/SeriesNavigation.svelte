@@ -35,8 +35,7 @@
 						seriesBadge={item.series?.order ? `Parte ${item.series.order}` : undefined}
 					/>
 
-					<!-- Pulsing Dot (Active Only) - Kept for continuity with previous design if desired, 
-					     but positioned over the component -->
+					
 					{#if isActive}
 						<div class="pointer-events-none absolute top-5 right-5 z-20">
 							<span class="relative flex h-2.5 w-2.5">

@@ -1,9 +1,4 @@
-/**
- * Types for Series and Sets Collections
- *
- * Series: Ordered sequence of posts (e.g., a tutorial series)
- * Sets: Unordered collection of related posts (e.g., a topic area)
- */
+import type { ImageMetadata } from "$lib/shared/types";
 
 export type CollectionStatus = "draft" | "ongoing" | "completed" | "archived";
 
@@ -19,14 +14,11 @@ export interface CollectionTheme {
 	heroStyle?: "minimal" | "cover-focused";
 }
 
-export interface CoverImage {
-	url: string;
-	alt: string;
-}
+type CoverImage = ImageMetadata;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Series Metadata (from src/content/series/*.md)
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export interface SeriesFrontmatter {
 	slug: string;
@@ -39,18 +31,19 @@ export interface SeriesFrontmatter {
 	nextSuggestedSeries?: string[];
 	publishedAt?: string;
 	updatedAt?: string;
+	set?: string; // Slug of the parent set
 }
 
 export interface SeriesMetadata extends SeriesFrontmatter {
-	/** Number of posts in this series */
+	 
 	postCount?: number;
-	/** Content body from the markdown file */
+	 
 	content?: string;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Set Metadata (from src/content/sets/*.md)
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export interface SetFrontmatter {
 	slug: string;
@@ -62,8 +55,10 @@ export interface SetFrontmatter {
 }
 
 export interface SetMetadata extends SetFrontmatter {
-	/** Number of posts in this set */
+	/** Calculated count of posts in this set */
 	postCount?: number;
-	/** Content body from the markdown file */
+	/** List of series belonging to this set */
+	series?: SeriesMetadata[];
+	/** Optional rendered content from the markdown body */
 	content?: string;
 }

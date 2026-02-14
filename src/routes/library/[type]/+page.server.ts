@@ -19,7 +19,7 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
 	const resources = getAllResources({ type: types });
 	const stats = getResourceStats();
 
-	// Use primary type for label, or fallback
+	
 	const resourceType = types[0];
 	const typeLabel = TYPE_LABELS_PLURAL[resourceType];
 

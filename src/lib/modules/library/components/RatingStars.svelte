@@ -2,7 +2,7 @@
 	import { Star } from "@lucide/svelte";
 
 	interface Props {
-		rating: number; // 0 to 5
+		rating: number; 
 		max?: number;
 		size?: "sm" | "md";
 	}
@@ -13,6 +13,7 @@
 </script>
 
 <div class="flex items-center gap-0.5" aria-label="{rating} de {max} estrelas">
+	
 	<!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
 	{#each Array(max) as _, i (i)}
 		<Star

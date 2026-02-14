@@ -159,12 +159,12 @@
 
 	const filteredResults = $derived.by(() => {
 		const q = query.trim();
-		if (!q) return searchableData.slice(0, 8); // Show top static actions
+		if (!q) return searchableData.slice(0, 8); 
 		const results = fuse.search(q);
-		// Map fuse results (which are SearchItems) back to CommandItems using the slug/id
-		// Wait, Fuse is indexing 'searchIndex' (SearchItem[]), returning SearchItems.
-		// searchableData is CommandItem[].
-		// I need to map SearchItem matches -> CommandItem.
+		
+		
+		
+		
 
 		return results
 			.map((r) => {
@@ -177,7 +177,7 @@
 			.filter(Boolean) as CommandItem[];
 	});
 
-	// Group results by category
+	
 	const groupedResults = $derived.by(() => {
 		const groups: Record<string, CommandItem[]> = {};
 		for (const item of filteredResults) {
@@ -188,7 +188,7 @@
 		return groups;
 	});
 
-	// Flat index for keyboard navigation
+	
 	const flatResults = $derived(filteredResults);
 
 	$effect(() => {
@@ -259,7 +259,7 @@
 </script>
 
 <div class="command-container" data-lenis-prevent>
-	<!-- Search Input -->
+	
 	<div class="command-header">
 		<div class="command-search-icon">
 			<Sparkles size={18} strokeWidth={2} />
@@ -282,7 +282,7 @@
 		</button>
 	</div>
 
-	<!-- Results -->
+	
 	<div class="command-results">
 		{#if isLoading}
 			<div class="command-empty">
@@ -318,7 +318,7 @@
 									<item.icon size={16} strokeWidth={2} />
 								</div>
 								<span class="command-item-title">{item.title}</span>
-								<!-- Badge Removed -->
+								
 								{#if selectedIndex === globalIndex}
 									<div class="command-item-enter hidden sm:block">
 										<CornerDownLeft size={14} strokeWidth={2} />
@@ -332,7 +332,7 @@
 		{/if}
 	</div>
 
-	<!-- Footer -->
+	
 	<div class="command-footer">
 		<div class="command-hints">
 			<span class="command-hint">
@@ -353,9 +353,7 @@
 
 <style>
 	@layer components {
-		/* ============================================
-		 * COMMAND CONTAINER
-		 * ============================================ */
+		 
 
 		.command-container {
 			display: flex;
@@ -382,9 +380,7 @@
 			border-color: oklch(1 0 0 / 0.08);
 		}
 
-		/* ============================================
-		 * HEADER / SEARCH INPUT
-		 * ============================================ */
+		 
 
 		.command-header {
 			display: flex;
@@ -436,9 +432,7 @@
 			background: oklch(from var(--color-text) l c h / 0.05);
 		}
 
-		/* ============================================
-		 * RESULTS
-		 * ============================================ */
+		 
 
 		.command-results {
 			flex: 1;
@@ -450,9 +444,7 @@
 			touch-action: manipulation;
 		}
 
-		/* ============================================
-		 * GROUP
-		 * ============================================ */
+		 
 
 		.command-group {
 			margin-bottom: 0.5rem;
@@ -471,9 +463,7 @@
 			opacity: 0.8;
 		}
 
-		/* ============================================
-		 * ITEM
-		 * ============================================ */
+		 
 
 		.command-item {
 			display: flex;
@@ -503,7 +493,7 @@
 
 		.command-item.selected .command-item-icon {
 			background: var(--color-primary);
-			color: oklch(0 0 0 / 0.8); /* Dark icon on primary */
+			color: oklch(0 0 0 / 0.8);  
 			opacity: 1;
 		}
 
@@ -534,7 +524,7 @@
 			white-space: nowrap;
 		}
 
-		/* Badge styles removed */
+		 
 
 		.command-item-enter {
 			opacity: 0;
@@ -547,10 +537,8 @@
 			transform: translateX(0);
 		}
 
-		/* ============================================
-		 * EMPTY STATE & SCROLLBAR
-		 * ============================================ */
-		/* ... (Keeping existing scrollbar and empty styles, omitted for brevity if unchanged, but included here for full replace) */
+		 
+		 
 
 		.command-results::-webkit-scrollbar {
 			width: 6px;
@@ -592,9 +580,7 @@
 			color: var(--color-muted);
 		}
 
-		/* ============================================
-		 * FOOTER
-		 * ============================================ */
+		 
 
 		.command-footer {
 			display: none;

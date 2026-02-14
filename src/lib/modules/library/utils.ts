@@ -1,9 +1,6 @@
 import type { Resource } from "./types";
 
-/**
- * Extracts the primary creator name from a resource.
- * Checks various properties like author, director, artist, creator, etc.
- */
+ 
 export function getCreatorName(resource: Resource): string | null {
 	if ("author" in resource && resource.author) {
 		return Array.isArray(resource.author) ? resource.author[0] : resource.author;

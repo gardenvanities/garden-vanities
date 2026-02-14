@@ -17,7 +17,12 @@
 		queued: "glass",
 		consuming: "primary",
 		completed: "outline",
-		abandoned: "secondary"
+		abandoned: "secondary",
+		"to-read": "glass",
+		"to-watch": "glass",
+		"to-listen": "glass",
+		"to-play": "glass",
+		"in-progress": "primary"
 	};
 </script>
 

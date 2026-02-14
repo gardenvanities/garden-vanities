@@ -6,9 +6,9 @@ import type {
 	CollectionStatus
 } from "$lib/modules/posts/collections";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Series Loading
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 type SeriesMdModule = {
 	metadata: SeriesFrontmatter;
@@ -28,11 +28,11 @@ export function getAllSeries(filter: { status?: CollectionStatus[] } = {}): Seri
 
 		if (!metadata) continue;
 
-		// Derive slug from filename if not provided (without mutating original)
+		
 		const pathMatch = path.match(/\/series\/(.+)\.md$/);
 		const slug = metadata.slug || pathMatch?.[1] || "";
 
-		// Apply status filter (default: show all non-draft)
+		
 		const allowedStatus = filter.status ?? ["ongoing", "completed", "archived"];
 		if (!allowedStatus.includes(metadata.status)) continue;
 
@@ -43,7 +43,7 @@ export function getAllSeries(filter: { status?: CollectionStatus[] } = {}): Seri
 	}
 
 	return series.sort((a, b) => {
-		// Sort by publishedAt descending, then by title
+		
 		if (a.publishedAt && b.publishedAt) {
 			return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
 		}
@@ -71,9 +71,9 @@ export function getSeriesBySlug(slug: string): SeriesMetadata | null {
 	return null;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Sets Loading
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 type SetMdModule = {
 	metadata: SetFrontmatter;
@@ -86,6 +86,7 @@ const setModules = import.meta.glob<SetMdModule>("/src/content/sets/**/*.md", {
 
 export function getAllSets(): SetMetadata[] {
 	const sets: SetMetadata[] = [];
+	const allSeries = getAllSeries();
 
 	for (const path in setModules) {
 		const module = setModules[path];
@@ -93,13 +94,17 @@ export function getAllSets(): SetMetadata[] {
 
 		if (!metadata) continue;
 
-		// Derive slug from filename if not provided (without mutating original)
+		// Extract slug from filename if not in metadata
 		const pathMatch = path.match(/\/sets\/(.+)\.md$/);
 		const slug = metadata.slug || pathMatch?.[1] || "";
 
+		// Find series belonging to this set
+		const setSeries = allSeries.filter((s) => s.set === slug);
+
 		sets.push({
 			...metadata,
-			slug
+			slug,
+			series: setSeries
 		});
 	}
 
@@ -107,6 +112,8 @@ export function getAllSets(): SetMetadata[] {
 }
 
 export function getSetBySlug(slug: string): SetMetadata | null {
+	const allSeries = getAllSeries();
+
 	for (const path in setModules) {
 		const module = setModules[path];
 		const metadata = module.metadata;
@@ -116,9 +123,13 @@ export function getSetBySlug(slug: string): SetMetadata | null {
 		const pathSlug = path.match(/\/sets\/(.+)\.md$/)?.[1];
 
 		if (metadata.slug === slug || pathSlug === slug) {
+			const finalSlug = metadata.slug || pathSlug || slug;
+			const setSeries = allSeries.filter((s) => s.set === finalSlug);
+
 			return {
 				...metadata,
-				slug: metadata.slug || pathSlug || slug
+				slug: finalSlug,
+				series: setSeries
 			};
 		}
 	}

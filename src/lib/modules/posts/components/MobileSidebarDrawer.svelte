@@ -21,7 +21,7 @@
 <svelte:window onkeydown={handleKeydown} />
 
 {#if ui.sidebarVisible}
-	<!-- Backdrop -->
+	
 	<button
 		type="button"
 		class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm lg:hidden"
@@ -30,21 +30,21 @@
 		aria-label="Close sidebar"
 	></button>
 
-	<!-- Drawer -->
-	<!-- eslint-disable-next-line svelte/no-unused-svelte-ignore -->
-	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+	
+	
+	
 	<div
 		class="border-border/40 bg-surface/90 fixed inset-x-0 bottom-0 z-50 w-full rounded-t-3xl border-t shadow-2xl backdrop-blur-2xl lg:hidden"
 		transition:fly={{ y: 500, duration: 400, opacity: 1 }}
 		role="dialog"
 		aria-modal="true"
 	>
-		<!-- Handle Bar -->
+		
 		<div class="pointer-events-none absolute top-3 right-0 left-0 flex justify-center">
 			<div class="bg-border/60 h-1.5 w-12 rounded-full"></div>
 		</div>
 
-		<!-- Drawer Header -->
+		
 		<div class="flex items-center justify-between px-6 pt-8 pb-4">
 			<div>
 				<span class="text-primary text-xs font-bold tracking-widest uppercase">Neste Artigo</span>
@@ -61,7 +61,7 @@
 			</button>
 		</div>
 
-		<!-- Drawer Content -->
+		
 		<div
 			class="scrollbar-thin scrollbar-thumb-border/40 scrollbar-track-transparent max-h-[70vh] overflow-y-auto px-6 pb-32"
 		>

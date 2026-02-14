@@ -27,14 +27,14 @@
 
 <Section class="py-16 md:py-24">
 	<Container size="lg">
-		<!-- Back Link -->
+		
 		<a href="/sets" class="back-link">
 			<ArrowLeft size={14} strokeWidth={2} />
 			<span>Coleções</span>
 		</a>
 
 		<div>
-			<!-- Premium Set Header -->
+			
 			<PageHeader title={data.set.title} description={data.set.description || ""}>
 				{#snippet meta()}
 					<div class="flex items-center gap-2 text-sm text-white/50">
@@ -46,7 +46,7 @@
 				{/snippet}
 			</PageHeader>
 
-			<!-- Posts List -->
+			
 			{#if count > 0}
 				<PostList posts={data.posts} class="border-border border-t border-b" />
 			{:else}
@@ -59,7 +59,7 @@
 </Section>
 
 <style>
-	/* Back Link */
+	 
 	.back-link {
 		display: inline-flex;
 		align-items: center;
@@ -83,7 +83,7 @@
 		border-color: oklch(from var(--color-primary) l c h / 0.2);
 	}
 
-	/* Empty State */
+	 
 	.empty-state {
 		padding: 4rem 2rem;
 		text-align: center;

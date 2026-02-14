@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Kind } from "$lib/modules/posts/types";
 	import { Shapes } from "@lucide/svelte";
+	import { getKindLabel } from "$lib/modules/garden/constants";
 
 	interface Props {
 		kind: Kind;
@@ -12,12 +13,6 @@
 	let { kind, showIcon = true, active = false, class: className = "" }: Props = $props();
 
 	import SmartBadge from "$lib/ui/SmartBadge.svelte";
-	const kindConfig = {
-		note: { label: "Nota" },
-		essay: { label: "Ensaio" },
-		tutorial: { label: "Tutorial" },
-		thought: { label: "Reflexão" }
-	} as const;
 
 	const blueConfig = {
 		base: "border-blue-400/20 bg-blue-500/10 text-blue-100",
@@ -27,7 +22,7 @@
 
 	const config = $derived({
 		...blueConfig,
-		label: kindConfig[kind].label
+		label: getKindLabel(kind)
 	});
 </script>
 

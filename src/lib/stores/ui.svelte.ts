@@ -1,19 +1,64 @@
-let sidebarVisible = $state(true);
+let sidebarExpanded = $state(true);
+let sidebarMobileOpen = $state(false);
+
+let articleSidebarExpanded = $state(true);
+let articleSidebarMobileOpen = $state(false);
 
 export const ui = {
-	get sidebarVisible() {
-		return sidebarVisible;
+	get sidebarExpanded() {
+		return sidebarExpanded;
+	},
+	get sidebarMobileOpen() {
+		return sidebarMobileOpen;
 	},
 	toggleSidebar() {
-		sidebarVisible = !sidebarVisible;
+		sidebarExpanded = !sidebarExpanded;
 	},
 	setSidebar(value: boolean) {
-		sidebarVisible = value;
+		sidebarExpanded = value;
 	},
 	closeSidebar() {
-		sidebarVisible = false;
+		sidebarExpanded = false;
 	},
 	openSidebar() {
-		sidebarVisible = true;
+		sidebarExpanded = true;
+	},
+	openMobileSidebar() {
+		sidebarMobileOpen = true;
+	},
+	closeMobileSidebar() {
+		sidebarMobileOpen = false;
+	},
+	toggleMobileSidebar() {
+		sidebarMobileOpen = !sidebarMobileOpen;
+	},
+
+	// Article Sidebar
+	get articleSidebarExpanded() {
+		return articleSidebarExpanded;
+	},
+	get articleSidebarMobileOpen() {
+		return articleSidebarMobileOpen;
+	},
+	toggleArticleSidebar() {
+		articleSidebarExpanded = !articleSidebarExpanded;
+	},
+	setArticleSidebar(value: boolean) {
+		articleSidebarExpanded = value;
+	},
+	closeArticleSidebar() {
+		articleSidebarExpanded = false;
+	},
+	openArticleSidebar() {
+		articleSidebarExpanded = true;
+	},
+	openArticleSidebarMobile() {
+		articleSidebarMobileOpen = true;
+	},
+	closeArticleSidebarMobile() {
+		articleSidebarMobileOpen = false;
+	},
+	toggleArticleSidebarMobile() {
+		articleSidebarMobileOpen = !articleSidebarMobileOpen;
 	}
 };

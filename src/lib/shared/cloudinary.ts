@@ -12,21 +12,21 @@ interface TransformOption {
 }
 
 export function buildCloudinaryUrl(publicId: string, options: TransformOption = {}): string {
-	// If no publicId provided, return empty string
+	
 	if (!publicId) return "";
 
-	// If publicId is already a URL, return it as-is
+	
 	if (publicId.startsWith("http://") || publicId.startsWith("https://")) {
 		return publicId;
 	}
 
-	// If CLOUD_NAME is not set, return the publicId as-is (fallback)
+	
 	if (!CLOUD_NAME) {
 		console.warn("CLOUD_NAME is not set, returning publicId as-is");
 		return publicId;
 	}
 
-	// Apply preset if specified
+	
 	const finalOptions = options.preset ? { ...PRESETS[options.preset], ...options } : options;
 
 	const {
@@ -57,10 +57,7 @@ export function buildSrcSet(
 	return widths.map((w) => `${buildCloudinaryUrl(publicId, { width: w })} ${w}w`).join(", ");
 }
 
-/**
- * Generate a Low Quality Image Placeholder (LQIP) URL
- * Uses Cloudinary's blur and quality reduction for fast loading
- */
+ 
 export function buildLQIP(publicId: string): string {
 	if (!publicId || !CLOUD_NAME) return "";
 	if (publicId.startsWith("http")) return publicId;
@@ -69,9 +66,7 @@ export function buildLQIP(publicId: string): string {
 	return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${transforms}/${publicId}`;
 }
 
-/**
- * Generate responsive image data for use in srcset/sizes
- */
+ 
 export function getResponsiveImageData(
 	publicId: string,
 	options: TransformOption = {}

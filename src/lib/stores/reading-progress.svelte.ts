@@ -4,7 +4,7 @@ function createReadingProgress() {
 	let readingTimeMinutes = $state(1);
 	let rawProgress = $state(0);
 
-	// Create spring for smooth animation
+	
 	const progress = spring(0, {
 		stiffness: 0.1,
 		damping: 0.4
@@ -36,16 +36,16 @@ function createReadingProgress() {
 		const rect = articleEl.getBoundingClientRect();
 		const winHeight = window.innerHeight;
 
-		// Start: Top of header (or article if no header)
+		
 		const startEl = headerEl || articleEl;
 		const startRect = startEl.getBoundingClientRect();
 		const startTop = startRect.top + currentScrollTop;
 
-		// End: Bottom of article content
+		
 		const endBottom = rect.bottom + currentScrollTop;
 
 		const startOffset = startTop;
-		// Adjust end offset so 100% is reached slightly before the absolute bottom
+		
 		const endOffset = endBottom - winHeight * 0.8;
 
 		let percent = 0;

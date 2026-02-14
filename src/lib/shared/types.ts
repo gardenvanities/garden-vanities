@@ -1,7 +1,4 @@
-/**
- * Shared Type Definitions
- * Centralized common types used across different modules
- */
+ 
 
 export interface ImageMetadata {
 	url: string;

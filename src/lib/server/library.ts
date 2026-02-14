@@ -7,20 +7,20 @@ import type {
 } from "$lib/modules/library/types";
 import { loadContent, type ContentModule } from "$lib/server/content";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Library Content Loading
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 type LibraryModule = ContentModule<Resource>;
 
-// Load all library content eagerly
+
 const libraryModules = import.meta.glob<LibraryModule>("/src/content/library/**/*.md", {
 	eager: true
 });
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Helper Functions
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 function getTypeFromPath(path: string): ResourceType | null {
 	const folderMatch = path.match(/\/library\/([^/]+)\//);
@@ -44,9 +44,9 @@ function getSlugFromPath(path: string): string {
 	return match?.[1] || "";
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Get All Resources
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export function getAllResources(filter: ResourceFilter = {}): Resource[] {
 	return loadContent(libraryModules, {
@@ -96,9 +96,9 @@ export function getAllResources(filter: ResourceFilter = {}): Resource[] {
 	});
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Get Resources by Type
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export function getResourcesByType(
 	type: ResourceType,
@@ -107,9 +107,9 @@ export function getResourcesByType(
 	return getAllResources({ ...filter, type: [type] });
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Get Resource by Slug
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export function getResourceBySlug(type: ResourceType, slug: string): Resource | null {
 	for (const path in libraryModules) {
@@ -118,7 +118,7 @@ export function getResourceBySlug(type: ResourceType, slug: string): Resource | 
 		const pathType = getTypeFromPath(path);
 		const pathSlug = getSlugFromPath(path);
 
-		// Check both folder-based type and metadata type
+		
 		if ((pathType === type || libraryModules[path].metadata?.type === type) && pathSlug === slug) {
 			const module = libraryModules[path];
 			const metadata = module.metadata;
@@ -136,9 +136,9 @@ export function getResourceBySlug(type: ResourceType, slug: string): Resource | 
 	return null;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Get Resources by Status
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export function getCurrentlyConsuming(): Resource[] {
 	return getAllResources({ status: ["consuming"] });
@@ -152,9 +152,9 @@ export function getCompletedResources(): Resource[] {
 	return getAllResources({ status: ["completed"] });
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Statistics
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export function getResourceStats(): ResourceStats {
 	const all = getAllResources();
@@ -167,14 +167,25 @@ export function getResourceStats(): ResourceStats {
 		track: 0,
 		playlist: 0,
 		article: 0,
-		paper: 0
+		paper: 0,
+		noble: 0,
+		game: 0,
+		podcast: 0,
+		video: 0,
+		course: 0,
+		tool: 0
 	};
 
 	const byStatus: Record<ConsumptionStatus, number> = {
 		queued: 0,
 		consuming: 0,
 		completed: 0,
-		abandoned: 0
+		abandoned: 0,
+		"to-read": 0,
+		"to-watch": 0,
+		"to-listen": 0,
+		"to-play": 0,
+		"in-progress": 0
 	};
 
 	for (const resource of all) {
@@ -192,9 +203,9 @@ export function getResourceStats(): ResourceStats {
 	};
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Get All Available Types (for navigation)
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export function getAvailableTypes(): ResourceType[] {
 	const stats = getResourceStats();

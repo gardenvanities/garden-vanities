@@ -53,13 +53,11 @@
 		isolation: isolate;
 	}
 
-	/* Custom Scrollbar - Minimalista */
 	* {
 		scrollbar-width: auto;
 		scrollbar-color: oklch(from var(--color-text) l c h / 0.2) transparent;
 	}
 
-	/* Webkit browsers (Chrome, Safari, Edge) */
 	::-webkit-scrollbar {
 		width: 12px;
 		height: 12px;
@@ -71,7 +69,7 @@
 
 	::-webkit-scrollbar-thumb {
 		background: oklch(from var(--color-text) l c h / 0.2);
-		border-radius: 9999px;
+		border-radius: var(--radius-full);
 		border: 3px solid transparent;
 		background-clip: padding-box;
 	}
@@ -90,7 +88,6 @@
 		background: transparent;
 	}
 
-	/* Hide scrollbar arrows/buttons */
 	::-webkit-scrollbar-button {
 		display: none;
 		width: 0;

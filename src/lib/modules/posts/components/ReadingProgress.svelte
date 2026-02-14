@@ -1,23 +1,31 @@
 <script lang="ts">
-	interface Props {
-		progress: number; // 0 to 100
-		class?: string;
-	}
+	import { readingProgress } from "$lib/stores/reading-progress.svelte";
+	import { onMount } from "svelte";
 
-	let { progress = 0, class: className = "" }: Props = $props();
+	onMount(() => {
+		return readingProgress.init();
+	});
 </script>
 
-<div
-	class="relative flex h-full w-full items-center justify-center overflow-hidden rounded-sm {className}"
->
-	<!-- Background Fill -->
-	<div
-		class="bg-primary/10 absolute bottom-0 left-0 w-full transition-all duration-75 ease-linear"
-		style="height: {progress}%;"
-	></div>
+<div class="flex flex-col gap-2 p-3 border-t border-border">
+	<div class="flex justify-between items-center text-xs font-medium text-muted">
+		<span>Progresso</span>
+		<span>{Math.round(readingProgress.percent)}%</span>
+	</div>
+	
+	<div class="w-full h-1 bg-border rounded-sm overflow-hidden">
+		<div 
+			class="h-full bg-primary transition-[width] duration-100 linear"
+			style="width: {readingProgress.spring}%"
+		></div>
+	</div>
 
-	<!-- Percentage Text -->
-	<span class="text-primary relative z-10 text-[10px] leading-none font-bold tabular-nums">
-		{Math.round(progress)}<span class="text-[9px] opacity-80">%</span>
-	</span>
+	<div class="text-[0.625rem] text-muted text-right">
+		{#if readingProgress.percent < 90}
+			<span>{readingProgress.minutesLeft} min restantes</span>
+		{:else}
+			<span>Leitura concluída</span>
+		{/if}
+	</div>
 </div>
+

@@ -40,7 +40,7 @@
 	{/if}
 
 	<div class="flex items-start gap-4 px-0 py-5 md:gap-5">
-		<!-- Cover Image (Optional) -->
+		
 		{#if cover?.url}
 			<div
 				class="relative h-24 w-16 shrink-0 overflow-hidden rounded-lg bg-neutral-800 shadow-lg ring-1 ring-white/10"
@@ -55,16 +55,16 @@
 			</div>
 		{/if}
 
-		<!-- Content -->
+		
 		<div class="relative z-10 flex min-w-0 flex-1 flex-col">
-			<!-- Badges Row -->
+			
 			{#if badges}
 				<div class="flex flex-wrap items-center gap-2">
 					{@render badges()}
 				</div>
 			{/if}
 
-			<!-- Title & Arrow Row -->
+			
 			<div class="relative mt-4 flex items-center gap-2">
 				<h3
 					class={cn(
@@ -82,7 +82,7 @@
 				</h3>
 			</div>
 
-			<!-- Subtitle -->
+			
 			{#if subtitle}
 				<p
 					class="text-muted/70 group-hover:text-muted mt-1 font-mono text-sm tracking-normal transition-colors duration-300"

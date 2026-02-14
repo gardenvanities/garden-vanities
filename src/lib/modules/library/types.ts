@@ -1,43 +1,54 @@
-/**
- * Library Module Types
- *
- * Types for managing consumed content references (books, films, music, etc.)
- */
+ 
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Enums and Base Types
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 import type { BaseContent, ImageMetadata } from "$lib/shared/types";
 import type { Component } from "svelte";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Enums and Base Types
-// ─────────────────────────────────────────────────────────────────────────────
 
-export type ConsumptionStatus = "queued" | "consuming" | "completed" | "abandoned";
+
+
+
+export type ConsumptionStatus = 
+	| "queued" 
+	| "consuming" 
+	| "completed" 
+	| "abandoned"
+	| "to-read"
+	| "to-watch"
+	| "to-listen"
+	| "to-play"
+	| "in-progress";
 
 export type ResourceType =
 	| "book"
+	| "noble"
 	| "film"
 	| "tv-series"
 	| "album"
 	| "track"
 	| "playlist"
 	| "article"
-	| "paper";
+	| "paper"
+	| "game"
+	| "podcast"
+	| "video"
+	| "course"
+	| "tool";
 
 export type BookFormat = "physical" | "ebook" | "audiobook";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Cover Image
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export type ResourceCover = ImageMetadata;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Base Resource Interface
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export interface ResourceBase extends BaseContent {
 	type: ResourceType;
@@ -50,11 +61,18 @@ export interface ResourceBase extends BaseContent {
 	personalNotes?: string;
 	createdAt: string;
 	content?: Component;
+	
+	subtitle?: string;
+	author?: string | string[]; 
+	publishedAt?: string; 
+	url?: string; 
+	metadata?: Record<string, string | number | boolean>; 
+	html?: string; 
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Book Resource
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export interface BookResource extends ResourceBase {
 	type: "book";
@@ -71,9 +89,9 @@ export interface BookResource extends ResourceBase {
 	format: BookFormat;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Film Resource
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export interface FilmResource extends ResourceBase {
 	type: "film";
@@ -88,9 +106,9 @@ export interface FilmResource extends ResourceBase {
 	whereWatched?: string;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// TV Series Resource
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export interface TVSeriesResource extends ResourceBase {
 	type: "tv-series";
@@ -105,9 +123,9 @@ export interface TVSeriesResource extends ResourceBase {
 	currentEpisode?: number;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Music Resources
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export interface AlbumResource extends ResourceBase {
 	type: "album";
@@ -141,9 +159,9 @@ export interface PlaylistResource extends ResourceBase {
 	appleMusicId?: string;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Article Resource
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export interface ArticleResource extends ResourceBase {
 	type: "article";
@@ -155,9 +173,9 @@ export interface ArticleResource extends ResourceBase {
 	archived?: boolean;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Research Paper Resource
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export interface PaperResource extends ResourceBase {
 	type: "paper";
@@ -173,9 +191,47 @@ export interface PaperResource extends ResourceBase {
 	url?: string;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Union Type for All Resources
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
+
+export interface NobleResource extends ResourceBase {
+	type: "noble";
+	author: string | string[];
+}
+
+export interface GameResource extends ResourceBase {
+	type: "game";
+	developer?: string;
+	publisher?: string;
+	platform?: string[];
+}
+
+export interface PodcastResource extends ResourceBase {
+	type: "podcast";
+	host?: string | string[];
+}
+
+export interface VideoResource extends ResourceBase {
+	type: "video";
+	channel?: string;
+	duration?: number;
+}
+
+export interface CourseResource extends ResourceBase {
+	type: "course";
+	instructor?: string | string[];
+	platform?: string;
+}
+
+export interface ToolResource extends ResourceBase {
+	type: "tool";
+	developer?: string;
+}
+
+
+
+
 
 export type Resource =
 	| BookResource
@@ -185,11 +241,17 @@ export type Resource =
 	| TrackResource
 	| PlaylistResource
 	| ArticleResource
-	| PaperResource;
+	| PaperResource
+	| NobleResource
+	| GameResource
+	| PodcastResource
+	| VideoResource
+	| CourseResource
+	| ToolResource;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Utility Types
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 export interface ResourceStats {
 	total: number;
@@ -208,62 +270,97 @@ export interface ResourceFilter {
 	search?: string;
 }
 
-// Type mapping for folder names to resource types
+
 export const FOLDER_TO_TYPE: Record<string, ResourceType> = {
 	books: "book",
+	nobels: "noble",
 	films: "film",
 	"series-tv": "tv-series",
 	music: "album",
 	articles: "article",
-	research: "paper"
+	research: "paper",
+	games: "game",
+	podcasts: "podcast",
+	videos: "video",
+	courses: "course",
+	tools: "tool"
 };
 
 export const FOLDER_TO_TYPES: Record<string, ResourceType[]> = {
 	books: ["book"],
+	nobels: ["noble"],
 	films: ["film"],
 	"series-tv": ["tv-series"],
 	music: ["album", "track", "playlist"],
 	articles: ["article"],
-	research: ["paper"]
+	research: ["paper"],
+	games: ["game"],
+	podcasts: ["podcast"],
+	videos: ["video"],
+	courses: ["course"],
+	tools: ["tool"]
 };
 
 export const TYPE_TO_FOLDER: Record<ResourceType, string> = {
 	book: "books",
+	noble: "nobels",
 	film: "films",
 	"tv-series": "series-tv",
 	album: "music",
 	track: "music",
 	playlist: "music",
 	article: "articles",
-	paper: "research"
+	paper: "research",
+	game: "games",
+	podcast: "podcasts",
+	video: "videos",
+	course: "courses",
+	tool: "tools"
 };
 
-// Labels for display
+
 export const TYPE_LABELS: Record<ResourceType, string> = {
 	book: "Livro",
+	noble: "Novel",
 	film: "Filme",
 	"tv-series": "Série",
 	album: "Álbum",
 	track: "Música",
 	playlist: "Playlist",
 	article: "Artigo",
-	paper: "Pesquisa"
+	paper: "Pesquisa",
+	game: "Jogo",
+	podcast: "Podcast",
+	video: "Vídeo",
+	course: "Curso",
+	tool: "Ferramenta"
 };
 
 export const TYPE_LABELS_PLURAL: Record<ResourceType, string> = {
 	book: "Livros",
+	noble: "Novels",
 	film: "Filmes",
 	"tv-series": "Séries",
 	album: "Álbuns",
 	track: "Músicas",
 	playlist: "Playlists",
 	article: "Artigos",
-	paper: "Pesquisas"
+	paper: "Pesquisas",
+	game: "Jogos",
+	podcast: "Podcasts",
+	video: "Vídeos",
+	course: "Cursos",
+	tool: "Ferramentas"
 };
 
 export const STATUS_LABELS: Record<ConsumptionStatus, string> = {
 	queued: "Na fila",
 	consuming: "Consumindo",
 	completed: "Concluído",
-	abandoned: "Abandonado"
+	abandoned: "Abandonado",
+	"to-read": "Para Ler",
+	"to-watch": "Para Assistir",
+	"to-listen": "Para Ouvir",
+	"to-play": "Para Jogar",
+	"in-progress": "Em Progresso"
 };

@@ -2,6 +2,8 @@
 	--color-bg: var(--color-bg);
 	--color-surface: var(--color-surface);
 	--color-surface-elevated: var(--color-surface-elevated);
+	--color-surface-hover: var(--color-surface-hover);
+	--color-surface-active: var(--color-surface-active);
 	--color-text: var(--color-text);
 	--color-muted: var(--color-muted);
 	--color-primary: var(--color-primary);
@@ -16,6 +18,7 @@
 
 	--color-action-hover: var(--color-action-hover);
 	--color-focus: var(--color-focus);
+	--color-link-visited: var(--color-link-visited);
 
 	--color-danger-bg: var(--color-danger-bg);
 	--color-warning-bg: var(--color-warning-bg);
@@ -89,6 +92,10 @@
 	--spacing-8: var(--space-8);
 	--spacing-9: var(--space-9);
 	--spacing-10: var(--space-10);
+	--spacing-12: var(--space-12);
+	--spacing-16: var(--space-16);
+	--spacing-20: var(--space-20);
+	--spacing-24: var(--space-24);
 
 	--radius-sm: var(--radius-1);
 	--radius-md: var(--radius-2);
@@ -99,10 +106,12 @@
 	--transition-base: var(--motion-base);
 	--transition-slow: var(--motion-slow);
 	--ease-out-quint: var(--motion-ease-out-quint);
+	--ease-spring: var(--motion-spring);
 
 	--shadow-sm: var(--shadow-1);
 	--shadow-md: var(--shadow-2);
 	--shadow-lg: var(--shadow-3);
+	--shadow-xl: var(--shadow-4);
 
 	--z-negative: var(--z-negative);
 	--z-base: var(--z-base);

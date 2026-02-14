@@ -16,7 +16,7 @@
 
 {#if backlinks.length > 0 || references.length > 0}
 	<div class="mt-24 space-y-16" in:fly={{ y: 20, duration: 800, delay: 600 }}>
-		<!-- Separator -->
+		
 
 		{#if backlinks.length > 0}
 			<section class="space-y-8">

@@ -10,12 +10,9 @@
 @import "./styles/base/typography.css";
 @import "./styles/base/lenis.css";
 
-@import "./styles/prose.css";
-
 @import "./styles/utilities.css";
 
 @layer base {
-	/* Default View Transition: Subtle Slide Up */
 	::view-transition-group(root) {
 		animation-duration: 0.5s;
 		animation-timing-function: var(--motion-ease-out-quint);
@@ -62,7 +59,6 @@
 	}
 }
 
-/* Article Layout - Fluido com Sidebar Colapsável */
 @layer components {
 	.article-layout {
 		display: flex;
@@ -91,12 +87,11 @@
 
 	.article-content {
 		flex: 1;
-		min-width: 0; /* Prevent overflow */
+		min-width: 0;
 		transition: transform 500ms var(--motion-ease-out-quint);
 	}
 }
 
-/* Mobile: Sidebar completamente oculta, gerenciada pelo Drawer */
 @media (max-width: 1023px) {
 	.article-sidebar {
 		display: none;

@@ -4,7 +4,7 @@ import type { PageServerLoad } from "./$types";
 export const load: PageServerLoad = async () => {
 	const resources = getAllResources();
 
-	// Group resources by type for display
+	
 	const resourcesByType = resources.reduce(
 		(acc, resource) => {
 			if (!acc[resource.type]) {

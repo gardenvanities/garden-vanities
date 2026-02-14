@@ -34,11 +34,6 @@
 	--line-height-relaxed: 1.6;
 	--line-height-loose: 1.75;
 
-	--measure-narrow: 55ch;
-	--measure-prose: 65ch;
-	--measure-wide: 75ch;
-	--measure-code: 80ch;
-
 	--text-underline-offset-small: 0.1em;
 	--text-underline-offset-normal: 0.15em;
 	--text-underline-offset-large: 0.25em;
@@ -48,7 +43,7 @@
 
 	--type--1: clamp(0.72rem, calc(0.7rem + 0.15vw), 0.8rem);
 	--type-0: clamp(0.9rem, calc(0.85rem + 0.25vw), 1rem);
-	--type-1: clamp(1.125rem, calc(1.05rem + 0.35vw), 1.25rem);
+	--type-1: clamp(1rem, calc(0.95rem + 0.25vw), 1.125rem);
 	--type-2: clamp(1.4rem, calc(1.3rem + 0.5vw), 1.56rem);
 	--type-3: clamp(1.75rem, calc(1.6rem + 0.7vw), 1.95rem);
 	--type-4: clamp(2.2rem, calc(2rem + 1vw), 2.44rem);

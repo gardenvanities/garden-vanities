@@ -1,16 +1,19 @@
 import { getAllPosts } from "$lib/server/posts";
+import { getAllKinds } from "$lib/server/kinds";
+import { setCacheHeaders } from "$lib/server/utils";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ setHeaders }) => {
-	setHeaders({
-		"cache-control": "max-age=3600, s-maxage=86400"
-	});
+	setCacheHeaders(setHeaders);
 
 	const posts = await getAllPosts({
 		ripeness: ["fruit"]
 	});
 
+	const kinds = getAllKinds();
+
 	return {
-		posts
+		posts,
+		kinds
 	};
 };

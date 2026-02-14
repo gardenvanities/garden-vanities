@@ -12,7 +12,7 @@
 		priority?: boolean;
 		class?: string;
 		imgClass?: string;
-		fill?: boolean; // New prop to indicate if it should fill parent
+		fill?: boolean; 
 	}
 
 	let {
@@ -49,7 +49,7 @@
 </script>
 
 <figure class="overflow-hidden {fill ? 'absolute inset-0 h-full w-full' : 'relative'} {className}">
-	<!-- LQIP Background -->
+	
 	{#if !priority && lqip && !loaded && !error}
 		<img
 			src={lqip}
@@ -60,7 +60,7 @@
 		/>
 	{/if}
 
-	<!-- Main Image -->
+	
 	{#if !error}
 		<img
 			{src}

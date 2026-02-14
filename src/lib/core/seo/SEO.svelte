@@ -105,6 +105,7 @@
 	<meta name="twitter:description" content={description} />
 	<meta name="twitter:image" content={ogImage} />
 
+	
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	{@html jsonLdScript}
 </svelte:head>

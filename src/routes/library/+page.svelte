@@ -20,10 +20,10 @@
 		description="Livros, filmes, músicas, artigos e pesquisas que inspiram e fundamentam meu trabalho."
 	/>
 
-	<!-- Search & Filters -->
-	<!-- Search section removed -->
+	
+	
 
-	<!-- Resources Grid -->
+	
 	<section>
 		<section>
 			{#if data.resources.length > 0}

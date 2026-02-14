@@ -1,16 +1,11 @@
 <script lang="ts">
-	import { Github, Twitter, Mail, Rss } from "@lucide/svelte";
+
 	import ThemeToggle from "$lib/core/theme/ThemeToggle.svelte";
 	import { onMount } from "svelte";
 
 	const currentYear = new Date().getFullYear();
 
-	const socialLinks = [
-		{ href: "https://github.com/GardenVanities", label: "GitHub", icon: Github },
-		{ href: "https://twitter.com/GardenVanities", label: "Twitter", icon: Twitter },
-		{ href: "mailto:contato@exemplo.com", label: "Email", icon: Mail },
-		{ href: "/rss.xml", label: "RSS Feed", icon: Rss }
-	];
+
 
 	let svgText: SVGTextElement;
 	let viewBox = "0 0 0 0";
@@ -19,7 +14,7 @@
 		const updateBox = () => {
 			if (svgText) {
 				const { x, y, width, height } = svgText.getBBox();
-				// Add padding to prevent letter clipping
+				
 				const padding = 10;
 				viewBox = `${x - padding} ${y - padding} ${width + padding * 2} ${height + padding * 2}`;
 			}
@@ -31,111 +26,10 @@
 </script>
 
 <footer class="bg-bg border-border/30 mt-32 border-t">
-	<!-- Links Grid -->
-	<div class="mx-auto max-w-6xl px-4 sm:px-6">
-		<div
-			class="border-border/30 grid grid-cols-2 gap-8 border-b py-10 sm:gap-10 sm:py-12 lg:grid-cols-4"
-		>
-			<!-- Navegação -->
-			<div>
-				<h4
-					class="text-muted mb-3 font-sans text-[10px] font-bold tracking-widest uppercase sm:mb-4"
-				>
-					Navegação
-				</h4>
-				<ul class="list-none space-y-2 p-0 sm:space-y-2.5">
-					<li>
-						<a href="/explore" class="text-text/80 hover:text-text text-sm transition-colors">
-							Explorar
-						</a>
-					</li>
-					<li>
-						<a href="/series" class="text-text/80 hover:text-text text-sm transition-colors">
-							Séries
-						</a>
-					</li>
-					<li>
-						<a href="/sets" class="text-text/80 hover:text-text text-sm transition-colors">
-							Coleções
-						</a>
-					</li>
-					<li>
-						<a href="/library" class="text-text/80 hover:text-text text-sm transition-colors">
-							Biblioteca
-						</a>
-					</li>
-				</ul>
-			</div>
+	
 
-			<!-- Conteúdo -->
-			<div>
-				<h4
-					class="text-muted mb-3 font-sans text-[10px] font-bold tracking-widest uppercase sm:mb-4"
-				>
-					Conteúdo
-				</h4>
-				<ul class="list-none space-y-2 p-0 sm:space-y-2.5">
-					<li>
-						<a href="/changelog" class="text-text/80 hover:text-text text-sm transition-colors">
-							Changelog
-						</a>
-					</li>
-					<li>
-						<a href="/tags" class="text-text/80 hover:text-text text-sm transition-colors">
-							Tags
-						</a>
-					</li>
-				</ul>
-			</div>
 
-			<!-- Sobre -->
-			<div>
-				<h4
-					class="text-muted mb-3 font-sans text-[10px] font-bold tracking-widest uppercase sm:mb-4"
-				>
-					Sobre
-				</h4>
-				<ul class="list-none space-y-2 p-0 sm:space-y-2.5">
-					<li>
-						<a href="/about" class="text-text/80 hover:text-text text-sm transition-colors">
-							O Jardim
-						</a>
-					</li>
-					<li>
-						<a href="/author" class="text-text/80 hover:text-text text-sm transition-colors">
-							Autor
-						</a>
-					</li>
-				</ul>
-			</div>
-
-			<!-- Conectar -->
-			<div>
-				<h4
-					class="text-muted mb-3 font-sans text-[10px] font-bold tracking-widest uppercase sm:mb-4"
-				>
-					Conectar
-				</h4>
-				<ul class="list-none space-y-2 p-0 sm:space-y-2.5">
-					{#each socialLinks as { href, label, icon } (label)}
-						<li>
-							<a
-								{href}
-								target={href.startsWith("http") ? "_blank" : undefined}
-								rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-								class="text-text/80 hover:text-text inline-flex items-center gap-2 text-sm transition-colors"
-							>
-								<svelte:component this={icon} size={14} class="opacity-60" />
-								{label}
-							</a>
-						</li>
-					{/each}
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<!-- Brand Text - Fluid Width (fora do container) -->
+	
 	<div class="w-full px-4 py-8 sm:px-6 sm:py-10">
 		<svg
 			{viewBox}
@@ -156,7 +50,7 @@
 		<span class="sr-only">Garden Of Vanities.</span>
 	</div>
 
-	<!-- Bottom Meta Row -->
+	
 	<div class="mx-auto max-w-6xl px-4 sm:px-6">
 		<div class="border-border/30 flex flex-wrap items-center justify-between gap-4 border-t py-5">
 			<div class="flex items-center gap-3 sm:gap-4">

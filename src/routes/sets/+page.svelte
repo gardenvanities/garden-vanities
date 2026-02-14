@@ -17,9 +17,9 @@
 <Section class="py-16 md:py-24">
 	<Container size="lg">
 		<div>
-			<!-- Premium Page Header -->
-			<!-- Premium Page Header -->
-			<!-- Premium Page Header -->
+			
+			
+			
 			<PageHeader title="Coleções" description="Áreas de interesse agrupadas por tema" />
 
 			<Grid cols={3} gap="lg">

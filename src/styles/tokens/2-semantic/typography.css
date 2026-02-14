@@ -1,4 +1,12 @@
 :root {
+	--font-weight-body: var(--font-weight-400);
+	--font-weight-emphasis: var(--font-weight-500);
+	--font-weight-heading: var(--font-weight-600);
+	--font-weight-display: var(--font-weight-700);
+
+	--type-base: var(--type-0);
+	--type-body: var(--type-1);
+
 	--text-caption: var(--type--1);
 	--text-body-sm: var(--type-0);
 	--text-body: var(--type-1);

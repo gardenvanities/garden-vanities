@@ -17,9 +17,9 @@
 <Section class="py-16 md:py-24">
 	<Container size="lg">
 		<div>
-			<!-- Premium Page Header -->
-			<!-- Premium Page Header -->
-			<!-- Premium Page Header -->
+			
+			
+			
 			<PageHeader title="Séries" description="Trilhas de conhecimento para ler em ordem" />
 
 			<Grid cols={3} gap="lg">

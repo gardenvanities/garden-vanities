@@ -23,7 +23,7 @@
 	let activeId = $state("");
 	let isInteracting = false;
 
-	// Recursive helper to build the tree
+	
 	function buildTree(elements: { id: string; text: string; level: number }[]): HeadingNode[] {
 		const root: HeadingNode[] = [];
 		const stack: HeadingNode[] = [];
@@ -48,7 +48,7 @@
 	}
 
 	$effect(() => {
-		void key; // React to key changes if needed
+		void key; 
 
 		let observer: IntersectionObserver;
 
@@ -69,7 +69,7 @@
 
 			observer = new IntersectionObserver(
 				(entries) => {
-					// Throttle updates and pause during user interaction
+					
 					if (timeout || isInteracting) return;
 
 					timeout = setTimeout(() => {
@@ -104,7 +104,7 @@
 		if (element) {
 			const y = element.getBoundingClientRect().top + window.scrollY - 100;
 
-			// Close sidebar on mobile if it's open
+			
 			if (window.innerWidth < 1024) {
 				ui.closeSidebar();
 			}
@@ -125,7 +125,7 @@
 		{#each nodes as node (node.id)}
 			{@const isActive = activeId === node.id}
 			<li class="m-0 p-0">
-				<!-- Content -->
+				
 				<a
 					href="#{node.id}"
 					class="mb-2 block touch-manipulation text-sm leading-tight transition-colors duration-200 {isActive

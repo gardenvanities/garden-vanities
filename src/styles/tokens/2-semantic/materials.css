@@ -1,22 +1,8 @@
 :root {
-	--shadow-color: 0deg 0% 0%;
-	--shadow-strength: 1%;
-
-	--shadow-depth-1:
-		0 1px 2px -1px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%)),
-		0 1px 3px 0px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%));
-
-	--shadow-depth-2:
-		0 2px 5px -1px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%)),
-		0 2px 10px 0px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%));
-
-	--shadow-depth-3:
-		0 4px 10px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%)),
-		0 4px 20px -1px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%));
-
-	--shadow-depth-4:
-		0 10px 25px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%)),
-		0 8px 40px -6px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%));
+	--shadow-1: 0 1px 2px oklch(0.18 0.01 80 / 0.04);
+	--shadow-2: 0 2px 8px oklch(0.18 0.01 80 / 0.06), 0 1px 2px oklch(0.18 0.01 80 / 0.04);
+	--shadow-3: 0 4px 16px oklch(0.18 0.01 80 / 0.08), 0 2px 4px oklch(0.18 0.01 80 / 0.04);
+	--shadow-4: 0 8px 32px oklch(0.18 0.01 80 / 0.12), 0 4px 8px oklch(0.18 0.01 80 / 0.06);
 
 	--material-thick: oklch(0.99 0 0 / 0.95);
 	--material-regular: oklch(0.99 0 0 / 0.8);
@@ -34,8 +20,6 @@
 	--material-regular: oklch(0.12 0.012 260 / 0.8);
 	--material-thin: oklch(0.12 0.012 260 / 0.6);
 	--material-ultrathin: oklch(0.12 0.012 260 / 0.3);
-
-	--shadow-strength: 5%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -44,7 +28,5 @@
 		--material-regular: oklch(0.12 0.012 260 / 0.8);
 		--material-thin: oklch(0.12 0.012 260 / 0.6);
 		--material-ultrathin: oklch(0.12 0.012 260 / 0.3);
-
-		--shadow-strength: 5%;
 	}
 }

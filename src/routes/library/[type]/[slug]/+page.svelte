@@ -1,143 +1,225 @@
 <script lang="ts">
-	import { Container } from "$lib/layout";
-	import CloudinaryImage from "$lib/ui/CloudinaryImage.svelte";
-	import { getCreatorName } from "$lib/modules/library/utils";
+	import { Badge } from "$lib/ui";
+	import Section from "$lib/layout/Section.svelte";
+	import Container from "$lib/layout/Container.svelte";
+	import { ArrowRight, Book, Calendar, ExternalLink, Hash, Users, Bookmark } from "@lucide/svelte";
+	import StatusBadge from "$lib/modules/library/components/StatusBadge.svelte";
+	import RatingStars from "$lib/modules/library/components/RatingStars.svelte";
 	import { TYPE_LABELS } from "$lib/modules/library/types";
-	import { ChevronLeft, Calendar, Star, Clock, Globe } from "@lucide/svelte";
-	import ContentCard from "$lib/ui/ContentCard.svelte";
+	import SEO from "$lib/core/seo/SEO.svelte";
 
 	let { data } = $props();
-	let { resource } = $derived(data);
-	let creator = $derived(getCreatorName(resource));
+	let { resource, relatedResources } = $derived(data);
+	
+	
+	
+
 </script>
 
-<svelte:head>
-	<title>{resource.title} | {TYPE_LABELS[resource.type]} | Garden of Vanities</title>
-	<meta name="description" content={resource.summary || `Detalhes sobre ${resource.title}`} />
-</svelte:head>
+<SEO
+	title="{resource.title} | Biblioteca"
+	description={resource.summary || `Detalhes sobre ${resource.title}`}
+/>
 
-<Container class="py-12 md:py-16">
-	<!-- Breadcrumb -->
-	<nav class="mb-8">
-		<a
-			href="/library/{resource.type === 'tv-series' ? 'series-tv' : resource.type + 's'}"
-			class="hover:text-brand-400 inline-flex items-center gap-1 text-sm text-white/50 transition-colors"
-		>
-			<ChevronLeft class="h-4 w-4" />
-			Voltar para {TYPE_LABELS[resource.type]}
-		</a>
-	</nav>
+<div class="relative min-h-[50vh] w-full overflow-hidden bg-background">
+	
+	{#if resource.cover}
+		<div class="absolute inset-0 z-0">
+			<img
+				src={resource.cover.url}
+				alt=""
+				class="h-full w-full object-cover opacity-10 blur-xl filter"
+			/>
+			<div class="absolute inset-0 bg-linear-to-t from-background via-background/80 to-transparent"></div>
+		</div>
+	{/if}
 
-	<div class="grid gap-12 lg:grid-cols-[300px_1fr]">
-		<!-- Sidebar / Cover -->
-		<aside>
-			{#if resource.cover}
-				<div class="overflow-hidden rounded-lg shadow-2xl">
-					<CloudinaryImage
-						publicId={resource.cover.url}
-						alt={resource.cover.alt || resource.title}
-						width={600}
-						height={900}
-						class="w-full object-cover"
-					/>
-				</div>
-			{:else}
-				<div class="flex aspect-2/3 items-center justify-center rounded-lg bg-white/5 text-white/20">
-					<span class="text-sm">Sem capa</span>
-				</div>
-			{/if}
+	<Section class="relative z-10 pt-16 md:pt-24">
+		<Container>
+			<div class="grid gap-8 lg:grid-cols-[1fr_300px] lg:gap-12">
+				
+				<div class="space-y-8">
+					
+					<div class="space-y-4">
+						<div class="flex flex-wrap items-center gap-2">
+							<Badge variant="secondary" class="gap-1">
+								<Book class="h-3 w-3" />
+								{TYPE_LABELS[resource.type]}
+							</Badge>
+							
+							{#if resource.publishedAt}
+								<Badge variant="outline" class="gap-1">
+									<Calendar class="h-3 w-3" />
+									{new Date(resource.publishedAt).getFullYear()}
+								</Badge>
+							{/if}
 
-			{#if resource.affiliateLink || resource.externalLink}
-				<div class="mt-6">
-					<a
-						href={resource.affiliateLink || resource.externalLink}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="hover:bg-brand-500/20 active:bg-brand-500/30 flex w-full items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white transition-all hover:border-white/20"
-					>
-						<Globe size={16} />
-						Ver fonte original
-					</a>
-				</div>
-			{/if}
-		</aside>
+							<StatusBadge status={resource.status} />
+						</div>
 
-		<!-- Main Content -->
-		<div class="space-y-8">
-			<header class="space-y-4">
-				<div class="flex items-center gap-3 text-sm font-medium tracking-wider text-white/50 uppercase">
-					<span>{TYPE_LABELS[resource.type]}</span>
-					{#if resource.status}
-						<span class="bg-white/10 px-2 py-0.5 rounded text-xs">{resource.status}</span>
+						<h1 class="font-heading text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
+							{resource.title}
+						</h1>
+
+						{#if resource.subtitle}
+							<p class="text-xl text-muted-foreground md:text-2xl">
+								{resource.subtitle}
+							</p>
+						{/if}
+
+						{#if resource.author}
+							<div class="flex items-center gap-2 pt-2 text-muted-foreground">
+								<Users class="h-4 w-4" />
+								<span>{resource.author}</span>
+							</div>
+						{/if}
+						
+						{#if resource.rating}
+							<div class="pt-2">
+								<RatingStars rating={resource.rating} />
+							</div>
+						{/if}
+					</div>
+					
+					
+					<div class="rounded-lg border bg-card p-6 shadow-sm lg:hidden">
+						
+					</div>
+
+					
+					{#if resource.html}
+						<div class="prose prose-lg dark:prose-invert max-w-none">
+							
+							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+							{@html resource.html}
+						</div>
+					{:else if resource.summary}
+						<div class="rounded-lg border bg-muted/30 p-8">
+							<h3 class="mb-4 text-lg font-semibold flex items-center gap-2">
+								<Bookmark class="h-5 w-5" />
+								Resumo
+							</h3>
+							<p class="text-lg leading-relaxed text-muted-foreground">
+								{resource.summary}
+							</p>
+						</div>
 					{/if}
 				</div>
 
-				<h1 class="font-heading text-4xl font-bold text-white md:text-5xl">{resource.title}</h1>
-
-				{#if creator}
-					<p class="text-xl text-white/60">{creator}</p>
-				{/if}
-			</header>
-
-			<!-- Key Metrics -->
-			<div class="flex flex-wrap gap-6 border-y border-white/5 py-6">
-				{#if resource.rating}
-					<div class="flex items-center gap-2">
-						<Star class="text-yellow-500" size={20} fill="currentColor" />
-						<span class="text-lg font-bold text-white max-w-[2ch]">{resource.rating}</span>
-						<span class="text-white/40">/ 5</span>
-					</div>
-				{/if}
-
-				{#if resource.createdAt}
-					<div class="flex items-center gap-2 text-white/60">
-						<Calendar size={20} />
-						<span>{new Date(resource.createdAt).toLocaleDateString("pt-BR")}</span>
-					</div>
-				{/if}
-
-				<!-- Type Specific Metrics -->
-				{#if resource.type === 'book' && resource.pages}
-					<div class="flex items-center gap-2 text-white/60">
-						<span>📖 {resource.pages} páginas</span>
-					</div>
-				{/if}
 				
-				{#if resource.type === 'film' && resource.year}
-					<div class="flex items-center gap-2 text-white/60">
-						<Clock size={20} />
-						<span>{resource.year}</span>
+				<div class="hidden space-y-8 lg:block">
+					<div class="sticky top-24 space-y-8">
+						
+						<div class="overflow-hidden rounded-lg border bg-muted shadow-lg aspect-2/3">
+							{#if resource.cover}
+								<img
+									src={resource.cover.url}
+									alt={resource.cover.alt || resource.title}
+									class="h-full w-full object-cover transition-transform hover:scale-105 duration-500"
+								/>
+							{:else}
+								<div class="flex h-full w-full items-center justify-center bg-muted">
+									<Book class="h-16 w-16 text-muted-foreground/30" />
+								</div>
+							{/if}
+						</div>
+
+						
+						<div class="grid gap-3">
+							{#if resource.url}
+								<a
+									href={resource.url}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+								>
+									Ver Original
+									<ExternalLink class="h-4 w-4" />
+								</a>
+							{/if}
+						</div>
+
+						
+						{#if resource.tags && resource.tags.length > 0}
+							<div class="space-y-3 pt-4 border-t">
+								<h3 class="text-sm font-medium flex items-center gap-2">
+									<Hash class="h-4 w-4" />
+									Tags
+								</h3>
+								<div class="flex flex-wrap gap-2">
+									{#each resource.tags as tag (tag)}
+										<Badge variant="secondary" class="hover:bg-secondary/80">
+											#{tag}
+										</Badge>
+									{/each}
+								</div>
+							</div>
+						{/if}
+						
+						{#if resource.metadata}
+							<div class="space-y-3 pt-4 border-t">
+								<h3 class="text-sm font-medium">Informações</h3>
+								<dl class="space-y-2 text-sm">
+									{#each Object.entries(resource.metadata) as [key, value] (key)}
+										<div class="flex justify-between">
+											<dt class="text-muted-foreground capitalize">{key.replace(/_/g, ' ')}</dt>
+											<dd class="font-medium text-right">{value}</dd>
+										</div>
+									{/each}
+								</dl>
+							</div>
+						{/if}
 					</div>
-				{/if}
+				</div>
 			</div>
+		</Container>
+	</Section>
+</div>
 
-			<!-- Summary / Notes -->
-			{#if resource.summary}
-				<section class="prose prose-invert max-w-none">
-					<h3 class="text-white">Sobre</h3>
-					<p>{resource.summary}</p>
-				</section>
-			{/if}
-
-			{#if resource.personalNotes}
-				<section class="rounded-xl border border-white/5 bg-white/5 p-6 backdrop-blur-sm">
-					<h3 class="mb-4 text-lg font-bold text-white">Notas Pessoais</h3>
-					<div class="prose prose-invert max-w-none text-white/80">
-						{@html resource.personalNotes} 
-						<!-- Caution: Ideally parse md here if personalNotes is markdown -->
-					</div>
-				</section>
-			{/if}
+{#if relatedResources.length > 0}
+	<Section class="bg-muted/30 py-16">
+		<Container>
+			<div class="mb-8 flex items-center justify-between">
+				<h2 class="font-heading text-2xl font-bold">Relacionados</h2>
+				<a href="/library" class="text-sm font-medium text-primary hover:underline group flex items-center gap-1">
+					Ver biblioteca
+					<ArrowRight class="h-4 w-4 transition-transform group-hover:translate-x-1" />
+				</a>
+			</div>
 			
-			<!-- Content Rendering via +page.svelte slot/data could go here if markdown body existed, 
-			     but currently library items seem to be mostly metadata frontmatter based on types. 
-				 If there is body content, we need to handle it. -->
-			{#if resource.content}
-				{@const Content = resource.content}
-				<article class="prose prose-invert max-w-none mt-12">
-					<Content />
-				</article>
-			{/if}
-		</div>
-	</div>
-</Container>
+			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+				{#each relatedResources as item (item.slug)}
+					
+					<a 
+						href="/library/{item.type}/{item.slug}"
+						class="group relative flex flex-col overflow-hidden rounded-lg border bg-card transition-all hover:shadow-md"
+					>
+						<div class="aspect-3/4 overflow-hidden bg-muted">
+							{#if item.cover}
+								<img 
+									src={item.cover.url} 
+									alt={item.title} 
+									class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" 
+								/>
+							{:else}
+								<div class="flex h-full w-full items-center justify-center">
+									<Book class="h-10 w-10 text-muted-foreground/30" />
+								</div>
+							{/if}
+						</div>
+						<div class="flex flex-1 flex-col p-4">
+							<h3 class="line-clamp-2 font-medium group-hover:text-primary">
+								{item.title}
+							</h3>
+							{#if item.author}
+								<p class="mt-1 line-clamp-1 text-sm text-muted-foreground">
+									{item.author}
+								</p>
+							{/if}
+						</div>
+					</a>
+				{/each}
+			</div>
+		</Container>
+	</Section>
+{/if}
