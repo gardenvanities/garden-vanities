@@ -14,7 +14,11 @@
 	import ReadingProgress from "./ReadingProgress.svelte";
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
 
-	let { metadata }: { metadata: PostFrontmatter } = $props();
+	interface Props {
+		metadata: PostFrontmatter;
+	}
+
+	let { metadata }: Props = $props();
 
 	let isExpanded = $derived(ui.articleSidebarExpanded);
 	let isMobileOpen = $derived(ui.articleSidebarMobileOpen);
@@ -35,48 +39,38 @@
 	});
 </script>
 
-<!-- Mobile trigger is usually outside, but we can have a floating one if needed. 
-     For now, we'll assume the layout handles the trigger or we explicitly look for where to put it. 
-	 However, standardizing: the Article Layout likely needs a trigger. 
-	 Since this is "ArticleSidebar", let's keep it self-contained if possible, 
-	 but usually the trigger is in the sticky header on mobile. 
-	 We will add a floating trigger for mobile here just in case, similar to the main sidebar. -->
 <button
 	type="button"
-	class="mobile-trigger"
+	class="fixed top-4 right-4 z-40 flex items-center justify-center w-10 h-10 rounded-md border border-border bg-(--material-thick) backdrop-blur-lg text-text cursor-pointer transition-all duration-fast shadow-md active:scale-[0.92] lg:hidden"
 	onclick={() => ui.openArticleSidebarMobile()}
 	aria-label="Abrir menu do artigo"
 >
 	<List size={20} strokeWidth={2} />
 </button>
 
-<!-- Mobile backdrop -->
 {#if isMobileOpen}
 	<button
 		type="button"
-		class="sidebar-backdrop"
+		class="fixed inset-0 z-41 bg-black/50 backdrop-blur-sm border-none cursor-default lg:hidden"
 		onclick={() => ui.closeArticleSidebarMobile()}
 		aria-label="Fechar menu"
 		transition:fade={{ duration: 200 }}
 	></button>
 {/if}
 
-<!-- Sidebar -->
 <aside
 	class={cn(
-		"sidebar",
-		isExpanded ? "sidebar--expanded" : "sidebar--collapsed",
-		isMobileOpen && "sidebar--mobile-open"
+		"fixed top-0 right-0 bottom-0 z-42 flex flex-col bg-surface border-l border-border transition-[width,transform] duration-base ease-(--motion-ease-out-quint)",
+		"max-lg:w-[280px] max-lg:translate-x-full max-lg:border-l max-lg:border-border",
+		isMobileOpen && "max-lg:translate-x-0",
+		isExpanded ? "lg:w-[260px]" : "lg:w-12"
 	)}
 	aria-label="Navegação do artigo"
 >
-	<!-- Header -->
-	<div class="sidebar__header">
-		
-		<!-- Desktop toggle -->
+	<div class="flex items-center p-4 min-h-14 gap-2">
 		<button
 			type="button"
-			class="sidebar__toggle desktop-only"
+			class="hidden lg:flex items-center justify-center w-8 h-8 rounded-sm border-none bg-transparent text-muted cursor-pointer shrink-0 transition-all duration-fast hover:text-text hover:bg-surface-hover active:scale-90"
 			onclick={() => ui.toggleArticleSidebar()}
 			aria-label={isExpanded ? "Colapsar menu" : "Expandir menu"}
 		>
@@ -88,13 +82,12 @@
 		</button>
 		
 		{#if isExpanded}
-			<span class="sidebar__title">Neste Artigo</span>
+			<span class="text-xs font-bold uppercase tracking-widest text-muted whitespace-nowrap overflow-hidden">Neste Artigo</span>
 		{/if}
 
-		<!-- Mobile close -->
 		<button
 			type="button"
-			class="sidebar__toggle mobile-only ml-auto"
+			class="flex lg:hidden items-center justify-center w-8 h-8 rounded-sm border-none bg-transparent text-muted cursor-pointer shrink-0 transition-all duration-fast hover:text-text hover:bg-surface-hover active:scale-90 ml-auto"
 			onclick={() => ui.closeArticleSidebarMobile()}
 			aria-label="Fechar menu"
 		>
@@ -102,193 +95,17 @@
 		</button>
 	</div>
 
-	<!-- Navigation (TOC) -->
-	<div class="sidebar__content" data-lenis-prevent>
+	<div class="flex-1 overflow-y-auto overflow-x-hidden px-3 scrollbar-none" data-lenis-prevent>
 		{#if isExpanded || isMobileOpen}
-			<div class="toc-wrapper">
+			<div>
 				<TableOfContents key={metadata.slug} title="" />
 			</div>
 		{/if}
 	</div>
 
-	<!-- Footer (Reading Progress) -->
 	{#if isExpanded || isMobileOpen}
-		<div class="sidebar__footer">
+		<div class="mt-auto">
 			<ReadingProgress />
 		</div>
 	{/if}
 </aside>
-
-<style>
-	@layer components {
-		/* ===== Mobile Trigger ===== */
-		.mobile-trigger {
-			position: fixed;
-			top: var(--space-4);
-			right: var(--space-4);
-			z-index: var(--z-nav);
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 2.5rem;
-			height: 2.5rem;
-			border-radius: var(--radius-2);
-			border: 1px solid var(--color-border);
-			background: var(--material-thick);
-			backdrop-filter: blur(var(--blur-lg));
-			-webkit-backdrop-filter: blur(var(--blur-lg));
-			color: var(--color-text);
-			cursor: pointer;
-			transition: all var(--motion-fast) var(--motion-ease);
-			box-shadow: var(--shadow-2);
-		}
-
-		.mobile-trigger:active {
-			transform: scale(0.92);
-		}
-
-		@media (min-width: 1024px) {
-			.mobile-trigger {
-				display: none;
-			}
-		}
-
-		/* ===== Backdrop ===== */
-		.sidebar-backdrop {
-			position: fixed;
-			inset: 0;
-			z-index: calc(var(--z-nav) + 1);
-			background: oklch(0 0 0 / 0.5);
-			backdrop-filter: blur(var(--blur-sm));
-			border: none;
-			cursor: default;
-		}
-
-		@media (min-width: 1024px) {
-			.sidebar-backdrop {
-				display: none;
-			}
-		}
-
-		/* ===== Sidebar ===== */
-		.sidebar {
-			position: fixed;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			z-index: calc(var(--z-nav) + 2);
-			display: flex;
-			flex-direction: column;
-			background-color: var(--color-surface);
-			border-left: 1px solid var(--color-border);
-			transition:
-				width var(--motion-base) var(--motion-ease-out-quint),
-				transform var(--motion-base) var(--motion-ease-out-quint);
-		}
-
-		/* Mobile: hidden by default, slides in right content */
-		@media (max-width: 1023px) {
-			.sidebar {
-				width: 280px;
-				transform: translateX(100%);
-				border-left: 1px solid var(--color-border);
-			}
-
-			.sidebar--mobile-open {
-				transform: translateX(0);
-			}
-		}
-
-		/* Desktop */
-		@media (min-width: 1024px) {
-			.sidebar--expanded {
-				width: 260px;
-			}
-
-			.sidebar--collapsed {
-				width: 48px;
-			}
-		}
-
-		/* ===== Header ===== */
-		.sidebar__header {
-			display: flex;
-			align-items: center;
-			padding: var(--space-4);
-			min-height: 3.5rem;
-			gap: var(--space-2);
-		}
-
-		.sidebar__title {
-			font-size: 0.75rem;
-			font-weight: 700;
-			text-transform: uppercase;
-			letter-spacing: var(--letter-spacing-widest);
-			color: var(--color-muted);
-			white-space: nowrap;
-			overflow: hidden;
-		}
-
-		.sidebar__toggle {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 2rem;
-			height: 2rem;
-			border-radius: var(--radius-1);
-			border: none;
-			background: transparent;
-			color: var(--color-muted);
-			cursor: pointer;
-			flex-shrink: 0;
-			transition: all var(--motion-fast) var(--motion-ease);
-		}
-
-		@media (hover: hover) {
-			.sidebar__toggle:hover {
-				color: var(--color-text);
-				background: var(--color-surface-hover);
-			}
-		}
-
-		.sidebar__toggle:active {
-			transform: scale(0.9);
-		}
-
-		.desktop-only {
-			display: none;
-		}
-
-		.mobile-only {
-			display: flex;
-		}
-
-		@media (min-width: 1024px) {
-			.desktop-only {
-				display: flex;
-			}
-
-			.mobile-only {
-				display: none;
-			}
-		}
-
-		/* ===== Content ===== */
-		.sidebar__content {
-			flex: 1;
-			overflow-y: auto;
-			overflow-x: hidden;
-			padding: 0 var(--space-3);
-			scrollbar-width: none;
-		}
-		
-		.sidebar__content::-webkit-scrollbar {
-			display: none;
-		}
-
-		/* ===== Footer ===== */
-		.sidebar__footer {
-			margin-top: auto;
-		}
-	}
-</style>

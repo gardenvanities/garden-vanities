@@ -13,10 +13,7 @@
 
 	onMount(() => {
 		const article = document.getElementById("article-content");
-		if (!article) {
-			console.warn("FootnoteTooltip: Article content not found");
-			return;
-		}
+		if (!article) return;
 
 
 		

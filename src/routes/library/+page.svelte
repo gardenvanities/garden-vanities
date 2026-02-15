@@ -2,17 +2,16 @@
 	import { Container, Grid } from "$lib/layout";
 	import { ResourceCard } from "$lib/modules/library";
 	import PageHeader from "$lib/ui/PageHeader.svelte";
+	import SEO from "$lib/core/seo/SEO.svelte";
 
 	let { data } = $props();
 </script>
 
-<svelte:head>
-	<title>Biblioteca | Garden of Vanities</title>
-	<meta
-		name="description"
-		content="Minha biblioteca pessoal de livros, filmes, músicas, artigos e pesquisas que inspiram e fundamentam meu trabalho."
-	/>
-</svelte:head>
+<SEO
+	title="Biblioteca"
+	description="Minha biblioteca pessoal de livros, filmes, músicas, artigos e pesquisas que inspiram e fundamentam meu trabalho."
+/>
+
 
 <Container class="py-12 md:py-20">
 	<PageHeader

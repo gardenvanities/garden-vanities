@@ -16,4 +16,6 @@ export interface BaseContent {
 	tags?: string[];
 	cover?: ImageMetadata;
 	updatedAt?: string;
+	publishedAt?: string;
+	createdAt?: string;
 }

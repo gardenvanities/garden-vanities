@@ -1,10 +1,9 @@
 <script lang="ts">
+	import SEO from "$lib/core/seo/SEO.svelte";
 </script>
 
-<svelte:head>
-	<title>Termos de Uso | Garden of Vanities</title>
-	<meta name="description" content="Termos de uso e privacidade do Garden of Vanities." />
-</svelte:head>
+<SEO title="Termos de Uso" description="Termos de uso e privacidade do Garden of Vanities." />
+
 
 <div class="mx-auto max-w-3xl px-6 py-24">
 	<header class="mb-16">

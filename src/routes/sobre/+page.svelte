@@ -1,14 +1,13 @@
 <script lang="ts">
 	import { Telescope } from "@lucide/svelte";
+	import SEO from "$lib/core/seo/SEO.svelte";
 </script>
 
-<svelte:head>
-	<title>Sobre Nós | Garden of Vanities</title>
-	<meta
-		name="description"
-		content="Saiba mais sobre o Garden of Vanities, um espaço para reflexão e exploração digital."
-	/>
-</svelte:head>
+<SEO
+	title="Sobre Nós"
+	description="Saiba mais sobre o Garden of Vanities, um espaço para reflexão e exploração digital."
+/>
+
 
 <div class="mx-auto max-w-3xl px-6 py-24">
 	<header class="mb-16 text-center">
