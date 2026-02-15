@@ -44,11 +44,11 @@ export async function getAllPosts(
 	});
 }
 
-function stripMarkdown(content: string): string {
+export function stripMarkdown(content: string): string {
 	return content
 		.replace(/---\n[\s\S]*?\n---/, "")
-		.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
 		.replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1")
+		.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
 		.replace(/[#*`_~]/g, "")
 		.replace(/\n/g, " ")
 		.replace(/\s+/g, " ")
