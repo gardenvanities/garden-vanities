@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { page } from "$app/state";
 	import { commandPalette } from "$lib/core/navigation/command-palette.svelte";
 	import { onMount } from "svelte";
 	import CommandPalette from "./CommandPalette.svelte";

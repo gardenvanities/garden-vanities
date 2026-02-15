@@ -9,8 +9,6 @@
 	import { Loader2 } from "@lucide/svelte";
 	import viewport from "$lib/actions/viewport";
 
-	import type { Kind } from "$lib/modules/posts/types";
-
 	let { data } = $props();
 
 	

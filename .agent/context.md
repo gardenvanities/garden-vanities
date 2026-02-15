@@ -71,23 +71,25 @@
 src/
 ├── lib/
 │   ├── ui/              # Dumb, agnostic UI Kit (Button, Card, Badge...)
-│   ├── domains/         # Core business logic by bounded context
-│   │   ├── garden/      # Posts, markdown, ripeness
-│   │   ├── taxonomy/    # Tags, kinds, series, sets
-│   │   └── [future]/    # commerce/, auth/, etc.
+│   ├── modules/         # Core business logic by bounded context
+│   │   └── [domain]/
+│   │       ├── components/   # Smart components for this domain
+│   │       ├── types.ts      # Domain types
+│   │       ├── services.ts   # Domain logic
+│   │       └── constants.ts  # Domain constants
 │   ├── server/          # Server-only infra (DB, API keys, security)
-│   └── utils/           # Pure, universal utility functions
+│   ├── shared/          # Pure, universal utility functions
+│   ├── stores/          # Svelte stores
+│   └── core/            # App shell components
 ├── routes/              # Thin orchestration layer only
-└── styles/              # Design tokens, base styles, utilities
-content/                 # Raw Markdown/MDX at project root (NOT in src/)
+├── styles/              # Design tokens, base styles, utilities
+└── content/             # Raw Markdown content
 ```
-
-> **Note:** Current structure uses `src/lib/modules/` — migration to `src/lib/domains/` is planned.
 
 ### Rules
 - **Routes are thin:** `+page.server.ts` only orchestrates `load`/`actions`. No business logic in `+page.svelte`.
 - **Barrel files:** Only in reusable component modules. Never in logic folders or routes.
-- **Content files:** Keep at project root (`content/`) to separate data from code.
+- **Content files:** Keep in `src/content/`.
 
 ---
 

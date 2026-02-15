@@ -15,7 +15,7 @@
 		X
 	} from "@lucide/svelte";
 	import { onMount } from "svelte";
-	import { fly, fade } from "svelte/transition";
+	import { fade } from "svelte/transition";
 	import { ui } from "$lib/stores/ui.svelte";
 	import UserMenu from "./UserMenu.svelte";
 	import Kbd from "$lib/ui/Kbd.svelte";

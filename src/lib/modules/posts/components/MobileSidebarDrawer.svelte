@@ -8,7 +8,7 @@
 	let { metadata }: { metadata: PostFrontmatter } = $props();
 
 	function close() {
-		ui.closeSidebar();
+		ui.closeArticleSidebarMobile();
 	}
 
 	function handleKeydown(e: KeyboardEvent) {
@@ -20,7 +20,7 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
-{#if ui.sidebarVisible}
+{#if ui.articleSidebarMobileOpen}
 	
 	<button
 		type="button"

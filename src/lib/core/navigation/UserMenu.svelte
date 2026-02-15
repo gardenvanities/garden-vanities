@@ -1,6 +1,5 @@
 <script lang="ts">
 	import {
-		User,
 		Settings,
 		LogOut,
 		Sparkles,
@@ -80,9 +79,9 @@
 			<div class="h-px bg-border my-1 opacity-50"></div>
 
 			<!-- Menu Items -->
-			<div class="flex flex-col gap-0.5">
-				{#each menuItems as item}
-					<button
+				<div class="flex flex-col gap-0.5">
+					{#each menuItems as item (item.label)}
+						<button
 						class="flex items-center gap-3 px-3 py-2.5 rounded-md bg-transparent border-none text-text text-sm cursor-pointer text-left transition-colors duration-fast hover:bg-surface-hover group"
 						onclick={item.action}
 					>
@@ -114,4 +113,3 @@
 		{/if}
 	</button>
 </div>
-

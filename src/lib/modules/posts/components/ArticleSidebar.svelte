@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { commandPalette } from "$lib/core/navigation/command-palette.svelte";
 	import { cn } from "$lib/shared/merge-class";
 	import {
 		PanelRightClose,
@@ -22,11 +21,6 @@
 
 	let isExpanded = $derived(ui.articleSidebarExpanded);
 	let isMobileOpen = $derived(ui.articleSidebarMobileOpen);
-
-	function openSearch() {
-		commandPalette.open();
-		ui.closeArticleSidebarMobile();
-	}
 
 	onMount(() => {
 		const listener = (e: KeyboardEvent) => {

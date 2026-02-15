@@ -47,7 +47,7 @@ src/
 ├── styles/
 │   ├── tokens/          # Design tokens (colors, spacing, typography, motion)
 │   └── utilities.css    # Utility classes (.container, .glass, .flow)
-└── content/             # Markdown content (posts, series, sets, kinds, library)
+├── content/             # Markdown content (posts, series, sets, kinds, library)
 ```
 
 ## Code Style
@@ -156,4 +156,3 @@ These patterns must NEVER appear in production code:
 - Complete solutions for new files; incremental for existing code edits.
 - Strictly reuse existing components before creating new ones.
 - Provide risk summary after autonomous cycles.
-

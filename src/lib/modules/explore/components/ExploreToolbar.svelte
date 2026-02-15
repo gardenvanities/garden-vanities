@@ -1,18 +1,14 @@
 <script lang="ts">
 	import { Search, X, ChevronDown, Check } from "@lucide/svelte";
-	import type { Kind } from "$lib/modules/posts/types";
 	import { onMount } from "svelte";
-	import { fade, fly } from "svelte/transition";
+	import { fly } from "svelte/transition";
 
 	interface Props {
 		sortBy: "newest" | "oldest" | "az";
 		searchQuery: string;
 	}
 
-	let {
-		sortBy = $bindable("newest"),
-		searchQuery = $bindable("")
-	}: Props = $props();
+	let { sortBy = $bindable("newest"), searchQuery = $bindable("") }: Props = $props();
 
 	let isOpen = $state(false);
 	let menuRef = $state<HTMLDivElement | null>(null);
@@ -39,7 +35,7 @@
 
 	function selectKind(kindValue: string) {
 		// Remove existing kinds
-		featureKinds.forEach(k => {
+		featureKinds.forEach((k) => {
 			if (k.value !== "all") {
 				const token = `?${k.value}`;
 				if (searchQuery.includes(token)) {
@@ -47,12 +43,12 @@
 				}
 			}
 		});
-		
+
 		// Add new kind if not "all"
 		if (kindValue !== "all") {
 			searchQuery = `${searchQuery} ?${kindValue}`.trim();
 		}
-		
+
 		// Clean up spaces
 		searchQuery = searchQuery.replace(/\s{2,}/g, " ");
 		isOpen = false;
@@ -95,7 +91,7 @@
 	<!-- Search Bar Container -->
 	<div class="relative z-20">
 		<div
-			class="bg-background focus-within:ring-ring flex min-h-[3rem] h-auto w-full items-stretch rounded-2xl border border-input shadow-sm hover:shadow-md transition-all focus-within:outline-none focus-within:ring-2"
+			class="bg-background focus-within:ring-ring border-input flex h-auto min-h-[3rem] w-full items-stretch rounded-2xl border shadow-sm transition-all focus-within:ring-2 focus-within:outline-none hover:shadow-md"
 		>
 			<!-- Dropdown Trigger -->
 			<button
@@ -106,21 +102,25 @@
 				aria-expanded={isOpen}
 			>
 				<span>{activeKind.label}</span>
-				<ChevronDown class="text-muted-foreground h-4 w-4 transition-transform duration-200 {isOpen ? 'rotate-180' : ''}" />
+				<ChevronDown
+					class="text-muted-foreground h-4 w-4 transition-transform duration-200 {isOpen
+						? 'rotate-180'
+						: ''}"
+				/>
 			</button>
 
 			<!-- Divider -->
-			<div class="bg-border w-px shrink-0 self-stretch my-2"></div>
+			<div class="bg-border my-2 w-px shrink-0 self-stretch"></div>
 
 			<!-- Search Input -->
 			<div class="relative flex-1 py-1">
-				<Search class="text-muted-foreground absolute left-3 top-3.5 h-4 w-4" />
+				<Search class="text-muted-foreground absolute top-3.5 left-3 h-4 w-4" />
 				<textarea
 					bind:value={searchQuery}
 					oninput={(e) => resizeTextarea(e.currentTarget)}
 					rows="1"
 					placeholder="Buscar... #tag"
-					class="bg-transparent placeholder:text-muted-foreground flex w-full border-none pl-9 pr-10 py-2.5 text-base focus:outline-none focus:ring-0 resize-none overflow-hidden min-h-[44px]"
+					class="placeholder:text-muted-foreground min-h-44px flex w-full resize-none overflow-hidden border-none bg-transparent py-2.5 pr-10 pl-9 text-base focus:ring-0 focus:outline-none"
 					style="height: 44px;"
 				></textarea>
 				{#if searchQuery}
@@ -128,7 +128,7 @@
 						onclick={() => {
 							searchQuery = "";
 						}}
-						class="absolute right-3 top-3.5 text-muted-foreground hover:text-foreground transition-colors p-1"
+						class="text-muted-foreground hover:text-foreground absolute top-3.5 right-3 p-1 transition-colors"
 						aria-label="Limpar busca"
 					>
 						<X class="h-4 w-4" />
@@ -142,13 +142,13 @@
 			<div
 				bind:this={menuRef}
 				transition:fly={{ y: 10, duration: 200 }}
-				class="bg-surface-elevated animate-in fade-in zoom-in-95 absolute top-14 left-0 z-50 min-w-[200px] overflow-hidden rounded-xl border border-border p-1 shadow-lg"
+				class="bg-surface-elevated animate-in fade-in zoom-in-95 min-w-200px border-border absolute top-14 left-0 z-50 overflow-hidden rounded-xl border p-1 shadow-lg"
 			>
 				<div class="flex flex-col gap-0.5">
-					{#each featureKinds as kind}
+					{#each featureKinds as kind (kind.value)}
 						<button
 							onclick={() => selectKind(kind.value)}
-							class="text-text hover:bg-surface-hover flex items-center justify-between rounded-md px-3 py-2 text-sm transition-colors text-left"
+							class="text-text hover:bg-surface-hover flex items-center justify-between rounded-md px-3 py-2 text-left text-sm transition-colors"
 						>
 							<span>{kind.label}</span>
 							{#if activeKind.value === kind.value}
@@ -163,17 +163,19 @@
 
 	<!-- Sort (Right Aligned) -->
 	<div class="flex justify-end">
-		<div class="relative min-w-[160px]">
+		<div class="min-w-160px relative">
 			<select
 				bind:value={sortBy}
-				class="h-10 w-full appearance-none rounded-full border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+				class="border-input bg-background hover:bg-muted/50 focus-visible:ring-ring h-10 w-full appearance-none rounded-full border px-4 py-2 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
 				aria-label="Ordenar por"
 			>
 				<option value="newest">Mais Recentes</option>
 				<option value="oldest">Mais Antigas</option>
 				<option value="az">De A a Z</option>
 			</select>
-			<div class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-muted-foreground">
+			<div
+				class="text-muted-foreground pointer-events-none absolute inset-y-0 right-3 flex items-center"
+			>
 				<ChevronDown class="h-4 w-4" />
 			</div>
 		</div>
