@@ -110,7 +110,7 @@ Dynamic post type definitions.
 ---
 slug: note                                    # Required. Lowercase, must match kind values in posts
 title: Nota                                   # Required. pt-BR display label
-color: "#3b82f6"                              # Required. Hex color for badges/cards
+color: "var(--color-kind-note)"               # Required. Use a semantic token reference
 description: Notas rápidas, observações...    # Required. Shown as tooltip/description
 ---
 ```
@@ -118,10 +118,10 @@ description: Notas rápidas, observações...    # Required. Shown as tooltip/de
 ### Current Kinds
 | Slug | Title | Color |
 |------|-------|-------|
-| `note` | Nota | `#3b82f6` (blue) |
-| `essay` | Ensaio | violet |
-| `tutorial` | Tutorial | emerald |
-| `thought` | Reflexão | amber |
+| `note` | Nota | `var(--color-kind-note)` |
+| `essay` | Ensaio | `var(--color-kind-essay)` |
+| `tutorial` | Tutorial | `var(--color-kind-tutorial)` |
+| `thought` | Reflexão | `var(--color-kind-thought)` |
 
 New kinds can be created freely by adding a new `.md` file.
 

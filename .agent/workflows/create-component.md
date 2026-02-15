@@ -6,6 +6,8 @@ description: Scaffold a new Svelte component following project conventions
 
 Scaffold a new Svelte 5 component following the project's architecture and naming conventions.
 
+Design system canonical source: `.agent/design-system.md`.
+
 ## Inputs
 
 Before starting, determine:
@@ -30,9 +32,7 @@ For a **UI component** at `src/lib/ui/{ComponentName}.svelte`:
 	let { class: className = "" }: Props = $props();
 </script>
 
-<div class={className}>
-	<!-- Component content -->
-</div>
+<div class={className}></div>
 ```
 
 For a **domain component** at `src/lib/modules/{domain}/components/{ComponentName}.svelte`:
@@ -46,9 +46,7 @@ For a **domain component** at `src/lib/modules/{domain}/components/{ComponentNam
 	let { class: className = "" }: Props = $props();
 </script>
 
-<div class={className}>
-	<!-- Component content -->
-</div>
+<div class={className}></div>
 ```
 
 ### 2. Follow these conventions
@@ -57,6 +55,7 @@ For a **domain component** at `src/lib/modules/{domain}/components/{ComponentNam
 - **Explicit Props interface:** Always define `interface Props` with typed properties.
 - **Tailwind inline classes:** Style with utility classes. No `<style>` block unless technically required (keyframes, `:global()`, complex calc).
 - **Design tokens:** Use CSS token classes (`text-muted`, `bg-surface-elevated`, `border-border`). Never hardcode colors.
+- **Depth and motion:** Respect depth levels `0..3` and functional motion only.
 - **Import order:** Framework/NPM → `$lib/` → relative → types.
 - **No comments** unless explaining a non-obvious technical decision.
 - **Composition over configuration:** For layout components, use Snippets. For atomic UI, use props.
@@ -76,7 +75,7 @@ For domain components, add to the domain's `index.ts` barrel file if one exists.
 // turbo
 Run validation to ensure no type or lint errors:
 ```bash
-bun check
+bun check && bun lint
 ```
 
 ## Checklist
@@ -85,5 +84,7 @@ bun check
 - [ ] Uses `interface Props` with `$props()` destructuring
 - [ ] Styled with Tailwind utility classes using design tokens
 - [ ] No `<style>` block (unless justified per project rules)
+- [ ] Includes interactive states and visible focus when interactive
+- [ ] Respects depth/motion constraints from `.agent/design-system.md`
 - [ ] Registered in barrel file (if applicable)
-- [ ] Passes `bun check`
+- [ ] Passes `bun check && bun lint`

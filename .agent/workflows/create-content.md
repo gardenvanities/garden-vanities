@@ -55,7 +55,7 @@ relatedSets: []
 ---
 slug: {slug}
 title: "{label in pt-BR}"
-color: "{hex color}"
+color: "var(--color-kind-{slug})"
 description: "{what this kind represents}"
 ---
 ```

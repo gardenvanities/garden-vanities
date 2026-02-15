@@ -6,6 +6,8 @@ description: Migrate a component's style block to Tailwind utility classes
 
 Systematically migrate a component's `<style>` block to Tailwind utility classes.
 
+Design system canonical source: `.agent/design-system.md`.
+
 ## When to Use
 
 Use this workflow when a component has a `<style>` block that can be replaced with Tailwind.
@@ -66,7 +68,7 @@ Once all classes are migrated, delete the entire `<style>` block.
 
 // turbo
 ```bash
-bun check
+bun check && bun lint
 ```
 
 Visually inspect the component in the browser to confirm appearance matches.
@@ -75,7 +77,10 @@ Visually inspect the component in the browser to confirm appearance matches.
 
 - [ ] All CSS properties mapped to Tailwind equivalents
 - [ ] Hover/focus states converted with appropriate prefixes
+- [ ] No hardcoded colors; semantic token usage preserved
+- [ ] No decorative motion introduced
+- [ ] No depth above level 3 introduced
 - [ ] No remaining class references from old `<style>`
 - [ ] `<style>` block completely removed
-- [ ] `bun check` passes
+- [ ] `bun check && bun lint` passes
 - [ ] Visual appearance unchanged

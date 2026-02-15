@@ -6,6 +6,8 @@ description: Run a quality audit on a Svelte component against project standards
 
 Systematically check a component against all project conventions and quality standards.
 
+Design system canonical source: `.agent/design-system.md`.
+
 ## Steps
 
 ### 1. Props Interface
@@ -30,6 +32,8 @@ Systematically check a component against all project conventions and quality sta
 - [ ] No hardcoded hex/rgb/oklch colors
 - [ ] No arbitrary values when a token exists (`p-4` not `p-[1rem]`)
 - [ ] Uses utility classes where available (`.container`, `.glass`, `.flow`)
+- [ ] Depth is within official levels (`0..3`)
+- [ ] Motion is functional only (no decorative animation)
 
 #### Justified `<style>` Exceptions
 A `<style>` block is allowed only for:
@@ -62,6 +66,7 @@ A `<style>` block is allowed only for:
 - [ ] `aria-label` on icon-only buttons
 - [ ] Keyboard navigable (focusable, Enter/Space activated)
 - [ ] Focus states visible (`.focus-ring` or `focus:ring`)
+- [ ] Interactive states include default/hover/focus/active/disabled (when applicable)
 - [ ] Alt text on images
 - [ ] Proper heading hierarchy
 
@@ -74,7 +79,7 @@ A `<style>` block is allowed only for:
 
 // turbo
 ```bash
-bun check
+bun check && bun lint
 ```
 
 ## Severity Guide

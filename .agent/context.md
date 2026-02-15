@@ -29,20 +29,21 @@
 
 ### Visual Identity
 - **Mood:** Retro-futuristic, minimalist
-- **Priority:** Dark mode first, light mode supported
+- **Theme strategy:** Light is the structural matrix; dark mode has equal importance and full parity
 - **Animation level:** Moderate — purposeful micro-interactions, no gratuitous effects
 - **Icons:** Prefer straight/square aesthetic. Any icon library allowed if consistent. Currently using Lucide.
 
 ### Typography
-- **Body/Article:** Variable font, woff2 format required
-- **Monospace:** Geist Mono (Vercel) or similar
-- **UI/Headings:** Currently using a sans-serif (open to change if variable + woff2)
+- **UI:** Sans humanist family
+- **Editorial headings/content:** Editorial family with high readability for long-form reading
+- **Code:** Monospace family
 
 ### Colors
 - **Rule:** Always use CSS tokens (`--color-*`). No hardcoded hex/oklch in components.
 - **Token location:** `src/styles/tokens/`
 - **Kind tokens:** `--color-kind-note`, `--color-kind-essay`, etc.
 - **Ripeness tokens:** `--color-ripeness-seed`, `--color-ripeness-root`, `--color-ripeness-fruit`
+- **Design system source of truth:** `.agent/design-system.md`
 
 ---
 
@@ -255,3 +256,6 @@ bun test     # Vitest unit tests
 - Document the "why" in PRs — include considered alternatives and scalability impact
 - Commits: direct and atomic (Conventional Commits)
 - Dense explanations go in PR descriptions, not commit messages
+
+### Advisory Agent
+- For conceptual UI/UX guidance, feature ideation, and solution tradeoff analysis, use `.agent/skills/ui-ux-advisor/SKILL.md`.

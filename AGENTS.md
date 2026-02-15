@@ -67,6 +67,17 @@ src/
 - Colors from CSS tokens (`--color-*`). Never hardcoded hex in components.
 - Reuse existing components. Extend before creating new. New only when truly novel.
 - `<style>` only for: `@keyframes`, `:global()`, complex `calc()`/`oklch()`, scrollbar/pseudo-element styling.
+- Design system source of truth for AI agents: `.agent/design-system.md`.
+
+## UI Definition of Done
+
+- Uses only design-system tokens/utilities from `.agent/design-system.md`.
+- No hardcoded color values in components.
+- Interactive elements implement: `default`, `hover` (desktop), `focus-visible`, `active`, `disabled` (when applicable).
+- Focus indicator is visible and accessible.
+- Depth stays within official levels `0..3` (no layer above 3).
+- Motion is functional only (no decorative animation).
+- Light and dark modes keep semantic parity.
 
 ## Content Model
 
@@ -156,3 +167,4 @@ These patterns must NEVER appear in production code:
 - Complete solutions for new files; incremental for existing code edits.
 - Strictly reuse existing components before creating new ones.
 - Provide risk summary after autonomous cycles.
+- For conceptual UI/UX decisions, analysis, and feature ideation, use `.agent/skills/ui-ux-advisor/SKILL.md`.

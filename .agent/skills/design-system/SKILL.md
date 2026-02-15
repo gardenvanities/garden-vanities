@@ -1,134 +1,72 @@
 ---
 name: design-system
-description: Complete reference for the project's design system — tokens, utilities, and Tailwind mappings
+description: Operational guide for applying the Garden Vanities design system in implementation tasks
 ---
 
-# Design System Reference
+# Design System Skill
 
-The design system lives in `src/styles/` and is organized into **primitives**, **semantic tokens**, **Tailwind mappings**, and **utility classes**.
+Use this skill whenever a task touches UI, layout, styles, tokens, or interaction states.
 
-## Token Architecture
+## Canonical Sources
 
-```
-src/styles/
-├── tokens/
-│   ├── _index.css              ← Imports all token files
-│   ├── 1-primitives/
-│   │   ├── colors.css          ← Raw color values (oklch)
-│   │   ├── typography.css      ← Font families, sizes, weights
-│   │   ├── spacing.css         ← Spacing scale (--space-1 to --space-16)
-│   │   ├── motion.css          ← Transition durations (--motion-fast, --motion-base, --motion-slow)
-│   │   └── z-index.css         ← Z-index layers (--z-base to --z-max)
-│   ├── 2-semantic/
-│   │   ├── colors-dark.css     ← Dark mode color assignments
-│   │   ├── colors-light.css    ← Light mode color assignments
-│   │   ├── materials.css       ← Glass, surface materials (--material-glass, --material-surface)
-│   │   ├── layout.css          ← Layout constraints (--content-width, --sidebar-width)
-│   │   └── typography.css      ← Semantic type scale (--font-heading, --font-body)
-│   └── 3-tailwind.css          ← Maps all tokens to Tailwind theme
-└── utilities.css               ← Utility classes (.container, .glass, .flow, .prose-container)
-```
+1. Primary source of truth: `.agent/design-system.md`
+2. Project context: `.agent/context.md`
+3. Implementation layer: `src/styles/tokens/` and `src/styles/utilities.css`
 
-## Using Colors
+If any source conflicts, follow `.agent/design-system.md`.
 
-### Semantic Color Tokens
-Always use semantic tokens, never raw color values:
+## Required Workflow
 
-| Token | Purpose | Tailwind |
-|-------|---------|----------|
-| `--color-bg` | Page background | `bg-bg` |
-| `--color-surface` | Card/panel surface | `bg-surface` |
-| `--color-surface-elevated` | Elevated surfaces | `bg-surface-elevated` |
-| `--color-surface-hover` | Hover state | `bg-surface-hover` |
-| `--color-text` | Primary text | `text-text` |
-| `--color-muted` | Secondary text | `text-muted` |
-| `--color-border` | Borders | `border-border` |
-| `--color-primary` | Accent/brand color | `text-primary`, `bg-primary` |
-| `--color-focus` | Focus ring color | `ring-focus` |
+### 1) Classify the task scope
 
-### Kind Colors (per content type)
-Defined in `colors.css` primitives:
-- `--color-kind-note` → blue
-- `--color-kind-essay` → violet
-- `--color-kind-tutorial` → emerald
-- `--color-kind-thought` → amber
+- `token-level` (new/changed tokens)
+- `component-level` (UI component behavior/appearance)
+- `layout-level` (grid, spacing, rhythm)
+- `interaction-level` (states, focus, motion)
 
-### Ripeness Colors
-- `--color-ripeness-seed` → rose
-- `--color-ripeness-root` → amber
-- `--color-ripeness-fruit` → emerald
+### 2) Apply system constraints
 
-> **Tech Debt:** These tokens exist but badge components currently hardcode Tailwind colors instead of using them. Future migration planned.
+- Use semantic tokens, not raw values.
+- Preserve light matrix with dark parity.
+- Respect max depth levels (`0..3` only).
+- Keep motion within allowed durations/easing.
+- Keep spacing/radius/shadow within system scales.
 
-## Using Spacing
+### 3) Validate mandatory interaction rules
 
-The spacing scale follows a consistent progression:
+For every interactive element, ensure:
 
-| Token | Value | Tailwind |
-|-------|-------|----------|
-| `--space-1` | 0.25rem | `p-1`, `m-1`, `gap-1` |
-| `--space-2` | 0.5rem | `p-2`, `m-2`, `gap-2` |
-| `--space-3` | 0.75rem | `p-3`, etc. |
-| `--space-4` | 1rem | `p-4` |
-| `--space-6` | 1.5rem | `p-6` |
-| `--space-8` | 2rem | `p-8` |
+1. default
+2. hover (desktop)
+3. focus-visible
+4. active
+5. disabled (if applicable)
 
-## Using Typography
+### 4) Block forbidden patterns
 
-| Token | Purpose | Tailwind |
-|-------|---------|----------|
-| `--font-body` | Body text | `font-body` |
-| `--font-heading` | Headings | `font-heading` |
-| `--font-mono` | Code/mono | `font-mono` |
+- Hardcoded colors in components.
+- Decorative animation.
+- New visual variants without semantic reason.
+- Truncation of critical/reading content.
+- Any UI exception outside system rules.
 
-## Using Motion
+### 5) Report decisions in output
 
-| Token | Duration | Tailwind |
-|-------|----------|----------|
-| `--motion-fast` | 100-150ms | `duration-fast` |
-| `--motion-base` | 200-300ms | `duration-base` |
-| `--motion-slow` | 400-500ms | `duration-slow` |
+When finishing, include:
 
-## Using Z-Index
+- Section `Applied rules` with the exact system constraints used.
+- Section `Residual debt` with any mismatch that could not be resolved in this task.
 
-| Token | Usage |
-|-------|-------|
-| `--z-base` | Default elements |
-| `--z-dropdown` | Dropdowns, tooltips |
-| `--z-sticky` | Sticky headers |
-| `--z-overlay` | Modal overlays |
-| `--z-modal` | Modal dialogs |
-| `--z-toast` | Toast notifications |
-| `--z-max` | Command palette, top-level |
+For UI-related tasks, these two sections are mandatory.
 
-## Utility Classes
+## Token Change Policy
 
-Defined in `utilities.css`:
+Only add a new token when:
 
-| Class | Purpose |
-|-------|---------|
-| `.container` | Centered content with max-width and padding |
-| `.prose-container` | Narrower container for reading content |
-| `.content-container` | Content area container |
-| `.flow` | Vertical spacing between children (uses lobotomized owl) |
-| `.flow--sm` | Smaller vertical spacing |
-| `.flow--lg` | Larger vertical spacing |
-| `.glass` | Glassmorphism effect (backdrop-blur + transparency) |
-| `.bg-material-*` | Material backgrounds |
-| `.focus-ring` | Consistent focus ring styling |
-| `.sr-only` | Screen reader only |
-| `.text-muted` | Muted text color |
-| `.text-primary` | Primary text color |
-| `.transition-base` | Base transition preset |
-| `.transition-fast` | Fast transition preset |
-| `.scrollbar-none` | Hide scrollbar |
+- there is a real semantic gap
+- no equivalent token exists
+- reuse is expected in multiple contexts
+- it works in both light and dark
+- usage is documented
 
-## Rules
-
-1. **Never hardcode colors.** Use CSS tokens via Tailwind classes.
-2. **Never use arbitrary values** when a token exists (e.g., use `p-4` not `p-[1rem]`).
-3. **Use semantic tokens**, not primitive tokens, in components.
-4. **Dark mode is automatic** — semantic tokens switch via `prefers-color-scheme` and `.dark` class.
-5. **Use utility classes** for common patterns (`.container`, `.flow`, `.glass`) instead of repeating the same Tailwind combinations.
-6. **Tailwind v4 CSS variable syntax:** Use the shorthand `bg-(--var-name)` instead of `bg-[var(--var-name)]`. This applies to all utilities: `text-(--var)`, `ease-(--var)`, `z-(--var)`, etc.
-
+If those conditions are not met, reuse existing tokens.
