@@ -22,7 +22,7 @@
 
 	.prose a:visited {
 		color: var(--color-link-visited);
-	}
+	} 
 
 	.prose a:not(.footnote-ref):not(.bookmark-link):not(.footnote-icon-link)::after {
 		content: "";
@@ -48,7 +48,7 @@
 		text-decoration: underline;
 		text-underline-offset: var(--text-underline-offset-normal);
 		text-decoration-thickness: var(--text-decoration-thickness-thin);
-		transition: text-decoration-thickness var(--motion-fast) var(--motion-ease);
+		transition: text-decoration-thickness var(--motion-fast) var(--motion-ease-standard);
 	}
 
 	.prose h2 {
@@ -292,7 +292,7 @@
 		border-radius: 4px;
 		display: grid;
 		place-content: center;
-		transition: all var(--motion-fast) var(--motion-ease);
+		transition: all var(--motion-fast) var(--motion-ease-standard);
 		cursor: pointer;
 		flex-shrink: 0;
 	}
@@ -311,7 +311,7 @@
 		width: 0.65em;
 		height: 0.65em;
 		transform: scale(0);
-		transition: transform var(--motion-fast) var(--motion-ease);
+		transition: transform var(--motion-fast) var(--motion-ease-standard);
 		background-color: var(--color-surface);
 		transform-origin: center;
 		clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);

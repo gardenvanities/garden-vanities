@@ -23,10 +23,10 @@
 	description={set.description || "Uma coleção curada no jardim."}
 	href={set.href}
 	cover={set.cover}
-	class={className}
+	class={`border-border/70 ${className}`}
 >
 	{#snippet icon()}
-		<FolderOpen size={16} class="text-white/90" />
+		<FolderOpen size={16} class="text-text" />
 	{/snippet}
 
 	{#snippet badges()}

@@ -1,4 +1,4 @@
-let sidebarExpanded = $state(true);
+let sidebarExpanded = $state(false);
 let sidebarMobileOpen = $state(false);
 
 let articleSidebarExpanded = $state(true);

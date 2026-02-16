@@ -14,13 +14,19 @@ export async function getSetsList(posts?: PostFrontmatter[]) {
 
 	return allSetsData
 		.map((set) => {
-			const postCount = allPosts.filter((p) => p.set === set.slug).length;
+			const setPosts = allPosts.filter((p) => p.set === set.slug);
+			const postCount = setPosts.length;
+			const lastUpdated = setPosts.reduce((latest, post) => {
+				const postDate = post.updatedAt || post.publishedAt || "";
+				return postDate > latest ? postDate : latest;
+			}, "");
 			return {
 				slug: set.slug,
 				title: set.title,
 				description: set.description,
 				cover: set.cover,
 				count: postCount,
+				lastUpdated,
 				href: `/sets/${encodeURIComponent(set.slug)}`
 			};
 		})

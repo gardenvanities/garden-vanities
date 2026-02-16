@@ -44,7 +44,7 @@
 		success: "bg-success text-success-foreground shadow hover:bg-success/90 border-transparent",
 
 		glass:
-			"backdrop-blur-md border border-white/10 bg-black/40 text-white group-hover:border-white/20 group-hover:bg-black/50"
+			"bg-surface/75 border-border/60 text-text group-hover:border-border-vivid group-hover:bg-surface-elevated/85 backdrop-blur-md"
 	};
 </script>
 

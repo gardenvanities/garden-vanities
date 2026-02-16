@@ -48,15 +48,15 @@
 							'status-ongoing'
 								? 'bg-primary/12 text-primary'
 								: statusInfo.class === 'status-completed'
-									? 'bg-[oklch(70%_0.15_145/0.15)] text-[oklch(55%_0.2_145)]'
+									? 'text-success bg-success/15'
 									: statusInfo.class === 'status-archived'
-										? 'bg-white/20 text-white/50'
-										: 'bg-[oklch(75%_0.15_85/0.15)] text-[oklch(60%_0.2_85)]'}"
+										? 'bg-muted text-muted-foreground'
+										: 'text-warning bg-warning/15'}"
 						>
 							{statusInfo.text}
 						</span>
-						<span class="opacity-40 text-white/50">•</span>
-						<span class="font-medium text-white/50">
+						<span class="text-muted-foreground/60 opacity-40">•</span>
+						<span class="text-muted-foreground font-medium">
 							{data.posts.length}
 							{data.posts.length === 1 ? "parte" : "partes"}
 						</span>

@@ -7,7 +7,7 @@ export type Kind = string;
 export interface KindFrontmatter {
 	slug: string;
 	title: string;
-	color: string;
+	colorToken?: `kind-${string}`;
 	description?: string;
 }
 

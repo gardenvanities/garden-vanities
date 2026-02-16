@@ -1,6 +1,6 @@
 ---
 slug: essay
 title: Ensaio
-color: "#10b981"
+colorToken: kind-essay
 description: Textos mais longos, estruturados e aprofundados sobre um tópico.
 ---

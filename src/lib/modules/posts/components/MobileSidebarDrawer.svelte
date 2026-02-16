@@ -24,7 +24,7 @@
 	
 	<button
 		type="button"
-		class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm lg:hidden"
+		class="bg-bg/65 fixed inset-0 z-50 backdrop-blur-sm lg:hidden"
 		transition:fade={{ duration: 200 }}
 		onclick={close}
 		aria-label="Close sidebar"

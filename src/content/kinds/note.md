@@ -1,6 +1,6 @@
 ---
 slug: note
 title: Nota
-color: "#3b82f6"
+colorToken: kind-note
 description: Notas rápidas, observações e ideias em estágio inicial.
 ---

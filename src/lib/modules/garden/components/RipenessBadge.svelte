@@ -1,7 +1,8 @@
 <script lang="ts">
 	import type { Ripeness } from "$lib/modules/posts/types";
 	import { Sprout } from "@lucide/svelte";
-
+	import { getRipenessLabel } from "$lib/modules/garden/constants";
+	import { cn } from "$lib/shared/merge-class";
 
 	interface Props {
 		ripeness: Ripeness;
@@ -19,41 +20,26 @@
 		class: className = ""
 	}: Props = $props();
 
-	import SmartBadge from "$lib/ui/SmartBadge.svelte";
-
-	const ripenessConfig = {
-		seed: {
-			label: "Semente",
-			base: "border-rose-500/20 bg-rose-500/10 text-rose-100",
-			hover: "group-hover:border-rose-500/30 group-hover:bg-rose-500/20 group-hover:text-rose-50",
-			active: "border-rose-500/30 bg-rose-500/20 text-rose-50"
-		},
-		root: {
-			label: "Rascunho",
-			base: "border-amber-500/20 bg-amber-500/10 text-amber-100",
-			hover:
-				"group-hover:border-amber-500/30 group-hover:bg-amber-500/20 group-hover:text-amber-50",
-			active: "border-amber-500/30 bg-amber-500/20 text-amber-50"
-		},
-		fruit: {
-			label: "Maduro",
-			base: "border-emerald-500/20 bg-emerald-500/10 text-emerald-100",
-			hover:
-				"group-hover:border-emerald-500/30 group-hover:bg-emerald-500/20 group-hover:text-emerald-50",
-			active: "border-emerald-500/30 bg-emerald-500/20 text-emerald-50"
-		}
-	} as const;
-
-	const config = $derived(ripenessConfig[ripeness]);
+	const token = $derived(`var(--color-ripeness-${ripeness})`);
+	const tokenBg = $derived(`var(--color-ripeness-${ripeness}-bg)`);
+	const tokenBorder = $derived(`oklch(from var(--color-ripeness-${ripeness}) l c h / 0.32)`);
 </script>
 
-{#if config}
-	<SmartBadge
-		{config}
-		icon={showIcon ? Sprout : undefined}
-		{showLabel}
-		{active}
-		class={className}
-		iconClass="opacity-80"
-	/>
-{/if}
+<span
+	class={cn(
+		"inline-flex items-center gap-1.5 rounded-sm border px-2 py-1 text-xs font-medium transition-colors",
+		active ? "text-text" : "text-muted group-hover:text-text",
+		className
+	)}
+	style:background-color={tokenBg}
+	style:border-color={tokenBorder}
+>
+	{#if showIcon}
+		<span style:color={token} class={active ? "opacity-100" : "opacity-80 group-hover:opacity-100"}>
+			<Sprout size={13} />
+		</span>
+	{/if}
+	{#if showLabel}
+		<span class="pt-px">{getRipenessLabel(ripeness)}</span>
+	{/if}
+</span>

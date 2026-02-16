@@ -45,7 +45,7 @@
 {#if isMobileOpen}
 	<button
 		type="button"
-		class="fixed inset-0 z-41 bg-black/50 backdrop-blur-sm border-none cursor-default lg:hidden"
+		class="bg-bg/60 fixed inset-0 z-41 cursor-default border-none backdrop-blur-sm lg:hidden"
 		onclick={() => ui.closeArticleSidebarMobile()}
 		aria-label="Fechar menu"
 		transition:fade={{ duration: 200 }}
@@ -54,7 +54,7 @@
 
 <aside
 	class={cn(
-		"fixed top-0 right-0 bottom-0 z-42 flex flex-col bg-surface border-l border-border transition-[width,transform] duration-base ease-(--motion-ease-out-quint)",
+		"fixed top-0 right-0 bottom-0 z-42 flex flex-col bg-surface border-l border-border transition-[width,transform] duration-base ease-entrance",
 		"max-lg:w-[280px] max-lg:translate-x-full max-lg:border-l max-lg:border-border",
 		isMobileOpen && "max-lg:translate-x-0",
 		isExpanded ? "lg:w-[260px]" : "lg:w-12"

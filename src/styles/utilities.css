@@ -90,13 +90,13 @@
 	.transition-base {
 		transition-property: color, background-color, border-color, opacity, transform;
 		transition-duration: var(--motion-base);
-		transition-timing-function: var(--motion-ease);
+		transition-timing-function: var(--motion-ease-standard);
 	}
 
 	.transition-fast {
 		transition-property: color, background-color, border-color, opacity, transform;
 		transition-duration: var(--motion-fast);
-		transition-timing-function: var(--motion-ease);
+		transition-timing-function: var(--motion-ease-standard);
 	}
 
 	.scrollbar-none {

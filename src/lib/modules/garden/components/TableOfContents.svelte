@@ -130,7 +130,7 @@
 					href="#{node.id}"
 					class="mb-2 block touch-manipulation text-sm leading-tight transition-colors duration-200 {isActive
 						? 'text-primary font-medium'
-						: 'text-muted sm:hover:text-white'}"
+						: 'text-muted sm:hover:text-text'}"
 					onclick={(e) => handleAnchorClick(e, node.id)}
 				>
 					{node.text}
@@ -165,7 +165,7 @@
 						href="#{node.id}"
 						class="mb-2 block touch-manipulation text-sm leading-tight font-medium transition-colors duration-200 {isActive
 							? 'text-primary'
-							: 'text-muted sm:hover:text-white'}"
+							: 'text-muted sm:hover:text-text'}"
 						onclick={(e) => handleAnchorClick(e, node.id)}
 					>
 						{node.text}

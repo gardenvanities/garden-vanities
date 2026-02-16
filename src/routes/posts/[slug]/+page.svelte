@@ -52,11 +52,11 @@
 
 
 <div class="container mx-auto mt-5 max-w-7xl px-5 lg:px-8">
-	<div
-		class="flex flex-col gap-10 transition-all duration-300 ease-out-quint"
-		class:lg:mr-[260px]={isArticleSidebarExpanded}
-		class:lg:mr-[48px]={!isArticleSidebarExpanded}
-	>
+		<div
+			class="flex flex-col gap-10 transition-all duration-300 ease-entrance"
+			class:lg:mr-[260px]={isArticleSidebarExpanded}
+			class:lg:mr-[48px]={!isArticleSidebarExpanded}
+		>
 		
 		<main class="min-w-0 flex-1 mx-auto max-w-3xl w-full">
 			<PostHeader metadata={data.metadata} />

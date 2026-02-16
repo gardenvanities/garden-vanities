@@ -18,7 +18,7 @@
 	{#each Array(max) as _, i (i)}
 		<Star
 			size={iconSize}
-			class={i < rating ? "fill-amber-400 text-amber-400" : "fill-transparent text-white/20"}
+			class={i < rating ? "fill-current text-warning" : "fill-transparent text-muted/35"}
 		/>
 	{/each}
 </div>

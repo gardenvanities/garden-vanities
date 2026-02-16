@@ -2,7 +2,6 @@
 	--shadow-1: 0 1px 2px oklch(0.18 0.01 80 / 0.04);
 	--shadow-2: 0 2px 8px oklch(0.18 0.01 80 / 0.06), 0 1px 2px oklch(0.18 0.01 80 / 0.04);
 	--shadow-3: 0 4px 16px oklch(0.18 0.01 80 / 0.08), 0 2px 4px oklch(0.18 0.01 80 / 0.04);
-	--shadow-4: 0 8px 32px oklch(0.18 0.01 80 / 0.12), 0 4px 8px oklch(0.18 0.01 80 / 0.06);
 
 	--material-thick: oklch(0.99 0 0 / 0.95);
 	--material-regular: oklch(0.99 0 0 / 0.8);
@@ -20,13 +19,4 @@
 	--material-regular: oklch(0.12 0.012 260 / 0.8);
 	--material-thin: oklch(0.12 0.012 260 / 0.6);
 	--material-ultrathin: oklch(0.12 0.012 260 / 0.3);
-}
-
-@media (prefers-color-scheme: dark) {
-	:root:not(.light):not(.dark) {
-		--material-thick: oklch(0.12 0.012 260 / 0.95);
-		--material-regular: oklch(0.12 0.012 260 / 0.8);
-		--material-thin: oklch(0.12 0.012 260 / 0.6);
-		--material-ultrathin: oklch(0.12 0.012 260 / 0.3);
-	}
 }

@@ -176,7 +176,7 @@
 	></button>
 
 	<div
-		class="tooltip-container group text-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 fixed z-50 w-max max-w-[calc(100vw-24px)] -translate-x-1/2 -translate-y-full rounded-xl border border-white/10 bg-neutral-950/95 px-5 py-4 text-sm shadow-2xl ring-1 ring-black/5 backdrop-blur-xl sm:max-w-lg"
+		class="tooltip-container group text-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 fixed z-50 w-max max-w-[calc(100vw-24px)] -translate-x-1/2 -translate-y-full rounded-xl border border-border bg-surface-elevated/95 px-5 py-4 text-sm shadow-2xl ring-1 ring-border/20 backdrop-blur-xl sm:max-w-lg"
 		style="left: {tooltipX - window.scrollX}px; top: {tooltipY - window.scrollY}px;"
 		role="tooltip"
 	>

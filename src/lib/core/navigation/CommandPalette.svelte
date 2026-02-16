@@ -10,6 +10,10 @@
 		Home,
 		Telescope,
 		BookOpen,
+		Layers,
+		FolderOpen,
+		Library,
+		Info,
 		Sun,
 		Moon,
 		Monitor,
@@ -86,12 +90,36 @@
 			action: () => navigate("/explore")
 		},
 		{
-			id: "posts",
-			title: "Ver Artigos",
-			icon: BookOpen,
+			id: "series",
+			title: "Abrir séries",
+			icon: Layers,
 			type: "navigation",
 			category: "Navegação",
-			action: () => navigate("/posts")
+			action: () => navigate("/series")
+		},
+		{
+			id: "sets",
+			title: "Abrir coleções",
+			icon: FolderOpen,
+			type: "navigation",
+			category: "Navegação",
+			action: () => navigate("/sets")
+		},
+		{
+			id: "library",
+			title: "Abrir biblioteca",
+			icon: Library,
+			type: "navigation",
+			category: "Navegação",
+			action: () => navigate("/library")
+		},
+		{
+			id: "about",
+			title: "Sobre o projeto",
+			icon: Info,
+			type: "navigation",
+			category: "Navegação",
+			action: () => navigate("/sobre")
 		}
 	];
 
@@ -424,7 +452,7 @@
 			background: transparent;
 			border: none;
 			cursor: pointer;
-			transition: all 150ms var(--motion-ease);
+			transition: all 150ms var(--motion-ease-standard);
 		}
 
 		.command-close:hover {

@@ -36,8 +36,8 @@
 	{#snippet icon()}
 		{#if showType}
 			<div class="flex items-center gap-2">
-				<TypeIcon type={resource.type} class="h-4 w-4 text-white/90" aria-hidden="true" />
-				<span class="text-xs font-medium tracking-wider text-white/90 uppercase">
+				<TypeIcon type={resource.type} class="text-text h-4 w-4" aria-hidden="true" />
+				<span class="text-text text-xs font-medium tracking-wider uppercase">
 					{TYPE_LABELS[resource.type]}
 				</span>
 			</div>

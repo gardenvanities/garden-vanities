@@ -37,7 +37,7 @@
 			
 			<PageHeader title={data.set.title} description={data.set.description || ""}>
 				{#snippet meta()}
-					<div class="flex items-center gap-2 text-sm text-white/50">
+					<div class="text-muted flex items-center gap-2 text-sm">
 						<span>
 							{count}
 							{count === 1 ? "nota" : "notas"}

@@ -1,7 +1,8 @@
 <script lang="ts">
 	import type { Kind } from "$lib/modules/posts/types";
 	import { Shapes } from "@lucide/svelte";
-	import { getKindLabel } from "$lib/modules/garden/constants";
+	import { getKindColorToken, getKindDescription, getKindLabel } from "$lib/modules/garden/constants";
+	import { cn } from "$lib/shared/merge-class";
 
 	interface Props {
 		kind: Kind;
@@ -12,26 +13,46 @@
 
 	let { kind, showIcon = true, active = false, class: className = "" }: Props = $props();
 
-	import SmartBadge from "$lib/ui/SmartBadge.svelte";
-
-	const blueConfig = {
-		base: "border-blue-400/20 bg-blue-500/10 text-blue-100",
-		hover: "group-hover:border-blue-400/30 group-hover:bg-blue-500/20 group-hover:text-blue-50",
-		active: "border-blue-400/30 bg-blue-500/20 text-blue-50"
-	};
-
-	const config = $derived({
-		...blueConfig,
-		label: getKindLabel(kind)
-	});
+	const label = $derived(getKindLabel(kind));
+	const description = $derived(getKindDescription(kind));
+	const colorToken = $derived(getKindColorToken(kind));
+	const color = $derived(`var(--color-${colorToken})`);
+	const colorBg = $derived(`var(--color-${colorToken}-bg)`);
+	const colorBorder = $derived(`var(--color-${colorToken}-border)`);
 </script>
 
-{#if config}
-	<SmartBadge
-		{config}
-		icon={showIcon ? Shapes : undefined}
-		{active}
-		class={className}
-		iconClass={active ? "text-blue-200" : "text-blue-200/80 group-hover:text-blue-200"}
-	/>
-{/if}
+<span
+	class="kind-badge-wrap group/kind relative inline-flex"
+	role="note"
+	aria-label={description}
+>
+	<span
+		class={cn(
+			"inline-flex items-center gap-1.5 rounded-sm border px-2 py-1 text-xs font-medium transition-colors",
+			active ? "text-text" : "text-muted group-hover/kind:text-text",
+			className
+		)}
+		style:background-color={colorBg}
+		style:border-color={colorBorder}
+	>
+		{#if showIcon}
+			<span
+				style:color={color}
+				class={active ? "opacity-100" : "opacity-80 group-hover/kind:opacity-100"}
+			>
+				<Shapes size={13} />
+			</span>
+		{/if}
+		<span class="pt-px">{label}</span>
+	</span>
+
+	<div
+		role="tooltip"
+		class="pointer-events-none absolute top-[calc(100%+8px)] left-1/2 z-50 w-56 -translate-x-1/2 rounded-sm border px-2.5 py-2 text-xs leading-relaxed opacity-0 shadow-md transition-opacity duration-150 group-hover/kind:opacity-100 group-focus-within/kind:opacity-100"
+		style:background-color="var(--color-surface-elevated)"
+		style:border-color="var(--color-border)"
+		style:color="var(--color-text)"
+	>
+		{description}
+	</div>
+</span>

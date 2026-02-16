@@ -1,60 +1,46 @@
 <script lang="ts">
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
 	import KindBadge from "$lib/modules/garden/components/KindBadge.svelte";
-	import RipenessBadge from "$lib/modules/garden/components/RipenessBadge.svelte";
-	import { formatShortDate } from "$lib/shared/date";
-	import { CalendarDays, Clock } from "@lucide/svelte";
+	import { getKindColorToken } from "$lib/modules/garden/constants";
 	import { fade } from "svelte/transition";
 
 	interface Props {
 		post: PostFrontmatter & { readingTime?: number };
-		kindColor?: string;
 	}
 
-	let { post, kindColor }: Props = $props();
+	let { post }: Props = $props();
 
-
+	let kindToken = $derived(post.kind ? getKindColorToken(post.kind) : null);
+	let cardBackground = $derived(kindToken ? `var(--color-${kindToken}-card-bg)` : undefined);
+	let cardBorder = $derived(kindToken ? `var(--color-${kindToken}-card-border)` : undefined);
+	let cardText = $derived(kindToken ? `var(--color-${kindToken}-card-text)` : "var(--color-text)");
 </script>
 
 <a
 	href="/posts/{post.slug}"
-	class="group bg-card text-card-foreground hover:shadow-md mb-6 break-inside-avoid block overflow-hidden rounded-xl border shadow-sm transition-all duration-300 hover:-translate-y-1"
-	style:background-color={kindColor ? kindColor + "15" : undefined}
-	style:border-color={kindColor ? kindColor + "30" : undefined}
+	class="group text-card-foreground mb-6 block break-inside-avoid overflow-visible rounded-lg border border-(--post-card-border) bg-(--post-card-bg) shadow-sm transition-all duration-200 hover:-translate-y-px hover:border-[color-mix(in_oklab,var(--post-card-border)_70%,var(--color-border-vivid)_30%)] hover:bg-[color-mix(in_oklab,var(--post-card-bg)_84%,var(--color-surface-hover)_16%)] hover:shadow-md"
+	style="--post-card-bg: {cardBackground ||
+		'var(--color-surface)'}; --post-card-border: {cardBorder || 'var(--color-border)'};"
 	in:fade={{ duration: 300, delay: 100 }}
 >
-	<!-- Card Body -->
-	<div class="p-5 flex flex-col gap-3">
-		<!-- Badges -->
-		<div class="flex gap-1.5 justify-end">
+	<div class="flex flex-col p-4 sm:p-5">
+		<div class="mb-5 flex justify-start">
 			{#if post.kind}
 				<KindBadge kind={post.kind} />
 			{/if}
-			<RipenessBadge ripeness={post.ripeness} />
 		</div>
 
-		<h3 class="font-heading text-lg font-bold leading-tight group-hover:text-primary transition-colors">
+		<h3
+			class="font-heading group-hover:text-primary mb-2 text-xl leading-snug font-semibold tracking-tight transition-colors"
+			style:color={cardText}
+		>
 			{post.title}
 		</h3>
 
-		{#if post.summary}
-			<p class="text-muted-foreground text-sm line-clamp-4">
-				{post.summary}
+		{#if post.subtitle}
+			<p class="text-muted m-0 text-sm leading-relaxed">
+				{post.subtitle}
 			</p>
-		{/if}
-	</div>
-
-	<!-- Card Footer -->
-	<div class="border-t bg-muted/20 px-5 py-3 flex items-center justify-between text-xs text-muted-foreground">
-		<div class="flex items-center gap-1.5">
-			<CalendarDays class="h-3.5 w-3.5" />
-			<span>{formatShortDate(post.publishedAt || '')}</span>
-		</div>
-		{#if post.readingTime}
-			<div class="flex items-center gap-1.5">
-				<Clock class="h-3.5 w-3.5" />
-				<span>{Math.ceil(post.readingTime)} min</span>
-			</div>
 		{/if}
 	</div>
 </a>

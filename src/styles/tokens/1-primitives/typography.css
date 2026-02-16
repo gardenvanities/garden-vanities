@@ -1,9 +1,9 @@
 :root {
 	--font-heading: "Vend Sans", system-ui, -apple-system, sans-serif;
-	--font-body: "Geist Mono", ui-monospace, monospace;
-	--font-mono: "Geist Mono", ui-monospace, monospace;
-	--font-article-body: "Geist Mono", ui-monospace, monospace;
-	--font-article-title: "Vend Sans", system-ui, -apple-system, sans-serif;
+	--font-body: "Vend Sans", system-ui, -apple-system, sans-serif;
+	--font-mono: "JetBrains Mono", ui-monospace, monospace;
+	--font-article-body: "Vend Sans", system-ui, -apple-system, sans-serif;
+	--font-article-title: "Source Serif 4", Georgia, serif;
 
 	--font-weight-100: 100;
 	--font-weight-200: 200;

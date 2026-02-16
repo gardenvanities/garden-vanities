@@ -43,7 +43,7 @@
 		
 		{#if cover?.url}
 			<div
-				class="relative h-24 w-16 shrink-0 overflow-hidden rounded-lg bg-neutral-800 shadow-lg ring-1 ring-white/10"
+				class="relative h-24 w-16 shrink-0 overflow-hidden rounded-lg bg-surface-elevated shadow-lg ring-1 ring-border"
 			>
 				<CloudinaryImage
 					publicId={cover.url}

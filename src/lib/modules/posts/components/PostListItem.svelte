@@ -31,9 +31,10 @@
 	{#snippet badges()}
 		{#if seriesBadge}
 			<span
-				class="flex items-center gap-1.5 rounded-sm border px-2 py-1.5 text-xs font-medium backdrop-blur-md transition-all duration-300 {active
-					? 'border-rose-500/30 bg-rose-500/20 text-rose-50'
-					: 'border-rose-500/20 bg-rose-500/10 text-rose-100 group-hover:border-rose-500/30 group-hover:bg-rose-500/20 group-hover:text-rose-50'}"
+				class="flex items-center gap-1.5 rounded-sm border px-2 py-1.5 text-xs font-medium backdrop-blur-md transition-all duration-300"
+				style:color="var(--color-secondary-foreground)"
+				style:background-color="oklch(from var(--color-secondary) l c h / 0.16)"
+				style:border-color="oklch(from var(--color-secondary) l c h / 0.36)"
 			>
 				<span class="pt-px">{seriesBadge}</span>
 			</span>
