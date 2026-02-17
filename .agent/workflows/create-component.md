@@ -55,6 +55,7 @@ For a **domain component** at `src/lib/modules/{domain}/components/{ComponentNam
 - **Explicit Props interface:** Always define `interface Props` with typed properties.
 - **Tailwind inline classes:** Style with utility classes. No `<style>` block unless technically required (keyframes, `:global()`, complex calc).
 - **Design tokens:** Use CSS token classes (`text-muted`, `bg-surface-elevated`, `border-border`). Never hardcode colors.
+- **Aesthetic baseline:** Enforce Layered Dark Editorial (LDE): subtle layered surfaces, restrained accent usage, modular spacing rhythm.
 - **Depth and motion:** Respect depth levels `0..3` and functional motion only.
 - **Import order:** Framework/NPM → `$lib/` → relative → types.
 - **No comments** unless explaining a non-obvious technical decision.
@@ -85,6 +86,7 @@ bun check && bun lint
 - [ ] Styled with Tailwind utility classes using design tokens
 - [ ] No `<style>` block (unless justified per project rules)
 - [ ] Includes interactive states and visible focus when interactive
+- [ ] Matches LDE visual grammar (dark-first layering, restrained accent, no decorative effects)
 - [ ] Respects depth/motion constraints from `.agent/design-system.md`
 - [ ] Registered in barrel file (if applicable)
 - [ ] Passes `bun check && bun lint`

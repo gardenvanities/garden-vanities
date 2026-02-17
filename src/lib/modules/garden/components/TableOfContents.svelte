@@ -4,6 +4,7 @@
 
 	import { ui } from "$lib/stores/ui.svelte";
 	import { scrollState } from "$lib/stores/scroll.svelte";
+	import { articleDom } from "$lib/stores/article-dom.svelte";
 
 	interface HeadingNode {
 		id: string;
@@ -20,6 +21,7 @@
 	let { key, title = "Índice" }: Props = $props();
 
 	let headings = $state<HeadingNode[]>([]);
+	let headingElements = $state(new Map<string, HTMLElement>());
 	let activeId = $state("");
 	let isInteracting = false;
 
@@ -55,13 +57,20 @@
 		const init = async () => {
 			await tick();
 
-			const elements = Array.from(document.querySelectorAll(".prose h2, .prose h3, .prose h4")).map(
-				(el) => ({
-					id: el.id,
-					text: (el as HTMLElement).innerText,
-					level: parseInt(el.tagName[1])
-				})
-			);
+			const contentElement = articleDom.contentElement;
+			if (!contentElement) {
+				headings = [];
+				headingElements = new Map();
+				return;
+			}
+
+			const domHeadings = Array.from(contentElement.querySelectorAll("h2, h3, h4")) as HTMLElement[];
+			headingElements = new Map(domHeadings.map((el) => [el.id, el]));
+			const elements = domHeadings.map((el) => ({
+				id: el.id,
+				text: el.innerText,
+				level: parseInt(el.tagName[1])
+			}));
 
 			headings = buildTree(elements);
 
@@ -85,9 +94,7 @@
 				{ rootMargin: "-100px 0% -70% 0%" }
 			);
 
-			document
-				.querySelectorAll(".prose h2, .prose h3, .prose h4")
-				.forEach((el) => observer.observe(el));
+			domHeadings.forEach((el) => observer.observe(el));
 		};
 
 		init();
@@ -100,7 +107,7 @@
 	function handleAnchorClick(e: MouseEvent, id: string) {
 		e.preventDefault();
 
-		const element = document.getElementById(id);
+		const element = headingElements.get(id);
 		if (element) {
 			const y = element.getBoundingClientRect().top + window.scrollY - 100;
 

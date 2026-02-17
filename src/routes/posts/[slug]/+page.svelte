@@ -9,13 +9,17 @@
 	import CloudinaryImage from "$lib/ui/CloudinaryImage.svelte";
 	import SEO from "$lib/core/seo/SEO.svelte";
 	import { ui } from "$lib/stores/ui.svelte";
+	import { readingProgress } from "$lib/stores/reading-progress.svelte";
 	import { onMount } from "svelte";
 	import { page } from "$app/stores";
 	import type { PageData } from "./$types";
+	import "../../../styles/prose.css";
 
 	let { data }: { data: PageData } = $props();
 
 	let coverError = $state(false);
+	let articleContentElement = $state<HTMLElement | null>(null);
+	let articleHeaderElement = $state<HTMLElement | null>(null);
 
 	$effect(() => {
 		
@@ -30,6 +34,13 @@
 			ui.closeSidebar();
 			ui.closeArticleSidebar();
 		}
+	});
+
+	$effect(() => {
+		readingProgress.setElements({
+			content: articleContentElement,
+			header: articleHeaderElement
+		});
 	});
 
 	let isArticleSidebarExpanded = $derived(ui.articleSidebarExpanded);
@@ -59,7 +70,9 @@
 		>
 		
 		<main class="min-w-0 flex-1 mx-auto max-w-3xl w-full">
-			<PostHeader metadata={data.metadata} />
+			<div bind:this={articleHeaderElement}>
+				<PostHeader metadata={data.metadata} />
+			</div>
 			
 			<div class="mb-8">
 				<div>
@@ -94,6 +107,7 @@
 			<div class="mt-8">
 				<div
 					id="article-content"
+					bind:this={articleContentElement}
 					class="prose prose-lg dark:prose-invert prose-headings:font-bold prose-a:text-primary prose-img:rounded-lg max-w-none"
 				>
 					<data.content />
@@ -117,11 +131,5 @@
 </div>
 
 {#key $page.url.pathname}
-	<FootnoteTooltip />
+	<FootnoteTooltip contentElement={articleContentElement} />
 {/key}
-
-<style>
-	:global {
-		@import '../../../styles/prose.css';
-	}
-</style>

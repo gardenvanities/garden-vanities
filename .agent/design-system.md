@@ -10,7 +10,28 @@
 - Primary priority: legibility.
 - Secondary priority: subtle personality.
 - Density: controlled, never compressed.
-- Visual signature: typographic hierarchy + negative space, not ornament.
+- Visual signature: layered dark editorial UI, typographic hierarchy + negative space, not ornament.
+
+Official aesthetic name:
+
+`Layered Dark Editorial (LDE).`
+
+LDE visual grammar:
+
+- Dark-first product surfaces with low glare and neutral tone.
+- Clear card/layer separation using border contrast before shadow.
+- Modular composition (feed + panels + compact metadata blocks).
+- Rounded but restrained geometry (professional, not playful).
+- Single primary accent family used sparingly for action/orientation.
+- High readability for long-form editorial content.
+
+LDE anti-patterns:
+
+- Neon/multi-accent palettes in core interface.
+- Frosted/glassy effects as decorative style.
+- Heavy blur, dramatic glow, dramatic shadow stacks.
+- Oversized radii that push a consumer/mobile-app look.
+- Decorative gradients behind readable content areas.
 
 Non-negotiable rule:
 
@@ -20,6 +41,7 @@ Non-negotiable rule:
 
 - Official matrix: `light` is the structural reference.
 - `dark` has equal product importance and must have full parity.
+- Primary presentation mode for product UI: `dark` (LDE baseline).
 - Theme model: semantic token names are stable across themes.
 - Theme switching happens by alias/reference values, never semantic renaming.
 
@@ -47,6 +69,7 @@ Governance rules:
 
 - Base tone: neutral surfaces with strategic accent usage.
 - Brand: one dominant brand family for identity and primary interaction.
+- Accent intensity: restrained by default; use saturation only on intentional action points.
 - State colors are separate from brand semantics:
   - success
   - error
@@ -59,6 +82,7 @@ Color rules:
 - State tokens are for semantic feedback only.
 - Never use brand token as success/error/warning/info replacement.
 - Never use decorative multi-accent palettes in core UI.
+- Avoid pure black (`#000`) and pure white (`#fff`) surfaces in app chrome; prefer tokenized near-black/near-white values.
 
 ## 5) Contrast and Accessibility
 
@@ -87,6 +111,7 @@ Usage rules:
 - Body text minimum for long reading: 16px.
 - Line length target for prose: 60-75 CPL (ideal around 66 CPL).
 - ALL CAPS allowed only for short signaling labels, never for long reading text.
+- Metadata/support text should stay visually quiet but readable (never low-contrast decoration).
 
 ## 7) Spacing and Layout
 
@@ -115,6 +140,7 @@ Radius:
 
 - Keep moderate rounded system.
 - Avoid both ultra-sharp and excessively rounded consumer aesthetics.
+- Target visual range for LDE components: medium radius only (no pill-heavy UI as default).
 
 Surface model (fixed):
 
@@ -141,6 +167,7 @@ Shadows:
 - Border is default separator.
 - Shadow is only for true elevation/layer change.
 - Avoid dramatic shadows and stacked shadow effects.
+- In dark mode, prioritize subtle border/tonal separation over blur-heavy shadows.
 
 ## 9) Motion System
 
@@ -245,10 +272,11 @@ When an AI agent creates or edits UI, it must:
 
 1. Select existing tokens and utilities before introducing anything new.
 2. Validate light and dark parity.
-3. Validate interactive states and focus visibility.
-4. Validate spacing/grid/rhythm compliance.
-5. Validate no forbidden patterns (hardcoded color, decorative motion, style drift).
-6. Report any unavoidable mismatch as explicit technical debt.
+3. Validate LDE visual grammar (dark-first layering, restrained accent, modular rhythm).
+4. Validate interactive states and focus visibility.
+5. Validate spacing/grid/rhythm compliance.
+6. Validate no forbidden patterns (hardcoded color, decorative motion, style drift).
+7. Report any unavoidable mismatch as explicit technical debt.
 
 ## 16) Quick Self-Checks (for AI Agents)
 

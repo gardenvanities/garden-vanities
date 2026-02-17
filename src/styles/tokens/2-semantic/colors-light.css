@@ -254,8 +254,8 @@
 	--muted: oklch(var(--gray-100));
 	--muted-foreground: oklch(var(--gray-600));
 	--border: oklch(var(--gray-400));
-	--ring: var(--yellow-10);
-	--primary: var(--yellow-10);
+	--ring: oklch(var(--brand-on-light));
+	--primary: oklch(var(--brand-on-light));
 	--primary-foreground: oklch(var(--gray-950));
 	--secondary: var(--sage-8);
 	--secondary-foreground: var(--sage-12);
@@ -263,7 +263,7 @@
 	--accent-foreground: var(--teal-muted-12);
 	--destructive: var(--burgundy-9);
 	--destructive-foreground: var(--burgundy-1);
-	--link: var(--yellow-11);
+	--link: oklch(var(--brand-on-light));
 	--link-visited: var(--plum-10);
 
 	--on-surface-1: oklch(var(--gray-900));

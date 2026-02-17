@@ -10,9 +10,10 @@
 		FolderOpen,
 		Library,
 		Info,
+		Rose,
 		PanelLeftClose,
 		PanelLeftOpen,
-		Sparkles,
+		Search,
 		X
 	} from "@lucide/svelte";
 	import { onMount } from "svelte";
@@ -46,7 +47,6 @@
 		ui.closeMobileSidebar();
 	}
 
-
 	onMount(() => {
 		const listener = (e: KeyboardEvent) => {
 			if (e.key === "Escape" && isMobileOpen) {
@@ -61,7 +61,7 @@
 {#if isMobileOpen}
 	<button
 		type="button"
-		class="sidebar-backdrop"
+		class="fixed inset-0 z-[calc(var(--z-nav)+1)] border-none bg-background/60 md:hidden"
 		onclick={() => ui.closeMobileSidebar()}
 		aria-label="Fechar menu"
 		transition:fade={{ duration: 200 }}
@@ -70,22 +70,30 @@
 
 <aside
 	class={cn(
-		"sidebar",
-		isExpanded ? "sidebar--expanded" : "sidebar--collapsed",
-		isMobileOpen && "sidebar--mobile-open"
+		"fixed inset-y-0 left-0 z-[calc(var(--z-nav)+2)] flex w-[18rem] -translate-x-full flex-col overflow-hidden border-r border-border bg-surface transition-[width,transform] duration-base ease-entrance md:translate-x-0",
+		isExpanded ? "md:w-70" : "md:w-19",
+		isMobileOpen && "translate-x-0"
 	)}
 	aria-label="Navegação principal"
 >
-	<div class="sidebar__header">
-		{#if isExpanded}
-			<a href="/" class="sidebar__brand" onclick={handleNavClick}>
-				<span class="sidebar__brand-text">Garden</span>
-			</a>
-		{/if}
+	<div class="flex items-center gap-2 border-b border-border px-3 py-3">
+		<a href="/" class="flex min-w-0 flex-1 items-center gap-3 overflow-hidden text-text no-underline" onclick={handleNavClick} aria-label="Início">
+			<span class="inline-flex h-[1.2rem] w-[1.2rem] shrink-0 items-center justify-center">
+				<Rose size={16} strokeWidth={2} />
+			</span>
+			<span
+				class={cn(
+					"font-heading max-w-44 whitespace-nowrap text-lg font-semibold opacity-100 transition-[opacity,max-width] duration-fast ease-standard",
+					!isExpanded && "md:max-w-0 md:opacity-0"
+				)}
+			>
+				Garden
+			</span>
+		</a>
 
 		<button
 			type="button"
-			class="sidebar__toggle"
+			class="hidden h-8 w-8 items-center justify-center rounded-sm border border-border bg-surface-elevated text-muted transition-base hover:bg-surface-hover hover:text-text md:inline-flex"
 			onclick={() => ui.toggleSidebar()}
 			aria-label={isExpanded ? "Compactar navegação" : "Expandir navegação"}
 		>
@@ -98,7 +106,7 @@
 
 		<button
 			type="button"
-			class="sidebar__mobile-close"
+			class="inline-flex h-8 w-8 items-center justify-center rounded-sm border border-border bg-surface-elevated text-muted transition-base hover:bg-surface-hover hover:text-text md:hidden"
 			onclick={() => ui.closeMobileSidebar()}
 			aria-label="Fechar menu"
 		>
@@ -106,268 +114,75 @@
 		</button>
 	</div>
 
-	<div class="sidebar__search-wrapper">
-		<button type="button" class="sidebar__search" onclick={openSearch}>
-			<Sparkles size={16} strokeWidth={2} />
-			{#if isExpanded}
-				<span class="sidebar__search-label">Buscar</span>
-				<Kbd class="sidebar__search-kbd">Ctrl+K</Kbd>
-			{/if}
+	<div>
+		<button
+			type="button"
+			class={cn(
+				"flex h-12 w-full items-center gap-3 border-x-0 border-t-0 border-b border-border bg-surface-elevated px-3 text-muted transition-fast hover:bg-surface-hover hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
+				!isExpanded && "md:justify-center md:px-0"
+			)}
+			onclick={openSearch}
+			aria-label="Abrir busca"
+		>
+			<span class="inline-flex h-[1.2rem] w-[1.2rem] shrink-0 items-center justify-center">
+				<Search size={16} strokeWidth={2} />
+			</span>
+			<span
+				class={cn(
+					"min-w-0 flex-1 overflow-hidden whitespace-nowrap text-left text-sm opacity-100 transition-[opacity,max-width] duration-fast ease-standard",
+					!isExpanded && "md:max-w-0 md:opacity-0"
+				)}
+			>
+				Buscar
+			</span>
+			<Kbd
+				class={cn(
+					"max-w-[4.6rem] overflow-hidden whitespace-nowrap text-[10px] opacity-70 transition-[opacity,max-width] duration-fast ease-standard",
+					!isExpanded && "md:max-w-0 md:opacity-0"
+				)}
+			>
+				Ctrl+K
+			</Kbd>
 		</button>
 	</div>
 
-	<nav class="sidebar__nav">
+	<nav class="mt-2 flex flex-1 flex-col gap-[0.2rem] overflow-x-hidden overflow-y-auto px-2 pb-2">
 		{#each navItems as item (item.path)}
 			<a
 				href={item.path}
-				class={cn("sidebar__link", isActive(item.path) && "sidebar__link--active")}
+				class={cn(
+					"group relative flex min-w-0 items-center gap-3 rounded-md px-3 py-[0.55rem] text-sm font-medium text-muted no-underline transition-base hover:bg-surface-hover hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
+					!isExpanded && "md:justify-center md:px-[0.55rem]",
+					isActive(item.path) &&
+						"border border-[color-mix(in_oklab,var(--color-border-vivid)_66%,var(--color-border))] bg-[color-mix(in_oklab,var(--color-surface-elevated)_94%,var(--color-primary))] text-text"
+				)}
 				onclick={handleNavClick}
 				aria-label={item.label}
 			>
-				<span class="sidebar__link-icon">
-					<item.icon size={18} strokeWidth={2} />
+				<span class="inline-flex h-[1.2rem] w-[1.2rem] shrink-0 items-center justify-center">
+					<item.icon size={17} strokeWidth={2} />
 				</span>
-				{#if isExpanded}
-					<span class="sidebar__link-label">{item.label}</span>
-				{:else}
-					<span class="sidebar__tooltip">{item.label}</span>
-				{/if}
+				<span
+					class={cn(
+						"max-w-48 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap opacity-100 transition-[opacity,max-width] duration-fast ease-standard",
+						!isExpanded && "md:max-w-0 md:opacity-0"
+					)}
+				>
+					{item.label}
+				</span>
+				<span
+					class={cn(
+						"pointer-events-none invisible absolute top-1/2 left-[calc(100%+0.65rem)] z-10 -translate-y-1/2 whitespace-nowrap rounded-sm border border-border bg-surface-elevated px-2 py-[0.2rem] text-[11px] font-semibold text-text opacity-0",
+						!isExpanded && "md:group-hover:visible md:group-hover:opacity-100"
+					)}
+				>
+					{item.label}
+				</span>
 			</a>
 		{/each}
 	</nav>
 
-	<div class="sidebar__footer">
-		<UserMenu isExpanded={isExpanded} />
+	<div class={cn("border-t border-border px-2 pb-2", !isExpanded && "md:px-1 md:pb-1")}>
+		<UserMenu {isExpanded} />
 	</div>
 </aside>
-
-<style>
-	@layer components {
-		.sidebar-backdrop {
-			position: fixed;
-			inset: 0;
-			z-index: calc(var(--z-nav) + 1);
-			background: oklch(0 0 0 / 0.45);
-			backdrop-filter: blur(var(--blur-sm));
-			border: none;
-			cursor: default;
-		}
-
-		@media (min-width: 768px) {
-			.sidebar-backdrop {
-				display: none;
-			}
-		}
-
-		.sidebar {
-			position: fixed;
-			top: 0;
-			left: 0;
-			bottom: 0;
-			z-index: calc(var(--z-nav) + 2);
-			display: flex;
-			flex-direction: column;
-			border-right: 1px solid var(--color-border);
-			background: var(--color-surface);
-			overflow: hidden;
-			transition:
-				width var(--motion-base) var(--motion-ease-entrance),
-				transform var(--motion-base) var(--motion-ease-entrance);
-		}
-
-		@media (max-width: 767px) {
-			.sidebar {
-				width: 17rem;
-				transform: translateX(-100%);
-			}
-
-			.sidebar--mobile-open {
-				transform: translateX(0);
-			}
-		}
-
-		@media (min-width: 768px) {
-			.sidebar--collapsed {
-				width: 4.5rem;
-			}
-
-			.sidebar--expanded {
-				width: 14rem;
-			}
-		}
-
-		.sidebar__header {
-			display: flex;
-			align-items: center;
-			padding: var(--space-3);
-			gap: var(--space-2);
-			min-height: 3.25rem;
-		}
-
-		.sidebar__brand {
-			text-decoration: none;
-			color: var(--color-text);
-			flex: 1;
-			min-width: 0;
-		}
-
-		.sidebar__brand-text {
-			font-family: var(--font-heading);
-			font-size: var(--type-2);
-			font-weight: var(--font-weight-700);
-		}
-
-		.sidebar__toggle,
-		.sidebar__mobile-close {
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-			width: 1.9rem;
-			height: 1.9rem;
-			border: 1px solid var(--color-border);
-			border-radius: var(--radius-1);
-			background: var(--color-bg);
-			color: var(--color-muted);
-			cursor: pointer;
-			transition: all var(--motion-fast) var(--motion-ease-standard);
-		}
-
-		@media (hover: hover) {
-			.sidebar__toggle:hover,
-			.sidebar__mobile-close:hover {
-				color: var(--color-text);
-				background: var(--color-surface-hover);
-			}
-		}
-
-		@media (min-width: 768px) {
-			.sidebar__mobile-close {
-				display: none;
-			}
-		}
-
-		@media (max-width: 767px) {
-			.sidebar__toggle {
-				display: none;
-			}
-		}
-
-		.sidebar__search-wrapper {
-			padding: 0 var(--space-2) var(--space-3);
-		}
-
-		.sidebar__search {
-			display: flex;
-			align-items: center;
-			gap: var(--space-2);
-			width: 100%;
-			height: 2.25rem;
-			padding: 0 var(--space-3);
-			border-radius: var(--radius-2);
-			border: 1px solid var(--color-border);
-			background: var(--color-bg);
-			color: var(--color-muted);
-			font-size: var(--type-0);
-			cursor: pointer;
-		}
-
-		.sidebar__search-label {
-			flex: 1;
-			text-align: left;
-		}
-
-		.sidebar__search :global(.sidebar__search-kbd) {
-			font-size: 0.625rem;
-			opacity: 0.6;
-		}
-
-		.sidebar--collapsed .sidebar__search {
-			justify-content: center;
-			padding: 0;
-		}
-
-		.sidebar__nav {
-			flex: 1;
-			display: flex;
-			flex-direction: column;
-			gap: 0.25rem;
-			padding: 0 var(--space-2);
-			overflow-y: auto;
-		}
-
-		.sidebar__link {
-			position: relative;
-			display: flex;
-			align-items: center;
-			gap: var(--space-3);
-			padding: var(--space-2) var(--space-3);
-			border-radius: var(--radius-2);
-			color: var(--color-muted);
-			text-decoration: none;
-			font-size: var(--type-0);
-			font-weight: var(--font-weight-500);
-			transition: all var(--motion-fast) var(--motion-ease-standard);
-		}
-
-		@media (hover: hover) {
-			.sidebar__link:hover {
-				background: var(--color-surface-hover);
-				color: var(--color-text);
-			}
-		}
-
-		.sidebar__link--active {
-			color: var(--color-primary);
-			background: oklch(from var(--color-primary) l c h / 0.1);
-		}
-
-		.sidebar__link-icon {
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-			width: 1.25rem;
-			height: 1.25rem;
-			flex-shrink: 0;
-		}
-
-		.sidebar--collapsed .sidebar__link {
-			justify-content: center;
-			padding: var(--space-2);
-		}
-
-		.sidebar__tooltip {
-			position: absolute;
-			left: calc(100% + 0.65rem);
-			top: 50%;
-			transform: translateY(-50%);
-			padding: 0.2rem 0.5rem;
-			font-size: 0.6875rem;
-			font-weight: var(--font-weight-600);
-			color: var(--color-text);
-			background: var(--color-surface-elevated);
-			border: 1px solid var(--color-border);
-			border-radius: var(--radius-1);
-			opacity: 0;
-			visibility: hidden;
-			pointer-events: none;
-			z-index: 10;
-			white-space: nowrap;
-		}
-
-		@media (hover: hover) {
-			.sidebar__link:hover .sidebar__tooltip {
-				opacity: 1;
-				visibility: visible;
-			}
-		}
-
-		.sidebar__footer {
-			border-top: 1px solid var(--color-border);
-			padding: var(--space-2);
-		}
-
-		.sidebar--collapsed .sidebar__footer {
-			padding: var(--space-1);
-		}
-	}
-</style>

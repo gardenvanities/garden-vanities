@@ -1,6 +1,12 @@
 <script lang="ts">
-	import { onMount } from "svelte";
 	import { SvelteMap } from "svelte/reactivity";
+	import { sanitizeHtml } from "$lib/shared/sanitize-html";
+
+	interface Props {
+		contentElement?: HTMLElement | null;
+	}
+
+	let { contentElement = null }: Props = $props();
 
 	let tooltipVisible = $state(false);
 	let tooltipContent = $state("");
@@ -11,8 +17,8 @@
 	
 	
 
-	onMount(() => {
-		const article = document.getElementById("article-content");
+	$effect(() => {
+		const article = contentElement;
 		if (!article) return;
 
 
@@ -31,7 +37,7 @@
 					html = html.replace(prefixRegex, "");
 				}
 
-				footnoteContent.set(id, html);
+				footnoteContent.set(id, sanitizeHtml(html));
 				definitionsToRemove.push(p);
 			}
 		});
@@ -125,9 +131,6 @@
 		});
 
 
-		return () => {
-			
-		};
 	});
 
 	function handleClick(e: MouseEvent, id: string, target: HTMLElement) {
@@ -142,7 +145,7 @@
 		const content = footnoteContent.get(id);
 		if (!content) return;
 
-		tooltipContent = content;
+		tooltipContent = sanitizeHtml(content);
 		activeRef = target;
 		updatePosition(target);
 

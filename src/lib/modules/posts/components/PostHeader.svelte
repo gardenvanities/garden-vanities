@@ -10,7 +10,7 @@
 
 <header
 	id="article-header"
-	class="from-surface/50 relative flex min-h-[350px] w-full items-end overflow-hidden bg-linear-to-b to-transparent pt-24"
+	class="from-surface/50 relative flex min-h-87.5 w-full items-end overflow-hidden bg-linear-to-b to-transparent pt-24"
 >
 	
 	<div class="relative z-10 w-full lg:pb-12">

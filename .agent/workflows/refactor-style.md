@@ -72,6 +72,7 @@ bun check && bun lint
 ```
 
 Visually inspect the component in the browser to confirm appearance matches.
+Confirm the migrated result still follows LDE baseline (layered dark hierarchy, restrained accent, no ornamental effects).
 
 ## Checklist
 
@@ -80,6 +81,7 @@ Visually inspect the component in the browser to confirm appearance matches.
 - [ ] No hardcoded colors; semantic token usage preserved
 - [ ] No decorative motion introduced
 - [ ] No depth above level 3 introduced
+- [ ] No LDE drift introduced (no neon accents, heavy blur/glow, decorative gradients on reading surfaces)
 - [ ] No remaining class references from old `<style>`
 - [ ] `<style>` block completely removed
 - [ ] `bun check && bun lint` passes

@@ -2,6 +2,7 @@
 	import { page } from "$app/state";
 	import { commandPalette } from "$lib/core/navigation/command-palette.svelte";
 	import { ui } from "$lib/stores/ui.svelte";
+	import { cn } from "$lib/shared/merge-class";
 	import { Home, Telescope, Library, Search, Menu } from "@lucide/svelte";
 	import { onMount } from "svelte";
 	import CommandPalette from "./CommandPalette.svelte";
@@ -35,36 +36,53 @@
 	});
 </script>
 
-<nav class="bottom-nav" aria-label="Navegação mobile">
+<nav
+	class="fixed bottom-2 left-1/2 z-nav grid w-[min(30rem,calc(100vw-1rem))] -translate-x-1/2 grid-cols-5 gap-[0.15rem] rounded-md border border-border bg-material-thick p-[0.3rem] backdrop-blur-lg md:hidden"
+	aria-label="Navegação mobile"
+>
 	<a
 		href="/"
-		class="bottom-nav__item"
-		class:bottom-nav__item--active={isActive("/")}
+		class={cn(
+			"inline-flex h-12 flex-col items-center justify-center gap-[0.2rem] rounded-sm bg-transparent text-[0.625rem] font-semibold text-muted no-underline",
+			isActive("/") && "bg-[oklch(from_var(--color-primary)_l_c_h/0.1)] text-primary"
+		)}
 	>
 		<Home size={18} strokeWidth={2} />
 		<span>Início</span>
 	</a>
 	<a
 		href="/explore"
-		class="bottom-nav__item"
-		class:bottom-nav__item--active={isActive("/explore")}
+		class={cn(
+			"inline-flex h-12 flex-col items-center justify-center gap-[0.2rem] rounded-sm bg-transparent text-[0.625rem] font-semibold text-muted no-underline",
+			isActive("/explore") && "bg-[oklch(from_var(--color-primary)_l_c_h/0.1)] text-primary"
+		)}
 	>
 		<Telescope size={18} strokeWidth={2} />
 		<span>Explorar</span>
 	</a>
-	<button type="button" class="bottom-nav__item" onclick={() => commandPalette.open()}>
+	<button
+		type="button"
+		class="inline-flex h-12 flex-col items-center justify-center gap-[0.2rem] rounded-sm bg-transparent text-[0.625rem] font-semibold text-muted no-underline"
+		onclick={() => commandPalette.open()}
+	>
 		<Search size={18} strokeWidth={2} />
 		<span>Buscar</span>
 	</button>
 	<a
 		href="/library"
-		class="bottom-nav__item"
-		class:bottom-nav__item--active={isActive("/library")}
+		class={cn(
+			"inline-flex h-12 flex-col items-center justify-center gap-[0.2rem] rounded-sm bg-transparent text-[0.625rem] font-semibold text-muted no-underline",
+			isActive("/library") && "bg-[oklch(from_var(--color-primary)_l_c_h/0.1)] text-primary"
+		)}
 	>
 		<Library size={18} strokeWidth={2} />
 		<span>Biblioteca</span>
 	</a>
-	<button type="button" class="bottom-nav__item" onclick={() => ui.openMobileSidebar()}>
+	<button
+		type="button"
+		class="inline-flex h-12 flex-col items-center justify-center gap-[0.2rem] rounded-sm bg-transparent text-[0.625rem] font-semibold text-muted no-underline"
+		onclick={() => ui.openMobileSidebar()}
+	>
 		<Menu size={18} strokeWidth={2} />
 		<span>Mais</span>
 	</button>
@@ -73,7 +91,7 @@
 {#if isSearchOpen}
 	<button
 		type="button"
-		class="command-backdrop"
+		class="fixed inset-0 z-90 cursor-default border-none bg-black/60 backdrop-blur-sm"
 		onclick={() => commandPalette.close()}
 		onkeydown={(e) => e.key === "Escape" && commandPalette.close()}
 		aria-label="Fechar busca"
@@ -82,107 +100,7 @@
 {/if}
 
 {#if isSearchOpen}
-	<div class="command-modal">
+	<div class="fixed left-1/2 top-4 z-100 flex max-h-[calc(100dvh-2rem)] w-[min(560px,calc(100vw-2rem))] -translate-x-1/2 flex-col sm:top-[20%] sm:max-h-[70dvh]">
 		<CommandPalette />
 	</div>
 {/if}
-
-<style>
-	@layer components {
-		.bottom-nav {
-			position: fixed;
-			left: 50%;
-			bottom: 0.5rem;
-			transform: translateX(-50%);
-			display: grid;
-			grid-template-columns: repeat(5, minmax(0, 1fr));
-			gap: 0.15rem;
-			width: min(30rem, calc(100vw - 1rem));
-			padding: 0.3rem;
-			border: 1px solid var(--color-border);
-			border-radius: var(--radius-2);
-			background: var(--material-thick);
-			backdrop-filter: blur(var(--blur-lg));
-			-webkit-backdrop-filter: blur(var(--blur-lg));
-			z-index: var(--z-nav);
-		}
-
-		@media (min-width: 768px) {
-			.bottom-nav {
-				display: none;
-			}
-		}
-
-		.bottom-nav__item {
-			display: inline-flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			gap: 0.2rem;
-			height: 3rem;
-			border: none;
-			border-radius: var(--radius-1);
-			background: transparent;
-			color: var(--color-muted);
-			font-size: 0.625rem;
-			font-weight: var(--font-weight-600);
-			text-decoration: none;
-		}
-
-		.bottom-nav__item--active {
-			color: var(--color-primary);
-			background: oklch(from var(--color-primary) l c h / 0.1);
-		}
-
-		.command-backdrop {
-			position: fixed;
-			inset: 0;
-			z-index: 90;
-			background: oklch(0 0 0 / 0.6);
-			backdrop-filter: blur(8px);
-			border: none;
-			cursor: default;
-			animation: fade-in 200ms var(--motion-ease-entrance) forwards;
-		}
-
-		.command-modal {
-			position: fixed;
-			top: 1rem;
-			left: 50%;
-			transform: translateX(-50%);
-			z-index: 100;
-			width: min(560px, calc(100vw - 2rem));
-			max-height: calc(100dvh - 2rem);
-			display: flex;
-			flex-direction: column;
-			animation: modal-in 250ms var(--motion-ease-entrance) forwards;
-		}
-
-		@media (min-width: 640px) {
-			.command-modal {
-				top: 20%;
-				max-height: 70dvh;
-			}
-		}
-
-		@keyframes modal-in {
-			from {
-				opacity: 0;
-				transform: translateX(-50%) translateY(8px) scale(0.96);
-			}
-			to {
-				opacity: 1;
-				transform: translateX(-50%) translateY(0) scale(1);
-			}
-		}
-
-		@keyframes fade-in {
-			from {
-				opacity: 0;
-			}
-			to {
-				opacity: 1;
-			}
-		}
-	}
-</style>

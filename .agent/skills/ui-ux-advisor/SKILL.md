@@ -137,6 +137,14 @@ Qualitative labels:
 
 ## Garden Vanities-Specific Heuristics
 
+### Aesthetic baseline (mandatory)
+
+- Use Layered Dark Editorial (LDE) as the primary visual language.
+- Prefer restrained, professional dark surfaces over expressive visual effects.
+- Separate layers mainly with border/tonal contrast, not heavy shadow/glow.
+- Keep accent color focused on orientation and primary actions only.
+- Preserve modular composition (panels, cards, metadata blocks) without visual noise.
+
 ### Content consumption and exploration
 
 - Improve discovery without dashboard-like visual noise
@@ -154,6 +162,7 @@ Qualitative labels:
 - Typography and spacing must carry authority
 - UI must support long-form reading first
 - Motion should be subtle and functional only
+- Avoid decorative visual treatments that conflict with LDE (neon palettes, glassmorphism-heavy patterns, ornamental gradients behind text)
 
 ## Response Styles by Request Type
 
@@ -187,4 +196,3 @@ When the skill is used in a UI/UX advisory task, always end with:
 
 - `Applied rules`
 - `Residual risks`
-

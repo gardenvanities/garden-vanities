@@ -41,7 +41,7 @@ Primary skill: `.agent/skills/ui-ux-advisor/SKILL.md`
 ## Validation Anchors
 
 - Must respect `.agent/design-system.md`
+- Must preserve Layered Dark Editorial (LDE) coherence
 - Must preserve light/dark parity
 - Must not exceed depth `0..3`
 - Must keep interactions accessible and measurable
-

@@ -5,7 +5,7 @@
 ## Project
 
 **Garden Vanities** — Intellectual platform (digital garden) for sharing knowledge.
-Aesthetic: retro-futurism, bento grid, minimalism. Tone: objective, erudite.
+Aesthetic: layered dark editorial minimalism (inspired by layers.to), modular grid. Tone: objective, erudite.
 
 ## Stack
 
@@ -65,6 +65,7 @@ src/
 - Explicit `interface Props` with `$props()` destructuring.
 - Prefer Snippets (composition) for layout; props for atomic UI.
 - Colors from CSS tokens (`--color-*`). Never hardcoded hex in components.
+- Tailwind canonical classes are mandatory when equivalent exists (`md:w-70` over `md:w-[17.5rem]`, `aspect-4/3` over `aspect-[4/3]`).
 - Reuse existing components. Extend before creating new. New only when truly novel.
 - `<style>` only for: `@keyframes`, `:global()`, complex `calc()`/`oklch()`, scrollbar/pseudo-element styling.
 - Design system source of truth for AI agents: `.agent/design-system.md`.
@@ -73,6 +74,7 @@ src/
 
 - Uses only design-system tokens/utilities from `.agent/design-system.md`.
 - No hardcoded color values in components.
+- Follows the official visual language: deep dark surfaces, subtle borders, low-glare contrast, restrained accent.
 - Interactive elements implement: `default`, `hover` (desktop), `focus-visible`, `active`, `disabled` (when applicable).
 - Focus indicator is visible and accessible.
 - Depth stays within official levels `0..3` (no layer above 3).
@@ -156,6 +158,7 @@ These patterns must NEVER appear in production code:
 | `$$props` / `$$restProps` | Legacy Svelte 4 | Use spread in `$props()` |
 | `@apply` in CSS | Breaks Tailwind tree-shaking | Use inline utility classes |
 | Hardcoded color values | Bypasses design system | Use CSS token classes |
+| Arbitrary Tailwind value when canonical utility exists | Preventable style drift/noise | Use canonical utility class |
 | `setTimeout` for animations | Fragile, not frame-synced | Use CSS transitions or Svelte transitions |
 | `!important` in CSS | Specificity hack | Fix the cascade instead |
 

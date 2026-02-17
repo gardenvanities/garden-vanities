@@ -9,7 +9,7 @@
 - **Purpose:** Intellectual platform for sharing knowledge (digital garden), with future monetization potential based on audience response.
 - **Audience:** Men seeking knowledge, insights, skills, and cultured entertainment.
 - **Nature:** Personal project with commercial potential.
-- **Aesthetic:** Retro-futurism, bento grid, minimalism.
+- **Aesthetic:** Layered dark editorial minimalism (layers.to reference), modular/bento grid.
 
 ---
 
@@ -28,7 +28,7 @@
 ## Design System
 
 ### Visual Identity
-- **Mood:** Retro-futuristic, minimalist
+- **Mood:** Editorial, technical, restrained, premium dark-first
 - **Theme strategy:** Light is the structural matrix; dark mode has equal importance and full parity
 - **Animation level:** Moderate — purposeful micro-interactions, no gratuitous effects
 - **Icons:** Prefer straight/square aesthetic. Any icon library allowed if consistent. Currently using Lucide.

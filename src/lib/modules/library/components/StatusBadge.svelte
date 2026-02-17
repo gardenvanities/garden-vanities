@@ -3,12 +3,11 @@
 	import type { ConsumptionStatus } from "$lib/modules/library/types";
 	import { STATUS_LABELS } from "$lib/modules/library/types";
 
-	interface Props {
-		status: ConsumptionStatus;
-		size?: "sm" | "md";
-	}
+interface Props {
+	status: ConsumptionStatus;
+}
 
-	let { status, size = "sm" }: Props = $props();
+let { status }: Props = $props();
 
 	const variantMap: Record<
 		ConsumptionStatus,
@@ -26,6 +25,6 @@
 	};
 </script>
 
-<Badge variant={variantMap[status]} {size}>
+<Badge variant={variantMap[status]}>
 	{STATUS_LABELS[status]}
 </Badge>

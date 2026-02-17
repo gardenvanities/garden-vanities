@@ -1,4 +1,5 @@
 import { spring } from "svelte/motion";
+import { articleDom } from "$lib/stores/article-dom.svelte";
 
 function createReadingProgress() {
 	let readingTimeMinutes = $state(1);
@@ -11,19 +12,19 @@ function createReadingProgress() {
 	});
 
 	function calculateReadingTime() {
-		const article =
-			document.querySelector("article") || document.querySelector(".prose") || document.body;
+		const article = articleDom.contentElement;
 		if (article) {
 			const text = article.innerText;
 			const wpm = 200;
 			const words = text.trim().split(/\s+/).length;
 			readingTimeMinutes = Math.max(1, Math.ceil(words / wpm));
+		} else {
+			readingTimeMinutes = 1;
 		}
 	}
 
 	function handleScroll() {
-		const articleEl =
-			document.getElementById("article-content") || document.querySelector("article.prose");
+		const articleEl = articleDom.contentElement;
 
 		if (!articleEl) {
 			rawProgress = 0;
@@ -31,7 +32,7 @@ function createReadingProgress() {
 			return;
 		}
 
-		const headerEl = document.getElementById("article-header");
+		const headerEl = articleDom.headerElement;
 		const currentScrollTop = window.scrollY;
 		const rect = articleEl.getBoundingClientRect();
 		const winHeight = window.innerHeight;
@@ -73,6 +74,12 @@ function createReadingProgress() {
 		},
 		get minutesLeft() {
 			return Math.max(1, Math.ceil(readingTimeMinutes * (1 - rawProgress / 100)));
+		},
+		setElements(elements: { content: HTMLElement | null; header: HTMLElement | null }) {
+			articleDom.setContentElement(elements.content);
+			articleDom.setHeaderElement(elements.header);
+			calculateReadingTime();
+			handleScroll();
 		},
 		init() {
 			calculateReadingTime();

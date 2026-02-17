@@ -55,9 +55,9 @@
 <aside
 	class={cn(
 		"fixed top-0 right-0 bottom-0 z-42 flex flex-col bg-surface border-l border-border transition-[width,transform] duration-base ease-entrance",
-		"max-lg:w-[280px] max-lg:translate-x-full max-lg:border-l max-lg:border-border",
+		"max-lg:w-70 max-lg:translate-x-full max-lg:border-l max-lg:border-border",
 		isMobileOpen && "max-lg:translate-x-0",
-		isExpanded ? "lg:w-[260px]" : "lg:w-12"
+		isExpanded ? "lg:w-65" : "lg:w-12"
 	)}
 	aria-label="Navegação do artigo"
 >

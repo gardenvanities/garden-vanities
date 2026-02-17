@@ -30,21 +30,18 @@
 	}: Props = $props();
 
 	const baseStyles =
-		"inline-flex items-center justify-center rounded-sm px-1.5 py-1 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2";
+		"inline-flex items-center gap-1.5 rounded-sm border px-1.5 py-1.5 text-xs font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
 
 	const variants = {
-		default:
-			"bg-surface-elevated/50 border border-border text-muted hover:border-primary/50 hover:text-primary hover:bg-surface-elevated",
-		secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 border-transparent",
-		outline: "text-foreground border border-border bg-transparent",
-		primary: "bg-primary text-primary-foreground shadow hover:bg-primary/90 border-transparent",
-		danger:
-			"bg-destructive text-destructive-foreground shadow hover:bg-destructive/90 border-transparent",
-		warning: "bg-warning text-warning-foreground shadow hover:bg-warning/90 border-transparent",
-		success: "bg-success text-success-foreground shadow hover:bg-success/90 border-transparent",
+		default: "bg-surface-elevated border-border text-muted",
+		secondary: "bg-secondary border-secondary/45 text-secondary-foreground",
+		outline: "bg-transparent border-border text-foreground",
+		primary: "bg-primary/14 border-primary/35 text-primary",
+		danger: "bg-destructive/14 border-destructive/35 text-destructive",
+		warning: "bg-warning/14 border-warning/35 text-warning",
+		success: "bg-success/14 border-success/35 text-success",
 
-		glass:
-			"bg-surface/75 border-border/60 text-text group-hover:border-border-vivid group-hover:bg-surface-elevated/85 backdrop-blur-md"
+		glass: "bg-surface/82 border-border/70 text-text backdrop-blur-sm"
 	};
 </script>
 

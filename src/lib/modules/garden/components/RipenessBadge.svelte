@@ -3,6 +3,7 @@
 	import { Sprout } from "@lucide/svelte";
 	import { getRipenessLabel } from "$lib/modules/garden/constants";
 	import { cn } from "$lib/shared/merge-class";
+	import Badge from "$lib/ui/Badge.svelte";
 
 	interface Props {
 		ripeness: Ripeness;
@@ -25,14 +26,9 @@
 	const tokenBorder = $derived(`oklch(from var(--color-ripeness-${ripeness}) l c h / 0.32)`);
 </script>
 
-<span
-	class={cn(
-		"inline-flex items-center gap-1.5 rounded-sm border px-2 py-1 text-xs font-medium transition-colors",
-		active ? "text-text" : "text-muted group-hover:text-text",
-		className
-	)}
-	style:background-color={tokenBg}
-	style:border-color={tokenBorder}
+<Badge
+	class={cn(active ? "text-text" : "text-muted group-hover:text-text", className)}
+	style="background-color: {tokenBg}; border-color: {tokenBorder};"
 >
 	{#if showIcon}
 		<span style:color={token} class={active ? "opacity-100" : "opacity-80 group-hover:opacity-100"}>
@@ -40,6 +36,6 @@
 		</span>
 	{/if}
 	{#if showLabel}
-		<span class="pt-px">{getRipenessLabel(ripeness)}</span>
+		<span>{getRipenessLabel(ripeness)}</span>
 	{/if}
-</span>
+</Badge>

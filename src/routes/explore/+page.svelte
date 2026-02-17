@@ -6,7 +6,10 @@
 	import Container from "$lib/layout/Container.svelte";
 	import Section from "$lib/layout/Section.svelte";
 	import ExploreToolbar from "$lib/modules/explore/components/ExploreToolbar.svelte";
-	import { DEFAULT_EXPLORE_FILTERS, EXPLORE_SCOPE_OPTIONS } from "$lib/modules/explore/constants";
+	import {
+		DEFAULT_EXPLORE_FILTERS,
+		EXPLORE_SCOPE_OPTIONS
+	} from "$lib/modules/explore/constants";
 	import {
 		buildExploreFiltersFromSearchParams,
 		buildExploreSearchParams
@@ -17,9 +20,8 @@
 	import type { CollectionStatus } from "$lib/modules/posts/collections";
 	import PostMasonryCard from "$lib/modules/posts/components/PostMasonryCard.svelte";
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
-	import PageHeader from "$lib/ui/PageHeader.svelte";
 	import viewport from "$lib/actions/viewport";
-	import { Filter, Loader2, Search, X } from "@lucide/svelte";
+	import { Loader2, Search, X } from "@lucide/svelte";
 
 	let { data } = $props();
 
@@ -69,7 +71,6 @@
 	let filters = $state<ExploreFilters>({ ...DEFAULT_EXPLORE_FILTERS });
 	let visibleCount = $state(10);
 	let hydrated = $state(false);
-	let isMobileFiltersOpen = $state(false);
 
 	let kindOptions = $derived(data.kinds.map((kind) => ({ slug: kind.slug, title: kind.title })));
 	let seriesSlugSet = $derived(new Set(data.series.map((serie) => serie.slug)));
@@ -204,7 +205,6 @@
 	});
 
 	let displayedItems = $derived(sortedItems.slice(0, visibleCount));
-	let totalExploreItems = $derived(standalonePosts.length + data.series.length + data.sets.length);
 	let scopeCounts = $derived({
 		all: standalonePosts.length + data.series.length,
 		sets: data.sets.length
@@ -246,6 +246,7 @@
 			preset: "all"
 		};
 	}
+
 </script>
 
 <SEO
@@ -253,90 +254,71 @@
 	description="Pesquise e filtre todas as notas do jardim."
 />
 
-<Section class="py-10 md:py-14">
+<div class="border-b border-border bg-surface">
+	<div class="px-5 py-3 md:px-7">
+		<span
+			class="font-heading whitespace-nowrap text-text"
+			style="font-size: var(--type-2); font-weight: var(--font-weight-600);"
+		>
+			Explore
+		</span>
+	</div>
+</div>
+
+<Section class="pt-4 pb-8 md:pt-5 md:pb-10">
 	<Container size="xl">
-		<div class="mb-8 flex flex-col items-center">
-			<PageHeader
-				class="mb-0 text-center"
-				title="Explorar"
-				description="Descubra entre {totalExploreItems} conteúdos cultivados"
-			/>
-		</div>
-
-		<div class="bg-base/95 border-border sticky top-2 z-20 mb-5 rounded-lg border p-2 backdrop-blur">
-			<div class="flex items-center gap-2">
-				<div class="relative flex-1">
-					<Search class="text-muted-foreground pointer-events-none absolute top-2.5 left-3 h-4 w-4" />
-					<input
-						type="search"
-						value={filters.text}
-						oninput={(event) => {
-							const target = event.currentTarget as HTMLInputElement;
-							filters = { ...filters, text: target.value, preset: "all" };
-						}}
-						placeholder="Buscar por título, resumo, descrição..."
-						class="bg-background border-border focus-visible:ring-ring h-9 w-full rounded-md border py-1.5 pr-9 pl-9 text-sm focus-visible:ring-2 focus-visible:outline-none"
-					/>
-					{#if filters.text}
-						<button
-							type="button"
-							onclick={() => {
-								filters = { ...filters, text: "", preset: "all" };
-							}}
-							class="text-muted-foreground hover:text-foreground absolute top-2.5 right-2"
-							aria-label="Limpar busca"
-						>
-							<X class="h-4 w-4" />
-						</button>
-					{/if}
-				</div>
-
-				<button
-					type="button"
-					onclick={() => {
-						isMobileFiltersOpen = true;
+		<div class="mb-4 rounded-xl border border-border bg-surface p-3 md:p-4">
+			<div class="relative mb-3">
+				<Search class="pointer-events-none absolute top-2.5 left-3 h-4 w-4 text-muted" />
+				<input
+					type="search"
+					value={filters.text}
+					oninput={(event) => {
+						const target = event.currentTarget as HTMLInputElement;
+						filters = { ...filters, text: target.value, preset: "all" };
 					}}
-					class="bg-background border-border inline-flex h-9 items-center gap-1 rounded-md border px-2 text-xs lg:hidden"
-				>
-					<Filter class="h-3.5 w-3.5" />
-					<span>Filtros</span>
-				</button>
+					placeholder="Digite um tema, conceito ou palavra-chave..."
+					class="focus-ring h-10 w-full rounded-md border border-border bg-surface-elevated py-2 pl-9 pr-10 text-sm text-text"
+				/>
+				{#if filters.text}
+					<button
+						type="button"
+						onclick={() => {
+							filters = { ...filters, text: "", preset: "all" };
+						}}
+						class="absolute top-2.5 right-3 text-muted transition-colors hover:text-text"
+						aria-label="Limpar busca"
+					>
+						<X class="h-4 w-4" />
+					</button>
+				{/if}
 			</div>
 
-			<div class="mt-2 flex flex-wrap gap-1.5">
+			<div class="mb-2 flex flex-wrap gap-1.5">
 				{#each EXPLORE_SCOPE_OPTIONS as option (option.value)}
 					<button
 						type="button"
 						onclick={() => selectScope(option.value)}
-						class="inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-medium transition-colors {filters.scope ===
+						class="focus-ring inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition-colors {filters.scope ===
 						option.value
-							? 'bg-primary text-primary-foreground border-primary'
-							: 'bg-background border-border text-muted-foreground hover:bg-muted hover:text-foreground'}"
+							? 'border-border-vivid bg-surface-elevated text-text'
+							: 'border-border bg-surface text-muted hover:bg-surface-hover hover:text-text'}"
 					>
 						<span>{option.label}</span>
-						<span
-							class="bg-background/70 text-[10px] leading-none rounded-full px-1.5 py-0.5 {filters.scope ===
-							option.value
-								? 'text-primary'
-								: 'text-muted-foreground'}"
-						>
-							{scopeCounts[option.value]}
-						</span>
+						<span class="rounded-full bg-background/20 px-1.5 py-0.5 text-[10px]">{scopeCounts[option.value]}</span>
 					</button>
 				{/each}
 			</div>
+
+			<div class="mt-3 border-t border-border pt-3">
+				<ExploreToolbar bind:filters kindOptions={kindOptions} resultCount={sortedItems.length} />
+			</div>
 		</div>
 
-		<div class="grid grid-cols-1 gap-5 lg:grid-cols-[17rem_minmax(0,1fr)]">
-			<aside class="hidden lg:block">
-				<div class="sticky top-16">
-					<ExploreToolbar bind:filters kindOptions={kindOptions} resultCount={sortedItems.length} />
-				</div>
-			</aside>
-
-			<div>
-				{#if displayedItems.length > 0}
-					<div class="columns-1 gap-5 sm:columns-2 xl:columns-3">
+		<div>
+			{#if displayedItems.length > 0}
+				<div class="bg-surface">
+					<div class="columns-1 gap-4 sm:columns-2 xl:columns-3">
 						{#each displayedItems as item (item.key)}
 							{#if item.type === "post"}
 								<PostMasonryCard post={item.post} />
@@ -347,61 +329,28 @@
 							{/if}
 						{/each}
 					</div>
+				</div>
 
-					{#if sortedItems.length > displayedItems.length}
-						<div
-							use:viewport
-							onenterViewport={loadMore}
-							class="flex w-full items-center justify-center p-8"
-						>
-							<Loader2 class="text-muted/50 h-8 w-8 animate-spin" />
-						</div>
-					{/if}
-				{:else}
-					<div class="bg-muted/10 flex flex-col items-center justify-center rounded-lg border py-20 text-center">
-						<p class="text-foreground text-lg font-medium">Nenhum resultado encontrado</p>
-						<p class="text-muted-foreground">Tente ajustar seus filtros ou pesquisa.</p>
-						<button
-							type="button"
-							onclick={() => {
-								filters = { ...DEFAULT_EXPLORE_FILTERS };
-							}}
-							class="text-primary mt-4 hover:underline"
-						>
-							Limpar filtros
-						</button>
+				{#if sortedItems.length > displayedItems.length}
+					<div use:viewport onenterViewport={loadMore} class="flex w-full items-center justify-center p-8">
+						<Loader2 class="h-7 w-7 animate-spin text-muted" />
 					</div>
 				{/if}
-			</div>
+			{:else}
+				<div class="flex flex-col items-center justify-center rounded-xl border border-border bg-surface p-10 text-center md:p-16">
+					<p class="text-lg font-medium text-text">Nenhum resultado encontrado</p>
+					<p class="mt-1 text-sm text-muted">Tente ajustar filtros, tags ou termo de busca.</p>
+					<button
+						type="button"
+						onclick={() => {
+							filters = { ...DEFAULT_EXPLORE_FILTERS };
+						}}
+						class="focus-ring mt-4 rounded-md border border-border px-3 py-2 text-sm text-text transition-colors hover:bg-surface-hover"
+					>
+						Limpar filtros
+					</button>
+				</div>
+			{/if}
 		</div>
 	</Container>
 </Section>
-
-{#if isMobileFiltersOpen}
-	<div class="fixed inset-0 z-50 lg:hidden">
-		<button
-			type="button"
-			onclick={() => {
-				isMobileFiltersOpen = false;
-			}}
-			class="bg-background/70 absolute inset-0"
-			aria-label="Fechar filtros"
-		></button>
-		<div class="bg-base border-border absolute top-0 right-0 h-full w-full max-w-xs border-l p-3">
-			<div class="mb-3 flex items-center justify-between">
-				<p class="text-sm font-medium">Filtros</p>
-				<button
-					type="button"
-					onclick={() => {
-						isMobileFiltersOpen = false;
-					}}
-					class="text-muted-foreground hover:text-foreground"
-					aria-label="Fechar"
-				>
-					<X class="h-4 w-4" />
-				</button>
-			</div>
-			<ExploreToolbar bind:filters kindOptions={kindOptions} resultCount={sortedItems.length} />
-		</div>
-	</div>
-{/if}

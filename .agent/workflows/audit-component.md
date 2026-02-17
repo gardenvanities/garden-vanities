@@ -32,6 +32,7 @@ Design system canonical source: `.agent/design-system.md`.
 - [ ] No hardcoded hex/rgb/oklch colors
 - [ ] No arbitrary values when a token exists (`p-4` not `p-[1rem]`)
 - [ ] Uses utility classes where available (`.container`, `.glass`, `.flow`)
+- [ ] Matches Layered Dark Editorial baseline (subtle layered contrast, restrained accent, modular visual rhythm)
 - [ ] Depth is within official levels (`0..3`)
 - [ ] Motion is functional only (no decorative animation)
 
@@ -89,6 +90,7 @@ bun check && bun lint
 | Missing Props interface | 🔴 Must fix |
 | `any` types | 🔴 Must fix |
 | Hardcoded colors | 🟡 Should fix |
+| LDE visual drift (neon/glow/decorative gradients) | 🟡 Should fix |
 | Unnecessary `<style>` | 🟡 Should fix |
 | Missing barrel export | 🟢 Nice to have |
 | Missing aria-label on icon button | 🟡 Should fix |

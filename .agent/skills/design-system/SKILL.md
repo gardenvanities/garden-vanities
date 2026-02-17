@@ -28,6 +28,7 @@ If any source conflicts, follow `.agent/design-system.md`.
 
 - Use semantic tokens, not raw values.
 - Preserve light matrix with dark parity.
+- Keep Layered Dark Editorial (LDE) coherence: subtle layered surfaces, restrained accent, modular composition.
 - Respect max depth levels (`0..3` only).
 - Keep motion within allowed durations/easing.
 - Keep spacing/radius/shadow within system scales.
@@ -49,6 +50,7 @@ For every interactive element, ensure:
 - New visual variants without semantic reason.
 - Truncation of critical/reading content.
 - Any UI exception outside system rules.
+- Visual drift from LDE baseline (neon accents, heavy blur/glow, decorative gradients in reading surfaces).
 
 ### 5) Report decisions in output
 

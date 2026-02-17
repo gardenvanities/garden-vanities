@@ -3,6 +3,7 @@
 	import { Shapes } from "@lucide/svelte";
 	import { getKindColorToken, getKindDescription, getKindLabel } from "$lib/modules/garden/constants";
 	import { cn } from "$lib/shared/merge-class";
+	import Badge from "$lib/ui/Badge.svelte";
 
 	interface Props {
 		kind: Kind;
@@ -26,14 +27,9 @@
 	role="note"
 	aria-label={description}
 >
-	<span
-		class={cn(
-			"inline-flex items-center gap-1.5 rounded-sm border px-2 py-1 text-xs font-medium transition-colors",
-			active ? "text-text" : "text-muted group-hover/kind:text-text",
-			className
-		)}
-		style:background-color={colorBg}
-		style:border-color={colorBorder}
+	<Badge
+		class={cn(active ? "text-text" : "text-muted group-hover/kind:text-text", className)}
+		style="background-color: {colorBg}; border-color: {colorBorder};"
 	>
 		{#if showIcon}
 			<span
@@ -43,8 +39,8 @@
 				<Shapes size={13} />
 			</span>
 		{/if}
-		<span class="pt-px">{label}</span>
-	</span>
+		<span>{label}</span>
+	</Badge>
 
 	<div
 		role="tooltip"

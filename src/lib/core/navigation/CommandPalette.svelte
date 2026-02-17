@@ -52,6 +52,7 @@
 	let hasLoaded = $state(false);
 
 	let searchInputElement = $state<HTMLInputElement>();
+	let resultElements = $state<Array<HTMLButtonElement | undefined>>([]);
 	let query = $state("");
 	let selectedIndex = $state(0);
 
@@ -266,7 +267,7 @@
 	}
 
 	function scrollIntoView() {
-		const activeEl = document.querySelector(`[data-command-index="${selectedIndex}"]`);
+		const activeEl = resultElements[selectedIndex];
 		if (activeEl) {
 			activeEl.scrollIntoView({ block: "nearest" });
 		}
@@ -286,10 +287,13 @@
 	}
 </script>
 
-<div class="command-container" data-lenis-prevent>
+<div
+	class="flex max-h-full flex-1 flex-col overflow-hidden rounded-md border border-white/12 bg-surface/85 shadow-[0_0_0_1px_oklch(0_0_0/0.03),0_8px_40px_oklch(0_0_0/0.15),0_2px_12px_oklch(0_0_0/0.08)] backdrop-blur-3xl"
+	data-lenis-prevent
+>
 	
-	<div class="command-header">
-		<div class="command-search-icon">
+	<div class="flex items-center gap-3 border-b border-border/20 px-5 py-4">
+		<div class="flex items-center justify-center text-muted">
 			<Sparkles size={18} strokeWidth={2} />
 		</div>
 		<input
@@ -297,12 +301,12 @@
 			bind:value={query}
 			type="text"
 			placeholder={window.innerWidth < 640 ? "Buscar..." : "Buscar artigos, ações..."}
-			class="command-input touch-manipulation"
+			class="touch-manipulation flex-1 bg-transparent text-base font-medium tracking-[-0.01em] text-text outline-none placeholder:text-muted/70"
 			onkeydown={handleKeydown}
 		/>
 		<button
 			type="button"
-			class="command-close"
+			class="inline-flex h-6 w-6 items-center justify-center rounded-xs border-none bg-transparent text-muted transition-fast hover:bg-text/5 hover:text-text"
 			onclick={closeSearch}
 			aria-label="Fechar busca (Esc)"
 		>
@@ -311,44 +315,60 @@
 	</div>
 
 	
-	<div class="command-results">
+	<div class="min-h-0 flex-1 touch-manipulation overflow-y-auto p-2">
 		{#if isLoading}
-			<div class="command-empty">
-				<div class="command-empty-icon pulse">
+			<div class="flex flex-col items-center justify-center px-4 py-12 text-center">
+				<div
+					class="mb-4 inline-flex h-12 w-12 animate-pulse items-center justify-center rounded-md border border-border/30 bg-surface/50 text-muted"
+				>
 					<Sparkles size={28} strokeWidth={1.5} />
 				</div>
-				<p class="command-empty-text">Carregando índice...</p>
+				<p class="text-sm text-muted">Carregando índice...</p>
 			</div>
 		{:else if flatResults.length === 0}
-			<div class="command-empty">
-				<div class="command-empty-icon">
+			<div class="flex flex-col items-center justify-center px-4 py-12 text-center">
+				<div
+					class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-md border border-border/30 bg-surface/50 text-muted"
+				>
 					<Telescope size={28} strokeWidth={1.5} />
 				</div>
-				<p class="command-empty-text">Nenhum resultado encontrado</p>
+				<p class="text-sm text-muted">Nenhum resultado encontrado</p>
 			</div>
 		{:else}
 			{#each Object.entries(groupedResults) as [category, items] (category)}
 				{@const CategoryIcon = getCategoryIcon(category)}
-				<div class="command-group">
-					<div class="command-group-header">
+				<div class="mb-2">
+					<div class="flex items-center gap-2 px-3 py-2 text-[11px] font-semibold tracking-[0.06em] text-muted/80 uppercase">
 						<CategoryIcon size={12} strokeWidth={2} />
 						<span>{category}</span>
 					</div>
-					<div class="command-group-items">
+					<div>
 						{#each items as item (item.id)}
 							{@const globalIndex = flatResults.indexOf(item)}
 							<button
-								class={cn("command-item", selectedIndex === globalIndex && "selected")}
+								class={cn(
+									"flex w-full items-center gap-3 rounded-xs border-none bg-transparent px-3 py-3 text-left text-text transition-all duration-150 ease-standard active:scale-[0.995] sm:py-3",
+									selectedIndex === globalIndex &&
+										"bg-[oklch(from_var(--color-primary)_l_c_h/0.1)] text-text"
+								)}
 								onclick={item.action}
 								data-command-index={globalIndex}
+								bind:this={resultElements[globalIndex]}
 							>
-								<div class="command-item-icon">
+								<div
+									class={cn(
+										"inline-flex h-6 w-6 items-center justify-center rounded-xs bg-text/5 text-text/70 transition-fast",
+										selectedIndex === globalIndex && "bg-primary text-black/80 opacity-100"
+									)}
+								>
 									<item.icon size={16} strokeWidth={2} />
 								</div>
-								<span class="command-item-title">{item.title}</span>
+								<span class="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-[0.9375rem] font-medium tracking-[-0.01em]">
+									{item.title}
+								</span>
 								
 								{#if selectedIndex === globalIndex}
-									<div class="command-item-enter hidden sm:block">
+									<div class="hidden translate-x-0 opacity-50 transition-fast sm:block">
 										<CornerDownLeft size={14} strokeWidth={2} />
 									</div>
 								{/if}
@@ -361,283 +381,20 @@
 	</div>
 
 	
-	<div class="command-footer">
-		<div class="command-hints">
-			<span class="command-hint">
+	<div class="hidden items-center justify-between border-t border-border/20 bg-surface/30 px-5 py-3 backdrop-blur-sm sm:flex">
+		<div class="flex items-center gap-4">
+			<span class="flex items-center gap-1.5 text-[11px] text-muted">
 				<Kbd>↑↓</Kbd>
 				<span>navegar</span>
 			</span>
-			<span class="command-hint">
+			<span class="flex items-center gap-1.5 text-[11px] text-muted">
 				<Kbd>↵</Kbd>
 				<span>selecionar</span>
 			</span>
 		</div>
-		<span class="command-hint">
+		<span class="flex items-center gap-1.5 text-[11px] text-muted">
 			<Kbd>esc</Kbd>
 			<span>fechar</span>
 		</span>
 	</div>
 </div>
-
-<style>
-	@layer components {
-		 
-
-		.command-container {
-			display: flex;
-			flex-direction: column;
-			overflow: hidden;
-			border-radius: 0.375rem;
-			background: oklch(from var(--color-surface) calc(l * 1.05) c h / 0.85);
-			backdrop-filter: blur(24px) saturate(1.8);
-			-webkit-backdrop-filter: blur(24px) saturate(1.8);
-			border: 1px solid oklch(1 0 0 / 0.12);
-			box-shadow:
-				0 0 0 1px oklch(0 0 0 / 0.03),
-				0 8px 40px oklch(0 0 0 / 0.15),
-				0 2px 12px oklch(0 0 0 / 0.08);
-			max-height: 100%;
-			flex: 1;
-			transition:
-				transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-				opacity 0.2s ease;
-		}
-
-		:global(.dark) .command-container {
-			background: oklch(from var(--color-surface) calc(l * 0.8) c h / 0.75);
-			border-color: oklch(1 0 0 / 0.08);
-		}
-
-		 
-
-		.command-header {
-			display: flex;
-			align-items: center;
-			gap: 0.75rem;
-			padding: 1rem 1.25rem;
-			border-bottom: 1px solid oklch(from var(--color-border) l c h / 0.2);
-		}
-
-		.command-search-icon {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			color: var(--color-muted);
-		}
-
-		.command-input {
-			flex: 1;
-			background: transparent;
-			border: none;
-			font-size: 1rem;
-			font-weight: 450;
-			letter-spacing: -0.01em;
-			color: var(--color-text);
-			outline: none;
-		}
-
-		.command-input::placeholder {
-			color: var(--color-muted);
-			opacity: 0.7;
-		}
-
-		.command-close {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 1.5rem;
-			height: 1.5rem;
-			border-radius: 0.25rem;
-			color: var(--color-muted);
-			background: transparent;
-			border: none;
-			cursor: pointer;
-			transition: all 150ms var(--motion-ease-standard);
-		}
-
-		.command-close:hover {
-			color: var(--color-text);
-			background: oklch(from var(--color-text) l c h / 0.05);
-		}
-
-		 
-
-		.command-results {
-			flex: 1;
-			min-height: 0;
-			overflow-y: auto;
-			padding: 0.5rem;
-			scrollbar-width: thin;
-			scrollbar-color: oklch(from var(--color-border) l c h / 0.3) transparent;
-			touch-action: manipulation;
-		}
-
-		 
-
-		.command-group {
-			margin-bottom: 0.5rem;
-		}
-
-		.command-group-header {
-			display: flex;
-			align-items: center;
-			gap: 0.5rem;
-			padding: 0.5rem 0.75rem;
-			font-size: 0.6875rem;
-			font-weight: 600;
-			text-transform: uppercase;
-			letter-spacing: 0.06em;
-			color: var(--color-muted);
-			opacity: 0.8;
-		}
-
-		 
-
-		.command-item {
-			display: flex;
-			align-items: center;
-			gap: 0.75rem;
-			width: 100%;
-			padding: 0.875rem 0.75rem;
-			border-radius: 0.25rem;
-			color: var(--color-text);
-			text-align: left;
-			background: transparent;
-			border: none;
-			cursor: pointer;
-			transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
-		}
-
-		@media (min-width: 640px) {
-			.command-item {
-				padding: 0.75rem 0.75rem;
-			}
-		}
-
-		.command-item.selected {
-			background: oklch(from var(--color-primary) l c h / 0.1);
-			color: var(--color-text);
-		}
-
-		.command-item.selected .command-item-icon {
-			background: var(--color-primary);
-			color: oklch(0 0 0 / 0.8);  
-			opacity: 1;
-		}
-
-		.command-item:active {
-			transform: scale(0.995);
-		}
-
-		.command-item-icon {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 1.5rem;
-			height: 1.5rem;
-			border-radius: 0.25rem;
-			background: oklch(from var(--color-text) l c h / 0.05);
-			color: var(--color-text);
-			opacity: 0.7;
-			transition: all 150ms ease;
-		}
-
-		.command-item-title {
-			flex: 1;
-			font-size: 0.9375rem;
-			font-weight: 500;
-			letter-spacing: -0.01em;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
-
-		 
-
-		.command-item-enter {
-			opacity: 0;
-			transform: translateX(-5px);
-			transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
-		}
-
-		.command-item.selected .command-item-enter {
-			opacity: 0.5;
-			transform: translateX(0);
-		}
-
-		 
-		 
-
-		.command-results::-webkit-scrollbar {
-			width: 6px;
-		}
-
-		.command-results::-webkit-scrollbar-track {
-			background: transparent;
-		}
-
-		.command-results::-webkit-scrollbar-thumb {
-			background: oklch(from var(--color-border) l c h / 0.3);
-			border-radius: 3px;
-		}
-
-		.command-empty {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			padding: 3rem 1rem;
-			text-align: center;
-		}
-
-		.command-empty-icon {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 3rem;
-			height: 3rem;
-			margin-bottom: 1rem;
-			border-radius: 0.375rem;
-			background: oklch(from var(--color-surface) l c h / 0.5);
-			color: var(--color-muted);
-			border: 1px solid oklch(from var(--color-border) l c h / 0.3);
-		}
-
-		.command-empty-text {
-			font-size: 0.875rem;
-			color: var(--color-muted);
-		}
-
-		 
-
-		.command-footer {
-			display: none;
-			align-items: center;
-			justify-content: space-between;
-			padding: 0.75rem 1.25rem;
-			border-top: 1px solid oklch(from var(--color-border) l c h / 0.2);
-			background: oklch(from var(--color-surface) l c h / 0.3);
-			backdrop-filter: blur(10px);
-		}
-
-		@media (min-width: 640px) {
-			.command-footer {
-				display: flex;
-			}
-		}
-
-		.command-hints {
-			display: flex;
-			align-items: center;
-			gap: 1rem;
-		}
-
-		.command-hint {
-			display: flex;
-			align-items: center;
-			gap: 0.375rem;
-			font-size: 0.6875rem;
-			color: var(--color-muted);
-		}
-	}
-</style>

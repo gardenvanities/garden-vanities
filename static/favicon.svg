@@ -1,27 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <defs>
-    <linearGradient id="flower-center" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#FFA500;stop-opacity:1" />
-    </linearGradient>
-    <linearGradient id="petal-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#FF69B4;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#DA70D6;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-  
-  <!-- Pétalas -->
-  <g transform="translate(50,50)">
-    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="url(#petal-gradient)" transform="rotate(0)" />
-    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="url(#petal-gradient)" transform="rotate(45)" />
-    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="url(#petal-gradient)" transform="rotate(90)" />
-    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="url(#petal-gradient)" transform="rotate(135)" />
-    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="url(#petal-gradient)" transform="rotate(180)" />
-    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="url(#petal-gradient)" transform="rotate(225)" />
-    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="url(#petal-gradient)" transform="rotate(270)" />
-    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="url(#petal-gradient)" transform="rotate(315)" />
-  </g>
-  
-  <!-- Centro da Flor -->
-  <circle cx="50" cy="50" r="15" fill="url(#flower-center)" stroke="#E67E22" stroke-width="1" />
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#f5f5f5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M17 10h-1a4 4 0 1 1 4-4v.534" />
+  <path d="M17 6h1a4 4 0 0 1 1.42 7.74l-2.29.87a6 6 0 0 1-5.339-10.68l2.069-1.31" />
+  <path d="M4.5 17c2.8-.5 4.4 0 5.5.8s1.8 2.2 2.3 3.7c-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2" />
+  <path d="M9.77 12C4 15 2 22 2 22" />
+  <circle cx="17" cy="8" r="2" />
 </svg>

@@ -8,6 +8,7 @@
 	import Footer from "$lib/core/Footer.svelte";
 	import { scrollState } from "$lib/stores/scroll.svelte";
 	import { ui } from "$lib/stores/ui.svelte";
+	import { cn } from "$lib/shared/merge-class";
 
 	const { children } = $props();
 
@@ -44,11 +45,16 @@
 	});
 </script>
 
-<div class="app-layout">
+<div class="flex min-h-dvh">
 	<Sidebar />
 
-	<div class="app-content" class:app-content--sidebar-expanded={isExpanded}>
-		<main class="app-main">
+	<div
+		class={cn(
+			"flex min-w-0 flex-1 flex-col transition-[margin-left] duration-base ease-entrance md:ml-19",
+			isExpanded && "md:ml-70"
+		)}
+	>
+		<main class="flex-1 pb-8 max-md:pb-[calc(var(--space-16)+var(--space-3))]">
 			{@render children?.()}
 		</main>
 
@@ -57,47 +63,3 @@
 
 	<FloatingNav />
 </div>
-
-<style>
-	@layer components {
-		.app-layout {
-			display: flex;
-			min-height: 100dvh;
-		}
-
-		.app-content {
-			flex: 1;
-			min-width: 0;
-			display: flex;
-			flex-direction: column;
-			transition: margin-left var(--motion-base) var(--motion-ease-entrance);
-		}
-
-		@media (max-width: 767px) {
-			.app-content {
-				margin-left: 0;
-			}
-		}
-
-		@media (min-width: 768px) {
-			.app-content {
-				margin-left: 4.5rem;
-			}
-
-			.app-content--sidebar-expanded {
-				margin-left: 14rem;
-			}
-		}
-
-		.app-main {
-			flex: 1;
-			padding-bottom: var(--space-8);
-		}
-
-		@media (max-width: 767px) {
-			.app-main {
-				padding-bottom: calc(var(--space-16) + var(--space-3));
-			}
-		}
-	}
-</style>

@@ -1,204 +1,144 @@
 <script lang="ts">
-import { DEFAULT_EXPLORE_FILTERS, EXPLORE_PRESETS, EXPLORE_SORT_OPTIONS } from "$lib/modules/explore/constants";
-	import {
-		applyExplorePreset,
-		hasActiveFilters,
-		sanitizeKinds,
-		sanitizeTags
-	} from "$lib/modules/explore/services";
-	import type { ExploreFilters, ExploreKindOption, ExplorePresetId } from "$lib/modules/explore/types";
-	import { SlidersHorizontal, X } from "@lucide/svelte";
+	import { EXPLORE_SORT_OPTIONS } from "$lib/modules/explore/constants";
+	import { sanitizeTags } from "$lib/modules/explore/services";
+	import type { ExploreFilters, ExploreKindOption, ExploreSortBy } from "$lib/modules/explore/types";
+	import { cn } from "$lib/shared/merge-class";
+	import { Hash, SlidersHorizontal, Tags, X } from "@lucide/svelte";
 
 	interface Props {
 		filters: ExploreFilters;
 		kindOptions: ExploreKindOption[];
 		resultCount: number;
+		class?: string;
 	}
 
-	let { filters = $bindable(DEFAULT_EXPLORE_FILTERS), kindOptions, resultCount }: Props = $props();
+	let {
+		filters = $bindable(),
+		kindOptions = [],
+		resultCount = 0,
+		class: className = ""
+	}: Props = $props();
 
 	let tagInput = $state("");
-	let showAdvanced = $state(false);
-	let normalizedKindOptions = $derived(
-		kindOptions.map((kind) => ({ slug: kind.slug.toLowerCase(), title: kind.title }))
-	);
-	let hasFilters = $derived(hasActiveFilters(filters));
-	let isSetsScope = $derived(filters.scope === "sets");
 
-	function updateFilters(patch: Partial<ExploreFilters>) {
-		filters = { ...filters, ...patch };
+	function setSortBy(sortBy: ExploreSortBy) {
+		filters = {
+			...filters,
+			sortBy,
+			preset: "all"
+		};
 	}
 
-	function setPreset(presetId: ExplorePresetId) {
-		filters = applyExplorePreset(presetId, filters, normalizedKindOptions);
-	}
-
-	function toggleKind(kind: string) {
-		const kinds = filters.kinds.includes(kind)
-			? filters.kinds.filter((item) => item !== kind)
-			: [...filters.kinds, kind];
-		updateFilters({ kinds: sanitizeKinds(kinds, normalizedKindOptions), preset: "all" });
+	function toggleKind(kindSlug: string) {
+		const isActive = filters.kinds.includes(kindSlug);
+		filters = {
+			...filters,
+			kinds: isActive ? filters.kinds.filter((kind) => kind !== kindSlug) : [...filters.kinds, kindSlug],
+			preset: "all"
+		};
 	}
 
 	function addTag() {
-		if (!tagInput.trim()) {
+		const tags = sanitizeTags(tagInput.split(/[\s,]+/));
+		if (tags.length === 0) {
 			return;
 		}
-		const tags = sanitizeTags([...filters.tags, ...tagInput.split(/[\s,]+/)]);
+		filters = {
+			...filters,
+			tags: Array.from(new Set([...filters.tags, ...tags])),
+			preset: "all"
+		};
 		tagInput = "";
-		updateFilters({ tags, preset: "all" });
 	}
 
 	function removeTag(tag: string) {
-		updateFilters({
-			tags: filters.tags.filter((item) => item !== tag),
+		filters = {
+			...filters,
+			tags: filters.tags.filter((currentTag) => currentTag !== tag),
 			preset: "all"
-		});
-	}
-
-	function resetFilters() {
-		filters = { ...DEFAULT_EXPLORE_FILTERS };
-		tagInput = "";
-		showAdvanced = false;
+		};
 	}
 </script>
 
-<div class="bg-surface border-border flex flex-col gap-3 rounded-lg border p-3">
-	<div class="flex items-center justify-between gap-2">
-		<p class="text-muted-foreground text-xs">{resultCount} resultados</p>
-		<div class="flex items-center gap-2">
-			<button
-				type="button"
-				onclick={() => {
-					showAdvanced = !showAdvanced;
-				}}
-				class="bg-background border-border hover:bg-muted inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs"
-			>
-				<SlidersHorizontal class="h-3.5 w-3.5" />
-				<span>Avançado</span>
-			</button>
-			{#if hasFilters}
-				<button
-					type="button"
-					onclick={resetFilters}
-					class="text-primary text-xs font-medium hover:underline"
-				>
-					Limpar
-				</button>
-			{/if}
+<div class={cn("rounded-lg border border-border bg-surface p-3", className)}>
+	<div class="mb-3 flex items-center justify-between">
+		<p class="text-xs font-semibold tracking-caps text-muted uppercase">Filtros</p>
+		<div class="inline-flex items-center gap-1 rounded-full border border-border bg-surface-elevated px-2 py-0.5 text-xs text-muted">
+			<SlidersHorizontal class="h-3 w-3" />
+			<span>{resultCount}</span>
 		</div>
 	</div>
 
-	<div class="grid grid-cols-1 gap-2">
-		<label class="flex flex-col gap-1">
-			<span class="text-muted-foreground text-xs">Ordenação</span>
-			<select
-				value={filters.sortBy}
-				onchange={(event) => {
-					const target = event.currentTarget as HTMLSelectElement;
-					updateFilters({ sortBy: target.value as ExploreFilters["sortBy"] });
-				}}
-				class="bg-background border-border h-9 rounded-md border px-2 text-xs"
-			>
-				{#each EXPLORE_SORT_OPTIONS as option (option.value)}
-					<option value={option.value}>{option.label}</option>
-				{/each}
-			</select>
-		</label>
+	<div class="space-y-2">
+		<label for="explore-sort" class="text-xs font-semibold tracking-caps text-muted uppercase">Ordenação</label>
+		<select
+			id="explore-sort"
+			value={filters.sortBy}
+			onchange={(event) => setSortBy((event.currentTarget as HTMLSelectElement).value as ExploreSortBy)}
+			class="focus-ring h-9 w-full rounded-md border border-border bg-surface-elevated px-3 text-sm text-text"
+		>
+			{#each EXPLORE_SORT_OPTIONS as option (option.value)}
+				<option value={option.value}>{option.label}</option>
+			{/each}
+		</select>
 	</div>
 
-	<div class="flex flex-wrap gap-1.5">
-		{#each EXPLORE_PRESETS as preset (preset.id)}
-			{#if !isSetsScope || preset.id === "all" || preset.id === "sets"}
-			<button
-				type="button"
-				onclick={() => setPreset(preset.id)}
-				class="rounded-full border px-2.5 py-1 text-[11px] font-medium transition-colors {filters.preset ===
-				preset.id
-					? 'bg-primary text-primary-foreground border-primary'
-					: 'bg-background border-border text-muted-foreground hover:text-foreground hover:bg-muted'}"
-				title={preset.description}
-			>
-				{preset.label}
-			</button>
-			{/if}
-		{/each}
-	</div>
+	<div class="my-3 h-px bg-border"></div>
 
-	{#if !isSetsScope && (filters.tags.length > 0 || filters.kinds.length > 0)}
+	<div class="space-y-2">
+		<p class="text-xs font-semibold tracking-caps text-muted uppercase">Tipos</p>
 		<div class="flex flex-wrap gap-1.5">
-			{#each filters.kinds as kind (kind)}
+			{#each kindOptions as kind (kind.slug)}
 				<button
 					type="button"
-					onclick={() => toggleKind(kind)}
-					class="bg-muted inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px]"
+					onclick={() => toggleKind(kind.slug)}
+					class={cn(
+						"inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium transition-colors",
+						filters.kinds.includes(kind.slug)
+							? "border-border-vivid bg-surface-elevated text-text"
+							: "border-border bg-surface text-muted hover:bg-surface-hover hover:text-text"
+					)}
 				>
-					<span>{kind}</span>
-					<X class="h-3 w-3" />
-				</button>
-			{/each}
-			{#each filters.tags as tag (tag)}
-				<button
-					type="button"
-					onclick={() => removeTag(tag)}
-					class="bg-muted inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px]"
-				>
-					<span>#{tag}</span>
-					<X class="h-3 w-3" />
+					{kind.title}
 				</button>
 			{/each}
 		</div>
-	{/if}
+	</div>
 
-	{#if showAdvanced && !isSetsScope}
-		<div class="border-border flex flex-col gap-3 border-t pt-3">
-			{#if normalizedKindOptions.length > 0}
-				<div class="flex flex-col gap-1.5">
-					<p class="text-muted-foreground text-xs">Tipos</p>
-					<div class="flex flex-wrap gap-1.5">
-						{#each normalizedKindOptions as kind (kind.slug)}
-							<button
-								type="button"
-								onclick={() => toggleKind(kind.slug)}
-								class="rounded-full border px-2 py-1 text-[11px] transition-colors {filters.kinds.includes(
-									kind.slug
-								)
-									? 'bg-primary/10 text-primary border-primary/30'
-									: 'bg-background border-border text-muted-foreground hover:text-foreground hover:bg-muted'}"
-							>
-								{kind.title}
-							</button>
-						{/each}
-					</div>
-				</div>
-			{/if}
+	<div class="my-3 h-px bg-border"></div>
 
-			<div class="flex flex-col gap-1.5">
-				<label class="text-muted-foreground text-xs" for="explore-tag-input">Tags</label>
-				<div class="flex gap-1.5">
-					<input
-						id="explore-tag-input"
-						type="text"
-						bind:value={tagInput}
-						onkeydown={(event) => {
-							if (event.key === "Enter" || event.key === ",") {
-								event.preventDefault();
-								addTag();
-							}
-						}}
-						onblur={addTag}
-						placeholder="filosofia, produtividade"
-						class="bg-background border-border h-9 flex-1 rounded-md border px-2 text-xs"
-					/>
+	<div class="space-y-2">
+		<p class="text-xs font-semibold tracking-caps text-muted uppercase">Tags</p>
+		<div class="relative">
+			<Hash class="pointer-events-none absolute top-2.5 left-2 h-3.5 w-3.5 text-muted" />
+			<input
+				type="text"
+				bind:value={tagInput}
+				onkeydown={(event) => {
+					if (event.key === "Enter" || event.key === ",") {
+						event.preventDefault();
+						addTag();
+					}
+				}}
+				placeholder="adicionar tag"
+				class="focus-ring h-9 w-full rounded-md border border-border bg-surface-elevated py-1 pl-7 pr-2 text-sm"
+			/>
+		</div>
+
+		{#if filters.tags.length > 0}
+			<div class="flex flex-wrap gap-1.5">
+				{#each filters.tags as tag (tag)}
 					<button
 						type="button"
-						onclick={addTag}
-						class="bg-background border-border hover:bg-muted rounded-md border px-2 text-xs"
+						onclick={() => removeTag(tag)}
+						class="inline-flex items-center gap-1 rounded-full border border-border bg-surface-elevated px-2 py-1 text-xs text-text hover:bg-surface-hover"
 					>
-						Adicionar
+						<Tags class="h-3 w-3" />
+						<span>{tag}</span>
+						<X class="h-3 w-3" />
 					</button>
-				</div>
+				{/each}
 			</div>
-		</div>
-	{/if}
+		{/if}
+	</div>
 </div>

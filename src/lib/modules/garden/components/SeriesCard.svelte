@@ -39,7 +39,7 @@
 >
 	<div class="from-primary/35 via-primary/10 to-transparent h-1 w-full bg-linear-to-r"></div>
 
-	<div class="border-border/60 relative aspect-[4/3] overflow-hidden border-b">
+	<div class="border-border/60 relative aspect-4/3 overflow-hidden border-b">
 		{#if serie.cover?.url}
 			<CloudinaryImage
 				publicId={serie.cover.url}

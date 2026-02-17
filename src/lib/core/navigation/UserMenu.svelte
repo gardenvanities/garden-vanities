@@ -61,7 +61,7 @@
 <div class="relative w-full">
 	{#if isOpen}
 		<div
-			class="absolute bottom-[calc(100%+var(--spacing-2))] left-0 w-[260px] bg-surface-elevated border border-border rounded-lg shadow-lg p-2 z-50 overflow-hidden"
+			class="absolute bottom-[calc(100%+var(--spacing-2))] left-0 w-65 bg-surface-elevated border border-border rounded-lg shadow-lg p-2 z-50 overflow-hidden"
 			bind:this={menuRef}
 			transition:fly={{ y: 10, duration: 200 }}
 		>
@@ -96,7 +96,7 @@
 	{/if}
 
 	<button
-		class="flex items-center justify-center gap-3 w-full p-2 rounded-md bg-transparent border-none cursor-pointer text-left text-text overflow-hidden transition-colors duration-fast hover:bg-surface-hover"
+		class="flex items-center justify-start gap-3 w-full px-3 py-2 rounded-md bg-transparent border-none cursor-pointer text-left text-text overflow-hidden transition-colors duration-fast hover:bg-surface-hover"
 		bind:this={triggerRef}
 		onclick={toggleMenu}
 		aria-expanded={isOpen}

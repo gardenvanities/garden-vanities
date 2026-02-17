@@ -18,20 +18,20 @@
 
 <a
 	href="/posts/{post.slug}"
-	class="group text-card-foreground mb-6 block break-inside-avoid overflow-visible rounded-lg border border-(--post-card-border) bg-(--post-card-bg) shadow-sm transition-all duration-200 hover:-translate-y-px hover:border-[color-mix(in_oklab,var(--post-card-border)_70%,var(--color-border-vivid)_30%)] hover:bg-[color-mix(in_oklab,var(--post-card-bg)_84%,var(--color-surface-hover)_16%)] hover:shadow-md"
+	class="group text-card-foreground mb-4 block break-inside-avoid overflow-hidden rounded-xl border border-(--post-card-border) bg-(--post-card-bg) transition-colors duration-200 hover:bg-surface-hover"
 	style="--post-card-bg: {cardBackground ||
 		'var(--color-surface)'}; --post-card-border: {cardBorder || 'var(--color-border)'};"
 	in:fade={{ duration: 300, delay: 100 }}
 >
-	<div class="flex flex-col p-4 sm:p-5">
-		<div class="mb-5 flex justify-start">
+	<div class="flex flex-col p-4">
+		<div class="mb-4 flex justify-start">
 			{#if post.kind}
-				<KindBadge kind={post.kind} />
+				<KindBadge kind={post.kind} active />
 			{/if}
 		</div>
 
 		<h3
-			class="font-heading group-hover:text-primary mb-2 text-xl leading-snug font-semibold tracking-tight transition-colors"
+			class="font-heading mb-2 text-xl leading-snug font-semibold tracking-tight transition-colors group-hover:text-text"
 			style:color={cardText}
 		>
 			{post.title}

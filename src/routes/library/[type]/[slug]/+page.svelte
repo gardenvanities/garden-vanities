@@ -7,9 +7,11 @@
 	import RatingStars from "$lib/modules/library/components/RatingStars.svelte";
 	import { TYPE_LABELS } from "$lib/modules/library/types";
 	import SEO from "$lib/core/seo/SEO.svelte";
+	import { sanitizeHtml } from "$lib/shared/sanitize-html";
 
 	let { data } = $props();
 	let { resource, relatedResources } = $derived(data);
+	let sanitizedResourceHtml = $derived(resource.html ? sanitizeHtml(resource.html) : "");
 	
 	
 	
@@ -42,13 +44,13 @@
 					
 					<div class="space-y-4">
 						<div class="flex flex-wrap items-center gap-2">
-							<Badge variant="secondary" class="gap-1">
+							<Badge variant="secondary">
 								<Book class="h-3 w-3" />
 								{TYPE_LABELS[resource.type]}
 							</Badge>
 							
 							{#if resource.publishedAt}
-								<Badge variant="outline" class="gap-1">
+								<Badge variant="outline">
 									<Calendar class="h-3 w-3" />
 									{new Date(resource.publishedAt).getFullYear()}
 								</Badge>
@@ -91,7 +93,7 @@
 						<div class="prose prose-lg dark:prose-invert max-w-none">
 							
 							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-							{@html resource.html}
+							{@html sanitizedResourceHtml}
 						</div>
 					{:else if resource.summary}
 						<div class="rounded-lg border bg-muted/30 p-8">
@@ -148,7 +150,7 @@
 								</h3>
 								<div class="flex flex-wrap gap-2">
 									{#each resource.tags as tag (tag)}
-										<Badge variant="secondary" class="hover:bg-secondary/80">
+										<Badge variant="secondary">
 											#{tag}
 										</Badge>
 									{/each}
