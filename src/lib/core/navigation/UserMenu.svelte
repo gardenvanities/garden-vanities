@@ -8,6 +8,7 @@
 	} from "@lucide/svelte";
 	import { fade, fly } from "svelte/transition";
 	import { onMount } from "svelte";
+	import { cn } from "$lib/shared/merge-class";
 
 	let { isExpanded = true } = $props();
 
@@ -96,7 +97,10 @@
 	{/if}
 
 	<button
-		class="flex items-center justify-start gap-3 w-full px-3 py-2 rounded-md bg-transparent border-none cursor-pointer text-left text-text overflow-hidden transition-colors duration-fast hover:bg-surface-hover"
+		class={cn(
+			"flex w-full items-center gap-3 rounded-md border-none bg-transparent px-3 py-2 text-left text-text cursor-pointer overflow-hidden transition-colors duration-fast hover:bg-surface-hover",
+			"justify-start"
+		)}
 		bind:this={triggerRef}
 		onclick={toggleMenu}
 		aria-expanded={isOpen}

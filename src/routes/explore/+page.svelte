@@ -4,7 +4,6 @@
 	import { page } from "$app/state";
 	import SEO from "$lib/core/seo/SEO.svelte";
 	import Container from "$lib/layout/Container.svelte";
-	import Section from "$lib/layout/Section.svelte";
 	import ExploreToolbar from "$lib/modules/explore/components/ExploreToolbar.svelte";
 	import {
 		DEFAULT_EXPLORE_FILTERS,
@@ -12,7 +11,8 @@
 	} from "$lib/modules/explore/constants";
 	import {
 		buildExploreFiltersFromSearchParams,
-		buildExploreSearchParams
+		buildExploreSearchParams,
+		sanitizeTags
 	} from "$lib/modules/explore/services";
 	import type { ExploreFilters } from "$lib/modules/explore/types";
 	import SeriesCard from "$lib/modules/garden/components/SeriesCard.svelte";
@@ -21,7 +21,7 @@
 	import PostMasonryCard from "$lib/modules/posts/components/PostMasonryCard.svelte";
 	import type { PostFrontmatter } from "$lib/modules/posts/types";
 	import viewport from "$lib/actions/viewport";
-	import { Loader2, Search, X } from "@lucide/svelte";
+	import { Loader2, Search, SlidersHorizontal, X } from "@lucide/svelte";
 
 	let { data } = $props();
 
@@ -68,9 +68,13 @@
 				set: ExploreSetItem;
 		  };
 
-	let filters = $state<ExploreFilters>({ ...DEFAULT_EXPLORE_FILTERS });
-	let visibleCount = $state(10);
-	let hydrated = $state(false);
+let filters = $state<ExploreFilters>({ ...DEFAULT_EXPLORE_FILTERS });
+let visibleCount = $state(10);
+let hydrated = $state(false);
+let searchQuery = $state("");
+let isFilterMenuOpen = $state(false);
+let filterMenuElement = $state<HTMLElement | null>(null);
+let filterButtonElement = $state<HTMLButtonElement | null>(null);
 
 	let kindOptions = $derived(data.kinds.map((kind) => ({ slug: kind.slug, title: kind.title })));
 	let seriesSlugSet = $derived(new Set(data.series.map((serie) => serie.slug)));
@@ -209,11 +213,49 @@
 		all: standalonePosts.length + data.series.length,
 		sets: data.sets.length
 	});
+	let activeFilterCount = $derived(
+		(filters.scope !== DEFAULT_EXPLORE_FILTERS.scope ? 1 : 0) +
+			(filters.sortBy !== DEFAULT_EXPLORE_FILTERS.sortBy ? 1 : 0) +
+			(filters.kinds.length > 0 ? 1 : 0) +
+			(filters.tags.length > 0 ? 1 : 0)
+	);
 
 	onMount(() => {
 		const params = new URLSearchParams(window.location.search);
 		filters = buildExploreFiltersFromSearchParams(params, kindOptions);
+		searchQuery = [filters.text, ...filters.tags.map((tag) => `#${tag}`)].filter(Boolean).join(" ").trim();
 		hydrated = true;
+
+		const closeOnOutside = (event: PointerEvent) => {
+			if (!isFilterMenuOpen) {
+				return;
+			}
+
+			const target = event.target;
+			if (!(target instanceof Node)) {
+				return;
+			}
+
+			if (filterMenuElement?.contains(target) || filterButtonElement?.contains(target)) {
+				return;
+			}
+
+			isFilterMenuOpen = false;
+		};
+
+		const closeOnEscape = (event: KeyboardEvent) => {
+			if (event.key === "Escape") {
+				isFilterMenuOpen = false;
+			}
+		};
+
+		window.addEventListener("pointerdown", closeOnOutside);
+		window.addEventListener("keydown", closeOnEscape);
+
+		return () => {
+			window.removeEventListener("pointerdown", closeOnOutside);
+			window.removeEventListener("keydown", closeOnEscape);
+		};
 	});
 
 	$effect(() => {
@@ -245,6 +287,22 @@
 			tags: scope === "sets" ? [] : filters.tags,
 			preset: "all"
 		};
+		if (scope === "sets") {
+			searchQuery = filters.text;
+		}
+	}
+
+	function applySearch(value: string) {
+		const rawTags = Array.from(value.matchAll(/#([^\s#]+)/g), (match) => match[1]);
+		const nextTags = sanitizeTags(rawTags);
+		const cleanText = value.replace(/(^|\s)#[^\s#]+/g, " ").replace(/\s+/g, " ").trim();
+
+		filters = {
+			...filters,
+			text: cleanText,
+			tags: filters.scope === "sets" ? [] : nextTags,
+			preset: "all"
+		};
 	}
 
 </script>
@@ -254,8 +312,8 @@
 	description="Pesquise e filtre todas as notas do jardim."
 />
 
-<div class="border-b border-border bg-surface">
-	<div class="px-5 py-3 md:px-7">
+<div class="bg-surface">
+	<div class="flex h-13 items-center border-b border-border px-5 md:px-7">
 		<span
 			class="font-heading whitespace-nowrap text-text"
 			style="font-size: var(--type-2); font-weight: var(--font-weight-600);"
@@ -265,60 +323,90 @@
 	</div>
 </div>
 
-<Section class="pt-4 pb-8 md:pt-5 md:pb-10">
-	<Container size="xl">
-		<div class="mb-4 rounded-xl border border-border bg-surface p-3 md:p-4">
-			<div class="relative mb-3">
-				<Search class="pointer-events-none absolute top-2.5 left-3 h-4 w-4 text-muted" />
+<section class="pb-8 md:pb-10">
+	<Container size="full" class="mb-4 px-0 sm:px-0 lg:px-0">
+		<div class="relative w-full border-b border-border bg-surface-elevated">
+			<div class="relative flex h-12 items-center gap-3 px-3 text-muted">
+				<span class="inline-flex h-[1.2rem] w-[1.2rem] shrink-0 items-center justify-center">
+					<Search size={16} strokeWidth={2} />
+				</span>
 				<input
 					type="search"
-					value={filters.text}
+					value={searchQuery}
 					oninput={(event) => {
 						const target = event.currentTarget as HTMLInputElement;
-						filters = { ...filters, text: target.value, preset: "all" };
+						searchQuery = target.value;
+						applySearch(target.value);
 					}}
-					placeholder="Digite um tema, conceito ou palavra-chave..."
-					class="focus-ring h-10 w-full rounded-md border border-border bg-surface-elevated py-2 pl-9 pr-10 text-sm text-text"
+					placeholder="Digite um tema ou use #tag..."
+					class="h-full min-w-0 flex-1 border-none bg-transparent py-0 pl-0 text-sm text-text focus:outline-none"
 				/>
-				{#if filters.text}
+				<div class="flex items-center gap-1">
+					{#if searchQuery}
+						<button
+							type="button"
+							onclick={() => {
+								searchQuery = "";
+								filters = { ...filters, text: "", tags: [], preset: "all" };
+							}}
+							class="inline-flex h-7 w-7 items-center justify-center rounded-sm text-muted transition-colors hover:bg-surface-hover hover:text-text"
+							aria-label="Limpar busca"
+						>
+							<X class="h-4 w-4" />
+						</button>
+					{/if}
+
 					<button
 						type="button"
+						bind:this={filterButtonElement}
 						onclick={() => {
-							filters = { ...filters, text: "", preset: "all" };
+							isFilterMenuOpen = !isFilterMenuOpen;
 						}}
-						class="absolute top-2.5 right-3 text-muted transition-colors hover:text-text"
-						aria-label="Limpar busca"
+						class="focus-ring inline-flex h-8 items-center gap-1.5 rounded-md border border-border bg-surface px-2 text-xs text-muted transition-colors hover:bg-surface-hover hover:text-text"
+						aria-expanded={isFilterMenuOpen}
+						aria-haspopup="dialog"
+						aria-label="Abrir filtros"
 					>
-						<X class="h-4 w-4" />
+						<SlidersHorizontal size={14} strokeWidth={2} />
+						<span>Filtros</span>
+						<span class="rounded-full border border-border px-1.5 py-0.5 text-[10px] text-text">
+							{activeFilterCount}
+						</span>
 					</button>
-				{/if}
+				</div>
 			</div>
 
-			<div class="mb-2 flex flex-wrap gap-1.5">
-				{#each EXPLORE_SCOPE_OPTIONS as option (option.value)}
-					<button
-						type="button"
-						onclick={() => selectScope(option.value)}
-						class="focus-ring inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition-colors {filters.scope ===
-						option.value
-							? 'border-border-vivid bg-surface-elevated text-text'
-							: 'border-border bg-surface text-muted hover:bg-surface-hover hover:text-text'}"
-					>
-						<span>{option.label}</span>
-						<span class="rounded-full bg-background/20 px-1.5 py-0.5 text-[10px]">{scopeCounts[option.value]}</span>
-					</button>
-				{/each}
-			</div>
-
-			<div class="mt-3 border-t border-border pt-3">
-				<ExploreToolbar bind:filters kindOptions={kindOptions} resultCount={sortedItems.length} />
-			</div>
+			{#if isFilterMenuOpen}
+				<div
+					bind:this={filterMenuElement}
+					class="absolute top-[calc(100%+0.4rem)] right-3 z-[calc(var(--z-nav)+1)] w-[22rem] max-w-[calc(100vw-1.5rem)] rounded-lg border border-border bg-surface p-3 shadow-[0_8px_32px_oklch(0_0_0/0.22)]"
+				>
+					<div class="mb-2 flex flex-wrap gap-1.5">
+						{#each EXPLORE_SCOPE_OPTIONS as option (option.value)}
+							<button
+								type="button"
+								onclick={() => selectScope(option.value)}
+								class="focus-ring inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition-colors {filters.scope ===
+								option.value
+									? 'border-border-vivid bg-surface-elevated text-text'
+									: 'border-border bg-surface text-muted hover:bg-surface-hover hover:text-text'}"
+							>
+								<span>{option.label}</span>
+								<span class="rounded-full bg-background/20 px-1.5 py-0.5 text-[10px]">{scopeCounts[option.value]}</span>
+							</button>
+						{/each}
+					</div>
+					<ExploreToolbar bind:filters kindOptions={kindOptions} resultCount={sortedItems.length} class="border-t border-border pt-2.5" />
+				</div>
+			{/if}
 		</div>
+	</Container>
 
+	<Container size="full">
 		<div>
 			{#if displayedItems.length > 0}
-				<div class="bg-surface">
-					<div class="columns-1 gap-4 sm:columns-2 xl:columns-3">
+				<div class="w-full">
+					<div class="w-full columns-1 gap-4 md:columns-2 xl:columns-3 2xl:columns-4">
 						{#each displayedItems as item (item.key)}
 							{#if item.type === "post"}
 								<PostMasonryCard post={item.post} />
@@ -353,4 +441,4 @@
 			{/if}
 		</div>
 	</Container>
-</Section>
+</section>

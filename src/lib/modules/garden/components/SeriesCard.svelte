@@ -33,7 +33,7 @@
 <a
 	href="/series/{serie.slug}"
 	class={cn(
-		"group border-border bg-surface hover:border-border-vivid mb-6 block break-inside-avoid overflow-hidden rounded-lg border transition-all duration-200 hover:-translate-y-px hover:shadow-md",
+		"group border-border bg-surface hover:border-border-vivid mb-6 block w-full break-inside-avoid overflow-hidden rounded-lg border transition-all duration-200 hover:-translate-y-px hover:shadow-md",
 		className
 	)}
 >

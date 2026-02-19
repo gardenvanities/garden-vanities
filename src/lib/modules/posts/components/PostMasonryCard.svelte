@@ -18,7 +18,7 @@
 
 <a
 	href="/posts/{post.slug}"
-	class="group text-card-foreground mb-4 block break-inside-avoid overflow-hidden rounded-xl border border-(--post-card-border) bg-(--post-card-bg) transition-colors duration-200 hover:bg-surface-hover"
+	class="group text-card-foreground mb-4 block w-full break-inside-avoid overflow-hidden rounded-xl border-[0.5px] border-(--post-card-border) bg-(--post-card-bg) transition-colors duration-200 hover:bg-surface-hover"
 	style="--post-card-bg: {cardBackground ||
 		'var(--color-surface)'}; --post-card-border: {cardBorder || 'var(--color-border)'};"
 	in:fade={{ duration: 300, delay: 100 }}
