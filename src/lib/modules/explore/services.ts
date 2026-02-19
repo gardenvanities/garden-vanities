@@ -3,24 +3,19 @@ import type {
 	ExploreFilters,
 	ExploreKindOption,
 	ExplorePresetId,
-	ExploreScope,
-	ExploreSortBy
+	ExploreScope
 } from "$lib/modules/explore/types";
 
 function normalizeTokens(values: string[]): string[] {
 	return Array.from(new Set(values.map((value) => value.trim().toLowerCase()).filter(Boolean)));
 }
 
-function parseSortBy(value: string | null): ExploreSortBy {
-	if (value === "oldest" || value === "az" || value === "newest") {
+function parseScope(value: string | null): ExploreScope {
+	if (value === "notes" || value === "series" || value === "sets") {
 		return value;
 	}
-	return DEFAULT_EXPLORE_FILTERS.sortBy;
-}
-
-function parseScope(value: string | null): ExploreScope {
-	if (value === "sets" || value === "all") {
-		return value;
+	if (value === "all") {
+		return "notes";
 	}
 	return DEFAULT_EXPLORE_FILTERS.scope;
 }
@@ -71,16 +66,14 @@ export function buildExploreFiltersFromSearchParams(
 	const text = (searchParams.get("q") || "").trim();
 	const tags = sanitizeTags((searchParams.get("tags") || "").split(","));
 	const kinds = sanitizeKinds((searchParams.get("kinds") || "").split(","), availableKinds);
-	const sortBy = parseSortBy(searchParams.get("sort"));
 	const scope = parseScope(searchParams.get("scope"));
 	const preset = parsePreset(searchParams.get("preset"));
 
 	return {
 		text,
-		tags,
-		kinds,
+		tags: scope === "notes" ? tags : [],
+		kinds: scope === "notes" ? kinds : [],
 		scope,
-		sortBy,
 		preset
 	};
 }
@@ -100,9 +93,6 @@ export function buildExploreSearchParams(filters: ExploreFilters): URLSearchPara
 	if (filters.scope !== DEFAULT_EXPLORE_FILTERS.scope) {
 		searchParams.set("scope", filters.scope);
 	}
-	if (filters.sortBy !== DEFAULT_EXPLORE_FILTERS.sortBy) {
-		searchParams.set("sort", filters.sortBy);
-	}
 	if (filters.preset !== DEFAULT_EXPLORE_FILTERS.preset) {
 		searchParams.set("preset", filters.preset);
 	}
@@ -116,7 +106,6 @@ export function hasActiveFilters(filters: ExploreFilters): boolean {
 		filters.tags.length > 0 ||
 		filters.kinds.length > 0 ||
 		filters.scope !== DEFAULT_EXPLORE_FILTERS.scope ||
-		filters.sortBy !== DEFAULT_EXPLORE_FILTERS.sortBy ||
 		filters.preset !== DEFAULT_EXPLORE_FILTERS.preset
 	);
 }
