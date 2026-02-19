@@ -1,34 +1,34 @@
 <script lang="ts">
 	import { page } from "$app/state";
-	import { commandPalette } from "$lib/core/navigation/command-palette.svelte";
-	import { ui } from "$lib/stores/ui.svelte";
-	import { cn } from "$lib/shared/merge-class";
-	import {
-		House,
-		Telescope,
-		Layers,
-		FolderOpen,
-		Library,
-		Info,
-		Rose,
-		PanelLeftClose,
-		PanelLeftOpen,
-		Search,
-		X
-	} from "@lucide/svelte";
 	import { onMount } from "svelte";
 	import { fade } from "svelte/transition";
-	import UserMenu from "./UserMenu.svelte";
+	import {
+		FolderOpen,
+		House,
+		Info,
+		Layers,
+		Library,
+		PanelLeftClose,
+		PanelLeftOpen,
+		Rose,
+		Search,
+		Telescope,
+		X
+	} from "@lucide/svelte";
+	import { commandPalette } from "$lib/core/navigation/command-palette.svelte";
+	import { cn } from "$lib/shared/merge-class";
+	import { ui } from "$lib/stores/ui.svelte";
 	import Kbd from "$lib/ui/Kbd.svelte";
+	import UserMenu from "./UserMenu.svelte";
+
+	const INTERACTIVE_SELECTOR = "a,button,[role='button']";
+	const ICON_SLOT_CLASS = "inline-flex h-8 w-8 shrink-0 items-center justify-center";
 
 	let isExpanded = $derived(ui.sidebarExpanded);
 	let isMobileOpen = $derived(ui.sidebarMobileOpen);
 	let showExpandAffordance = $state(false);
-
-	const isActive = (path: string) => {
-		if (path === "/") return page.url.pathname === "/";
-		return page.url.pathname.startsWith(path);
-	};
+	let sidebarRef = $state<HTMLElement | null>(null);
+	let brandLinkRef = $state<HTMLAnchorElement | null>(null);
 
 	const navItems = [
 		{ path: "/", icon: House, label: "Início" },
@@ -37,55 +37,88 @@
 		{ path: "/sets", icon: FolderOpen, label: "Coleções" },
 		{ path: "/library", icon: Library, label: "Biblioteca" },
 		{ path: "/sobre", icon: Info, label: "Sobre" }
-	];
+	] as const;
+
+	const isActive = (path: string) => {
+		if (path === "/") return page.url.pathname === "/";
+		return page.url.pathname.startsWith(path);
+	};
 
 	function isCollapsedDesktop() {
-		return !isExpanded && window.matchMedia("(min-width: 768px)").matches;
+		return (
+			typeof window !== "undefined" &&
+			!isExpanded &&
+			window.matchMedia("(min-width: 768px)").matches
+		);
 	}
 
-	function handleCollapsedHover(hovered: boolean) {
-		showExpandAffordance = isCollapsedDesktop() ? hovered : false;
+	function getInteractiveAncestor(target: EventTarget | null) {
+		if (!(target instanceof HTMLElement)) return null;
+		return target.closest<HTMLElement>(INTERACTIVE_SELECTOR);
+	}
+
+	function handleSidebarMouseMove(event: MouseEvent) {
+		if (!isCollapsedDesktop()) {
+			showExpandAffordance = false;
+			return;
+		}
+
+		const interactiveAncestor = getInteractiveAncestor(event.target);
+		showExpandAffordance =
+			!interactiveAncestor || interactiveAncestor === brandLinkRef;
 	}
 
 	function openCollapsedSidebar(event?: MouseEvent) {
-		if (!isCollapsedDesktop()) return;
+		if (!isCollapsedDesktop()) return false;
 		event?.preventDefault();
 		event?.stopPropagation();
 		ui.openSidebar();
+		return true;
 	}
 
-	function openSearch(event?: MouseEvent) {
-		if (isCollapsedDesktop()) {
-			openCollapsedSidebar(event);
-			return;
-		}
+	function handleBrandClick(event?: MouseEvent) {
+		if (openCollapsedSidebar(event)) return;
+		ui.closeMobileSidebar();
+	}
+
+	function handleNavClick() {
+		ui.closeMobileSidebar();
+	}
+
+	function handleSearchClick() {
 		commandPalette.open();
 		ui.closeMobileSidebar();
 	}
 
-	function handleNavClick(event?: MouseEvent) {
-		if (isCollapsedDesktop()) {
-			openCollapsedSidebar(event);
-			return;
-		}
-		ui.closeMobileSidebar();
-	}
-
 	onMount(() => {
-		const listener = (e: KeyboardEvent) => {
-			if (e.key === "Escape" && isMobileOpen) {
+		const handleKeydown = (event: KeyboardEvent) => {
+			if (event.key === "Escape" && isMobileOpen) {
 				ui.closeMobileSidebar();
 			}
 		};
-		window.addEventListener("keydown", listener);
-		return () => window.removeEventListener("keydown", listener);
+
+		const handleWindowClick = (event: MouseEvent) => {
+			if (!isCollapsedDesktop() || !sidebarRef) return;
+			if (!(event.target instanceof HTMLElement)) return;
+			if (!sidebarRef.contains(event.target)) return;
+			if (getInteractiveAncestor(event.target)) return;
+			openCollapsedSidebar();
+		};
+
+		window.addEventListener("keydown", handleKeydown);
+		window.addEventListener("click", handleWindowClick);
+
+		return () => {
+			window.removeEventListener("keydown", handleKeydown);
+			window.removeEventListener("click", handleWindowClick);
+		};
 	});
 </script>
 
 {#if isMobileOpen}
 	<button
 		type="button"
-		class="fixed inset-0 z-[calc(var(--z-nav)+1)] border-none bg-background/60 md:hidden"
+		class="bg-background/60 fixed inset-0 z-[calc(var(--z-nav)+1)] border-none md:hidden"
 		onclick={() => ui.closeMobileSidebar()}
 		aria-label="Fechar menu"
 		transition:fade={{ duration: 200 }}
@@ -93,19 +126,30 @@
 {/if}
 
 <aside
+	bind:this={sidebarRef}
 	class={cn(
-		"fixed inset-y-0 left-0 z-[calc(var(--z-nav)+2)] flex w-[18rem] -translate-x-full flex-col overflow-visible border-r border-border bg-surface transition-[width,transform] duration-base ease-entrance md:translate-x-0",
-		isExpanded ? "md:w-70" : "md:w-19",
+		"border-border bg-surface duration-base ease-entrance fixed inset-y-0 left-0 z-[calc(var(--z-nav)+2)] flex w-[18rem] -translate-x-full flex-col overflow-visible border-r transition-transform md:translate-x-0",
+		isExpanded ? "md:w-70" : "md:w-12",
+		showExpandAffordance && !isExpanded && "md:cursor-e-resize",
 		isMobileOpen && "translate-x-0"
 	)}
-	onmouseenter={() => handleCollapsedHover(true)}
-	onmouseleave={() => handleCollapsedHover(false)}
+	onmousemove={handleSidebarMouseMove}
+	onmouseleave={() => (showExpandAffordance = false)}
 	aria-label="Navegação principal"
 >
-	<div class="flex h-13 items-center gap-2 border-b border-border px-3">
-		<a href="/" class="flex min-w-0 flex-1 items-center gap-3 overflow-hidden text-text no-underline" onclick={handleNavClick} aria-label="Início">
-			<span class="inline-flex h-[1.2rem] w-[1.2rem] shrink-0 items-center justify-center">
-				{#if showExpandAffordance}
+	<div class="border-border flex h-13 items-center gap-2 border-b px-2">
+		<a
+			bind:this={brandLinkRef}
+			href="/"
+			class={cn(
+				"text-text hover:bg-surface-hover focus-visible:outline-focus flex h-11 min-w-0 flex-1 items-center gap-3 overflow-hidden rounded-md px-2 no-underline transition-base focus-visible:outline-2 focus-visible:outline-offset-2",
+				!isExpanded && "md:cursor-e-resize"
+			)}
+			onclick={handleBrandClick}
+			aria-label="Início"
+		>
+			<span class={ICON_SLOT_CLASS}>
+				{#if showExpandAffordance && !isExpanded}
 					<PanelLeftOpen size={16} strokeWidth={2} />
 				{:else}
 					<Rose size={16} strokeWidth={2} />
@@ -113,8 +157,8 @@
 			</span>
 			<span
 				class={cn(
-					"font-heading max-w-44 whitespace-nowrap text-lg font-semibold opacity-100 transition-[opacity,max-width] duration-fast ease-standard",
-					!isExpanded && "md:max-w-0 md:opacity-0"
+					"font-heading max-w-44 min-w-0 overflow-hidden text-lg font-semibold text-ellipsis whitespace-nowrap",
+					!isExpanded && "md:max-w-0 md:transition-none"
 				)}
 			>
 				Garden
@@ -124,7 +168,8 @@
 		<button
 			type="button"
 			class={cn(
-				"hidden h-8 w-8 items-center justify-center rounded-sm border border-border bg-surface-elevated text-muted transition-base hover:bg-surface-hover hover:text-text md:inline-flex",
+				"border-border bg-surface-elevated text-muted transition-base hover:bg-surface-hover hover:text-text hidden h-11 w-11 items-center justify-center rounded-sm border md:inline-flex",
+				isExpanded && "md:cursor-w-resize",
 				!isExpanded && "md:hidden"
 			)}
 			onclick={() => ui.toggleSidebar()}
@@ -139,7 +184,7 @@
 
 		<button
 			type="button"
-			class="inline-flex h-8 w-8 items-center justify-center rounded-sm border border-border bg-surface-elevated text-muted transition-base hover:bg-surface-hover hover:text-text md:hidden"
+			class="border-border bg-surface-elevated text-muted transition-base hover:bg-surface-hover hover:text-text inline-flex h-11 w-11 items-center justify-center rounded-sm border md:hidden"
 			onclick={() => ui.closeMobileSidebar()}
 			aria-label="Fechar menu"
 		>
@@ -147,30 +192,30 @@
 		</button>
 	</div>
 
-	<div>
+	<div class="border-border border-b px-2 py-1.5">
 		<button
 			type="button"
 			class={cn(
-				"flex h-12 w-full items-center gap-3 border-x-0 border-t-0 border-b border-border bg-surface-elevated px-5 text-muted transition-fast hover:bg-surface-hover hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+				"bg-surface-elevated text-muted transition-fast hover:bg-surface-hover hover:text-text focus-visible:outline-focus flex h-11 w-full items-center gap-3 overflow-hidden rounded-md border border-transparent px-2 focus-visible:outline-2 focus-visible:outline-offset-2"
 			)}
-			onclick={openSearch}
+			onclick={handleSearchClick}
 			aria-label="Abrir busca"
 		>
-			<span class="inline-flex h-[1.2rem] w-[1.2rem] shrink-0 items-center justify-center">
+			<span class={ICON_SLOT_CLASS}>
 				<Search size={16} strokeWidth={2} />
 			</span>
 			<span
 				class={cn(
-					"min-w-0 flex-1 overflow-hidden whitespace-nowrap text-left text-sm opacity-100 transition-[opacity,max-width] duration-fast ease-standard",
-					!isExpanded && "md:max-w-0 md:opacity-0"
+					"max-w-44 min-w-0 flex-1 overflow-hidden text-left text-sm text-ellipsis whitespace-nowrap",
+					!isExpanded && "md:max-w-0 md:transition-none"
 				)}
 			>
 				Buscar
 			</span>
 			<Kbd
 				class={cn(
-					"max-w-[4.6rem] overflow-hidden whitespace-nowrap text-[10px] opacity-70 transition-[opacity,max-width] duration-fast ease-standard",
-					!isExpanded && "md:max-w-0 md:opacity-0"
+					"max-w-[4.6rem] shrink-0 overflow-hidden text-[10px] whitespace-nowrap opacity-70",
+					!isExpanded && "md:max-w-0 md:transition-none"
 				)}
 			>
 				Ctrl+K
@@ -183,27 +228,28 @@
 			<a
 				href={item.path}
 				class={cn(
-					"group relative flex min-w-0 items-center gap-3 rounded-md border border-transparent px-3 py-[0.55rem] text-sm font-medium text-muted no-underline transition-base hover:bg-surface-hover hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
+					"group text-muted transition-base hover:bg-surface-hover hover:text-text focus-visible:outline-focus relative flex h-11 min-w-0 items-center gap-3 overflow-hidden rounded-md border border-transparent px-2 text-sm font-medium no-underline focus-visible:outline-2 focus-visible:outline-offset-2",
 					isActive(item.path) &&
-						"border border-[color-mix(in_oklab,var(--color-border-vivid)_66%,var(--color-border))] bg-[color-mix(in_oklab,var(--color-surface-elevated)_94%,var(--color-primary))] text-text"
+						"text-text border border-[color-mix(in_oklab,var(--color-border-vivid)_66%,var(--color-border))] bg-[color-mix(in_oklab,var(--color-surface-elevated)_94%,var(--color-primary))]"
 				)}
 				onclick={handleNavClick}
 				aria-label={item.label}
+				aria-current={isActive(item.path) ? "page" : undefined}
 			>
-				<span class="inline-flex h-[1.2rem] w-[1.2rem] shrink-0 items-center justify-center">
-					<item.icon size={17} strokeWidth={2} />
+				<span class={ICON_SLOT_CLASS}>
+					<item.icon size={16} strokeWidth={2} />
 				</span>
 				<span
 					class={cn(
-						"max-w-48 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap opacity-100 transition-[opacity,max-width] duration-fast ease-standard",
-						!isExpanded && "md:max-w-0 md:opacity-0"
+						"max-w-48 min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap",
+						!isExpanded && "md:max-w-0 md:transition-none"
 					)}
 				>
 					{item.label}
 				</span>
 				<span
 					class={cn(
-						"pointer-events-none invisible absolute top-1/2 left-[calc(100%+0.65rem)] z-10 -translate-y-1/2 whitespace-nowrap rounded-sm border border-border bg-surface-elevated px-2 py-[0.2rem] text-[11px] font-semibold text-text opacity-0",
+						"border-border bg-surface-elevated text-text pointer-events-none invisible absolute top-1/2 left-[calc(100%+0.65rem)] z-10 -translate-y-1/2 rounded-sm border px-2 py-[0.2rem] text-[11px] font-semibold whitespace-nowrap opacity-0",
 						!isExpanded && "md:group-hover:visible md:group-hover:opacity-100"
 					)}
 				>
@@ -213,16 +259,7 @@
 		{/each}
 	</nav>
 
-	<div class={cn("border-t border-border px-2 pb-2", !isExpanded && "md:px-1 md:pb-1")}>
+	<div class="border-border border-t px-2 py-2">
 		<UserMenu {isExpanded} />
 	</div>
-
-	{#if !isExpanded}
-		<button
-			type="button"
-			class="absolute inset-x-0 top-13 bottom-0 z-10 hidden bg-transparent border-none md:block"
-			onclick={openCollapsedSidebar}
-			aria-label="Expandir navegação"
-		></button>
-	{/if}
 </aside>

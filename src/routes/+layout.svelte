@@ -50,7 +50,7 @@
 
 	<div
 		class={cn(
-			"flex min-w-0 flex-1 flex-col transition-[margin-left] duration-base ease-entrance md:ml-19",
+			"flex min-w-0 flex-1 flex-col transition-[margin-left] duration-base ease-entrance md:ml-12",
 			isExpanded && "md:ml-70"
 		)}
 	>
