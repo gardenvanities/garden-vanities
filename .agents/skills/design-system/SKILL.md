@@ -9,11 +9,11 @@ Use this skill whenever a task touches UI, layout, styles, tokens, or interactio
 
 ## Canonical Sources
 
-1. Primary source of truth: `.agent/design-system.md`
-2. Project context: `.agent/context.md`
+1. Primary source of truth: `.agents/design-system.md`
+2. Project context: `.agents/context.md`
 3. Implementation layer: `src/styles/tokens/` and `src/styles/utilities.css`
 
-If any source conflicts, follow `.agent/design-system.md`.
+If any source conflicts, follow `.agents/design-system.md`.
 
 ## Required Workflow
 

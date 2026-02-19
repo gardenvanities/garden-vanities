@@ -43,7 +43,7 @@
 - **Token location:** `src/styles/tokens/`
 - **Kind tokens:** `--color-kind-note`, `--color-kind-essay`, etc.
 - **Ripeness tokens:** `--color-ripeness-seed`, `--color-ripeness-root`, `--color-ripeness-fruit`
-- **Design system source of truth:** `.agent/design-system.md`
+- **Design system source of truth:** `.agents/design-system.md`
 
 ---
 
@@ -204,7 +204,7 @@ src/
 ```bash
 bun check    # Type checking + Svelte validation
 bun lint     # ESLint consistency
-bun test     # Vitest unit tests
+bun run test --run # Vitest unit tests
 ```
 
 ### Testing Stack
@@ -258,4 +258,4 @@ bun test     # Vitest unit tests
 - Dense explanations go in PR descriptions, not commit messages
 
 ### Advisory Agent
-- For conceptual UI/UX guidance, feature ideation, and solution tradeoff analysis, use `.agent/skills/ui-ux-advisor/SKILL.md`.
+- For conceptual UI/UX guidance, feature ideation, and solution tradeoff analysis, use `.agents/skills/ui-ux-advisor/SKILL.md`.

@@ -14,34 +14,39 @@ Full pre-deploy validation pipeline.
 bun run prepare
 ```
 
-### 2. Type check
+### 2. Validate agent instructions
+```bash
+bun run check:agents
+```
+
+### 3. Type check
 ```bash
 bun check
 ```
 
-### 3. Lint
+### 4. Lint
 ```bash
 bun lint
 ```
 
-### 4. Run tests
+### 5. Run tests
 ```bash
-bun test run
+bun run test --run
 ```
 
-### 5. Production build
+### 6. Production build
 ```bash
 bun run build
 ```
 
-### 6. Check bundle size
+### 7. Check bundle size
 
 After build completes, review the output for:
 - Total JS bundle size (target: < 50kB gzipped per route)
 - Any unexpectedly large chunks
 - Ensure no server-only code leaked to client bundles
 
-### 7. Preview (optional)
+### 8. Preview (optional)
 
 ```bash
 bun preview
@@ -64,7 +69,7 @@ If any step fails, fix the issues before deploying. The deploy pipeline should b
 
 ## Success Criteria
 
-- [ ] All 5 validation commands exit code 0
+- [ ] All 6 validation commands exit code 0
 - [ ] No warnings in build output
 - [ ] Bundle sizes within targets
 - [ ] Preview renders correctly (if checked)

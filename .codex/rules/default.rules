@@ -1,0 +1,38 @@
+# Garden Vanities Codex execution policy (project layer)
+# Goal: allow safe dev workflow commands and block destructive patterns.
+
+prefix_rule(
+    pattern = ["bun", ["check", "lint", "test", "build", "dev", "install"]],
+    decision = "allow",
+    justification = "Core project validation and development commands are pre-approved."
+)
+
+prefix_rule(
+    pattern = ["git", "status"],
+    decision = "allow",
+    justification = "Read-only git status is safe."
+)
+
+prefix_rule(
+    pattern = ["git", ["diff", "show", "log"]],
+    decision = "allow",
+    justification = "Read-only git inspection is safe."
+)
+
+prefix_rule(
+    pattern = ["rm", ["-rf", "-fr"], "/"],
+    decision = "forbidden",
+    justification = "Destructive root deletion is forbidden."
+)
+
+prefix_rule(
+    pattern = ["git", "reset", "--hard"],
+    decision = "prompt",
+    justification = "Hard resets can destroy local work; require explicit confirmation."
+)
+
+prefix_rule(
+    pattern = ["git", "clean", "-fd"],
+    decision = "prompt",
+    justification = "Cleaning untracked files can remove work in progress."
+)

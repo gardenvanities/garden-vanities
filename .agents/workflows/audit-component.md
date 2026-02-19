@@ -6,7 +6,7 @@ description: Run a quality audit on a Svelte component against project standards
 
 Systematically check a component against all project conventions and quality standards.
 
-Design system canonical source: `.agent/design-system.md`.
+Design system canonical source: `.agents/design-system.md`.
 
 ## Steps
 

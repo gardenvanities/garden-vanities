@@ -38,6 +38,6 @@ bun check && bun lint
 
 ## Exit Criteria
 
-- No unresolved violations against `.agent/design-system.md`
+- No unresolved violations against `.agents/design-system.md`
 - `bun check && bun lint` exit code `0`
 - Final report includes the two mandatory sections

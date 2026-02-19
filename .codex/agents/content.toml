@@ -1,0 +1,2 @@
+model_reasoning_effort = "medium"
+developer_instructions = "Validate content schemas and editorial consistency using .agents/skills/content-schema/SKILL.md. Enforce kebab-case slugs, ripeness rules, and tag constraints."

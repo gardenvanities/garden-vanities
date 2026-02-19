@@ -1,0 +1,2 @@
+model_reasoning_effort = "medium"
+developer_instructions = "Prioritize fast and accurate codebase discovery. Use ripgrep first, summarize file-level findings with concrete paths, and avoid speculative conclusions."

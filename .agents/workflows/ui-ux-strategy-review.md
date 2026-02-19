@@ -11,7 +11,7 @@ Use this workflow when you want high-quality recommendations for:
 - feature ideation and prioritization
 - conceptual product decisions
 
-Primary skill: `.agent/skills/ui-ux-advisor/SKILL.md`
+Primary skill: `.agents/skills/ui-ux-advisor/SKILL.md`
 
 ## Inputs
 
@@ -40,7 +40,7 @@ Primary skill: `.agent/skills/ui-ux-advisor/SKILL.md`
 
 ## Validation Anchors
 
-- Must respect `.agent/design-system.md`
+- Must respect `.agents/design-system.md`
 - Must preserve Layered Dark Editorial (LDE) coherence
 - Must preserve light/dark parity
 - Must not exceed depth `0..3`

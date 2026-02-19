@@ -6,7 +6,7 @@ description: Migrate a component's style block to Tailwind utility classes
 
 Systematically migrate a component's `<style>` block to Tailwind utility classes.
 
-Design system canonical source: `.agent/design-system.md`.
+Design system canonical source: `.agents/design-system.md`.
 
 ## When to Use
 

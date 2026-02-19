@@ -1,0 +1,24 @@
+project_doc_max_bytes = 131072
+project_doc_fallback_filenames = ["TEAM_GUIDE.md", ".agents.md"]
+
+[agents]
+max_threads = 4
+
+[agents.default]
+description = "General-purpose implementation agent for Garden Vanities tasks."
+
+[agents.explorer]
+description = "Fast read-heavy explorer for architecture, files, and dependency mapping."
+config_file = "agents/explorer.toml"
+
+[agents.reviewer]
+description = "Risk-first reviewer for correctness, regressions, security, and missing tests."
+config_file = "agents/reviewer.toml"
+
+[agents.uiux]
+description = "UI/UX specialist aligned with Layered Dark Editorial system and pt-BR UX copy."
+config_file = "agents/uiux.toml"
+
+[agents.content]
+description = "Content/frontmatter specialist for posts, series, sets, kinds, and library schemas."
+config_file = "agents/content.toml"

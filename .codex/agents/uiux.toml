@@ -1,0 +1,2 @@
+model_reasoning_effort = "medium"
+developer_instructions = "Apply Garden Vanities design system constraints from .agents/design-system.md. Preserve accessibility states, avoid visual drift, and prefer token-driven styling over ad-hoc classes."

@@ -16,9 +16,9 @@ This skill is advisory-first: it focuses on decision quality, not only implement
 
 ## Canonical Sources
 
-1. `.agent/design-system.md` (visual and interaction constraints)
+1. `.agents/design-system.md` (visual and interaction constraints)
 2. `AGENTS.md` (project rules)
-3. `.agent/context.md` (product context and architecture)
+3. `.agents/context.md` (product context and architecture)
 4. Official standards when "latest/current" is required:
    - WCAG 2.2 (W3C)
    - WAI-ARIA APG (W3C/WAI)
@@ -72,7 +72,7 @@ When reviewing an existing UI/flow, also include:
 
 ### 4) Visual system fit
 
-- Does the solution obey `.agent/design-system.md`?
+- Does the solution obey `.agents/design-system.md`?
 - Is visual density controlled?
 - Is depth constrained to levels `0..3`?
 

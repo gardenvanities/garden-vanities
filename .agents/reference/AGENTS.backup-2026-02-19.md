@@ -1,33 +1,6 @@
 # AGENTS.md
 
-> Universal context for AI coding agents. For detailed project documentation, see `.agents/context.md`.
-
-## Instruction Hierarchy
-
-- Primary project policy: `AGENTS.md` (this file)
-- Product and architecture context: `.agents/context.md`
-- Design rules source of truth: `.agents/design-system.md`
-- Reusable skills: `.agents/skills/*/SKILL.md`
-- Reusable workflows: `.agents/workflows/*.md`
-- Codex runtime agents and rules: `.codex/config.toml`, `.codex/agents/*.toml`, `.codex/rules/*.rules`
-- Historical snapshot preservation: `.agents/reference/`
-
-When instructions conflict:
-1. `AGENTS.md`
-2. `.agents/design-system.md` for UI decisions
-3. task-specific skill in `.agents/skills/`
-4. workflow in `.agents/workflows/`
-
-## Agent Routing (No-Repetition Setup)
-
-To avoid repeating detailed instructions in chat, route requests by intent:
-
-- Architecture/file discovery: `explorer`
-- Code review and risk analysis: `reviewer`
-- UI/UX analysis and design decisions: `uiux`
-- Content/frontmatter/schema operations: `content`
-
-Role definitions are documented in `.agents/roles/` and operational runtime config lives in `.codex/agents/*.toml`.
+> Universal context for AI coding agents. For detailed project documentation, see `.agent/context.md`.
 
 ## Project
 
@@ -49,9 +22,8 @@ Aesthetic: layered dark editorial minimalism (inspired by layers.to), modular gr
 bun install          # Install dependencies
 bun dev              # Start dev server
 bun check            # Type checking + Svelte validation
-bun run check:agents # Agent docs/rules consistency
 bun lint             # ESLint
-bun run test      # Vitest
+bun test             # Vitest
 bun build            # Production build
 ```
 
@@ -96,11 +68,11 @@ src/
 - Tailwind canonical classes are mandatory when equivalent exists (`md:w-70` over `md:w-[17.5rem]`, `aspect-4/3` over `aspect-[4/3]`).
 - Reuse existing components. Extend before creating new. New only when truly novel.
 - `<style>` only for: `@keyframes`, `:global()`, complex `calc()`/`oklch()`, scrollbar/pseudo-element styling.
-- Design system source of truth for AI agents: `.agents/design-system.md`.
+- Design system source of truth for AI agents: `.agent/design-system.md`.
 
 ## UI Definition of Done
 
-- Uses only design-system tokens/utilities from `.agents/design-system.md`.
+- Uses only design-system tokens/utilities from `.agent/design-system.md`.
 - No hardcoded color values in components.
 - Follows the official visual language: deep dark surfaces, subtle borders, low-glare contrast, restrained accent.
 - Interactive elements implement: `default`, `hover` (desktop), `focus-visible`, `active`, `disabled` (when applicable).
@@ -198,4 +170,4 @@ These patterns must NEVER appear in production code:
 - Complete solutions for new files; incremental for existing code edits.
 - Strictly reuse existing components before creating new ones.
 - Provide risk summary after autonomous cycles.
-- For conceptual UI/UX decisions, analysis, and feature ideation, use `.agents/skills/ui-ux-advisor/SKILL.md`.
+- For conceptual UI/UX decisions, analysis, and feature ideation, use `.agent/skills/ui-ux-advisor/SKILL.md`.

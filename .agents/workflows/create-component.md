@@ -6,7 +6,7 @@ description: Scaffold a new Svelte component following project conventions
 
 Scaffold a new Svelte 5 component following the project's architecture and naming conventions.
 
-Design system canonical source: `.agent/design-system.md`.
+Design system canonical source: `.agents/design-system.md`.
 
 ## Inputs
 
@@ -87,6 +87,6 @@ bun check && bun lint
 - [ ] No `<style>` block (unless justified per project rules)
 - [ ] Includes interactive states and visible focus when interactive
 - [ ] Matches LDE visual grammar (dark-first layering, restrained accent, no decorative effects)
-- [ ] Respects depth/motion constraints from `.agent/design-system.md`
+- [ ] Respects depth/motion constraints from `.agents/design-system.md`
 - [ ] Registered in barrel file (if applicable)
 - [ ] Passes `bun check && bun lint`

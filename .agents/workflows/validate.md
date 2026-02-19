@@ -9,24 +9,29 @@ Run the complete validation pipeline to ensure code quality.
 
 ## Steps
 
-1. Run type checking and Svelte validation:
+1. Run agent instruction consistency checks:
+```bash
+bun run check:agents
+```
+
+2. Run type checking and Svelte validation:
 ```bash
 bun check
 ```
 
-2. Run ESLint for code consistency:
+3. Run ESLint for code consistency:
 ```bash
 bun lint
 ```
 
-3. Run the test suite:
+4. Run the test suite:
 ```bash
-bun test run
+bun run test --run
 ```
 
 ## Expected Results
 
-- All three commands must exit with code 0.
+- All four commands must exit with code 0.
 - If any step fails, fix the issues before proceeding.
 - Report the number of errors found and fixed.
 

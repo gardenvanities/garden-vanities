@@ -29,23 +29,28 @@ check_present() {
 
 echo "Running agent documentation consistency checks..."
 
-check_absent "dark mode first|dark-first" "AGENTS.md .agent"
-check_absent "content/ \\(NOT in src\\)" "AGENTS.md .agent"
-check_absent "adapter-auto" "AGENTS.md .agent"
+check_absent "content/ \\(NOT in src\\)" "AGENTS.md .agents"
+check_absent "adapter-auto" "AGENTS.md .agents"
 
 check_present 'Design system source of truth for AI agents:' "AGENTS.md"
 check_present "## UI Definition of Done" "AGENTS.md"
-check_present 'Design system source of truth:' ".agent/context.md"
+check_present 'Design system source of truth:' ".agents/context.md"
 
-check_present 'Design system canonical source:' ".agent/workflows/create-component.md"
-check_present 'Design system canonical source:' ".agent/workflows/refactor-style.md"
-check_present 'Design system canonical source:' ".agent/workflows/audit-component.md"
+check_present 'Design system canonical source:' ".agents/workflows/create-component.md"
+check_present 'Design system canonical source:' ".agents/workflows/refactor-style.md"
+check_present 'Design system canonical source:' ".agents/workflows/audit-component.md"
 
-check_present "## 2\\) Theme Strategy" ".agent/design-system.md"
-check_present "## 16\\) Quick Self-Checks \\(for AI Agents\\)" ".agent/design-system.md"
+check_present "## 2\\) Theme Strategy" ".agents/design-system.md"
+check_present "## 16\\) Quick Self-Checks \\(for AI Agents\\)" ".agents/design-system.md"
 
-check_present 'Section `Applied rules`' ".agent/skills/design-system/SKILL.md"
-check_present 'Section `Residual debt`' ".agent/skills/design-system/SKILL.md"
+check_present 'Section `Applied rules`' ".agents/skills/design-system/SKILL.md"
+check_present 'Section `Residual debt`' ".agents/skills/design-system/SKILL.md"
+
+if rg -n "\\.agent/|\\.agent\\b" AGENTS.md .agents .codex .agents.md \
+	-g '*.md' -g '*.toml' -g '*.rules' \
+	-g '!*.backup-*' -g '!.agents/reference/*' >/dev/null 2>&1; then
+	fail "Found legacy '.agent' reference outside backup/reference scope"
+fi
 
 if [[ "$errors" -gt 0 ]]; then
 	echo "Consistency check failed with $errors error(s)."
