@@ -29,6 +29,7 @@
 	let showExpandAffordance = $state(false);
 	let sidebarRef = $state<HTMLElement | null>(null);
 	let brandLinkRef = $state<HTMLAnchorElement | null>(null);
+	let navRef = $state<HTMLElement | null>(null);
 
 	const navItems = [
 		{ path: "/", icon: House, label: "Início" },
@@ -52,9 +53,46 @@
 		);
 	}
 
+	function getTargetElement(target: EventTarget | null) {
+		if (target instanceof Element) return target;
+		if (target instanceof Node) return target.parentElement;
+		return null;
+	}
+
 	function getInteractiveAncestor(target: EventTarget | null) {
-		if (!(target instanceof HTMLElement)) return null;
-		return target.closest<HTMLElement>(INTERACTIVE_SELECTOR);
+		const element = getTargetElement(target);
+		if (!element) return null;
+		return element.closest<HTMLElement>(INTERACTIVE_SELECTOR);
+	}
+
+	function isNavGapTarget(event: MouseEvent) {
+		if (!navRef) return false;
+		const targetElement = getTargetElement(event.target);
+		if (!targetElement || !navRef.contains(targetElement)) return false;
+		if (getInteractiveAncestor(targetElement)) return false;
+
+		const navLinks = Array.from(navRef.querySelectorAll<HTMLAnchorElement>("a"));
+		if (navLinks.length < 2) return false;
+
+		const { clientX, clientY } = event;
+		for (let index = 0; index < navLinks.length - 1; index += 1) {
+			const currentRect = navLinks[index].getBoundingClientRect();
+			const nextRect = navLinks[index + 1].getBoundingClientRect();
+			const gapTop = currentRect.bottom;
+			const gapBottom = nextRect.top;
+			if (gapBottom <= gapTop) continue;
+
+			const gapLeft = Math.max(currentRect.left, nextRect.left);
+			const gapRight = Math.min(currentRect.right, nextRect.right);
+			const isInsideGap =
+				clientX >= gapLeft &&
+				clientX <= gapRight &&
+				clientY >= gapTop &&
+				clientY <= gapBottom;
+			if (isInsideGap) return true;
+		}
+
+		return false;
 	}
 
 	function handleSidebarMouseMove(event: MouseEvent) {
@@ -63,9 +101,13 @@
 			return;
 		}
 
+		if (isNavGapTarget(event)) {
+			showExpandAffordance = false;
+			return;
+		}
+
 		const interactiveAncestor = getInteractiveAncestor(event.target);
-		showExpandAffordance =
-			!interactiveAncestor || interactiveAncestor === brandLinkRef;
+		showExpandAffordance = !interactiveAncestor || interactiveAncestor === brandLinkRef;
 	}
 
 	function openCollapsedSidebar(event?: MouseEvent) {
@@ -99,9 +141,11 @@
 
 		const handleWindowClick = (event: MouseEvent) => {
 			if (!isCollapsedDesktop() || !sidebarRef) return;
-			if (!(event.target instanceof HTMLElement)) return;
-			if (!sidebarRef.contains(event.target)) return;
-			if (getInteractiveAncestor(event.target)) return;
+			const targetElement = getTargetElement(event.target);
+			if (!targetElement) return;
+			if (!sidebarRef.contains(targetElement)) return;
+			if (getInteractiveAncestor(targetElement)) return;
+			if (isNavGapTarget(event)) return;
 			openCollapsedSidebar();
 		};
 
@@ -142,7 +186,7 @@
 			bind:this={brandLinkRef}
 			href="/"
 			class={cn(
-				"text-text hover:bg-surface-hover focus-visible:outline-focus flex h-11 min-w-0 flex-1 items-center gap-3 overflow-hidden rounded-md px-2 no-underline transition-base focus-visible:outline-2 focus-visible:outline-offset-2",
+				"text-text focus-visible:outline-focus transition-base flex h-11 min-w-0 flex-1 items-center gap-3 overflow-hidden rounded-md px-2 no-underline focus-visible:outline-2 focus-visible:outline-offset-2",
 				!isExpanded && "md:cursor-e-resize"
 			)}
 			onclick={handleBrandClick}
@@ -168,7 +212,7 @@
 		<button
 			type="button"
 			class={cn(
-				"border-border bg-surface-elevated text-muted transition-base hover:bg-surface-hover hover:text-text hidden h-11 w-11 items-center justify-center rounded-sm border md:inline-flex",
+				"text-muted transition-base hover:bg-surface-hover hover:text-text hidden h-11 w-11 items-center justify-center rounded-sm md:inline-flex",
 				isExpanded && "md:cursor-w-resize",
 				!isExpanded && "md:hidden"
 			)}
@@ -223,14 +267,17 @@
 		</button>
 	</div>
 
-	<nav class="mt-2 flex flex-1 flex-col gap-[0.2rem] overflow-x-hidden overflow-y-auto px-2 pb-2">
+	<nav
+		bind:this={navRef}
+		class="mt-2 flex flex-1 flex-col gap-[0.2rem] overflow-x-hidden overflow-y-auto px-2 pb-2"
+	>
 		{#each navItems as item (item.path)}
 			<a
 				href={item.path}
 				class={cn(
 					"group text-muted transition-base hover:bg-surface-hover hover:text-text focus-visible:outline-focus relative flex h-11 min-w-0 items-center gap-3 overflow-hidden rounded-md border border-transparent px-2 text-sm font-medium no-underline focus-visible:outline-2 focus-visible:outline-offset-2",
 					isActive(item.path) &&
-						"text-text border border-[color-mix(in_oklab,var(--color-border-vivid)_66%,var(--color-border))] bg-[color-mix(in_oklab,var(--color-surface-elevated)_94%,var(--color-primary))]"
+						"text-text bg-[color-mix(in_oklab,var(--color-surface-elevated)_94%,var(--color-primary))]"
 				)}
 				onclick={handleNavClick}
 				aria-label={item.label}
