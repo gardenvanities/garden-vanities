@@ -2,8 +2,6 @@ import type { CollectionStatus } from "$lib/modules/posts/collections";
 import type { PostFrontmatter } from "$lib/modules/posts/types";
 import type { ImageMetadata } from "$lib/shared/types";
 
-export type ExplorePresetId = "all" | "latest" | "tutorials" | "essays" | "thoughts" | "sets";
-
 export type ExploreScope = "notes" | "series" | "sets";
 
 export interface ExploreFilters {
@@ -11,14 +9,6 @@ export interface ExploreFilters {
 	tags: string[];
 	kinds: string[];
 	scope: ExploreScope;
-	preset: ExplorePresetId;
-}
-
-export interface ExplorePreset {
-	id: ExplorePresetId;
-	label: string;
-	description: string;
-	filters: Partial<ExploreFilters>;
 }
 
 export interface ExploreKindOption {

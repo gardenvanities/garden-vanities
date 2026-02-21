@@ -44,6 +44,8 @@ describe("explore search utilities", () => {
 		expect(getActiveTagQuery("tema #fi ")).toBeNull();
 		expect(clearActiveTagToken("tema #fi")).toBe("tema ");
 		expect(stripHashTokens("tema #fisica")).toBe("tema");
+		expect(stripHashTokens("#")).toBe("");
+		expect(stripHashTokens("tema #")).toBe("tema");
 	});
 
 	it("matches fuzzy tokens for minor typos", () => {

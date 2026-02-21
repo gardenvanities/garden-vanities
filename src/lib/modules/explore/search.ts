@@ -6,7 +6,7 @@ import type {
 	TagSuggestion
 } from "$lib/modules/explore/types";
 
-const HASH_TOKEN_PATTERN = /(^|\s)#[^\s#]+/g;
+const HASH_TOKEN_PATTERN = /(^|\s)#[^\s#]*/g;
 const COMMITTED_TAG_PATTERN = /(?:^|\s)#([^\s#]+)(?=\s)/g;
 const ACTIVE_TAG_PATTERN = /(?:^|\s)#([^\s#]*)$/;
 const ACTIVE_TAG_TOKEN_PATTERN = /(^|\s)#[^\s#]*$/;

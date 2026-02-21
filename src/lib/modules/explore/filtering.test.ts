@@ -15,8 +15,7 @@ const defaultFilters: ExploreFilters = {
 	text: "",
 	tags: [],
 	kinds: [],
-	scope: "notes",
-	preset: "all"
+	scope: "notes"
 };
 
 const posts: PostFrontmatter[] = [

@@ -1,10 +1,5 @@
-import { DEFAULT_EXPLORE_FILTERS, EXPLORE_PRESETS } from "$lib/modules/explore/constants";
-import type {
-	ExploreFilters,
-	ExploreKindOption,
-	ExplorePresetId,
-	ExploreScope
-} from "$lib/modules/explore/types";
+import { DEFAULT_EXPLORE_FILTERS } from "$lib/modules/explore/constants";
+import type { ExploreFilters, ExploreKindOption, ExploreScope } from "$lib/modules/explore/types";
 
 function normalizeTokens(values: string[]): string[] {
 	return Array.from(new Set(values.map((value) => value.trim().toLowerCase()).filter(Boolean)));
@@ -20,13 +15,6 @@ function parseScope(value: string | null): ExploreScope {
 	return DEFAULT_EXPLORE_FILTERS.scope;
 }
 
-function parsePreset(value: string | null): ExplorePresetId {
-	if (EXPLORE_PRESETS.some((preset) => preset.id === value)) {
-		return value as ExplorePresetId;
-	}
-	return DEFAULT_EXPLORE_FILTERS.preset;
-}
-
 export function sanitizeKinds(kinds: string[], availableKinds: ExploreKindOption[]): string[] {
 	const availableSet = new Set(availableKinds.map((kind) => kind.slug));
 	return normalizeTokens(kinds).filter((kind) => availableSet.has(kind));
@@ -34,29 +22,6 @@ export function sanitizeKinds(kinds: string[], availableKinds: ExploreKindOption
 
 export function sanitizeTags(tags: string[]): string[] {
 	return normalizeTokens(tags).map((tag) => tag.replace(/^#/, ""));
-}
-
-export function applyExplorePreset(
-	presetId: ExplorePresetId,
-	baseFilters: ExploreFilters,
-	availableKinds: ExploreKindOption[]
-): ExploreFilters {
-	const preset = EXPLORE_PRESETS.find((item) => item.id === presetId);
-	if (!preset) {
-		return baseFilters;
-	}
-
-	const merged = {
-		...baseFilters,
-		...preset.filters,
-		preset: preset.id
-	};
-
-	return {
-		...merged,
-		kinds: sanitizeKinds(merged.kinds, availableKinds),
-		tags: sanitizeTags(merged.tags)
-	};
 }
 
 export function buildExploreFiltersFromSearchParams(
@@ -67,14 +32,12 @@ export function buildExploreFiltersFromSearchParams(
 	const tags = sanitizeTags((searchParams.get("tags") || "").split(","));
 	const kinds = sanitizeKinds((searchParams.get("kinds") || "").split(","), availableKinds);
 	const scope = parseScope(searchParams.get("scope"));
-	const preset = parsePreset(searchParams.get("preset"));
 
 	return {
 		text,
 		tags: scope === "notes" ? tags : [],
 		kinds: scope === "notes" ? kinds : [],
-		scope,
-		preset
+		scope
 	};
 }
 
@@ -93,9 +56,6 @@ export function buildExploreSearchParams(filters: ExploreFilters): URLSearchPara
 	if (filters.scope !== DEFAULT_EXPLORE_FILTERS.scope) {
 		searchParams.set("scope", filters.scope);
 	}
-	if (filters.preset !== DEFAULT_EXPLORE_FILTERS.preset) {
-		searchParams.set("preset", filters.preset);
-	}
 
 	return searchParams;
 }
@@ -105,7 +65,6 @@ export function hasActiveFilters(filters: ExploreFilters): boolean {
 		filters.text.length > 0 ||
 		filters.tags.length > 0 ||
 		filters.kinds.length > 0 ||
-		filters.scope !== DEFAULT_EXPLORE_FILTERS.scope ||
-		filters.preset !== DEFAULT_EXPLORE_FILTERS.preset
+		filters.scope !== DEFAULT_EXPLORE_FILTERS.scope
 	);
 }
